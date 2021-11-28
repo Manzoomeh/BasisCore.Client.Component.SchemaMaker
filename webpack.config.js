@@ -7,18 +7,18 @@ module.exports = (env, options) => {
   return {
     entry: {
       component: {
-        import: "./src/ComponentLoader.ts",
-        filename: "basiscore.schema-maker.component.js",
+        import: "./src/ComponentsLoader.ts",
+        filename: "basiscore.schemaMaker.component.js",
         library: {
-          name: "bc",
+          name: "schemaMaker",
           type: "assign",
         },
       },
       "component.min": {
-        import: "./src/ComponentLoader.ts",
-        filename: "basiscore.schema-maker.component.min.js",
+        import: "./src/ComponentsLoader.ts",
+        filename: "basiscore.schemaMaker.component.min.js",
         library: {
-          name: "bc",
+          name: "schemaMaker",
           type: "assign",
         },
       },
