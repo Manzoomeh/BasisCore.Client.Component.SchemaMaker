@@ -1,0 +1,8 @@
+[data-bc-sm-question-module] {
+  width: 100%;
+}
+
+[data-bc-sm-question-module] > tbody > tr > td {
+  border: 1px dotted grey;
+  height: 50px;
+}

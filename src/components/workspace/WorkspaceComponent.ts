@@ -1,6 +1,9 @@
 import ISource from "../../basiscore/ISource";
 import IUserDefineComponent from "../../basiscore/IUserDefineComponent";
 import ComponentBase from "../ComponentBase";
+import GroupModule from "../modules/qroup/GroupModule";
+import QuestionModule from "../modules/question/QuestionModule";
+import ToolboxModule from "../modules/ToolboxModule";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
 
@@ -15,17 +18,36 @@ export default class WorkspaceComponent extends ComponentBase {
   }
 
   private onDragOver(ev: DragEvent) {
-    console.log("OnDragOver", ev);
+    //console.log("OnDragOver", ev);
     ev.preventDefault();
   }
 
-  private onDrop(ev: DragEvent) {
-    console.log("OnDrop", ev);
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    (ev.target as any).appendChild(document.getElementById(data));
+  private onDrop(e: DragEvent) {
+    console.log("OnDrop", e);
+    e.preventDefault();
+    var moduleType = e.dataTransfer.getData("text/plain");
+    const owner = e.target as HTMLElement;
+    this.factory(moduleType, owner);
+    console.log(moduleType);
   }
 
   public initializeAsync(): void | Promise<void> {}
   public runAsync(source?: ISource) {}
+
+  private factory(type: string, owner: HTMLElement): ToolboxModule {
+    let retVal: ToolboxModule = null;
+    switch (type) {
+      case "question": {
+        retVal = new QuestionModule(owner);
+        break;
+      }
+      case "group": {
+        retVal = new GroupModule(owner);
+        break;
+      }
+    }
+    return retVal;
+  }
 }
+
+export declare type ModuleType = "group" | "question";

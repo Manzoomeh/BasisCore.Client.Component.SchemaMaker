@@ -18,9 +18,10 @@ export default class ToolBoxComponent extends ComponentBase {
       });
   }
 
-  private onDrag(ev: DragEvent) {
-    console.log("Drag start", ev);
-    ev.dataTransfer.setData("text", (ev.target as any).id);
+  private onDrag(e: DragEvent) {
+    console.log("Drag start", e);
+    const element = e.target as HTMLElement;
+    e.dataTransfer.setData("text/plain", element.getAttribute("data-type"));
   }
   public initializeAsync(): void | Promise<void> {}
   public runAsync(source?: ISource) {}
