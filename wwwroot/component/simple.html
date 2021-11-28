@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schema Maker Command - Zero Config</title>
+</head>
+
+<body>
+
+    <Basis core="component.bc.schemamaker" run="atclient" options="options">
+    </Basis>
+    <script>
+        const host = {
+            repositories: {
+                "bc.schemamaker": "/basiscore.schema-maker.component.js",
+            },
+        };
+    </script>
+    <script src="/assets/basiscore/basiscore.js"></script>
+</body>
+
+</html>
