@@ -1,0 +1,16 @@
+[data-bc-sm-main-container]
+  [data-bc-sm-toolbox-container]
+  [data-bc-toolbox-list] {
+  list-style: none;
+  padding: 0px;
+}
+
+[data-bc-sm-main-container]
+  [data-bc-sm-toolbox-container]
+  [data-bc-toolbox-item] {
+  display: block;
+  height: 40px;
+  border: 1px solid black;
+  margin: 9px 0;
+  text-align: center;
+}
