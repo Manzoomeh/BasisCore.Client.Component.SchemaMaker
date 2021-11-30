@@ -33,7 +33,6 @@ module.exports = (env, options) => {
         server.app.use("/schema", schemaHttpServer);
       },
       open: true,
-      port: 3000,
     },
     module: options.mode,
     optimization: {

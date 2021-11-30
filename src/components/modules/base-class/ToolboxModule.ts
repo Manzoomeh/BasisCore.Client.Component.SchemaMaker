@@ -25,8 +25,18 @@ export default class ToolboxModule {
 
       this.container
         .querySelector("[data-drop-area]")
-        .addEventListener("dragover", this.onDragOver.bind(this));
+        ?.addEventListener("dragover", this.onDragOver.bind(this));
     }
+    this.container
+      .querySelector("[data-btn-remove]")
+      .addEventListener("click", (e) => {
+        e.preventDefault();
+        this.container.remove();
+        if (replace) {
+          const defaultValue = owner.getAttribute("data-default");
+          owner.innerHTML = defaultValue ?? "";
+        }
+      });
   }
 
   private onDragOver(ev: DragEvent) {
