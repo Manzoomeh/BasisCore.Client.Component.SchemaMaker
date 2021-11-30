@@ -1,11 +1,12 @@
 import ISource from "../../basiscore/ISource";
 import IUserDefineComponent from "../../basiscore/IUserDefineComponent";
 import ComponentBase from "../ComponentBase";
-import GroupModule from "../modules/qroup/GroupModule";
+import GroupModule from "../modules/section/SectionModule";
 import QuestionModule from "../modules/question/QuestionModule";
-import ToolboxModule from "../modules/ToolboxModule";
+import ToolboxModule from "../modules/base-class/ToolboxModule";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
+import TextBaseModule from "../modules/text-base/TextBaseModule";
 
 export default class WorkspaceComponent extends ComponentBase {
   private readonly board: HTMLDivElement;
@@ -17,15 +18,25 @@ export default class WorkspaceComponent extends ComponentBase {
     this.board.addEventListener("drop", this.onDrop.bind(this));
   }
 
-  private onDragOver(ev: DragEvent) {
-    //console.log("OnDragOver", ev);
-    ev.preventDefault();
+  private onDragOver(e: DragEvent) {
+    const draggedType = e.dataTransfer.getData("type");
+    const acceptableTypes = (e.target as HTMLElement)?.getAttribute(
+      "data-drop-acceptable-type"
+    );
+    e.stopPropagation();
+    if (
+      draggedType &&
+      acceptableTypes &&
+      acceptableTypes?.indexOf(draggedType) > -1
+    ) {
+      e.preventDefault();
+    }
   }
 
   private onDrop(e: DragEvent) {
-    console.log("OnDrop", e);
+    console.log("OnDrop in workspace", e);
     e.preventDefault();
-    var moduleType = e.dataTransfer.getData("text/plain");
+    var moduleType = e.dataTransfer.getData("type");
     const owner = e.target as HTMLElement;
     this.factory(moduleType, owner);
     console.log(moduleType);

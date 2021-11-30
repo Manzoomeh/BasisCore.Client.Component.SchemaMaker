@@ -1,3 +1,7 @@
 [data-bc-sm-toolbox-container] [data-bc-sm-board] {
   height: 200px;
 }
+
+[data-bc-sm-toolbox-container] [data-bc-sm-board] .droparea:-moz-drag-over {
+  outline: 1px solid black;
+}

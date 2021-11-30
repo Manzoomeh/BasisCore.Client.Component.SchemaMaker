@@ -19,9 +19,9 @@ export default class ToolBoxComponent extends ComponentBase {
   }
 
   private onDrag(e: DragEvent) {
-    console.log("Drag start", e);
     const element = e.target as HTMLElement;
-    e.dataTransfer.setData("text/plain", element.getAttribute("data-type"));
+    e.dataTransfer.setData("type", element.getAttribute("data-type"));
+    e.dataTransfer.setData("class", element.getAttribute("data-class"));
   }
   public initializeAsync(): void | Promise<void> {}
   public runAsync(source?: ISource) {}

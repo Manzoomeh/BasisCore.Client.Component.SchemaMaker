@@ -5774,7 +5774,8 @@ let ComponentCollection = ComponentCollection_1 = class ComponentCollection {
         const childContainer = this.container.createChildContainer();
         childContainer.register("element", { useValue: element });
         childContainer.register("context", { useValue: this.context });
-        childContainer.register("container", { useValue: childContainer });
+        childContainer.register("dc", { useValue: childContainer });
+        childContainer.register("parent.dc", { useValue: this.container });
         return childContainer.resolve(token);
     }
     findRootLevelComponentNode(rootElement) {
@@ -5811,7 +5812,7 @@ ComponentCollection.knowHtmlElement = ["form", "input", "select"];
 ComponentCollection = ComponentCollection_1 = __decorate([
     (0,esm5/* injectable */.b2)(),
     __param(0, (0,esm5/* inject */.f3)("context")),
-    __param(1, (0,esm5/* inject */.f3)("container")),
+    __param(1, (0,esm5/* inject */.f3)("dc")),
     __metadata("design:paramtypes", [Object, Object])
 ], ComponentCollection);
 /* harmony default export */ const src_ComponentCollection = (ComponentCollection);
@@ -6295,12 +6296,9 @@ let GroupComponent = class GroupComponent extends _CommandComponent__WEBPACK_IMP
         return __awaiter(this, void 0, void 0, function* () {
             (_a = this.oldLocalContext) === null || _a === void 0 ? void 0 : _a.dispose();
             this.currentDC = this.container.createChildContainer();
-            this.currentDC.register("OwnerContext", {
-                useValue: this.context,
-            });
-            this.currentDC.register("container", {
-                useValue: this.currentDC,
-            });
+            this.currentDC.register("parent.context", { useValue: this.context });
+            this.currentDC.register("dc", { useValue: this.currentDC });
+            this.currentDC.register("parent.dc", { useValue: this.container });
             const options = yield this.getAttributeValueAsync("options");
             if (options) {
                 const newOptions = lodash_defaultsdeep__WEBPACK_IMPORTED_MODULE_4___default()(eval(options), this.context.options.originalOptions);
@@ -6336,7 +6334,7 @@ GroupComponent = __decorate([
     (0,tsyringe__WEBPACK_IMPORTED_MODULE_0__/* .injectable */ .b2)(),
     __param(0, (0,tsyringe__WEBPACK_IMPORTED_MODULE_0__/* .inject */ .f3)("element")),
     __param(1, (0,tsyringe__WEBPACK_IMPORTED_MODULE_0__/* .inject */ .f3)("context")),
-    __param(2, (0,tsyringe__WEBPACK_IMPORTED_MODULE_0__/* .inject */ .f3)("container")),
+    __param(2, (0,tsyringe__WEBPACK_IMPORTED_MODULE_0__/* .inject */ .f3)("dc")),
     __metadata("design:paramtypes", [Element, Object, Object])
 ], GroupComponent);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GroupComponent);
@@ -7941,7 +7939,7 @@ let LocalRootContext = class LocalRootContext extends _RootContext__WEBPACK_IMPO
 LocalRootContext = __decorate([
     (0,tsyringe__WEBPACK_IMPORTED_MODULE_0__/* .injectable */ .b2)(),
     __param(0, (0,tsyringe__WEBPACK_IMPORTED_MODULE_0__/* .inject */ .f3)("IContextRepository")),
-    __param(1, (0,tsyringe__WEBPACK_IMPORTED_MODULE_0__/* .inject */ .f3)("OwnerContext")),
+    __param(1, (0,tsyringe__WEBPACK_IMPORTED_MODULE_0__/* .inject */ .f3)("parent.context")),
     __metadata("design:paramtypes", [Object, _Context__WEBPACK_IMPORTED_MODULE_2__/* ["default"] */ .Z,
         _options_HostOptions__WEBPACK_IMPORTED_MODULE_1__/* .HostOptions */ .G])
 ], LocalRootContext);
@@ -10920,7 +10918,7 @@ var __param = (undefined && undefined.__param) || function (paramIndex, decorato
 let BasisCoreRootContext = class BasisCoreRootContext extends RootContext/* default */.Z {
     constructor(repository, logger, container, options) {
         super(repository, options, logger);
-        container.register("HostOptions", { useValue: options });
+        container.register("host_options", { useValue: options });
         const queryString = window.location.search.substring(1);
         this.addQueryString(queryString);
         this.addRequestRelatedSources();
@@ -10975,7 +10973,7 @@ BasisCoreRootContext = __decorate([
     (0,esm5/* injectable */.b2)(),
     __param(0, (0,esm5/* inject */.f3)("IContextRepository")),
     __param(1, (0,esm5/* inject */.f3)("ILogger")),
-    __param(2, (0,esm5/* inject */.f3)("container")),
+    __param(2, (0,esm5/* inject */.f3)("dc")),
     __metadata("design:paramtypes", [Object, Object, Object, HostOptions/* HostOptions */.G])
 ], BasisCoreRootContext);
 /* harmony default export */ const context_BasisCoreRootContext = (BasisCoreRootContext);
@@ -11012,7 +11010,7 @@ let BasisCore = class BasisCore {
 };
 BasisCore = BasisCore_decorate([
     (0,esm5/* injectable */.b2)(),
-    BasisCore_param(1, (0,esm5/* inject */.f3)("container")),
+    BasisCore_param(1, (0,esm5/* inject */.f3)("dc")),
     BasisCore_param(2, (0,esm5/* inject */.f3)("root.nodes")),
     BasisCore_metadata("design:paramtypes", [context_BasisCoreRootContext, Object, Array])
 ], BasisCore);
@@ -11114,7 +11112,7 @@ CallComponent = CallComponent_decorate([
     (0,esm5/* injectable */.b2)(),
     CallComponent_param(0, (0,esm5/* inject */.f3)("element")),
     CallComponent_param(1, (0,esm5/* inject */.f3)("context")),
-    CallComponent_param(2, (0,esm5/* inject */.f3)("container")),
+    CallComponent_param(2, (0,esm5/* inject */.f3)("dc")),
     CallComponent_metadata("design:paramtypes", [Element, Object, Object])
 ], CallComponent);
 /* harmony default export */ const collection_CallComponent = (CallComponent);
@@ -11171,8 +11169,9 @@ let RepeaterComponent = class RepeaterComponent extends SourceBaseComponent/* de
                 childNodes.forEach((node) => fragment.appendChild(node));
                 this.setContent(fragment, true);
                 const childContainer = this.container.createChildContainer();
-                childContainer.register("OwnerContext", { useValue: this.context });
-                childContainer.register("container", { useValue: childContainer });
+                childContainer.register("parent.context", { useValue: this.context });
+                childContainer.register("dc", { useValue: childContainer });
+                childContainer.register("parent.dc", { useValue: this.container });
                 const localContext = childContainer.resolve("ILocalContext");
                 this.oldChildContexts.push(localContext);
                 localContext.setAsSource(`${name}.current`, row, dataSource.cloneOptions());
@@ -11210,7 +11209,7 @@ RepeaterComponent = RepeaterComponent_decorate([
     (0,esm5/* injectable */.b2)(),
     RepeaterComponent_param(0, (0,esm5/* inject */.f3)("element")),
     RepeaterComponent_param(1, (0,esm5/* inject */.f3)("context")),
-    RepeaterComponent_param(2, (0,esm5/* inject */.f3)("container")),
+    RepeaterComponent_param(2, (0,esm5/* inject */.f3)("dc")),
     RepeaterComponent_metadata("design:paramtypes", [Element, Object, Object])
 ], RepeaterComponent);
 /* harmony default export */ const collection_RepeaterComponent = (RepeaterComponent);
@@ -12212,7 +12211,7 @@ ListComponent = ListComponent_decorate([
     (0,esm5/* injectable */.b2)(),
     ListComponent_param(0, (0,esm5/* inject */.f3)("element")),
     ListComponent_param(1, (0,esm5/* inject */.f3)("context")),
-    ListComponent_param(2, (0,esm5/* inject */.f3)("container")),
+    ListComponent_param(2, (0,esm5/* inject */.f3)("dc")),
     ListComponent_metadata("design:paramtypes", [Element, Object, Object])
 ], ListComponent);
 /* harmony default export */ const renderable_ListComponent = (ListComponent);
@@ -12241,7 +12240,7 @@ PrintComponent = PrintComponent_decorate([
     (0,esm5/* injectable */.b2)(),
     PrintComponent_param(0, (0,esm5/* inject */.f3)("element")),
     PrintComponent_param(1, (0,esm5/* inject */.f3)("context")),
-    PrintComponent_param(2, (0,esm5/* inject */.f3)("container")),
+    PrintComponent_param(2, (0,esm5/* inject */.f3)("dc")),
     PrintComponent_metadata("design:paramtypes", [Element, Object, Object])
 ], PrintComponent);
 /* harmony default export */ const renderable_PrintComponent = (PrintComponent);
@@ -12386,7 +12385,7 @@ TreeComponent = TreeComponent_decorate([
     (0,esm5/* injectable */.b2)(),
     TreeComponent_param(0, (0,esm5/* inject */.f3)("element")),
     TreeComponent_param(1, (0,esm5/* inject */.f3)("context")),
-    TreeComponent_param(2, (0,esm5/* inject */.f3)("container")),
+    TreeComponent_param(2, (0,esm5/* inject */.f3)("dc")),
     TreeComponent_metadata("design:paramtypes", [Element, Object, Object])
 ], TreeComponent);
 /* harmony default export */ const renderable_TreeComponent = (TreeComponent);
@@ -12467,7 +12466,7 @@ ViewComponent = ViewComponent_decorate([
     (0,esm5/* injectable */.b2)(),
     ViewComponent_param(0, (0,esm5/* inject */.f3)("element")),
     ViewComponent_param(1, (0,esm5/* inject */.f3)("context")),
-    ViewComponent_param(2, (0,esm5/* inject */.f3)("container")),
+    ViewComponent_param(2, (0,esm5/* inject */.f3)("dc")),
     ViewComponent_metadata("design:paramtypes", [Element, Object, Object])
 ], ViewComponent);
 /* harmony default export */ const renderable_ViewComponent = (ViewComponent);
@@ -12787,7 +12786,7 @@ var UserDefineComponent_awaiter = (undefined && undefined.__awaiter) || function
 let UserDefineComponent = class UserDefineComponent extends CommandComponent/* default */.Z {
     constructor(element, context, container) {
         super(element, context);
-        this.container = container;
+        this.dc = container;
     }
     initializeAsync() {
         const _super = Object.create(null, {
@@ -12834,7 +12833,7 @@ let UserDefineComponent = class UserDefineComponent extends CommandComponent/* d
     }
     processNodesAsync(nodes) {
         return UserDefineComponent_awaiter(this, void 0, void 0, function* () {
-            const newCollection = this.container.resolve(ComponentCollection/* default */.Z);
+            const newCollection = this.dc.resolve(ComponentCollection/* default */.Z);
             if (!this.collections) {
                 this.collections = new Array();
             }
@@ -12868,7 +12867,7 @@ UserDefineComponent = UserDefineComponent_decorate([
     (0,esm5/* injectable */.b2)(),
     UserDefineComponent_param(0, (0,esm5/* inject */.f3)("element")),
     UserDefineComponent_param(1, (0,esm5/* inject */.f3)("context")),
-    UserDefineComponent_param(2, (0,esm5/* inject */.f3)("container")),
+    UserDefineComponent_param(2, (0,esm5/* inject */.f3)("dc")),
     UserDefineComponent_metadata("design:paramtypes", [Element, Object, Object])
 ], UserDefineComponent);
 /* harmony default export */ const user_define_component_UserDefineComponent = (UserDefineComponent);
@@ -12920,8 +12919,8 @@ let LocalContext = class LocalContext extends Context/* default */.Z {
 LocalContext = LocalContext_decorate([
     (0,esm5/* injectable */.b2)(),
     LocalContext_param(0, (0,esm5/* inject */.f3)("IContextRepository")),
-    LocalContext_param(1, (0,esm5/* inject */.f3)("OwnerContext")),
-    LocalContext_param(2, (0,esm5/* inject */.f3)("HostOptions")),
+    LocalContext_param(1, (0,esm5/* inject */.f3)("parent.context")),
+    LocalContext_param(2, (0,esm5/* inject */.f3)("host_options")),
     LocalContext_metadata("design:paramtypes", [Object, Context/* default */.Z,
         HostOptions/* HostOptions */.G])
 ], LocalContext);
@@ -13573,7 +13572,7 @@ class BCWrapper {
             childContainer.register("root.nodes", {
                 useValue: this.elementList,
             });
-            childContainer.register("container", { useValue: childContainer });
+            childContainer.register("dc", { useValue: childContainer });
             this._basiscore = childContainer.resolve("IBasisCore");
             this.manager.Trigger(this._basiscore);
         }
@@ -13631,7 +13630,7 @@ class BCWrapperFactory {
 
 console.log(`%cWelcome To BasisCore Ecosystem%c
 follow us on https://BasisCore.com/
-version:2.4.6`, " background: yellow;color: #0078C1; font-size: 2rem; font-family: Arial; font-weight: bolder", "color: #0078C1; font-size: 1rem; font-family: Arial;");
+version:2.4.7`, " background: yellow;color: #0078C1; font-size: 2rem; font-family: Arial; font-weight: bolder", "color: #0078C1; font-size: 1rem; font-family: Arial;");
 const src_$bc = new BCWrapperFactory();
 window.LocalDataBase = LocalDataBase;
 __webpack_require__.g.$bc = src_$bc;
