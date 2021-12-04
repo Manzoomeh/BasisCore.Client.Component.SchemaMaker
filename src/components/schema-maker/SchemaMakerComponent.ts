@@ -1,5 +1,5 @@
 import IDisposable from "../../basiscore/IDisposable";
-import ISourceOptions from "../../basiscore/ISourceOptions";
+import ISource from "../../basiscore/ISource";
 import IUserDefineComponent from "../../basiscore/IUserDefineComponent";
 import ComponentBase from "../ComponentBase";
 import layout from "./assets/layout.html";
@@ -7,18 +7,24 @@ import "./assets/style.css";
 
 export default class SchemaMakerComponent extends ComponentBase {
   private runTask: Promise<IDisposable>;
-
+  private sourceId: string;
   constructor(owner: IUserDefineComponent) {
     super(owner, layout, "data-bc-sm-main-container");
   }
 
-  initializeAsync(): void | Promise<void> {}
-  runAsync(source?: ISourceOptions) {
-    if (!this.runTask) {
-      this.runTask = this.owner.processNodesAsync(
-        Array.from(this.container.childNodes)
+  async initializeAsync(): Promise<void> {
+    this.sourceId = await this.owner.getAttributeValueAsync("DataMemberName");
+    this.owner.addTrigger([this.sourceId]);
+    this.container
+      .querySelectorAll("basis")
+      .forEach((element) =>
+        element.setAttribute("dataMemberName", this.sourceId)
       );
-    }
+    this.runTask = this.owner.processNodesAsync(
+      Array.from(this.container.childNodes)
+    );
+  }
+  runAsync(source?: ISource) {
     return this.runTask;
   }
 }

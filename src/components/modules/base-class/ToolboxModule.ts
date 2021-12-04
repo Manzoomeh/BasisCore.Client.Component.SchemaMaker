@@ -1,8 +1,11 @@
 import "./assets/style.css";
 import layout from "./assets/layout.html";
-export default class ToolboxModule {
+import { IAnswerSchema } from "../../../basiscore/IAnswerSchema";
+import IQuestionSchema from "../../../basiscore/IQuestionSchema";
+export default abstract class ToolboxModule {
   public readonly owner: HTMLElement;
   public readonly container: Element;
+  protected readonly question: IQuestionSchema;
 
   constructor(template: string, owner: HTMLElement, replace: boolean) {
     this.owner = owner;
@@ -37,12 +40,19 @@ export default class ToolboxModule {
           owner.innerHTML = defaultValue ?? "";
         }
       });
+
+    this.container
+      .querySelector("[data-btn-setting]")
+      .addEventListener("click", (e) => {
+        e.preventDefault();
+        console.log(this.getAnswerSchema());
+      });
   }
 
   private onDragOver(ev: DragEvent) {
-    const draggedType = ev.dataTransfer.getData("type");
+    const draggedType = ev.dataTransfer.getData("schemaType");
     const acceptableTypes = (ev.target as HTMLElement)?.getAttribute(
-      "data-drop-acceptable-type"
+      "data-drop-acceptable-schema-type"
     );
     ev.stopPropagation();
     if (
@@ -52,5 +62,9 @@ export default class ToolboxModule {
     ) {
       ev.preventDefault();
     }
+  }
+
+  protected getAnswerSchema(): IAnswerSchema {
+    return {} as IAnswerSchema;
   }
 }

@@ -6388,13 +6388,14 @@ let SchemaComponent = class SchemaComponent extends _SourceBaseComponent__WEBPAC
         });
         return __awaiter(this, void 0, void 0, function* () {
             yield _super.initializeAsync.call(this);
-            this.urlToken = this.getAttributeToken("schemaUrl");
+            this.schemaUrlToken = this.getAttributeToken("schemaUrl");
             this.schemaIdToken = this.getAttributeToken("id");
             this.versionToken = this.getAttributeToken("version");
             this.viewModeToken = this.getAttributeToken("viewMode");
             this.buttonToken = this.getAttributeToken("button");
             this.resultSourceIdToken = this.getAttributeToken("resultSourceId");
             this.callbackToken = this.getAttributeToken("callback");
+            this.schemaCallbackToken = this.getAttributeToken("schemaCallback");
         });
     }
     runAsync(source) {
@@ -6418,31 +6419,40 @@ let SchemaComponent = class SchemaComponent extends _SourceBaseComponent__WEBPAC
         });
     }
     loadInEditModeAsync(answer, schemaId) {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         return __awaiter(this, void 0, void 0, function* () {
             const container = document.createElement("div");
             this.setContent(container, false);
             const buttonSelector = yield ((_a = this.buttonToken) === null || _a === void 0 ? void 0 : _a.getValueAsync());
             const resultSourceId = yield ((_b = this.resultSourceIdToken) === null || _b === void 0 ? void 0 : _b.getValueAsync());
             const viewModeStr = yield ((_c = this.viewModeToken) === null || _c === void 0 ? void 0 : _c.getValueAsync());
-            const urlStr = yield ((_d = this.urlToken) === null || _d === void 0 ? void 0 : _d.getValueAsync());
+            const shcemaUrlStr = yield ((_d = this.schemaUrlToken) === null || _d === void 0 ? void 0 : _d.getValueAsync());
             const version = yield ((_e = this.versionToken) === null || _e === void 0 ? void 0 : _e.getValueAsync());
             const callback = yield ((_f = this.callbackToken) === null || _f === void 0 ? void 0 : _f.getValueAsync());
+            const schemaCallbackStr = yield ((_g = this.schemaCallbackToken) === null || _g === void 0 ? void 0 : _g.getValueAsync());
+            var schemaCallback = schemaCallbackStr
+                ? eval(schemaCallbackStr)
+                : null;
+            if (!schemaCallback) {
+                schemaCallback = (id, ver) => __awaiter(this, void 0, void 0, function* () {
+                    const url = _Util__WEBPACK_IMPORTED_MODULE_1__/* ["default"].formatUrl */ .Z.formatUrl(shcemaUrlStr, null, {
+                        id: options.schemaId,
+                        ver: options.version,
+                    });
+                    const response = yield _Util__WEBPACK_IMPORTED_MODULE_1__/* ["default"].getDataAsync */ .Z.getDataAsync(url);
+                    return response.sources[0].data[0];
+                });
+            }
             const viewMode = answer ? (viewModeStr !== null && viewModeStr !== void 0 ? viewModeStr : "true") == "true" : false;
             const options = {
                 viewMode: viewMode,
-                schemaId: (_g = answer === null || answer === void 0 ? void 0 : answer.schemaId) !== null && _g !== void 0 ? _g : schemaId,
-                url: urlStr,
-                version: (_h = answer === null || answer === void 0 ? void 0 : answer.schemaVersion) !== null && _h !== void 0 ? _h : version,
+                schemaId: (_h = answer === null || answer === void 0 ? void 0 : answer.schemaId) !== null && _h !== void 0 ? _h : schemaId,
+                getSchemaCallbackAsync: schemaCallback,
+                version: (_j = answer === null || answer === void 0 ? void 0 : answer.schemaVersion) !== null && _j !== void 0 ? _j : version,
                 callback: viewMode && callback ? eval(callback) : null,
             };
             if (options.schemaId) {
-                const url = _Util__WEBPACK_IMPORTED_MODULE_1__/* ["default"].formatUrl */ .Z.formatUrl(options.url, null, {
-                    id: options.schemaId,
-                    ver: options.version,
-                });
-                const response = yield _Util__WEBPACK_IMPORTED_MODULE_1__/* ["default"].getDataAsync */ .Z.getDataAsync(url);
-                const schema = response.sources[0].data[0];
+                const schema = yield options.getSchemaCallbackAsync(options.schemaId, options.version);
                 this._questions = new Array();
                 schema.questions.forEach((question) => {
                     const partAnswer = answer === null || answer === void 0 ? void 0 : answer.properties.find((x) => x.prpId == question.prpId);
@@ -8083,10 +8093,10 @@ class UrlBaseConnectionOptions extends ConnectionOptions {
             this.Url = setting;
         }
         else {
-            this.Url = setting.Url;
-            this.Heartbeat = setting.Heartbeat;
-            this.Verb = setting.Verb;
-            this.HeartbeatVerb = setting.HeartbeatVerb;
+            this.Url = setting.url;
+            this.Heartbeat = setting.heartbeat;
+            this.Verb = setting.verb;
+            this.HeartbeatVerb = setting.heartbeatverb;
         }
     }
 }
@@ -8134,7 +8144,7 @@ class WebConnectionOptions extends UrlBaseConnectionOptions {
             var isOk;
             if (Util/* default.HasValue */.Z.HasValue(this.Heartbeat)) {
                 try {
-                    yield WebConnectionOptions.ajax(this.Heartbeat, (_a = this.HeartbeatVerb) !== null && _a !== void 0 ? _a : context.options.getDefault("source.heartbeatVerb"));
+                    yield WebConnectionOptions.ajax(this.Heartbeat, (_a = this.HeartbeatVerb) !== null && _a !== void 0 ? _a : context.options.getDefault("source.heartbeatverb"));
                     isOk = true;
                 }
                 catch (_b) {
@@ -8767,8 +8777,8 @@ let HostOptions = HostOptions_1 = class HostOptions {
                     "default.call.verb": "POST",
                     "default.dmnid": "",
                     "default.source.verb": "POST",
-                    "default.ViewCommand.GroupColumn": "prpid",
-                    "default.source.heartbeatVerb": "GET",
+                    "default.viewcommand.groupcolumn": "prpid",
+                    "default.source.heartbeatverb": "GET",
                 },
                 repositories: {},
             };
@@ -9113,14 +9123,9 @@ class TokenUtil {
     }
     static GetValueOrSystemDefaultAsync(token, context, key) {
         return __awaiter(this, void 0, void 0, function* () {
-            var retVal;
-            if (Util/* default.HasValue */.Z.HasValue(token)) {
-                retVal = yield token.getValueAsync();
-            }
-            else {
-                retVal = context.options.getDefault(key);
-            }
-            return retVal;
+            return token
+                ? yield token.getValueAsync()
+                : context.options.getDefault(key);
         });
     }
 }
@@ -11768,8 +11773,9 @@ class RawFace {
 
 ;// CONCATENATED MODULE: ./src/component/renderable/base/template/ExpressionTemplate.ts
 class ExpressionTemplate {
-    constructor(rawExpression, reservedKeys) {
+    constructor(rawExpression, originalExpression, reservedKeys) {
         this.rawExpression = rawExpression;
+        this.originalExpression = originalExpression;
         this.reservedKeys = reservedKeys;
     }
     getValueAsync(data) {
@@ -11857,7 +11863,7 @@ class ContentTemplate {
         }
     }
     extractContents() {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         const faceRegex = this.context.options.getDefault("binding.face-regex");
         const blockRegex = this.context.options.getDefault("binding.codeblock-regex");
         const pattern = new RegExp(`${faceRegex.source}|${blockRegex.source}`, "gi");
@@ -11872,9 +11878,10 @@ class ContentTemplate {
             }
             startIndex = index + finding.length;
             const expression = (_b = matchResult[2]) !== null && _b !== void 0 ? _b : matchResult[3];
+            const originalExpression = (_c = matchResult[0]) === null || _c === void 0 ? void 0 : _c.substr(1);
             if (expression) {
-                this.contents.push(new ExpressionTemplate(expression, this.reservedKeys));
-                startIndex -= (_c = preChar === null || preChar === void 0 ? void 0 : preChar.length) !== null && _c !== void 0 ? _c : 0;
+                this.contents.push(new ExpressionTemplate(expression, originalExpression, this.reservedKeys));
+                startIndex -= (_d = preChar === null || preChar === void 0 ? void 0 : preChar.length) !== null && _d !== void 0 ? _d : 0;
             }
             else {
                 const blockToken = matchResult[4];
@@ -12431,7 +12438,7 @@ let ViewComponent = class ViewComponent extends RenderableComponent {
             const newRenderResultList = new FaceRenderResultRepository();
             if (dataSource.rows.length != 0) {
                 const token = this.getAttributeToken("groupcol");
-                const groupColumn = (yield TokenUtil/* default.GetValueOrSystemDefaultAsync */.Z.GetValueOrSystemDefaultAsync(token, this.context, "ViewCommand.GroupColumn")).toLowerCase();
+                const groupColumn = yield TokenUtil/* default.GetValueOrSystemDefaultAsync */.Z.GetValueOrSystemDefaultAsync(token, this.context, "ViewCommand.GroupColumn");
                 const groupList = dataSource.rows
                     .map((x) => x[groupColumn])
                     .filter((x, i, arr) => arr.indexOf(x) === i);
@@ -13352,16 +13359,7 @@ Object.defineProperty(Element.prototype, "GetBooleanToken", {
 });
 Object.defineProperty(Element.prototype, "GetTemplateToken", {
     value: function GetTemplateToken(context) {
-        var retVal;
-        if (this.children.length == 1 &&
-            Util/* default.isEqual */.Z.isEqual(this.children[0].nodeName, "script") &&
-            Util/* default.isEqual */.Z.isEqual(this.children[0].getAttribute("type"), "text/template")) {
-            retVal = this.textContent.ToStringToken(context);
-        }
-        else {
-            retVal = this.innerHTML.ToStringToken(context);
-        }
-        return retVal;
+        return this.getTemplate().ToStringToken(context);
     },
     writable: true,
     configurable: true,
@@ -13384,17 +13382,7 @@ Object.defineProperty(Element.prototype, "getTemplate", {
 });
 Object.defineProperty(Element.prototype, "GetXMLTemplateToken", {
     value: function GetXMLTemplateToken(context) {
-        var retVal;
-        if (this.children.length == 1 &&
-            Util/* default.isEqual */.Z.isEqual(this.children[0].nodeName, "script") &&
-            Util/* default.isEqual */.Z.isEqual(this.children[0].getAttribute("type"), "text/template")) {
-            retVal = this.children[0].outerHTML.ToStringToken(context);
-        }
-        else {
-            retVal =
-                `<basis-core-template-tag>${this.innerHTML}</basis-core-template-tag>`.ToStringToken(context);
-        }
-        return retVal;
+        return this.getXMLTemplate().ToStringToken(context);
     },
     writable: true,
     configurable: true,
@@ -13630,7 +13618,7 @@ class BCWrapperFactory {
 
 console.log(`%cWelcome To BasisCore Ecosystem%c
 follow us on https://BasisCore.com/
-version:2.4.7`, " background: yellow;color: #0078C1; font-size: 2rem; font-family: Arial; font-weight: bolder", "color: #0078C1; font-size: 1rem; font-family: Arial;");
+version:2.4.9`, " background: yellow;color: #0078C1; font-size: 2rem; font-family: Arial; font-weight: bolder", "color: #0078C1; font-size: 1rem; font-family: Arial;");
 const src_$bc = new BCWrapperFactory();
 window.LocalDataBase = LocalDataBase;
 __webpack_require__.g.$bc = src_$bc;

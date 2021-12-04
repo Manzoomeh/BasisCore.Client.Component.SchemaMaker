@@ -30,7 +30,7 @@ module.exports = (env, options) => {
     devServer: {
       static: path.resolve(__dirname, "wwwroot"),
       onBeforeSetupMiddleware: function (server) {
-        server.app.use("/schema", schemaHttpServer);
+        server.app.use("/server", schemaHttpServer);
       },
       open: true,
     },

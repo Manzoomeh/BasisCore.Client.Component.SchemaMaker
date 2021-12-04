@@ -15,15 +15,15 @@ export default class QuestionModule extends ToolboxModule {
   private onDrop(e: DragEvent) {
     e.preventDefault();
     e.stopPropagation();
-    var moduleType = e.dataTransfer.getData("class");
+    var schemaId = e.dataTransfer.getData("schemaId");
     const owner = e.target as HTMLElement;
-    this.factory(moduleType, owner);
-    console.log(moduleType, owner);
+    this.factory(schemaId, owner);
+    console.log(schemaId, owner);
   }
 
-  private factory(type: string, owner: HTMLElement): ToolboxModule {
+  private factory(schemaId: string, owner: HTMLElement): ToolboxModule {
     let retVal: ToolboxModule = null;
-    switch (type) {
+    switch (schemaId) {
       case "short-text": {
         retVal = new ShortTextModule(owner);
         break;

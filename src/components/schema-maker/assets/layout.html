@@ -1,17 +1,29 @@
-<table style="width: 100%;">
-    <tr>
-        <td style="width: 20%;">
-            <Basis core="component.schemaMaker.property_box" run="atclient">
-            </Basis>
-        </td>
-
-        <td>
-            <Basis core="component.schemaMaker.workspace" run="atclient">
-            </Basis>
-        </td>
-        <td style="width: 20%;">
-            <Basis core="component.schemaMaker.toolbox" run="atclient">
-            </Basis>
-        </td>
-    </tr>
+<table style="width: 100%">
+  <tr>
+    <td style="width: 20%">
+      <Basis
+        core="component.schemaMaker.property_box"
+        run="atclient"
+        dataMemberName=""
+      >
+      </Basis>
+    </td>
+    <td>
+      <Basis
+        core="component.schemaMaker.workspace"
+        run="atclient"
+        dataMemberName=""
+      >
+      </Basis>
+    </td>
+    <td style="width: 20%">
+      <Basis
+        core="component.schemaMaker.toolbox"
+        run="atclient"
+        dataMemberName=""
+      >
+      </Basis>
+    </td>
+  </tr>
 </table>
+<basis core="callback" run="atClient" triggers="schema.data"></basis>

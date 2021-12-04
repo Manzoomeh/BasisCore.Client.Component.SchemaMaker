@@ -13,7 +13,8 @@ for (let index = 1; index < 1000; index++) {
   apiDataList.push(data);
 }
 
-router.get("/schema/:id/questions", function (req, res) {
+router.get("/schemas/:id", function (req, res) {
+  console.log(121212);
   const stream = fs.createReadStream(
     path.join(__dirname, `/schemas/${req.params.id}/questions.json`)
   );

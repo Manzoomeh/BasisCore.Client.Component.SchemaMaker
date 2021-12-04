@@ -1,12 +1,11 @@
 import ISource from "../../basiscore/ISource";
 import IUserDefineComponent from "../../basiscore/IUserDefineComponent";
 import ComponentBase from "../ComponentBase";
-import GroupModule from "../modules/section/SectionModule";
+import SectionModule from "../modules/section/SectionModule";
 import QuestionModule from "../modules/question/QuestionModule";
 import ToolboxModule from "../modules/base-class/ToolboxModule";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
-import TextBaseModule from "../modules/text-base/TextBaseModule";
 
 export default class WorkspaceComponent extends ComponentBase {
   private readonly board: HTMLDivElement;
@@ -19,9 +18,9 @@ export default class WorkspaceComponent extends ComponentBase {
   }
 
   private onDragOver(e: DragEvent) {
-    const draggedType = e.dataTransfer.getData("type");
+    const draggedType = e.dataTransfer.getData("schemaType");
     const acceptableTypes = (e.target as HTMLElement)?.getAttribute(
-      "data-drop-acceptable-type"
+      "data-drop-acceptable-schema-type"
     );
     e.stopPropagation();
     if (
@@ -36,29 +35,27 @@ export default class WorkspaceComponent extends ComponentBase {
   private onDrop(e: DragEvent) {
     console.log("OnDrop in workspace", e);
     e.preventDefault();
-    var moduleType = e.dataTransfer.getData("type");
+    var schemaId = e.dataTransfer.getData("schemaId");
     const owner = e.target as HTMLElement;
-    this.factory(moduleType, owner);
-    console.log(moduleType);
+    this.factory(schemaId, owner);
+    console.log(schemaId);
   }
 
   public initializeAsync(): void | Promise<void> {}
   public runAsync(source?: ISource) {}
 
-  private factory(type: string, owner: HTMLElement): ToolboxModule {
+  private factory(schemaId: string, owner: HTMLElement): ToolboxModule {
     let retVal: ToolboxModule = null;
-    switch (type) {
+    switch (schemaId) {
       case "question": {
         retVal = new QuestionModule(owner);
         break;
       }
-      case "group": {
-        retVal = new GroupModule(owner);
+      case "section": {
+        retVal = new SectionModule(owner);
         break;
       }
     }
     return retVal;
   }
 }
-
-export declare type ModuleType = "group" | "question";
