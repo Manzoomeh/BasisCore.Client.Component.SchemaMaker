@@ -4,12 +4,17 @@ import IUserDefineComponent from "../../basiscore/IUserDefineComponent";
 import ComponentBase from "../ComponentBase";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
+import ISchemaMakerComponent from "./ISchemaMakerComponent";
 
-export default class SchemaMakerComponent extends ComponentBase {
+export default class SchemaMakerComponent
+  extends ComponentBase
+  implements ISchemaMakerComponent
+{
   private runTask: Promise<IDisposable>;
   private sourceId: string;
   constructor(owner: IUserDefineComponent) {
     super(owner, layout, "data-bc-sm-main-container");
+    this.owner.dc.registerInstance("schema_maker_component", this);
   }
 
   async initializeAsync(): Promise<void> {
@@ -24,7 +29,12 @@ export default class SchemaMakerComponent extends ComponentBase {
       Array.from(this.container.childNodes)
     );
   }
+
   runAsync(source?: ISource) {
     return this.runTask;
+  }
+
+  public getOwner(): IUserDefineComponent {
+    return this.owner;
   }
 }

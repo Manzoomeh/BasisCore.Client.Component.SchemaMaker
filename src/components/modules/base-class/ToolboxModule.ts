@@ -2,12 +2,29 @@ import "./assets/style.css";
 import layout from "./assets/layout.html";
 import { IAnswerSchema } from "../../../basiscore/IAnswerSchema";
 import IQuestionSchema from "../../../basiscore/IQuestionSchema";
+import IUserDefineComponent from "../../../basiscore/IUserDefineComponent";
+import DefaultSource from "../../SourceId";
+import ISchemaMakerComponent from "../../schema-maker/ISchemaMakerComponent";
 export default abstract class ToolboxModule {
+  private static _id: number = 1000;
+  public readonly usedForId: number;
   public readonly owner: HTMLElement;
   public readonly container: Element;
   protected readonly question: IQuestionSchema;
+  protected readonly component: IUserDefineComponent;
+  protected readonly rootComponent: ISchemaMakerComponent;
 
-  constructor(template: string, owner: HTMLElement, replace: boolean) {
+  constructor(
+    template: string,
+    owner: HTMLElement,
+    replace: boolean,
+    component: IUserDefineComponent
+  ) {
+    this.component = component;
+    this.rootComponent = this.component.dc.resolve<ISchemaMakerComponent>(
+      "schema_maker_component"
+    );
+    this.usedForId = ToolboxModule._id++;
     this.owner = owner;
     if (replace) {
       this.owner.innerHTML = "";
@@ -45,7 +62,9 @@ export default abstract class ToolboxModule {
       .querySelector("[data-btn-setting]")
       .addEventListener("click", (e) => {
         e.preventDefault();
-        console.log(this.getAnswerSchema());
+        this.rootComponent
+          .getOwner()
+          .setSource(DefaultSource.DISPLAY_PROPERTY, this.getAnswerSchema());
       });
   }
 

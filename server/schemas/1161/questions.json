@@ -262,9 +262,21 @@
                                             "viewType": "text",
                                             "cssClass": "css_13050_1",
                                             "validations": {
-                                                "required": true,
-                                                "minLength": 3,
-                                                "maxLength": 20
+                                                "required": true
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": "description",
+                                    "title": "توضیحات",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "textarea",
+                                            "cssClass": "css_13050_1",
+                                            "validations": {
+                                                "required": true
                                             }
                                         }
                                     ]

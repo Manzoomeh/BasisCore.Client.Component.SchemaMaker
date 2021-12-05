@@ -48,11 +48,11 @@ export default class WorkspaceComponent extends ComponentBase {
     let retVal: ToolboxModule = null;
     switch (schemaId) {
       case "question": {
-        retVal = new QuestionModule(owner);
+        retVal = new QuestionModule(owner, this.owner);
         break;
       }
       case "section": {
-        retVal = new SectionModule(owner);
+        retVal = new SectionModule(owner, this.owner);
         break;
       }
     }

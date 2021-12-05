@@ -1,3 +1,4 @@
+import IUserDefineComponent from "../../../basiscore/IUserDefineComponent";
 import AutocompleteModule from "../autocomplete/AutocompleteModule";
 import ToolboxModule from "../base-class/ToolboxModule";
 import CheckListModule from "../list-base/check-list/CheckListModule";
@@ -7,8 +8,8 @@ import ShortTextModule from "../text-base/short-text/ShortTextModule";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
 export default class QuestionModule extends ToolboxModule {
-  constructor(owner: HTMLElement) {
-    super(layout, owner, false);
+  constructor(owner: HTMLElement, component: IUserDefineComponent) {
+    super(layout, owner, false, component);
     this.container.addEventListener("drop", this.onDrop.bind(this));
   }
 
@@ -25,23 +26,23 @@ export default class QuestionModule extends ToolboxModule {
     let retVal: ToolboxModule = null;
     switch (schemaId) {
       case "short-text": {
-        retVal = new ShortTextModule(owner);
+        retVal = new ShortTextModule(owner, this.component);
         break;
       }
       case "long-text": {
-        retVal = new LongTextModule(owner);
+        retVal = new LongTextModule(owner, this.component);
         break;
       }
       case "select": {
-        retVal = new SelectModule(owner);
+        retVal = new SelectModule(owner, this.component);
         break;
       }
       case "check-list": {
-        retVal = new CheckListModule(owner);
+        retVal = new CheckListModule(owner, this.component);
         break;
       }
       case "auto-complete": {
-        retVal = new AutocompleteModule(owner);
+        retVal = new AutocompleteModule(owner, this.component);
         break;
       }
     }
