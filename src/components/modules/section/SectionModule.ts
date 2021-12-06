@@ -5,7 +5,7 @@ import IContainerModule from "../IContainerModule";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
 import { SchemaUtil } from "../../../SchemaUtil";
-import ContainerModule from "./ContainerModule";
+import ContainerModule from "../ContainerModule";
 
 export default class SectionModule extends ContainerModule {
   private _data: Partial<ISection>;
@@ -34,7 +34,6 @@ export default class SectionModule extends ContainerModule {
     data?: ISection
   ) {
     super(layout, owner, container);
-
     this._data = data;
     if (!this._data) {
       this._data = {

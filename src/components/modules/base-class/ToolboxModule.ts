@@ -43,10 +43,6 @@ export default abstract class ToolboxModule {
       range.setEnd(moduleContainer, 0);
 
       range.insertNode(range.createContextualFragment(template));
-
-      this.container
-        .querySelector("[data-drop-area]")
-        ?.addEventListener("dragover", this.onDragOver.bind(this));
     }
     this.container
       .querySelector("[data-btn-remove]")
@@ -68,21 +64,6 @@ export default abstract class ToolboxModule {
           .getOwner()
           .setSource(DefaultSource.DISPLAY_PROPERTY, this.getAnswerSchema());
       });
-  }
-
-  private onDragOver(ev: DragEvent) {
-    const draggedType = ev.dataTransfer.getData("schemaType");
-    const acceptableTypes = (ev.target as HTMLElement)?.getAttribute(
-      "data-drop-acceptable-schema-type"
-    );
-    ev.stopPropagation();
-    if (
-      draggedType &&
-      acceptableTypes &&
-      acceptableTypes?.indexOf(draggedType) > -1
-    ) {
-      ev.preventDefault();
-    }
   }
 
   protected getAnswerSchema(): IAnswerSchema {

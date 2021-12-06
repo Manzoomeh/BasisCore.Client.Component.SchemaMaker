@@ -3,3 +3,7 @@
   padding: 0px;
   min-height: 50px;
 }
+
+[data-drop-acceptable-schema-type] {
+  min-height: 50px;
+}

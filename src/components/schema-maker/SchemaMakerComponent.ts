@@ -2,6 +2,7 @@ import IDisposable from "../../basiscore/IDisposable";
 import ISource from "../../basiscore/ISource";
 import IUserDefineComponent from "../../basiscore/IUserDefineComponent";
 import ComponentBase from "../ComponentBase";
+import ModuleFactory from "../modules/ModuleFactory";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
 import ISchemaMakerComponent from "./ISchemaMakerComponent";
@@ -15,6 +16,7 @@ export default class SchemaMakerComponent
   constructor(owner: IUserDefineComponent) {
     super(owner, layout, "data-bc-sm-main-container");
     this.owner.dc.registerInstance("schema_maker_component", this);
+    this.owner.dc.registerInstance("IModuleFactory", new ModuleFactory());
   }
 
   async initializeAsync(): Promise<void> {

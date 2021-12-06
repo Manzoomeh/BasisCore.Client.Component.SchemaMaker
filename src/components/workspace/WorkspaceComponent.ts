@@ -1,8 +1,6 @@
 import ISource from "../../basiscore/ISource";
 import IUserDefineComponent from "../../basiscore/IUserDefineComponent";
 import ComponentBase from "../ComponentBase";
-import SectionModule from "../modules/section/SectionModule";
-import QuestionModule from "../modules/question/QuestionModule";
 import ToolboxModule from "../modules/base-class/ToolboxModule";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
@@ -10,6 +8,7 @@ import DefaultSource from "../SourceId";
 import { IAnswerSchema } from "../../basiscore/IAnswerSchema";
 import IContainerModule from "../modules/IContainerModule";
 import IUserActionResult from "../../basiscore/IUserActionResult";
+import IModuleFactory from "../modules/IModuleFactory";
 
 export default class WorkspaceComponent
   extends ComponentBase
@@ -55,7 +54,8 @@ export default class WorkspaceComponent
     e.preventDefault();
     var schemaId = e.dataTransfer.getData("schemaId");
     const owner = e.target as HTMLElement;
-    const module = this.factory(schemaId, owner);
+    const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
+    const module = factory.create(schemaId, owner, this);
     this._modules.push(module);
   }
 
@@ -68,21 +68,6 @@ export default class WorkspaceComponent
       const result: IAnswerSchema = source.rows[0];
       this.applyPropertyResult(source.rows[0]);
     }
-  }
-
-  private factory(schemaId: string, owner: HTMLElement): ToolboxModule {
-    let retVal: ToolboxModule = null;
-    switch (schemaId) {
-      case "question": {
-        retVal = new QuestionModule(owner, this);
-        break;
-      }
-      case "section": {
-        retVal = new SectionModule(owner, this);
-        break;
-      }
-    }
-    return retVal;
   }
 
   private applyPropertyResult(userAction: IUserActionResult) {

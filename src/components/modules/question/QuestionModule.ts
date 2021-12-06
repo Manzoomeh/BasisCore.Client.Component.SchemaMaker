@@ -3,13 +3,7 @@ import { IQuestion } from "../../../basiscore/IQuestionSchema";
 import IUserActionResult from "../../../basiscore/IUserActionResult";
 import { SchemaUtil } from "../../../SchemaUtil";
 import IContainerModule from "../IContainerModule";
-import AutocompleteModule from "../autocomplete/AutocompleteModule";
-import ToolboxModule from "../base-class/ToolboxModule";
-import CheckListModule from "../list-base/check-list/CheckListModule";
-import SelectModule from "../list-base/select/SelectModule";
-import ContainerModule from "../section/ContainerModule";
-import LongTextModule from "../text-base/long-text/LongTextModule";
-import ShortTextModule from "../text-base/short-text/ShortTextModule";
+import ContainerModule from "../ContainerModule";
 import layout from "./assets/layout.html";
 import partLayout from "./assets/part-layout.html";
 import "./assets/style.css";
@@ -62,8 +56,6 @@ export default class QuestionModule extends ContainerModule {
     data?: IQuestion
   ) {
     super(layout, owner, container);
-
-    this.container.addEventListener("drop", this.onDrop.bind(this));
     if (data) {
       this._data = SchemaUtil.ToQuestionModuleDataModel(data);
     } else {
@@ -86,45 +78,6 @@ export default class QuestionModule extends ContainerModule {
       ],
     };
     return ans;
-  }
-
-  private onDrop(e: DragEvent) {
-    e.preventDefault();
-    e.stopPropagation();
-    var schemaId = e.dataTransfer.getData("schemaId");
-    const owner = e.target as HTMLElement;
-    const createdModule = this.factory(schemaId, owner);
-    if (createdModule) {
-      this.modules.push(createdModule);
-    }
-  }
-
-  private factory(schemaId: string, owner: HTMLElement): ToolboxModule {
-    let module: ToolboxModule = null;
-    switch (schemaId) {
-      case "short-text": {
-        module = new ShortTextModule(owner, this.moduleContainer);
-        break;
-      }
-      case "long-text": {
-        module = new LongTextModule(owner, this.moduleContainer);
-        break;
-      }
-      case "select": {
-        module = new SelectModule(owner, this.moduleContainer);
-        break;
-      }
-      case "check-list": {
-        module = new CheckListModule(owner, this.moduleContainer);
-        break;
-      }
-      case "auto-complete": {
-        module = new AutocompleteModule(owner, this.moduleContainer);
-        break;
-      }
-    }
-
-    return module;
   }
 
   protected update(result: IUserActionResult): void {
