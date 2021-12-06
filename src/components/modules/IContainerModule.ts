@@ -1,7 +1,7 @@
 import IUserDefineComponent from "../../basiscore/IUserDefineComponent";
-import ToolboxModule from "../modules/base-class/ToolboxModule";
+import ToolboxModule from "./base-class/ToolboxModule";
 
-export default interface IModuleContainer {
+export default interface IContainerModule {
   getComponent(): IUserDefineComponent;
   onRemove(module: ToolboxModule);
 }

@@ -1,24 +1,91 @@
 import { IAnswerSchema } from "../../../basiscore/IAnswerSchema";
+import { IQuestion } from "../../../basiscore/IQuestionSchema";
 import IUserActionResult from "../../../basiscore/IUserActionResult";
-import IUserDefineComponent from "../../../basiscore/IUserDefineComponent";
-import IModuleContainer from "../../workspace/IModuleContainer";
+import { SchemaUtil } from "../../../SchemaUtil";
+import IContainerModule from "../IContainerModule";
 import AutocompleteModule from "../autocomplete/AutocompleteModule";
 import ToolboxModule from "../base-class/ToolboxModule";
 import CheckListModule from "../list-base/check-list/CheckListModule";
 import SelectModule from "../list-base/select/SelectModule";
+import ContainerModule from "../section/ContainerModule";
 import LongTextModule from "../text-base/long-text/LongTextModule";
 import ShortTextModule from "../text-base/short-text/ShortTextModule";
 import layout from "./assets/layout.html";
+import partLayout from "./assets/part-layout.html";
 import "./assets/style.css";
-export default class QuestionModule
-  extends ToolboxModule
-  implements IModuleContainer
-{
-  private readonly _modules: Array<ToolboxModule> = [];
+import IQuestionModuleDataModel from "./IQuestionModuleDataModel";
 
-  constructor(owner: HTMLElement, container: IModuleContainer) {
-    super(layout, owner, false, container);
+export default class QuestionModule extends ContainerModule {
+  private static readonly TITLE_ID = 1;
+  private static readonly PART_ID = 2;
+
+  private readonly _data: Partial<IQuestionModuleDataModel>;
+
+  get title(): string {
+    return this._data.title;
+  }
+
+  set title(value: string) {
+    this._data.title = value;
+    this.container.querySelector("[data-bc-title]").innerHTML = value;
+  }
+
+  get part(): number {
+    return this._data.part;
+  }
+
+  set part(value: number) {
+    if (this._data.part != value) {
+      this._data.part = value;
+      const row = this.container.querySelector("[data-tr]");
+      let cols = row.querySelectorAll("td[data-bc-sm-part-container]");
+      if (cols.length > value) {
+        while (cols.length != value) {
+          cols[cols.length - 1].remove();
+          cols = row.querySelectorAll("td[data-bc-sm-part-container]");
+        }
+      } else if (cols.length < value) {
+        while (cols.length != value) {
+          const col = this.moduleContainer
+            .getComponent()
+            .toHTMLElement(partLayout);
+          row.appendChild(col);
+          cols = row.querySelectorAll("td[data-bc-sm-part-container]");
+        }
+      }
+    }
+  }
+
+  constructor(
+    owner: HTMLElement,
+    container: IContainerModule,
+    data?: IQuestion
+  ) {
+    super(layout, owner, container);
+
     this.container.addEventListener("drop", this.onDrop.bind(this));
+    if (data) {
+      this._data = SchemaUtil.ToQuestionModuleDataModel(data);
+    } else {
+      this._data = {};
+      this.title = "Question Title";
+      this.part = 1;
+    }
+  }
+
+  protected getAnswerSchema(): IAnswerSchema {
+    var ans: IAnswerSchema = {
+      schemaVersion: "1.0",
+      schemaId: "question",
+      lastUpdate: "",
+      lid: 0,
+      usedForId: this.usedForId,
+      properties: [
+        SchemaUtil.createShortText(this.title, QuestionModule.TITLE_ID),
+        SchemaUtil.createSelect(this.part, QuestionModule.PART_ID),
+      ],
+    };
+    return ans;
   }
 
   private onDrop(e: DragEvent) {
@@ -28,7 +95,7 @@ export default class QuestionModule
     const owner = e.target as HTMLElement;
     const createdModule = this.factory(schemaId, owner);
     if (createdModule) {
-      this._modules.push(createdModule);
+      this.modules.push(createdModule);
     }
   }
 
@@ -60,27 +127,14 @@ export default class QuestionModule
     return module;
   }
 
-  public getComponent(): IUserDefineComponent {
-    return this.moduleContainer.getComponent();
-  }
-
-  public onRemove(module: ToolboxModule) {
-    const index = this._modules.indexOf(module);
-    if (index > -1) {
-      this._modules.splice(index, 1);
+  protected update(result: IUserActionResult): void {
+    const title = SchemaUtil.getPropertyValue(result, QuestionModule.TITLE_ID);
+    if (title != null) {
+      this.title = title;
     }
-  }
-
-  public tryApplyUpdate(userAction: IUserActionResult): boolean {
-    let funded = super.tryApplyUpdate(userAction);
-    if (!funded) {
-      const foundedModule = this._modules.find((x) =>
-        x.tryApplyUpdate(userAction)
-      );
-      if (foundedModule) {
-        funded = true;
-      }
+    const part = SchemaUtil.getPropertyValue(result, QuestionModule.PART_ID);
+    if (part != null) {
+      this.part = part;
     }
-    return funded;
   }
 }

@@ -5,4 +5,5 @@
 [data-bc-sm-question-module] > tbody > tr > td {
   border: 1px dotted grey;
   height: 50px;
+  white-space: nowrap;
 }

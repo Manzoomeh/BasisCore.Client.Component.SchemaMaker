@@ -8,12 +8,12 @@ import layout from "./assets/layout.html";
 import "./assets/style.css";
 import DefaultSource from "../SourceId";
 import { IAnswerSchema } from "../../basiscore/IAnswerSchema";
-import IModuleContainer from "./IModuleContainer";
+import IContainerModule from "../modules/IContainerModule";
 import IUserActionResult from "../../basiscore/IUserActionResult";
 
 export default class WorkspaceComponent
   extends ComponentBase
-  implements IModuleContainer
+  implements IContainerModule
 {
   private readonly board: HTMLDivElement;
   private readonly _modules: Array<ToolboxModule> = [];
@@ -52,7 +52,6 @@ export default class WorkspaceComponent
   }
 
   private onDrop(e: DragEvent) {
-    console.log("OnDrop in workspace", e);
     e.preventDefault();
     var schemaId = e.dataTransfer.getData("schemaId");
     const owner = e.target as HTMLElement;

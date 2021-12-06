@@ -1,19 +1,14 @@
 import { IAnswerSchema } from "../../../basiscore/IAnswerSchema";
 import { ISection } from "../../../basiscore/IQuestionSchema";
 import IUserActionResult from "../../../basiscore/IUserActionResult";
-import IUserDefineComponent from "../../../basiscore/IUserDefineComponent";
-import IModuleContainer from "../../workspace/IModuleContainer";
-import ToolboxModule from "../base-class/ToolboxModule";
-import SelectModule from "../list-base/select/SelectModule";
+import IContainerModule from "../IContainerModule";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
 import { SchemaUtil } from "../../../SchemaUtil";
-export default class SectionModule
-  extends ToolboxModule
-  implements IModuleContainer
-{
-  private readonly _modules: Array<ToolboxModule> = [];
-  private _data: ISection;
+import ContainerModule from "./ContainerModule";
+
+export default class SectionModule extends ContainerModule {
+  private _data: Partial<ISection>;
   private static readonly TITLE_ID = 1;
   private static readonly DESCRIPTION_ID = 2;
 
@@ -35,17 +30,15 @@ export default class SectionModule
 
   constructor(
     owner: HTMLElement,
-    container: IModuleContainer,
+    container: IContainerModule,
     data?: ISection
   ) {
-    super(layout, owner, false, container);
+    super(layout, owner, container);
 
     this._data = data;
     if (!this._data) {
       this._data = {
         id: 0,
-        title: "",
-        description: "",
       };
       this.title = "Section Title";
       this.description = "";
@@ -68,30 +61,6 @@ export default class SectionModule
       ],
     };
     return ans;
-  }
-
-  public getComponent(): IUserDefineComponent {
-    return this.moduleContainer.getComponent();
-  }
-
-  public onRemove(module: ToolboxModule) {
-    const index = this._modules.indexOf(module);
-    if (index > -1) {
-      this._modules.splice(index, 1);
-    }
-  }
-
-  public tryApplyUpdate(userAction: IUserActionResult): boolean {
-    let funded = super.tryApplyUpdate(userAction);
-    if (!funded) {
-      const foundedModule = this._modules.find((x) =>
-        x.tryApplyUpdate(userAction)
-      );
-      if (foundedModule) {
-        funded = true;
-      }
-    }
-    return funded;
   }
 
   protected update(result: IUserActionResult): void {

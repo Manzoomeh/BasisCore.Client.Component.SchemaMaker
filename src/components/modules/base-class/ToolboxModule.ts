@@ -4,7 +4,7 @@ import { IAnswerSchema } from "../../../basiscore/IAnswerSchema";
 import IQuestionSchema from "../../../basiscore/IQuestionSchema";
 import DefaultSource from "../../SourceId";
 import ISchemaMakerComponent from "../../schema-maker/ISchemaMakerComponent";
-import IModuleContainer from "../../workspace/IModuleContainer";
+import IContainerModule from "../IContainerModule";
 import IUserActionResult from "../../../basiscore/IUserActionResult";
 export default abstract class ToolboxModule {
   private static _id: number = 1000;
@@ -12,14 +12,14 @@ export default abstract class ToolboxModule {
   public readonly owner: HTMLElement;
   public readonly container: Element;
   protected readonly question: IQuestionSchema;
-  protected readonly moduleContainer: IModuleContainer;
+  protected readonly moduleContainer: IContainerModule;
   protected readonly rootComponent: ISchemaMakerComponent;
 
   constructor(
     template: string,
     owner: HTMLElement,
     replace: boolean,
-    container: IModuleContainer
+    container: IContainerModule
   ) {
     this.moduleContainer = container;
     this.rootComponent = this.moduleContainer
