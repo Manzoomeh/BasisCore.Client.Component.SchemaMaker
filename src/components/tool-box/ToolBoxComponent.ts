@@ -5,6 +5,7 @@ import ISchemaMakerSchema from "../ISchemaMakerSchema";
 import layout from "./assets/layout.html";
 import itemLayout from "./assets/item-layout.html";
 import "./assets/style.css";
+import ISchemaMakerComponent from "../schema-maker/ISchemaMakerComponent";
 
 export default class ToolBoxComponent extends ComponentBase {
   private _sourceId: string;

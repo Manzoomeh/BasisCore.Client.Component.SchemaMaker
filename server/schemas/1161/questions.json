@@ -254,30 +254,24 @@
                             "image": "",
                             "questions": [
                                 {
-                                    "prpId": "title",
+                                    "prpId": 1,
                                     "title": "عنوان",
                                     "parts": [
                                         {
                                             "part": 1,
                                             "viewType": "text",
-                                            "cssClass": "css_13050_1",
-                                            "validations": {
-                                                "required": true
-                                            }
+                                            "cssClass": "css_13050_1"
                                         }
                                     ]
                                 },
                                 {
-                                    "prpId": "description",
+                                    "prpId": 2,
                                     "title": "توضیحات",
                                     "parts": [
                                         {
                                             "part": 1,
                                             "viewType": "textarea",
-                                            "cssClass": "css_13050_1",
-                                            "validations": {
-                                                "required": true
-                                            }
+                                            "cssClass": "css_13050_1"
                                         }
                                     ]
                                 }

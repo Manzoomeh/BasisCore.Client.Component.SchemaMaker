@@ -5,6 +5,7 @@ import ComponentBase from "../ComponentBase";
 import ISchemaMakerSchema, {
   ISchemaMakerQuestion,
 } from "../ISchemaMakerSchema";
+import ISchemaMakerComponent from "../schema-maker/ISchemaMakerComponent";
 import DefaultSource from "../SourceId";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
@@ -12,9 +13,13 @@ import "./assets/style.css";
 export default class PropertyBoxComponent extends ComponentBase {
   private _sourceId: string;
   private _source: ISchemaMakerSchema;
+  private readonly _rootComponent: ISchemaMakerComponent;
 
   constructor(owner: IUserDefineComponent) {
     super(owner, layout, "data-bc-sm-property-container");
+    this._rootComponent = owner.dc.resolve<ISchemaMakerComponent>(
+      "schema_maker_component"
+    );
   }
 
   public async initializeAsync(): Promise<void> {
@@ -47,7 +52,9 @@ export default class PropertyBoxComponent extends ComponentBase {
           break;
         }
         case "schemamakercomponent_propertyboxcomponent.answer": {
-          console.log(source);
+          this._rootComponent
+            .getOwner()
+            .setSource(DefaultSource.PROPERTY_RESULT, source.rows[0]);
         }
       }
     }

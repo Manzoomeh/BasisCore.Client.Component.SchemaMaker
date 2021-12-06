@@ -6392,11 +6392,18 @@ let SchemaComponent = class SchemaComponent extends _SourceBaseComponent__WEBPAC
             this.schemaIdToken = this.getAttributeToken("id");
             this.versionToken = this.getAttributeToken("version");
             this.viewModeToken = this.getAttributeToken("viewMode");
-            this.buttonToken = this.getAttributeToken("button");
+            this.buttonSelector = yield this.getAttributeValueAsync("button");
             this.resultSourceIdToken = this.getAttributeToken("resultSourceId");
             this.callbackToken = this.getAttributeToken("callback");
             this.schemaCallbackToken = this.getAttributeToken("schemaCallback");
+            document
+                .querySelectorAll(this.buttonSelector)
+                .forEach((btn) => btn.addEventListener("click", this.onClick.bind(this)));
         });
+    }
+    onClick(e) {
+        e.preventDefault();
+        this.getAnswers();
     }
     runAsync(source) {
         const _super = Object.create(null, {
@@ -6419,23 +6426,22 @@ let SchemaComponent = class SchemaComponent extends _SourceBaseComponent__WEBPAC
         });
     }
     loadInEditModeAsync(answer, schemaId) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         return __awaiter(this, void 0, void 0, function* () {
             const container = document.createElement("div");
             this.setContent(container, false);
-            const buttonSelector = yield ((_a = this.buttonToken) === null || _a === void 0 ? void 0 : _a.getValueAsync());
-            const resultSourceId = yield ((_b = this.resultSourceIdToken) === null || _b === void 0 ? void 0 : _b.getValueAsync());
-            const viewModeStr = yield ((_c = this.viewModeToken) === null || _c === void 0 ? void 0 : _c.getValueAsync());
-            const shcemaUrlStr = yield ((_d = this.schemaUrlToken) === null || _d === void 0 ? void 0 : _d.getValueAsync());
-            const version = yield ((_e = this.versionToken) === null || _e === void 0 ? void 0 : _e.getValueAsync());
-            const callback = yield ((_f = this.callbackToken) === null || _f === void 0 ? void 0 : _f.getValueAsync());
-            const schemaCallbackStr = yield ((_g = this.schemaCallbackToken) === null || _g === void 0 ? void 0 : _g.getValueAsync());
+            const resultSourceId = yield ((_a = this.resultSourceIdToken) === null || _a === void 0 ? void 0 : _a.getValueAsync());
+            const viewModeStr = yield ((_b = this.viewModeToken) === null || _b === void 0 ? void 0 : _b.getValueAsync());
+            const schemaUrlStr = yield ((_c = this.schemaUrlToken) === null || _c === void 0 ? void 0 : _c.getValueAsync());
+            const version = yield ((_d = this.versionToken) === null || _d === void 0 ? void 0 : _d.getValueAsync());
+            const callback = yield ((_e = this.callbackToken) === null || _e === void 0 ? void 0 : _e.getValueAsync());
+            const schemaCallbackStr = yield ((_f = this.schemaCallbackToken) === null || _f === void 0 ? void 0 : _f.getValueAsync());
             var schemaCallback = schemaCallbackStr
                 ? eval(schemaCallbackStr)
                 : null;
             if (!schemaCallback) {
                 schemaCallback = (id, ver) => __awaiter(this, void 0, void 0, function* () {
-                    const url = _Util__WEBPACK_IMPORTED_MODULE_1__/* ["default"].formatUrl */ .Z.formatUrl(shcemaUrlStr, null, {
+                    const url = _Util__WEBPACK_IMPORTED_MODULE_1__/* ["default"].formatUrl */ .Z.formatUrl(schemaUrlStr, null, {
                         id: options.schemaId,
                         ver: options.version,
                     });
@@ -6446,9 +6452,9 @@ let SchemaComponent = class SchemaComponent extends _SourceBaseComponent__WEBPAC
             const viewMode = answer ? (viewModeStr !== null && viewModeStr !== void 0 ? viewModeStr : "true") == "true" : false;
             const options = {
                 viewMode: viewMode,
-                schemaId: (_h = answer === null || answer === void 0 ? void 0 : answer.schemaId) !== null && _h !== void 0 ? _h : schemaId,
+                schemaId: (_g = answer === null || answer === void 0 ? void 0 : answer.schemaId) !== null && _g !== void 0 ? _g : schemaId,
                 getSchemaCallbackAsync: schemaCallback,
-                version: (_j = answer === null || answer === void 0 ? void 0 : answer.schemaVersion) !== null && _j !== void 0 ? _j : version,
+                version: (_h = answer === null || answer === void 0 ? void 0 : answer.schemaVersion) !== null && _h !== void 0 ? _h : version,
                 callback: viewMode && callback ? eval(callback) : null,
             };
             if (options.schemaId) {
@@ -6458,9 +6464,8 @@ let SchemaComponent = class SchemaComponent extends _SourceBaseComponent__WEBPAC
                     const partAnswer = answer === null || answer === void 0 ? void 0 : answer.properties.find((x) => x.prpId == question.prpId);
                     this._questions.push(new _question_container_QuestionContainer__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z(question, options, container, partAnswer));
                 });
-                if (buttonSelector && resultSourceId && !options.viewMode) {
-                    const getAnswers = (e) => {
-                        e.preventDefault();
+                if (this.buttonSelector && resultSourceId && !options.viewMode) {
+                    this.getAnswers = () => {
                         const retVal = {
                             lid: schema.lid,
                             schemaId: schema.schemaId,
@@ -6474,9 +6479,6 @@ let SchemaComponent = class SchemaComponent extends _SourceBaseComponent__WEBPAC
                             this.context.setAsSource(resultSourceId, retVal);
                         }
                     };
-                    document
-                        .querySelectorAll(buttonSelector)
-                        .forEach((btn) => btn.addEventListener("click", getAnswers.bind(this)));
                 }
             }
             else {
