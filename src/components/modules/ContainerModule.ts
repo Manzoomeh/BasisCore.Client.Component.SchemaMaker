@@ -23,11 +23,20 @@ export default abstract class ContainerModule
     const acceptableTypes = (ev.target as HTMLElement)?.getAttribute(
       "data-drop-acceptable-schema-type"
     );
+    const allowMulti =
+      ((ev.target as HTMLElement)?.getAttribute(
+        "data-drop-allow-multi-content"
+      ) ?? "true") == "true";
+
     ev.stopPropagation();
     if (
       draggedType &&
       acceptableTypes &&
-      acceptableTypes?.indexOf(draggedType) > -1
+      acceptableTypes?.indexOf(draggedType) > -1 &&
+      (allowMulti ||
+        this.container.querySelectorAll(
+          "[data-drop-area] [data-module-container]"
+        ).length == 0)
     ) {
       ev.preventDefault();
     }
