@@ -7,7 +7,7 @@ import {
   IQuestionPart,
   ViewType,
 } from "../../../basiscore/schema/IQuestionSchema";
-import { SchemaUtil } from "../../../SchemaUtil";
+import SchemaUtil from "../../../SchemaUtil";
 export default class AutocompleteModule extends PartBaseModule<IAutocompleteDataModel> {
   private static readonly SCHEMA_ID: ViewType = "Autocomplete";
   protected data: IAutocompleteDataModel;

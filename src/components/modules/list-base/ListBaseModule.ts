@@ -6,7 +6,7 @@ import {
   ViewType,
 } from "../../../basiscore/schema/IQuestionSchema";
 import IListBaseModuleDataModel from "./IListBaseModuleDataModel";
-import { SchemaUtil } from "../../../SchemaUtil";
+import SchemaUtil from "../../../SchemaUtil";
 export default abstract class ListBaseModule extends PartBaseModule<IListBaseModuleDataModel> {
   protected data: IListBaseModuleDataModel;
   constructor(

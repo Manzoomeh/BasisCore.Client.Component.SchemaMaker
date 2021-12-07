@@ -1,3 +1,4 @@
 import IPartBaseModuleDataModel from "../IPartBaseModuleDataModel";
 
-export interface ITextBaseModuleDataModel extends IPartBaseModuleDataModel {}
+export default interface ITextBaseModuleDataModel
+  extends IPartBaseModuleDataModel {}

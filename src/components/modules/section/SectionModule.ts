@@ -6,7 +6,7 @@ import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
 import IContainerModule from "../IContainerModule";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
-import { SchemaUtil } from "../../../SchemaUtil";
+import SchemaUtil from "../../../SchemaUtil";
 import ContainerModule from "../ContainerModule";
 import QuestionModule from "../question/QuestionModule";
 

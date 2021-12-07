@@ -6,14 +6,16 @@ import {
 } from "../../basiscore/schema/IQuestionSchema";
 import IAnswerSchema from "../../basiscore/schema/IAnswerSchema";
 import IUserActionResult from "../../basiscore/schema/IUserActionResult";
-import { SchemaUtil } from "../../SchemaUtil";
+import SchemaUtil from "../../SchemaUtil";
 import IPartBaseModuleDataModel from "./IPartBaseModuleDataModel";
+import { schemaMaker } from "../../ComponentsLoader";
 
 export default abstract class PartBaseModule<
   TModelType extends IPartBaseModuleDataModel
 > extends ToolboxModule {
   private static readonly CAPTION_ID = 1;
   private static readonly CSS_CLASS_ID = 2;
+  private static readonly VALIDATION_ID = 3;
 
   protected abstract readonly data: TModelType;
   protected readonly questionPartModel: IQuestionPart;
@@ -49,6 +51,14 @@ export default abstract class PartBaseModule<
         ),
       ],
     };
+    if (this.data.validations) {
+      ans.properties.push(
+        SchemaUtil.createValidation(
+          this.data.validations,
+          PartBaseModule.VALIDATION_ID
+        )
+      );
+    }
     return ans;
   }
 
@@ -68,6 +78,8 @@ export default abstract class PartBaseModule<
     if (cssClass != null) {
       this.data.cssClass = cssClass;
     }
+
+    console.log(result.properties.find((x) => x.propId == 3));
 
     console.log(this.questionPartModel);
   }

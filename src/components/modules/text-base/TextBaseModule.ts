@@ -5,8 +5,8 @@ import {
   IQuestionPart,
   ViewType,
 } from "../../../basiscore/schema/IQuestionSchema";
-import { ITextBaseModuleDataModel } from "./ITextBaseModuleDataModel";
-import { SchemaUtil } from "../../../SchemaUtil";
+import ITextBaseModuleDataModel from "./ITextBaseModuleDataModel";
+import SchemaUtil from "../../../SchemaUtil";
 
 export default abstract class TextBaseModule extends PartBaseModule<ITextBaseModuleDataModel> {
   protected readonly data: ITextBaseModuleDataModel;

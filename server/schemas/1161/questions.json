@@ -389,6 +389,59 @@
                                             "viewType": "text"
                                         }
                                     ]
+                                },
+                                {
+                                    "prpId": 3,
+                                    "title": "Validations",
+                                    "multi": "true",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 1,
+                                                    "value": "required"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "value": "minLength"
+                                                },
+                                                {
+                                                    "id": 3,
+                                                    "value": "maxLength"
+                                                },
+                                                {
+                                                    "id": 4,
+                                                    "value": "min"
+                                                },
+                                                {
+                                                    "id": 5,
+                                                    "value": "max"
+                                                },
+                                                {
+                                                    "id": 6,
+                                                    "value": "dataType"
+                                                },
+                                                {
+                                                    "id": 7,
+                                                    "value": "regex"
+                                                }
+                                            ],
+                                            "validations": {
+                                                "required": true
+                                            },
+                                            "caption": "Type"
+                                        },
+                                        {
+                                            "part": 2,
+                                            "viewType": "text",
+                                            "validations1": {
+                                                "required": true
+                                            },
+                                            "caption": "Setting"
+                                        }
+                                    ]
                                 }
                             ]
                         },

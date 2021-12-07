@@ -3,7 +3,7 @@ import IQuestionSchema, {
   IQuestion,
 } from "../../../basiscore/schema/IQuestionSchema";
 import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
-import { SchemaUtil } from "../../../SchemaUtil";
+import SchemaUtil from "../../../SchemaUtil";
 import IContainerModule from "../IContainerModule";
 import ContainerModule from "../ContainerModule";
 import layout from "./assets/layout.html";
