@@ -35,8 +35,8 @@ export interface IQuestionPart {
 export type WebMethod = "POST" | "GET";
 
 export type ViewType =
-  | "ShortText"
-  | "LongText"
+  | "Text"
+  | "Textarea"
   | "Autocomplete"
   | "Select"
   | "Upload"

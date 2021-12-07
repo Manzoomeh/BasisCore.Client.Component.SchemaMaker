@@ -44,6 +44,7 @@ export default class PropertyBoxComponent extends ComponentBase {
           break;
         }
         case DefaultSource.DISPLAY_PROPERTY: {
+          console.log(source.rows[0]);
           const answer = source.rows[0] as IAnswerSchema;
           this.owner.setSource(
             "SchemaMakerComponent_PropertyBoxComponent.question",
@@ -64,8 +65,9 @@ export default class PropertyBoxComponent extends ComponentBase {
     schemaId: string,
     version: string
   ): Promise<ISchemaMakerQuestion> {
+    schemaId = schemaId.toLowerCase();
     return Promise.resolve(
-      this._source.schemas.find((x) => x.schemaId == schemaId)
+      this._source.schemas.find((x) => x.schemaId.toLowerCase() == schemaId)
     );
   }
 }

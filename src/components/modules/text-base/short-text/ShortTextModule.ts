@@ -9,6 +9,6 @@ export default class ShortTextModule extends TextBaseModule {
     component: IContainerModule,
     model: IQuestionPart
   ) {
-    super(layout, owner, component, "ShortText", model);
+    super(layout, owner, component, "Text", model);
   }
 }

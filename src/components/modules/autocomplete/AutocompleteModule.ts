@@ -1,9 +1,28 @@
 import IContainerModule from "../IContainerModule";
-import ToolboxModule from "../base-class/ToolboxModule";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
-export default class AutocompleteModule extends ToolboxModule {
-  constructor(owner: HTMLElement, component: IContainerModule) {
-    super(layout, owner, true, component);
+import PartBaseModule from "../PartBaseModule";
+import IAutocompleteDataModel from "./IAutocompleteDataModel";
+import {
+  IQuestionPart,
+  ViewType,
+} from "../../../basiscore/schema/IQuestionSchema";
+import { SchemaUtil } from "../../../SchemaUtil";
+export default class AutocompleteModule extends PartBaseModule<IAutocompleteDataModel> {
+  private static readonly SCHEMA_ID: ViewType = "Autocomplete";
+  protected data: IAutocompleteDataModel;
+  constructor(
+    owner: HTMLElement,
+    component: IContainerModule,
+    questionPart: IQuestionPart
+  ) {
+    super(layout, owner, component, AutocompleteModule.SCHEMA_ID, questionPart);
+    if (questionPart) {
+      this.data = SchemaUtil.toAutocompleteModuleDataModel(questionPart);
+    } else {
+      this.data = {
+        viewType: AutocompleteModule.SCHEMA_ID,
+      };
+    }
   }
 }

@@ -1,8 +1,28 @@
 import IContainerModule from "../IContainerModule";
-import ToolboxModule from "../base-class/ToolboxModule";
 import "./assets/style.css";
-export default abstract class ListBaseModule extends ToolboxModule {
-  constructor(layout: string, owner: HTMLElement, component: IContainerModule) {
-    super(layout, owner, false, component);
+import PartBaseModule from "../PartBaseModule";
+import {
+  IQuestionPart,
+  ViewType,
+} from "../../../basiscore/schema/IQuestionSchema";
+import IListBaseModuleDataModel from "./IListBaseModuleDataModel";
+import { SchemaUtil } from "../../../SchemaUtil";
+export default abstract class ListBaseModule extends PartBaseModule<IListBaseModuleDataModel> {
+  protected data: IListBaseModuleDataModel;
+  constructor(
+    layout: string,
+    owner: HTMLElement,
+    component: IContainerModule,
+    schemaId: ViewType,
+    questionPart: IQuestionPart
+  ) {
+    super(layout, owner, component, schemaId, questionPart);
+    if (questionPart) {
+      this.data = SchemaUtil.toListBaseModuleDataModel(questionPart);
+    } else {
+      this.data = {
+        viewType: schemaId,
+      };
+    }
   }
 }

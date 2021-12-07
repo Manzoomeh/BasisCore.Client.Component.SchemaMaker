@@ -9,6 +9,6 @@ export default class LongTextModule extends TextBaseModule {
     component: IContainerModule,
     model: IQuestionPart
   ) {
-    super(layout, owner, component, "LongText", model);
+    super(layout, owner, component, "Textarea", model);
   }
 }

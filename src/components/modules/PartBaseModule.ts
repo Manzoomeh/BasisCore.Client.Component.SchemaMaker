@@ -1,6 +1,9 @@
 import IContainerModule from "./IContainerModule";
 import ToolboxModule from "./base-class/ToolboxModule";
-import { IQuestionPart } from "../../basiscore/schema/IQuestionSchema";
+import {
+  IQuestionPart,
+  ViewType,
+} from "../../basiscore/schema/IQuestionSchema";
 import IAnswerSchema from "../../basiscore/schema/IAnswerSchema";
 import IUserActionResult from "../../basiscore/schema/IUserActionResult";
 import { SchemaUtil } from "../../SchemaUtil";
@@ -14,13 +17,13 @@ export default abstract class PartBaseModule<
 
   protected abstract readonly data: TModelType;
   protected readonly questionPartModel: IQuestionPart;
-  protected readonly schemaId: string;
+  protected readonly schemaId: ViewType;
 
   constructor(
     layout: string,
     owner: HTMLElement,
     component: IContainerModule,
-    schemaId: string,
+    schemaId: ViewType,
     questionPart?: IQuestionPart
   ) {
     super(layout, owner, false, component);
@@ -74,7 +77,7 @@ export default abstract class PartBaseModule<
   public getPartSchema(part: number): IQuestionPart {
     const retVal: IQuestionPart = {
       part: part,
-      viewType: this.data.viewType,
+      viewType: this.data.viewType.toLowerCase(),
       cssClass: this.data.cssClass ?? null,
       validations: this.data.validations ?? null,
       caption: this.data.caption ?? null,

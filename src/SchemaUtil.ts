@@ -6,6 +6,8 @@ import {
 } from "./basiscore/schema/IAnswerSchema";
 import { IQuestion, IQuestionPart } from "./basiscore/schema/IQuestionSchema";
 import IUserActionResult from "./basiscore/schema/IUserActionResult";
+import IAutocompleteDataModel from "./components/modules/autocomplete/IAutocompleteDataModel";
+import IListBaseModuleDataModel from "./components/modules/list-base/IListBaseModuleDataModel";
 import IQuestionModuleDataModel from "./components/modules/question/IQuestionModuleDataModel";
 import { ITextBaseModuleDataModel } from "./components/modules/text-base/ITextBaseModuleDataModel";
 
@@ -84,6 +86,18 @@ export class SchemaUtil {
   public static toTextBaseModuleDataModel(
     questionPart: IQuestionPart
   ): ITextBaseModuleDataModel {
+    return null;
+  }
+
+  public static toAutocompleteModuleDataModel(
+    questionPart: IQuestionPart
+  ): IAutocompleteDataModel {
+    return null;
+  }
+
+  public static toListBaseModuleDataModel(
+    questionPart: IQuestionPart
+  ): IListBaseModuleDataModel {
     return null;
   }
 }

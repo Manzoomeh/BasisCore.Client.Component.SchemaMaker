@@ -17,25 +17,25 @@ export default class ModuleFactory implements IModuleFactory {
     model?: any
   ): ToolboxModule {
     let module: ToolboxModule = null;
-    switch (schemaId.toLowerCase()) {
-      case "shorttext": {
+    switch (schemaId) {
+      case "text": {
         module = new ShortTextModule(owner, container, model);
         break;
       }
-      case "longtext": {
+      case "textarea": {
         module = new LongTextModule(owner, container, model);
         break;
       }
       case "select": {
-        module = new SelectModule(owner, container);
+        module = new SelectModule(owner, container, model);
         break;
       }
-      case "check-list": {
-        module = new CheckListModule(owner, container);
+      case "checklist": {
+        module = new CheckListModule(owner, container, model);
         break;
       }
-      case "auto-complete": {
-        module = new AutocompleteModule(owner, container);
+      case "autocomplete": {
+        module = new AutocompleteModule(owner, container, model);
         break;
       }
       case "question": {

@@ -24,10 +24,13 @@ export default class ToolBoxComponent extends ComponentBase {
 
   private onDrag(e: DragEvent) {
     const element = e.target as HTMLElement;
-    e.dataTransfer.setData("schemaId", element.getAttribute("data-schema-Id"));
+    e.dataTransfer.setData(
+      "schemaId",
+      element.getAttribute("data-schema-Id").toLowerCase()
+    );
     e.dataTransfer.setData(
       "schemaType",
-      element.getAttribute("data-schema-type")
+      element.getAttribute("data-schema-type").toLowerCase()
     );
   }
 

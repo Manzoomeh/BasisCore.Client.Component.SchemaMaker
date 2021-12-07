@@ -365,13 +365,13 @@
                             ]
                         },
                         {
-                            "schemaId": "ShortText",
+                            "schemaId": "text",
                             "schemaType": "input",
                             "title": "Short Text",
                             "image": "",
                             "questions": [
                                 {
-                                    "prpId": "1",
+                                    "prpId": 1,
                                     "title": "Caption",
                                     "parts": [
                                         {
@@ -393,13 +393,13 @@
                             ]
                         },
                         {
-                            "schemaId": "LongText",
+                            "schemaId": "Textarea",
                             "schemaType": "input",
                             "title": "Long Text",
                             "image": "",
                             "questions": [
                                 {
-                                    "prpId": "1",
+                                    "prpId": 1,
                                     "title": "Caption",
                                     "parts": [
                                         {
@@ -421,24 +421,84 @@
                             ]
                         },
                         {
-                            "schemaId": "auto-complete",
+                            "schemaId": "AutoComplete",
                             "schemaType": "input",
                             "title": "Autocomplete",
                             "image": "",
                             "questions": [
                                 {
-                                    "prpId": "title",
-                                    "title": "عنوان",
+                                    "prpId": 1,
+                                    "title": "Caption",
                                     "parts": [
                                         {
                                             "part": 1,
-                                            "viewType": "text",
-                                            "cssClass": "css_13050_1",
-                                            "validations": {
-                                                "required": true,
-                                                "minLength": 3,
-                                                "maxLength": 20
-                                            }
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 2,
+                                    "title": "Css Class",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "schemaId": "Select",
+                            "schemaType": "input",
+                            "title": "Select",
+                            "image": "",
+                            "questions": [
+                                {
+                                    "prpId": 1,
+                                    "title": "Caption",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 2,
+                                    "title": "Css Class",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "schemaId": "Checklist",
+                            "schemaType": "input",
+                            "title": "Checklist",
+                            "image": "",
+                            "questions": [
+                                {
+                                    "prpId": 1,
+                                    "title": "Caption",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 2,
+                                    "title": "Css Class",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
                                         }
                                     ]
                                 }

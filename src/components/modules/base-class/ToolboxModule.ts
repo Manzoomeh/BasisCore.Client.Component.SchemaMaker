@@ -66,11 +66,9 @@ export default abstract class ToolboxModule {
       });
   }
 
-  protected getAnswerSchema(): IAnswerSchema {
-    return {} as IAnswerSchema;
-  }
+  protected abstract getAnswerSchema(): IAnswerSchema;
 
-  protected update(userAction: IUserActionResult): void {}
+  protected abstract update(userAction: IUserActionResult): void;
 
   public tryApplyUpdate(userAction: IUserActionResult): boolean {
     let retVal = false;
