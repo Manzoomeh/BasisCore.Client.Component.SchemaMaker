@@ -290,7 +290,6 @@
                                         {
                                             "part": 1,
                                             "viewType": "text",
-                                            "cssClass": "css_13050_1",
                                             "validations": {
                                                 "required": true,
                                                 "minLength": 3,
@@ -320,6 +319,46 @@
                                                     "value": "3"
                                                 }
                                             ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3,
+                                    "title": "Is Multi",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 1,
+                                                    "value": "No"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "value": "Yes"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 4,
+                                    "title": "Css Class",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 5,
+                                    "title": "Help Url",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
                                         }
                                     ]
                                 }

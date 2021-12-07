@@ -1,14 +1,16 @@
-import IUserActionResult from "../../basiscore/IUserActionResult";
+import IUserActionResult from "../../basiscore/schema/IUserActionResult";
 import IUserDefineComponent from "../../basiscore/IUserDefineComponent";
 import IContainerModule from "./IContainerModule";
 import ToolboxModule from "./base-class/ToolboxModule";
 import IModuleFactory from "./IModuleFactory";
+import IQuestionSchema from "../../basiscore/schema/IQuestionSchema";
 
 export default abstract class ContainerModule
   extends ToolboxModule
   implements IContainerModule
 {
   protected readonly modules: Array<ToolboxModule> = [];
+  public abstract id: number;
 
   constructor(layout: string, owner: HTMLElement, container: IContainerModule) {
     super(layout, owner, false, container);
@@ -79,4 +81,6 @@ export default abstract class ContainerModule
     }
     return funded;
   }
+
+  public abstract fillSchema(schema: IQuestionSchema);
 }

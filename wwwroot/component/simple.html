@@ -19,9 +19,12 @@
       core="component.schemaMaker.schemaMaker"
       run="atclient"
       dataMemberName="schema.data"
+      button="[data-get-schema-btn]"
+      resultSourceId="schema.result"
     >
     </Basis>
-
+    <basis core="callback" run="atClient" triggers="schema.result"></basis>
+    <button data-get-schema-btn>Get Schema</button>
     <script>
       const host = {
         repositories: {

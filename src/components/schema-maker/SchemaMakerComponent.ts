@@ -13,6 +13,7 @@ export default class SchemaMakerComponent
 {
   private runTask: Promise<IDisposable>;
   private sourceId: string;
+
   constructor(owner: IUserDefineComponent) {
     super(owner, layout, "data-bc-sm-main-container");
     this.owner.dc.registerInstance("schema_maker_component", this);
@@ -21,12 +22,21 @@ export default class SchemaMakerComponent
 
   async initializeAsync(): Promise<void> {
     this.sourceId = await this.owner.getAttributeValueAsync("DataMemberName");
+    const buttonSelector = await this.owner.getAttributeValueAsync("button");
+    const resultSourceId = await this.owner.getAttributeValueAsync(
+      "resultSourceId"
+    );
+
     this.owner.addTrigger([this.sourceId]);
-    this.container
-      .querySelectorAll("basis")
-      .forEach((element) =>
-        element.setAttribute("dataMemberName", this.sourceId)
-      );
+    this.container.querySelectorAll("basis").forEach((element) => {
+      element.setAttribute("dataMemberName", this.sourceId);
+      if (element.getAttribute("core") == "component.schemaMaker.workspace") {
+        if (resultSourceId && buttonSelector) {
+          element.setAttribute("button", buttonSelector);
+          element.setAttribute("resultSourceId", resultSourceId);
+        }
+      }
+    });
     this.runTask = this.owner.processNodesAsync(
       Array.from(this.container.childNodes)
     );

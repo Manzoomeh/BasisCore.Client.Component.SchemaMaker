@@ -1,4 +1,4 @@
-import { IAnswerSchema } from "../../basiscore/IAnswerSchema";
+import IAnswerSchema from "../../basiscore/schema/IAnswerSchema";
 import ISource from "../../basiscore/ISource";
 import IUserDefineComponent from "../../basiscore/IUserDefineComponent";
 import ComponentBase from "../ComponentBase";

@@ -1,7 +1,7 @@
 import IQuestionSchema, {
   IQuestion,
   ISection,
-} from "../basiscore/IQuestionSchema";
+} from "../basiscore/schema/IQuestionSchema";
 
 export default interface ISchemaMakerSchema extends IQuestionSchema {
   schemas: Array<ISchemaMakerQuestion>;

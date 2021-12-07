@@ -3,16 +3,16 @@ import {
   IAnswerProperty,
   IPartCollection,
   IPartValue,
-} from "./basiscore/IAnswerSchema";
-import { IQuestion } from "./basiscore/IQuestionSchema";
-import IUserActionResult from "./basiscore/IUserActionResult";
+} from "./basiscore/schema/IAnswerSchema";
+import { IQuestion } from "./basiscore/schema/IQuestionSchema";
+import IUserActionResult from "./basiscore/schema/IUserActionResult";
 import IQuestionModuleDataModel from "./components/modules/question/IQuestionModuleDataModel";
 
 export class SchemaUtil {
   public static createShortText(value: string, prpId: number): IAnswerProperty {
     const partValue: IPartValue = {
       id: 0,
-      value: value,
+      value: value ?? null,
     };
     const partCollection: IPartCollection = {
       part: 1,

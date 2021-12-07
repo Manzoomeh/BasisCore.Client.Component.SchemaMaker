@@ -1,11 +1,11 @@
 import "./assets/style.css";
 import layout from "./assets/layout.html";
-import { IAnswerSchema } from "../../../basiscore/IAnswerSchema";
-import IQuestionSchema from "../../../basiscore/IQuestionSchema";
+import IAnswerSchema from "../../../basiscore/schema/IAnswerSchema";
+import IQuestionSchema from "../../../basiscore/schema/IQuestionSchema";
 import DefaultSource from "../../SourceId";
 import ISchemaMakerComponent from "../../schema-maker/ISchemaMakerComponent";
 import IContainerModule from "../IContainerModule";
-import IUserActionResult from "../../../basiscore/IUserActionResult";
+import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
 export default abstract class ToolboxModule {
   private static _id: number = 1000;
   public readonly usedForId: number;
