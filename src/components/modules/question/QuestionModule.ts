@@ -1,7 +1,6 @@
 import IAnswerSchema from "../../../basiscore/schema/IAnswerSchema";
 import IQuestionSchema, {
   IQuestion,
-  IQuestionPart,
 } from "../../../basiscore/schema/IQuestionSchema";
 import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
 import { SchemaUtil } from "../../../SchemaUtil";
@@ -11,8 +10,12 @@ import layout from "./assets/layout.html";
 import partLayout from "./assets/part-layout.html";
 import "./assets/style.css";
 import IQuestionModuleDataModel from "./IQuestionModuleDataModel";
+import PartBaseModule from "../PartBaseModule";
+import IPartBaseModuleDataModel from "../IPartBaseModuleDataModel";
 
-export default class QuestionModule extends ContainerModule {
+export default class QuestionModule extends ContainerModule<
+  PartBaseModule<IPartBaseModuleDataModel>
+> {
   private static readonly TITLE_ID = 1;
   private static readonly PART_ID = 2;
   private static readonly MULTI_ID = 3;
@@ -69,7 +72,7 @@ export default class QuestionModule extends ContainerModule {
     super(layout, owner, container);
     this._schema = data;
     if (this._schema) {
-      this._data = SchemaUtil.ToQuestionModuleDataModel(this._schema);
+      this._data = SchemaUtil.toQuestionModuleDataModel(this._schema);
     } else {
       this._data = {
         multi: false,
@@ -147,8 +150,9 @@ export default class QuestionModule extends ContainerModule {
       sectionId: this.moduleContainer.id,
       cssClass: this._data.cssClass,
       help: this._data.help,
-      parts: new Array<IQuestionPart>(),
+      parts: null,
     };
+    question.parts = this.modules.map((x, i) => x.getPartSchema(i + 1));
     if (!schema.questions) {
       schema.questions = new Array<IQuestion>();
     }

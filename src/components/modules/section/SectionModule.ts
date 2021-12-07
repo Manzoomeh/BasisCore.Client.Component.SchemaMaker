@@ -8,8 +8,9 @@ import layout from "./assets/layout.html";
 import "./assets/style.css";
 import { SchemaUtil } from "../../../SchemaUtil";
 import ContainerModule from "../ContainerModule";
+import QuestionModule from "../question/QuestionModule";
 
-export default class SectionModule extends ContainerModule {
+export default class SectionModule extends ContainerModule<QuestionModule> {
   private _data: Partial<ISection>;
   private static readonly TITLE_ID = 1;
   private static readonly DESCRIPTION_ID = 2;
@@ -93,6 +94,6 @@ export default class SectionModule extends ContainerModule {
       schema.sections = [];
     }
     schema.sections.push(section);
-    this.modules.forEach((x) => (x as ContainerModule).fillSchema(schema));
+    this.modules.forEach((x) => x.fillSchema(schema));
   }
 }

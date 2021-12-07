@@ -5,11 +5,11 @@ import ToolboxModule from "./base-class/ToolboxModule";
 import IModuleFactory from "./IModuleFactory";
 import IQuestionSchema from "../../basiscore/schema/IQuestionSchema";
 
-export default abstract class ContainerModule
+export default abstract class ContainerModule<TItem extends ToolboxModule>
   extends ToolboxModule
   implements IContainerModule
 {
-  protected readonly modules: Array<ToolboxModule> = [];
+  protected readonly modules: Array<TItem> = [];
   public abstract id: number;
 
   constructor(layout: string, owner: HTMLElement, container: IContainerModule) {
@@ -36,7 +36,7 @@ export default abstract class ContainerModule
       acceptableTypes &&
       acceptableTypes?.indexOf(draggedType) > -1 &&
       (allowMulti ||
-        this.container.querySelectorAll(
+        (ev.target as HTMLElement).querySelectorAll(
           "[data-drop-area] [data-module-container]"
         ).length == 0)
     ) {
@@ -52,7 +52,7 @@ export default abstract class ContainerModule
     var factory = this.moduleContainer
       .getComponent()
       .dc.resolve<IModuleFactory>("IModuleFactory");
-    const createdModule = factory.create(schemaId, owner, this);
+    const createdModule = factory.create(schemaId, owner, this) as TItem;
     if (createdModule) {
       this.modules.push(createdModule);
     }
@@ -63,7 +63,7 @@ export default abstract class ContainerModule
   }
 
   public onRemove(module: ToolboxModule) {
-    const index = this.modules.indexOf(module);
+    const index = this.modules.indexOf(module as TItem);
     if (index > -1) {
       this.modules.splice(index, 1);
     }

@@ -14,16 +14,16 @@ export default class ModuleFactory implements IModuleFactory {
     schemaId: string,
     owner: HTMLElement,
     container: IContainerModule,
-    data?: any
+    model?: any
   ): ToolboxModule {
     let module: ToolboxModule = null;
-    switch (schemaId) {
-      case "short-text": {
-        module = new ShortTextModule(owner, container);
+    switch (schemaId.toLowerCase()) {
+      case "shorttext": {
+        module = new ShortTextModule(owner, container, model);
         break;
       }
-      case "long-text": {
-        module = new LongTextModule(owner, container);
+      case "longtext": {
+        module = new LongTextModule(owner, container, model);
         break;
       }
       case "select": {
@@ -39,11 +39,11 @@ export default class ModuleFactory implements IModuleFactory {
         break;
       }
       case "question": {
-        module = new QuestionModule(owner, container, data);
+        module = new QuestionModule(owner, container, model);
         break;
       }
       case "section": {
-        module = new SectionModule(owner, container, data);
+        module = new SectionModule(owner, container, model);
         break;
       }
     }

@@ -4,9 +4,10 @@ import {
   IPartCollection,
   IPartValue,
 } from "./basiscore/schema/IAnswerSchema";
-import { IQuestion } from "./basiscore/schema/IQuestionSchema";
+import { IQuestion, IQuestionPart } from "./basiscore/schema/IQuestionSchema";
 import IUserActionResult from "./basiscore/schema/IUserActionResult";
 import IQuestionModuleDataModel from "./components/modules/question/IQuestionModuleDataModel";
+import { ITextBaseModuleDataModel } from "./components/modules/text-base/ITextBaseModuleDataModel";
 
 export class SchemaUtil {
   public static createShortText(value: string, prpId: number): IAnswerProperty {
@@ -74,9 +75,15 @@ export class SchemaUtil {
     return retVal;
   }
 
-  public static ToQuestionModuleDataModel(
+  public static toQuestionModuleDataModel(
     question: IQuestion
   ): IQuestionModuleDataModel {
+    return null;
+  }
+
+  public static toTextBaseModuleDataModel(
+    questionPart: IQuestionPart
+  ): ITextBaseModuleDataModel {
     return null;
   }
 }

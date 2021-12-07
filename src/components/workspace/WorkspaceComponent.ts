@@ -20,7 +20,7 @@ export default class WorkspaceComponent
 {
   private _sourceId: string;
   private readonly board: HTMLDivElement;
-  private readonly _modules: Array<ToolboxModule> = [];
+  private readonly _modules: Array<ContainerModule<ToolboxModule>> = [];
   private resultSourceIdToken: IToken<string>;
 
   get id(): number {
@@ -54,7 +54,7 @@ export default class WorkspaceComponent
   }
 
   public onRemove(module: ToolboxModule) {
-    const index = this._modules.indexOf(module);
+    const index = this._modules.indexOf(module as any);
     if (index > -1) {
       this._modules.splice(index, 1);
     }
@@ -65,7 +65,11 @@ export default class WorkspaceComponent
     var schemaId = e.dataTransfer.getData("schemaId");
     const owner = e.target as HTMLElement;
     const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
-    const module = factory.create(schemaId, owner, this);
+    const module = factory.create(
+      schemaId,
+      owner,
+      this
+    ) as ContainerModule<ToolboxModule>;
     this._modules.push(module);
   }
 
@@ -111,7 +115,7 @@ export default class WorkspaceComponent
         sections: null,
         questions: null,
       };
-      this._modules.forEach((x) => (x as ContainerModule).fillSchema(retVal));
+      this._modules.forEach((x) => x.fillSchema(retVal));
 
       const resultSourceId = await this.resultSourceIdToken.getValueAsync();
       this.owner.setSource(resultSourceId, retVal);

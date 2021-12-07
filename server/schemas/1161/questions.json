@@ -365,48 +365,56 @@
                             ]
                         },
                         {
-                            "schemaId": "short-text",
+                            "schemaId": "ShortText",
                             "schemaType": "input",
                             "title": "Short Text",
                             "image": "",
                             "questions": [
                                 {
-                                    "prpId": "title",
-                                    "title": "عنوان",
+                                    "prpId": "1",
+                                    "title": "Caption",
                                     "parts": [
                                         {
                                             "part": 1,
-                                            "viewType": "text",
-                                            "cssClass": "css_13050_1",
-                                            "validations": {
-                                                "required": true,
-                                                "minLength": 3,
-                                                "maxLength": 20
-                                            }
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 2,
+                                    "title": "Css Class",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
                                         }
                                     ]
                                 }
                             ]
                         },
                         {
-                            "schemaId": "long-text",
+                            "schemaId": "LongText",
                             "schemaType": "input",
                             "title": "Long Text",
                             "image": "",
                             "questions": [
                                 {
-                                    "prpId": "title",
-                                    "title": "عنوان",
+                                    "prpId": "1",
+                                    "title": "Caption",
                                     "parts": [
                                         {
                                             "part": 1,
-                                            "viewType": "text",
-                                            "cssClass": "css_13050_1",
-                                            "validations": {
-                                                "required": true,
-                                                "minLength": 3,
-                                                "maxLength": 20
-                                            }
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 2,
+                                    "title": "Css Class",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
                                         }
                                     ]
                                 }

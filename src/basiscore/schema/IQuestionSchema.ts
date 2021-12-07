@@ -23,8 +23,8 @@ export interface IQuestion {
 export interface IQuestionPart {
   part: number;
   viewType: string | ViewType;
-  cssClass: string;
-  validations: IValidationOptions;
+  cssClass?: string;
+  validations?: IValidationOptions;
   caption?: string;
   link?: string;
   fixValues?: Array<IFixValue>;
@@ -35,8 +35,8 @@ export interface IQuestionPart {
 export type WebMethod = "POST" | "GET";
 
 export type ViewType =
-  | "Text"
-  | "Textarea"
+  | "ShortText"
+  | "LongText"
   | "Autocomplete"
   | "Select"
   | "Upload"
