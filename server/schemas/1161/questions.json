@@ -391,9 +391,8 @@
                                     ]
                                 },
                                 {
-                                    "prpId": 3,
-                                    "title": "Validations",
-                                    "multi": "true",
+                                    "prpId": 3001,
+                                    "title": "required",
                                     "parts": [
                                         {
                                             "part": 1,
@@ -401,48 +400,107 @@
                                             "fixValues": [
                                                 {
                                                     "id": 1,
-                                                    "value": "required"
+                                                    "value": "No"
                                                 },
                                                 {
                                                     "id": 2,
-                                                    "value": "minLength"
-                                                },
-                                                {
-                                                    "id": 3,
-                                                    "value": "maxLength"
-                                                },
-                                                {
-                                                    "id": 4,
-                                                    "value": "min"
-                                                },
-                                                {
-                                                    "id": 5,
-                                                    "value": "max"
-                                                },
-                                                {
-                                                    "id": 6,
-                                                    "value": "dataType"
-                                                },
-                                                {
-                                                    "id": 7,
-                                                    "value": "regex"
+                                                    "value": "Yes"
                                                 }
-                                            ],
-                                            "validations": {
-                                                "required": true
-                                            },
-                                            "caption": "Type"
-                                        },
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3002,
+                                    "title": "minLength",
+                                    "parts": [
                                         {
-                                            "part": 2,
+                                            "part": 1,
                                             "viewType": "text",
-                                            "validations1": {
-                                                "required": true
-                                            },
-                                            "caption": "Setting"
+                                            "validations": {
+                                                "type": "int"   
+                                            }
+                                            
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3003,
+                                    "title": "maxLength",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "type": "int"   
+                                            }
+                                            
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3004,
+                                    "title": "min",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "type": "int"   
+                                            }
+                                            
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3005,
+                                    "title": "max",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "type": "int"   
+                                            }
+                                            
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3006,
+                                    "title": "dataType",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 1,
+                                                    "value": "int"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "value": "float"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3007,
+                                    "title": "regex",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "type": "int"   
+                                            }
+                                            
                                         }
                                     ]
                                 }
+                                
                             ]
                         },
                         {
