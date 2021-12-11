@@ -13,10 +13,6 @@ import { schemaMaker } from "../../ComponentsLoader";
 export default abstract class PartBaseModule<
   TModelType extends IPartBaseModuleDataModel
 > extends ToolboxModule {
-  private static readonly CAPTION_ID = 1;
-  private static readonly CSS_CLASS_ID = 2;
-  private static readonly VALIDATION_ID = 3;
-
   protected abstract readonly data: TModelType;
   protected readonly questionPartModel: IQuestionPart;
   protected readonly schemaId: ViewType;
@@ -40,61 +36,39 @@ export default abstract class PartBaseModule<
       lastUpdate: "",
       lid: 0,
       usedForId: this.usedForId,
-      properties: [
-        SchemaUtil.createShortText(
-          this.data.caption,
-          PartBaseModule.CAPTION_ID
-        ),
-        SchemaUtil.createShortText(
-          this.questionPartModel?.cssClass,
-          PartBaseModule.CSS_CLASS_ID
-        ),
-      ],
+      properties: [],
     };
-    if (this.data.validations) {
-      ans.properties.push(
-        SchemaUtil.createValidation(
-          this.data.validations,
-          PartBaseModule.VALIDATION_ID
-        )
-      );
-    }
+    SchemaUtil.addCaptionProperty(ans, this.data.caption);
+    SchemaUtil.addCssClassProperty(ans, this.questionPartModel?.cssClass);
+    SchemaUtil.addValidationProperties(ans, this.data.validations);
+
     return ans;
   }
 
   protected update(result: IUserActionResult): void {
-    const caption = SchemaUtil.getPropertyValue(
-      result,
-      PartBaseModule.CAPTION_ID
-    );
+    const caption = SchemaUtil.getCaptionProperty(result);
     if (caption != null) {
       this.data.caption = caption;
     }
 
-    const cssClass = SchemaUtil.getPropertyValue(
-      result,
-      PartBaseModule.CSS_CLASS_ID
-    );
+    const cssClass = SchemaUtil.getCssClassProperty(result);
     if (cssClass != null) {
       this.data.cssClass = cssClass;
     }
+    this.data.validations = SchemaUtil.getValidationsProperties(result);
 
-    console.log(result.properties.find((x) => x.propId == 3));
-
-    console.log(this.questionPartModel);
+    console.log(result);
   }
-
-  //public abstract getPartSchema(part: number): IQuestionPart;
 
   public getPartSchema(part: number): IQuestionPart {
     const retVal: IQuestionPart = {
       part: part,
       viewType: this.data.viewType.toLowerCase(),
-      cssClass: this.data.cssClass ?? null,
-      validations: this.data.validations ?? null,
-      caption: this.data.caption ?? null,
-      dependency: this.data.dependency ?? null,
-      method: this.questionPartModel?.method ?? null,
+      ...(this.data.cssClass && { cssClass: this.data.cssClass }),
+      ...(this.data.validations && { validations: this.data.validations }),
+      ...(this.data.caption && { caption: this.data.caption }),
+      ...(this.data.dependency && { dependency: this.data.dependency }),
+      ...(this.questionPartModel && { method: this.questionPartModel?.method }),
     };
     return retVal;
   }

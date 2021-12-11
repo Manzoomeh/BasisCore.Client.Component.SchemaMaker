@@ -1,4 +1,4 @@
-import {
+import IAnswerSchema, {
   IAnswerPart,
   IAnswerProperty,
   IPartCollection,
@@ -16,96 +16,41 @@ import IQuestionModuleDataModel from "./components/modules/question/IQuestionMod
 import ITextBaseModuleDataModel from "./components/modules/text-base/ITextBaseModuleDataModel";
 
 export default class SchemaUtil {
-  public static createShortText(value: string, prpId: number): IAnswerProperty {
-    const partValue: IPartValue = {
-      id: 0,
-      value: value ?? null,
-    };
-    const partCollection: IPartCollection = {
-      part: 1,
-      values: [partValue],
-    };
-    const answerPart: IAnswerPart = {
-      id: 0,
-      parts: [partCollection],
-    };
-    const retVal: IAnswerProperty = {
-      prpId: prpId,
-      answers: [answerPart],
-    };
-    return retVal;
-  }
+  private static readonly CAPTION_ID = 1;
+  private static readonly CSS_CLASS_ID = 2;
 
-  public static createSelect(value: any, prpId: number): IAnswerProperty {
-    const partValue: IPartValue = {
-      id: 0,
-      value: value,
-    };
-    const partCollection: IPartCollection = {
-      part: 1,
-      values: [partValue],
-    };
-    const answerPart: IAnswerPart = {
-      id: 0,
-      parts: [partCollection],
-    };
-    const retVal: IAnswerProperty = {
-      prpId: prpId,
-      answers: [answerPart],
-    };
-    return retVal;
-  }
+  private static readonly REQUIRED_VALIDATION_ID = 3001;
+  private static readonly MIN_LENGTH_VALIDATION_ID = 3002;
+  private static readonly MAX_LENGTH_VALIDATION_ID = 3003;
+  private static readonly MIN_VALIDATION_ID = 3004;
+  private static readonly MAX_VALIDATION_ID = 3005;
+  private static readonly DATATYPE_VALIDATION_ID = 3006;
+  private static readonly REGEX_VALIDATION_ID = 3007;
 
-  public static createValidation(
-    value: IValidationOptions,
+  public static addSimpleValue(
+    answerSchema: IAnswerSchema,
+    value: any,
     prpId: number
-  ): IAnswerProperty {
-    const retVal: IAnswerProperty = {
-      prpId: prpId,
-      answers: [],
-    };
-    const add = (type: ValidationType, value: any) => {
+  ): void {
+    if (value != null && value != undefined) {
       const partValue: IPartValue = {
         id: 0,
-        value: type ?? null,
+        value: value,
       };
-      const part1Collection: IPartCollection = {
+      const partCollection: IPartCollection = {
         part: 1,
         values: [partValue],
       };
-      const part2Collection: IPartCollection = {
-        part: 2,
-        values: [value],
-      };
       const answerPart: IAnswerPart = {
-        id: type,
-        parts: [part1Collection, part2Collection],
+        id: 0,
+        parts: [partCollection],
       };
-      retVal.answers.push(answerPart);
-    };
-    if (value.required != undefined) {
-      add(ValidationType.required, value.required);
+      const retVal: IAnswerProperty = {
+        prpId: prpId,
+        answers: [answerPart],
+      };
+      answerSchema.properties.push(retVal);
     }
-    if (value.max != undefined) {
-      add(ValidationType.max, value.max);
-    }
-    if (value.min != undefined) {
-      add(ValidationType.min, value.min);
-    }
-    if (value.maxLength != undefined) {
-      add(ValidationType.maxLength, value.maxLength);
-    }
-    if (value.minLength != undefined) {
-      add(ValidationType.minLength, value.minLength);
-    }
-    if (value.dataType != undefined) {
-      add(ValidationType.dataType, value.dataType);
-    }
-    if (value.regex != undefined) {
-      add(ValidationType.regex, value.regex);
-    }
-
-    return retVal;
   }
 
   public static getPropertyValue(
@@ -134,34 +79,129 @@ export default class SchemaUtil {
     return retVal;
   }
 
-  // public static getValidationValue(
-  //   result: IUserActionResult
-  // ): IValidationOptions {
-  //   const prpId = 3;
-  //   const property = result.properties.find((x) => x.propId == prpId);
+  public static addCaptionProperty(
+    answerSchema: IAnswerSchema,
+    caption: string
+  ) {
+    SchemaUtil.addSimpleValue(answerSchema, caption, SchemaUtil.CAPTION_ID);
+  }
 
-  //   const getValue = (type: ValidationType) => {
-  //     let retVal = null;
-  //     // if (property.edited) {
-  //     //   retVal = property.edited[0].parts.find(x=>x.part == 0 && x.values[0].id == ).values[0].value;
-  //     // }
-  //     if (property.added) {
-  //       const tmp = property.added.find(
-  //         (x) => x.parts.find((x) => x.part == 1).values[0].value == type
-  //       );
-  //     }
-  //     if (property.deleted) {
-  //       if (
-  //         part == 0 ||
-  //         (property.deleted[0].parts && property.deleted[0].parts[0])
-  //       ) {
-  //         retVal = "";
-  //       }
-  //     }
-  //   };
+  public static getCaptionProperty(result: IUserActionResult) {
+    return SchemaUtil.getPropertyValue(result, SchemaUtil.CAPTION_ID);
+  }
 
-  //   return null;
-  // }
+  public static addCssClassProperty(
+    answerSchema: IAnswerSchema,
+    cssClass: string
+  ) {
+    SchemaUtil.addSimpleValue(answerSchema, cssClass, SchemaUtil.CSS_CLASS_ID);
+  }
+
+  public static getCssClassProperty(result: IUserActionResult) {
+    return SchemaUtil.getPropertyValue(result, SchemaUtil.CSS_CLASS_ID);
+  }
+
+  public static addValidationProperties(
+    answerSchema: IAnswerSchema,
+    validations: IValidationOptions
+  ) {
+    if (validations) {
+      if (validations.required != null) {
+        SchemaUtil.addSimpleValue(
+          answerSchema,
+          validations.required,
+          SchemaUtil.REQUIRED_VALIDATION_ID
+        );
+      }
+      if (validations.minLength != null) {
+        SchemaUtil.addSimpleValue(
+          answerSchema,
+          validations.minLength,
+          SchemaUtil.MIN_LENGTH_VALIDATION_ID
+        );
+      }
+      if (validations.maxLength != null) {
+        SchemaUtil.addSimpleValue(
+          answerSchema,
+          validations.maxLength,
+          SchemaUtil.MAX_LENGTH_VALIDATION_ID
+        );
+      }
+      if (validations.min != null) {
+        SchemaUtil.addSimpleValue(
+          answerSchema,
+          validations.min,
+          SchemaUtil.MIN_VALIDATION_ID
+        );
+      }
+      if (validations.max != null) {
+        SchemaUtil.addSimpleValue(
+          answerSchema,
+          validations.max,
+          SchemaUtil.MAX_VALIDATION_ID
+        );
+      }
+      if (validations.dataType != null) {
+        SchemaUtil.addSimpleValue(
+          answerSchema,
+          validations.dataType,
+          SchemaUtil.DATATYPE_VALIDATION_ID
+        );
+      }
+      if (validations.regex != null) {
+        SchemaUtil.addSimpleValue(
+          answerSchema,
+          validations.regex,
+          SchemaUtil.REGEX_VALIDATION_ID
+        );
+      }
+    }
+  }
+
+  public static getValidationsProperties(
+    result: IUserActionResult
+  ): IValidationOptions {
+    const required = SchemaUtil.getPropertyValue(
+      result,
+      SchemaUtil.REQUIRED_VALIDATION_ID
+    );
+    const minLength = SchemaUtil.getPropertyValue(
+      result,
+      SchemaUtil.MIN_LENGTH_VALIDATION_ID
+    );
+    const maxLength = SchemaUtil.getPropertyValue(
+      result,
+      SchemaUtil.MAX_LENGTH_VALIDATION_ID
+    );
+    const min = SchemaUtil.getPropertyValue(
+      result,
+      SchemaUtil.MIN_VALIDATION_ID
+    );
+    const max = SchemaUtil.getPropertyValue(
+      result,
+      SchemaUtil.MAX_VALIDATION_ID
+    );
+    const dataType = SchemaUtil.getPropertyValue(
+      result,
+      SchemaUtil.DATATYPE_VALIDATION_ID
+    );
+    const regex = SchemaUtil.getPropertyValue(
+      result,
+      SchemaUtil.REGEX_VALIDATION_ID
+    );
+
+    const retVal: IValidationOptions = {
+      ...(required === "1" && { required: true }),
+      ...(minLength != null && { minLength: parseInt(minLength) }),
+      ...(maxLength != null && { maxLength: parseInt(maxLength) }),
+      ...(min != null && { min: parseInt(min) }),
+      ...(max != null && { max: parseInt(max) }),
+      ...(dataType != null && { dataType: dataType }),
+      ...(regex != null && { regex: regex }),
+    };
+
+    return retVal;
+  }
 
   public static toQuestionModuleDataModel(
     question: IQuestion
@@ -186,14 +226,4 @@ export default class SchemaUtil {
   ): IListBaseModuleDataModel {
     return null;
   }
-}
-
-enum ValidationType {
-  required = 1,
-  minLength = 2,
-  maxLength = 3,
-  min = 4,
-  max = 5,
-  dataType = 6,
-  regex = 7,
 }

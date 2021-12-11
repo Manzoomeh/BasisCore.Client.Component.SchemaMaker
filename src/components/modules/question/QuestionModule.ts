@@ -89,17 +89,17 @@ export default class QuestionModule extends ContainerModule<
       lastUpdate: "",
       lid: 0,
       usedForId: this.usedForId,
-      properties: [
-        SchemaUtil.createShortText(this.title, QuestionModule.TITLE_ID),
-        SchemaUtil.createSelect(this.part, QuestionModule.PART_ID),
-        SchemaUtil.createSelect(this._data.multi, QuestionModule.MULTI_ID),
-        SchemaUtil.createShortText(
-          this._data.cssClass,
-          QuestionModule.CSS_CLASS_ID
-        ),
-        SchemaUtil.createShortText(this._data.help, QuestionModule.HELP_URL_ID),
-      ],
+      properties: [],
     };
+    SchemaUtil.addSimpleValue(ans, this.title, QuestionModule.TITLE_ID);
+    SchemaUtil.addSimpleValue(ans, this.part, QuestionModule.PART_ID);
+    SchemaUtil.addSimpleValue(ans, this._data.multi, QuestionModule.MULTI_ID);
+    SchemaUtil.addSimpleValue(
+      ans,
+      this._data.cssClass,
+      QuestionModule.CSS_CLASS_ID
+    );
+    SchemaUtil.addSimpleValue(ans, this._data.help, QuestionModule.HELP_URL_ID);
     return ans;
   }
 
@@ -140,16 +140,16 @@ export default class QuestionModule extends ContainerModule<
 
   public fillSchema(schema: IQuestionSchema) {
     const question: IQuestion = {
-      prpId: this._schema?.prpId ?? null,
-      typeId: this._schema?.typeId ?? null,
-      ord: this._schema?.ord ?? null,
-      vocab: this._schema?.vocab ?? null,
-      title: this._data.title,
-      wordId: this._schema?.wordId ?? null,
-      multi: this._data.multi,
-      sectionId: this.moduleContainer.id,
-      cssClass: this._data.cssClass,
-      help: this._data.help,
+      ...(this._schema && { prpId: this._schema.prpId }),
+      ...(this._schema && { typeId: this._schema.typeId }),
+      ...(this._schema && { ord: this._schema.ord }),
+      ...(this._schema && { vocab: this._schema.vocab }),
+      ...(this._data.title && { title: this._data.title }),
+      ...(this._schema && { wordId: this._schema.wordId }),
+      ...(this._data.multi && { multi: this._data.multi }),
+      ...(this.moduleContainer.id && { sectionId: this.moduleContainer.id }),
+      ...(this._data.cssClass && { cssClass: this._data.cssClass }),
+      ...(this._data.help && { help: this._data.help }),
       parts: null,
     };
     question.parts = this.modules.map((x, i) => x.getPartSchema(i + 1));

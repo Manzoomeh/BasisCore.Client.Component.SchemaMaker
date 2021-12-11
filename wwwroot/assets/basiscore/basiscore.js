@@ -7126,14 +7126,17 @@ class SelectType extends ListBaseType {
     getAdded() {
         let retVal = null;
         if (!this.answer) {
-            retVal = {
-                part: this.part.part,
-                values: [
-                    {
-                        value: this._select.options[this._select.selectedIndex].value,
-                    },
-                ],
-            };
+            const newValue = this._select.options[this._select.selectedIndex].value;
+            if (newValue !== "0") {
+                retVal = {
+                    part: this.part.part,
+                    values: [
+                        {
+                            value: this._select.options[this._select.selectedIndex].value,
+                        },
+                    ],
+                };
+            }
         }
         return retVal;
     }
@@ -7195,14 +7198,16 @@ class TextBaseType extends EditableQuestionPart {
     getAdded() {
         let retVal = null;
         if (!this.answer) {
-            retVal = {
-                part: this.part.part,
-                values: [
-                    {
-                        value: this.input.value,
-                    },
-                ],
-            };
+            if (this.input.value.length > 0) {
+                retVal = {
+                    part: this.part.part,
+                    values: [
+                        {
+                            value: this.input.value,
+                        },
+                    ],
+                };
+            }
         }
         return retVal;
     }
@@ -9475,7 +9480,9 @@ class UtilWrapper {
         this.parser = new DOMParser();
     }
     getRandomName(prefix, postfix) {
-        return `${prefix !== null && prefix !== void 0 ? prefix : ""}_${(new Date()).getTime()}_${Math.random().toString(36).substring(2)}_${postfix !== null && postfix !== void 0 ? postfix : ""}`;
+        return `${prefix !== null && prefix !== void 0 ? prefix : ""}_${new Date().getTime()}_${Math.random()
+            .toString(36)
+            .substring(2)}_${postfix !== null && postfix !== void 0 ? postfix : ""}`;
     }
     storeAsGlobal(data, name, prefix, postfix) {
         if (!name) {
@@ -9541,18 +9548,23 @@ class UtilWrapper {
                     element.setAttribute(attr.name, attr.value);
                 }
             }
-            xmlElement.childNodes.forEach((child) => {
-                const childElement = child;
-                if (childElement.nodeType === Node.TEXT_NODE) {
-                    const textContent = child.nodeValue.trim();
-                    if (textContent.length > 0) {
-                        element.appendChild(document.createTextNode(textContent));
+            if (element instanceof HTMLTextAreaElement) {
+                element.innerHTML = xmlElement.innerHTML;
+            }
+            else {
+                xmlElement.childNodes.forEach((child) => {
+                    const childElement = child;
+                    if (childElement.nodeType === Node.TEXT_NODE) {
+                        const textContent = child.nodeValue.trim();
+                        if (textContent.length > 0) {
+                            element.appendChild(document.createTextNode(textContent));
+                        }
                     }
-                }
-                else {
-                    element.appendChild(XMLElementToHTMLElementConvertor(childElement));
-                }
-            });
+                    else {
+                        element.appendChild(XMLElementToHTMLElementConvertor(childElement));
+                    }
+                });
+            }
             return element;
         };
         return xmlDocument.documentElement.tagName === "parsererror"
@@ -9594,9 +9606,7 @@ class UtilWrapper {
     }
     format(pattern, ...params) {
         return pattern.replace(/{(\d+)}/g, function (match, number) {
-            return typeof params[number] !== 'undefined'
-                ? params[number]
-                : match;
+            return typeof params[number] !== "undefined" ? params[number] : match;
         });
     }
 }
@@ -13620,7 +13630,7 @@ class BCWrapperFactory {
 
 console.log(`%cWelcome To BasisCore Ecosystem%c
 follow us on https://BasisCore.com/
-version:2.4.9`, " background: yellow;color: #0078C1; font-size: 2rem; font-family: Arial; font-weight: bolder", "color: #0078C1; font-size: 1rem; font-family: Arial;");
+version:2.4.10`, " background: yellow;color: #0078C1; font-size: 2rem; font-family: Arial; font-weight: bolder", "color: #0078C1; font-size: 1rem; font-family: Arial;");
 const src_$bc = new BCWrapperFactory();
 window.LocalDataBase = LocalDataBase;
 __webpack_require__.g.$bc = src_$bc;

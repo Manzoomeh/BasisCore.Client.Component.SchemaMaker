@@ -59,14 +59,15 @@ export default class SectionModule extends ContainerModule<QuestionModule> {
       lastUpdate: "",
       lid: 0,
       usedForId: this.usedForId,
-      properties: [
-        SchemaUtil.createShortText(this.title, SectionModule.TITLE_ID),
-        SchemaUtil.createShortText(
-          this.description,
-          SectionModule.DESCRIPTION_ID
-        ),
-      ],
+      properties: [],
     };
+
+    SchemaUtil.addSimpleValue(ans, this.title, SectionModule.TITLE_ID);
+    SchemaUtil.addSimpleValue(
+      ans,
+      this.description,
+      SectionModule.DESCRIPTION_ID
+    );
     return ans;
   }
 

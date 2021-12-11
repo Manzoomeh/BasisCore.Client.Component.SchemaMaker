@@ -399,11 +399,11 @@
                                             "viewType": "select",
                                             "fixValues": [
                                                 {
-                                                    "id": 1,
+                                                    "id": 0,
                                                     "value": "No"
                                                 },
                                                 {
-                                                    "id": 2,
+                                                    "id": 1,
                                                     "value": "Yes"
                                                 }
                                             ]
@@ -418,9 +418,8 @@
                                             "part": 1,
                                             "viewType": "text",
                                             "validations": {
-                                                "type": "int"   
+                                                "dataType": "int"
                                             }
-                                            
                                         }
                                     ]
                                 },
@@ -432,9 +431,8 @@
                                             "part": 1,
                                             "viewType": "text",
                                             "validations": {
-                                                "type": "int"   
+                                                "dataType": "int"
                                             }
-                                            
                                         }
                                     ]
                                 },
@@ -446,9 +444,8 @@
                                             "part": 1,
                                             "viewType": "text",
                                             "validations": {
-                                                "type": "int"   
+                                                "dataType": "int"
                                             }
-                                            
                                         }
                                     ]
                                 },
@@ -460,9 +457,8 @@
                                             "part": 1,
                                             "viewType": "text",
                                             "validations": {
-                                                "type": "int"   
+                                                "dataType": "int"
                                             }
-                                            
                                         }
                                     ]
                                 },
@@ -475,11 +471,15 @@
                                             "viewType": "select",
                                             "fixValues": [
                                                 {
-                                                    "id": 1,
+                                                    "id": 0,
+                                                    "value": "text"
+                                                },
+                                                {
+                                                    "id": "int",
                                                     "value": "int"
                                                 },
                                                 {
-                                                    "id": 2,
+                                                    "id": "float",
                                                     "value": "float"
                                                 }
                                             ]
@@ -492,15 +492,10 @@
                                     "parts": [
                                         {
                                             "part": 1,
-                                            "viewType": "text",
-                                            "validations": {
-                                                "type": "int"   
-                                            }
-                                            
+                                            "viewType": "text"
                                         }
                                     ]
                                 }
-                                
                             ]
                         },
                         {
