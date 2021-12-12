@@ -579,6 +579,39 @@
                                             "viewType": "text"
                                         }
                                     ]
+                                },
+                                {
+                                    "prpId": 4,
+                                    "title": "Items",
+                                    "multi": "true",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "Text",
+                                            "caption": "Value",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        },
+                                        {
+                                            "part": 2,
+                                            "viewType": "text",
+                                            "caption": "Title"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 5,
+                                    "title": "Url",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "regex": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
+                                            }
+                                        }
+                                    ]
                                 }
                             ]
                         },

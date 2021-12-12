@@ -5,6 +5,7 @@ import IAnswerSchema, {
   IPartValue,
 } from "./basiscore/schema/IAnswerSchema";
 import {
+  IFixValue,
   IQuestion,
   IQuestionPart,
   IValidationOptions,
@@ -27,7 +28,7 @@ export default class SchemaUtil {
   private static readonly DATATYPE_VALIDATION_ID = 3006;
   private static readonly REGEX_VALIDATION_ID = 3007;
 
-  public static addSimpleValue(
+  public static addSimpleValueProperty(
     answerSchema: IAnswerSchema,
     value: any,
     prpId: number
@@ -48,6 +49,45 @@ export default class SchemaUtil {
       const retVal: IAnswerProperty = {
         prpId: prpId,
         answers: [answerPart],
+      };
+      answerSchema.properties.push(retVal);
+    }
+  }
+  public static addFixValueProperty(
+    answerSchema: IAnswerSchema,
+    values: IFixValue[],
+    prpId: number
+  ): void {
+    if (values != null && values != undefined && values.length > 0) {
+      const answers: Array<IAnswerPart> = new Array<IAnswerPart>();
+      values.forEach((value) => {
+        const idPartValue: IPartValue = {
+          id: 0,
+          value: value.id,
+        };
+        const idPartCollection: IPartCollection = {
+          part: 1,
+          values: [idPartValue],
+        };
+
+        const valuePartValue: IPartValue = {
+          id: 0,
+          value: value.value,
+        };
+        const valuePartCollection: IPartCollection = {
+          part: 2,
+          values: [valuePartValue],
+        };
+
+        const answerPart: IAnswerPart = {
+          id: value.id,
+          parts: [idPartCollection, valuePartCollection],
+        };
+        answers.push(answerPart);
+      });
+      const retVal: IAnswerProperty = {
+        prpId: prpId,
+        answers: answers,
       };
       answerSchema.properties.push(retVal);
     }
@@ -83,7 +123,11 @@ export default class SchemaUtil {
     answerSchema: IAnswerSchema,
     caption: string
   ) {
-    SchemaUtil.addSimpleValue(answerSchema, caption, SchemaUtil.CAPTION_ID);
+    SchemaUtil.addSimpleValueProperty(
+      answerSchema,
+      caption,
+      SchemaUtil.CAPTION_ID
+    );
   }
 
   public static getCaptionProperty(result: IUserActionResult) {
@@ -94,7 +138,11 @@ export default class SchemaUtil {
     answerSchema: IAnswerSchema,
     cssClass: string
   ) {
-    SchemaUtil.addSimpleValue(answerSchema, cssClass, SchemaUtil.CSS_CLASS_ID);
+    SchemaUtil.addSimpleValueProperty(
+      answerSchema,
+      cssClass,
+      SchemaUtil.CSS_CLASS_ID
+    );
   }
 
   public static getCssClassProperty(result: IUserActionResult) {
@@ -107,49 +155,49 @@ export default class SchemaUtil {
   ) {
     if (validations) {
       if (validations.required != null) {
-        SchemaUtil.addSimpleValue(
+        SchemaUtil.addSimpleValueProperty(
           answerSchema,
           validations.required,
           SchemaUtil.REQUIRED_VALIDATION_ID
         );
       }
       if (validations.minLength != null) {
-        SchemaUtil.addSimpleValue(
+        SchemaUtil.addSimpleValueProperty(
           answerSchema,
           validations.minLength,
           SchemaUtil.MIN_LENGTH_VALIDATION_ID
         );
       }
       if (validations.maxLength != null) {
-        SchemaUtil.addSimpleValue(
+        SchemaUtil.addSimpleValueProperty(
           answerSchema,
           validations.maxLength,
           SchemaUtil.MAX_LENGTH_VALIDATION_ID
         );
       }
       if (validations.min != null) {
-        SchemaUtil.addSimpleValue(
+        SchemaUtil.addSimpleValueProperty(
           answerSchema,
           validations.min,
           SchemaUtil.MIN_VALIDATION_ID
         );
       }
       if (validations.max != null) {
-        SchemaUtil.addSimpleValue(
+        SchemaUtil.addSimpleValueProperty(
           answerSchema,
           validations.max,
           SchemaUtil.MAX_VALIDATION_ID
         );
       }
       if (validations.dataType != null) {
-        SchemaUtil.addSimpleValue(
+        SchemaUtil.addSimpleValueProperty(
           answerSchema,
           validations.dataType,
           SchemaUtil.DATATYPE_VALIDATION_ID
         );
       }
       if (validations.regex != null) {
-        SchemaUtil.addSimpleValue(
+        SchemaUtil.addSimpleValueProperty(
           answerSchema,
           validations.regex,
           SchemaUtil.REGEX_VALIDATION_ID
@@ -200,6 +248,47 @@ export default class SchemaUtil {
       ...(regex != null && { regex: regex }),
     };
 
+    return retVal;
+  }
+
+  public static getFixValueProperty(
+    result: IUserActionResult,
+    values: IFixValue[],
+    propId: number
+  ): IFixValue[] {
+    const retVal = values ? [...values] : [];
+    const property = result.properties.find((x) => x.propId == propId);
+    if (property) {
+      if (property.deleted) {
+        property.deleted.forEach((deletedItem) => {
+          if (deletedItem.id) {
+            const deleted = retVal.find((x) => x.id == deletedItem.id);
+            retVal.splice(retVal.indexOf(deleted), 1);
+          }
+        });
+      }
+      if (property.edited) {
+        property.edited.forEach((editedItem) => {
+          const edited = retVal.find((x) => x.id == editedItem.id);
+          editedItem.parts.forEach((editedPart) => {
+            if (editedPart.part == 1) {
+              edited.id = editedPart.values[0].value;
+            } else if (editedPart.part == 2) {
+              edited.value = editedPart.values[0].value;
+            }
+          });
+        });
+      }
+      if (property.added) {
+        property.added.forEach((addedItem) => {
+          const added: IFixValue = {
+            id: parseInt(addedItem.parts[0].values[0].value),
+            value: addedItem.parts[1].values[0].value,
+          };
+          retVal.push(added);
+        });
+      }
+    }
     return retVal;
   }
 

@@ -91,15 +91,23 @@ export default class QuestionModule extends ContainerModule<
       usedForId: this.usedForId,
       properties: [],
     };
-    SchemaUtil.addSimpleValue(ans, this.title, QuestionModule.TITLE_ID);
-    SchemaUtil.addSimpleValue(ans, this.part, QuestionModule.PART_ID);
-    SchemaUtil.addSimpleValue(ans, this._data.multi, QuestionModule.MULTI_ID);
-    SchemaUtil.addSimpleValue(
+    SchemaUtil.addSimpleValueProperty(ans, this.title, QuestionModule.TITLE_ID);
+    SchemaUtil.addSimpleValueProperty(ans, this.part, QuestionModule.PART_ID);
+    SchemaUtil.addSimpleValueProperty(
+      ans,
+      this._data.multi,
+      QuestionModule.MULTI_ID
+    );
+    SchemaUtil.addSimpleValueProperty(
       ans,
       this._data.cssClass,
       QuestionModule.CSS_CLASS_ID
     );
-    SchemaUtil.addSimpleValue(ans, this._data.help, QuestionModule.HELP_URL_ID);
+    SchemaUtil.addSimpleValueProperty(
+      ans,
+      this._data.help,
+      QuestionModule.HELP_URL_ID
+    );
     return ans;
   }
 

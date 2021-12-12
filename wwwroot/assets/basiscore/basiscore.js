@@ -6656,7 +6656,7 @@ class QuestionPart {
                 }
                 if (this.part.validations.regex && !isArray) {
                     try {
-                        if (new RegExp(this.part.validations.regex).test(userValue.toString())) {
+                        if (!new RegExp(this.part.validations.regex).test(userValue.toString())) {
                             errors.push({
                                 type: "regex",
                                 params: [this.part.validations.regex, userValue],

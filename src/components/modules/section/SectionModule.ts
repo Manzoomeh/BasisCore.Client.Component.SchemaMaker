@@ -62,8 +62,8 @@ export default class SectionModule extends ContainerModule<QuestionModule> {
       properties: [],
     };
 
-    SchemaUtil.addSimpleValue(ans, this.title, SectionModule.TITLE_ID);
-    SchemaUtil.addSimpleValue(
+    SchemaUtil.addSimpleValueProperty(ans, this.title, SectionModule.TITLE_ID);
+    SchemaUtil.addSimpleValueProperty(
       ans,
       this.description,
       SectionModule.DESCRIPTION_ID
