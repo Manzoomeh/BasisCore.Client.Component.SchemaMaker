@@ -10,6 +10,7 @@ import {
 import SchemaUtil from "../../../SchemaUtil";
 import IAnswerSchema from "../../../basiscore/schema/IAnswerSchema";
 import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
+
 export default class AutocompleteModule extends PartBaseModule<IAutocompleteDataModel> {
   private static readonly SCHEMA_ID: ViewType = "Autocomplete";
   private static readonly URL_ID = 5;
@@ -45,5 +46,13 @@ export default class AutocompleteModule extends PartBaseModule<IAutocompleteData
       userAction,
       AutocompleteModule.URL_ID
     );
+  }
+
+  public getPartSchema(part: number): IQuestionPart {
+    const retVal = super.getPartSchema(part);
+    if (this.data.link) {
+      retVal.link = this.data.link;
+    }
+    return retVal;
   }
 }

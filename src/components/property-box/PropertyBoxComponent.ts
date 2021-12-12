@@ -45,7 +45,6 @@ export default class PropertyBoxComponent extends ComponentBase {
         }
         case DefaultSource.DISPLAY_PROPERTY: {
           const answer = source.rows[0] as IAnswerSchema;
-          console.log(answer);
           this.owner.setSource(
             "SchemaMakerComponent_PropertyBoxComponent.question",
             answer

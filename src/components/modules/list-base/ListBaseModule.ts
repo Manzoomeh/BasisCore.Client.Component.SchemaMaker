@@ -58,4 +58,15 @@ export default abstract class ListBaseModule extends PartBaseModule<IListBaseMod
       ListBaseModule.URL_ID
     );
   }
+
+  public getPartSchema(part: number): IQuestionPart {
+    const retVal = super.getPartSchema(part);
+    if (this.data.fixValues) {
+      retVal.fixValues = this.data.fixValues;
+    }
+    if (this.data.link) {
+      retVal.link = this.data.link;
+    }
+    return retVal;
+  }
 }

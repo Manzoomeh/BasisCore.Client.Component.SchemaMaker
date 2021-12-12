@@ -8,7 +8,6 @@ import IAnswerSchema from "../../basiscore/schema/IAnswerSchema";
 import IUserActionResult from "../../basiscore/schema/IUserActionResult";
 import SchemaUtil from "../../SchemaUtil";
 import IPartBaseModuleDataModel from "./IPartBaseModuleDataModel";
-import { schemaMaker } from "../../ComponentsLoader";
 
 export default abstract class PartBaseModule<
   TModelType extends IPartBaseModuleDataModel
@@ -56,8 +55,6 @@ export default abstract class PartBaseModule<
       this.data.cssClass = cssClass;
     }
     this.data.validations = SchemaUtil.getValidationsProperties(result);
-
-    console.log(result);
   }
 
   public getPartSchema(part: number): IQuestionPart {

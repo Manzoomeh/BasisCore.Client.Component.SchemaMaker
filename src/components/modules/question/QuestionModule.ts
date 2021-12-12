@@ -142,8 +142,6 @@ export default class QuestionModule extends ContainerModule<
     if (helpUrl != null) {
       this._data.help = helpUrl;
     }
-
-    console.log(this._data);
   }
 
   public fillSchema(schema: IQuestionSchema) {
@@ -165,6 +163,5 @@ export default class QuestionModule extends ContainerModule<
       schema.questions = new Array<IQuestion>();
     }
     schema.questions.push(question);
-    //this.modules.forEach((x) => (x ).fillSchema(schema));
   }
 }

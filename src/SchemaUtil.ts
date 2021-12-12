@@ -248,7 +248,7 @@ export default class SchemaUtil {
       ...(regex != null && { regex: regex }),
     };
 
-    return retVal;
+    return Object.getOwnPropertyNames(retVal).length > 0 ? retVal : null;
   }
 
   public static getFixValueProperty(
