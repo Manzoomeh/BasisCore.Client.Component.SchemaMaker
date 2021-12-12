@@ -46,7 +46,7 @@ export default abstract class ListBaseModule extends PartBaseModule<IListBaseMod
   }
 
   protected update(userAction: IUserActionResult): void {
-    console.log(userAction);
+    super.update(userAction);
     this.data.fixValues = SchemaUtil.getFixValueProperty(
       userAction,
       this.data.fixValues,
@@ -57,6 +57,5 @@ export default abstract class ListBaseModule extends PartBaseModule<IListBaseMod
       userAction,
       ListBaseModule.URL_ID
     );
-    console.log(this.data);
   }
 }
