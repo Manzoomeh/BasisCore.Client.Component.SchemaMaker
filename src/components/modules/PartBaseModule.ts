@@ -23,7 +23,7 @@ export default abstract class PartBaseModule<
     schemaId: ViewType,
     questionPart?: IQuestionPart
   ) {
-    super(layout, owner, false, component);
+    super(layout, owner, true, component);
     this.schemaId = schemaId;
     this.questionPartModel = questionPart;
   }

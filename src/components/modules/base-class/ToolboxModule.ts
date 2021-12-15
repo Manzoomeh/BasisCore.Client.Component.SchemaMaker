@@ -32,7 +32,12 @@ export default abstract class ToolboxModule {
     }
     const range = new Range();
     this.container = document.createElement("div");
-    this.container.appendChild(range.createContextualFragment(layout));
+    const ui = range.createContextualFragment(layout);
+    ui.querySelector("[data-bc-handler]").setAttribute(
+      `data-bc-${replace ? "part" : "container"}-handler`,
+      ""
+    );
+    this.container.appendChild(ui);
 
     const moduleContainer = this.container.querySelector(
       "[data-module-container]"

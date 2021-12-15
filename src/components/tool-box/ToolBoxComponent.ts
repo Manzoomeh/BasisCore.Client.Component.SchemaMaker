@@ -5,33 +5,12 @@ import ISchemaMakerSchema from "../ISchemaMakerSchema";
 import layout from "./assets/layout.html";
 import itemLayout from "./assets/item-layout.html";
 import "./assets/style.css";
-import ISchemaMakerComponent from "../schema-maker/ISchemaMakerComponent";
 
 export default class ToolBoxComponent extends ComponentBase {
   private _sourceId: string;
 
   constructor(owner: IUserDefineComponent) {
     super(owner, layout, "data-bc-sm-toolbox-container");
-  }
-
-  // private p() {
-  //   this.container
-  //     .querySelectorAll<HTMLElement>("[data-bc-toolbox-item]")
-  //     .forEach((item) => {
-  //       item.addEventListener("dragstart", this.onDrag.bind(this));
-  //     });
-  // }
-
-  private onDrag(e: DragEvent) {
-    const element = e.target as HTMLElement;
-    e.dataTransfer.setData(
-      "schemaId",
-      element.getAttribute("data-schema-Id").toLowerCase()
-    );
-    e.dataTransfer.setData(
-      "schemaType",
-      element.getAttribute("data-schema-type").toLowerCase()
-    );
   }
 
   public async initializeAsync(): Promise<void> {
@@ -47,20 +26,21 @@ export default class ToolBoxComponent extends ComponentBase {
   }
 
   private crateUI(source: ISchemaMakerSchema) {
-    const ul = this.container.querySelector("[data-bc-toolbox-list]");
+    const container = this.container.querySelector(
+      "[data-bc-toolbox-container-list]"
+    );
+    const part = this.container.querySelector("[data-bc-toolbox-part-list]");
     source.schemas.forEach((schema) => {
       const copyLayout = itemLayout
         .replace("@schemaId", schema.schemaId)
         .replace("@schemaType", schema.schemaType)
         .replace("@title", schema.title);
       const item = this.owner.toNode(copyLayout);
-
-      ul.appendChild(item);
-    });
-    ul.querySelectorAll<HTMLElement>("[data-bc-toolbox-item]").forEach(
-      (item) => {
-        item.addEventListener("dragstart", this.onDrag.bind(this));
+      if (schema.schemaType == "part") {
+        part.appendChild(item);
+      } else {
+        container.appendChild(item);
       }
-    );
+    });
   }
 }

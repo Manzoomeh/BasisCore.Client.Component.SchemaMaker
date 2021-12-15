@@ -366,7 +366,7 @@
                         },
                         {
                             "schemaId": "text",
-                            "schemaType": "input",
+                            "schemaType": "part",
                             "title": "Short Text",
                             "image": "",
                             "questions": [
@@ -500,7 +500,7 @@
                         },
                         {
                             "schemaId": "Textarea",
-                            "schemaType": "input",
+                            "schemaType": "part",
                             "title": "Long Text",
                             "image": "",
                             "questions": [
@@ -528,7 +528,7 @@
                         },
                         {
                             "schemaId": "AutoComplete",
-                            "schemaType": "input",
+                            "schemaType": "part",
                             "title": "Autocomplete",
                             "image": "",
                             "questions": [
@@ -570,7 +570,7 @@
                         },
                         {
                             "schemaId": "Select",
-                            "schemaType": "input",
+                            "schemaType": "part",
                             "title": "Select",
                             "image": "",
                             "questions": [
@@ -631,7 +631,7 @@
                         },
                         {
                             "schemaId": "Checklist",
-                            "schemaType": "input",
+                            "schemaType": "part",
                             "title": "Checklist",
                             "image": "",
                             "questions": [

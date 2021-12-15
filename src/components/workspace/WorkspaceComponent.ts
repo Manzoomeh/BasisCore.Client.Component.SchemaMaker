@@ -13,6 +13,8 @@ import IQuestionSchema from "../../basiscore/schema/IQuestionSchema";
 import ISchemaMakerSchema from "../ISchemaMakerSchema";
 import IToken from "../../basiscore/IToken";
 import ContainerModule from "../modules/ContainerModule";
+import * as Dragula from "dragula";
+import "../../../node_modules/dragula/dist/dragula.min.css";
 
 export default class WorkspaceComponent
   extends ComponentBase
@@ -30,23 +32,98 @@ export default class WorkspaceComponent
   constructor(owner: IUserDefineComponent) {
     super(owner, layout, "data-bc-sm-toolbox-container");
     this.board = this.container.querySelector("[data-bc-sm-board]");
-    this.board.addEventListener("dragover", this.onDragOver.bind(this));
-    this.board.addEventListener("drop", this.onDrop.bind(this));
+    this.init();
   }
 
-  private onDragOver(e: DragEvent) {
-    const draggedType = e.dataTransfer.getData("schemaType");
-    const acceptableTypes = (e.target as HTMLElement)?.getAttribute(
-      "data-drop-acceptable-schema-type"
-    );
-    e.stopPropagation();
-    if (
-      draggedType &&
-      acceptableTypes &&
-      acceptableTypes?.indexOf(draggedType) > -1
-    ) {
-      e.preventDefault();
-    }
+  private init() {
+    //Doc: https://github.com/bevacqua/dragula
+    //Demo: https://bevacqua.github.io/dragula/
+    Dragula({
+      isContainer: function (el) {
+        return (
+          el.hasAttribute("data-bc-toolbox-container-list") ||
+          el.hasAttribute("data-drop-acceptable-container-schema-type")
+        );
+      },
+      moves: function (el, container, handle) {
+        return (
+          handle.hasAttribute("data-bc-toolbox-item") ||
+          handle.hasAttribute("data-bc-container-handler")
+        );
+      },
+      copy: function (el, source) {
+        return source.hasAttribute("data-bc-toolbox-container-list");
+      },
+      accepts: function (el, target) {
+        const elementSchemaType = el.getAttribute("data-schema-type");
+        const acceptableSchemaType = target.getAttribute(
+          "data-drop-acceptable-container-schema-type"
+        );
+        const validSchemaType =
+          acceptableSchemaType &&
+          acceptableSchemaType.indexOf(elementSchemaType) > -1;
+
+        return validSchemaType;
+      },
+      removeOnSpill: true,
+      ignoreInputTextSelection: true,
+    }).on("drop", (el, target, source, sibling) => {
+      if (source.hasAttribute("data-bc-toolbox-container-list")) {
+        var schemaId = el.getAttribute("data-schema-Id");
+        el.removeAttribute("data-bc-toolbox-item");
+        el.innerHTML = "";
+        const owner = el as HTMLElement;
+        const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
+        const module = factory.create(
+          schemaId,
+          owner,
+          this
+        ) as ContainerModule<ToolboxModule>;
+        this._modules.push(module);
+      }
+    });
+
+    Dragula({
+      isContainer: function (el) {
+        return (
+          el.hasAttribute("data-bc-toolbox-part-list") ||
+          el.hasAttribute("data-drop-acceptable-part-schema-type")
+        );
+      },
+      moves: function (el, container, handle) {
+        return (
+          handle.hasAttribute("data-bc-toolbox-item") ||
+          handle.hasAttribute("data-bc-part-handler")
+        );
+      },
+      copy: function (el, source) {
+        return source.hasAttribute("data-bc-toolbox-part-list");
+      },
+      accepts: function (el, target) {
+        console.log(target.querySelector("[data-schema-type='part']"));
+        const len = target.querySelectorAll("[data-bc-part-module]").length;
+        return (
+          len == 0 || (len == 1 && !el.hasAttribute("data-bc-toolbox-item"))
+        );
+      },
+      removeOnSpill: true,
+      ignoreInputTextSelection: true,
+    }).on("drop", (el, target, source, sibling) => {
+      if (source.hasAttribute("data-bc-toolbox-part-list")) {
+        var schemaId = el.getAttribute("data-schema-Id");
+        el.setAttribute("data-bc-part-module", "");
+        el.removeAttribute("data-bc-toolbox-item");
+        el.innerHTML = "";
+        const owner = el as HTMLElement;
+        const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
+        const module = factory.create(
+          schemaId,
+          owner,
+          this
+        ) as ContainerModule<ToolboxModule>;
+        this._modules.push(module);
+      }
+    });
   }
 
   public getComponent(): IUserDefineComponent {
@@ -58,19 +135,6 @@ export default class WorkspaceComponent
     if (index > -1) {
       this._modules.splice(index, 1);
     }
-  }
-
-  private onDrop(e: DragEvent) {
-    e.preventDefault();
-    var schemaId = e.dataTransfer.getData("schemaId");
-    const owner = e.target as HTMLElement;
-    const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
-    const module = factory.create(
-      schemaId,
-      owner,
-      this
-    ) as ContainerModule<ToolboxModule>;
-    this._modules.push(module);
   }
 
   public async initializeAsync(): Promise<void> {

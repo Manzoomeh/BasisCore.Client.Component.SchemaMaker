@@ -19,8 +19,10 @@
   },
   "homepage": "https://github.com/Manzoomeh/BasisCore.Client.Component.SchemaMaker#readme",
   "devDependencies": {
+    "@types/dragula": "^3.7.1",
     "circular-dependency-plugin": "^5.2.2",
     "css-loader": "^6.5.1",
+    "dragula": "^3.7.3",
     "ignore-loader": "^0.1.2",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.2.6",
