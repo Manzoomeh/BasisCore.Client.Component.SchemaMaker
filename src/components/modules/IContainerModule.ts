@@ -3,6 +3,7 @@ import ToolboxModule from "./base-class/ToolboxModule";
 
 export default interface IContainerModule {
   getComponent(): IUserDefineComponent;
-  onRemove(module: ToolboxModule);
+  onRemove(moduleId: number);
+  getModule(moduleId: number): ToolboxModule;
   id: number;
 }

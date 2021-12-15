@@ -9,6 +9,7 @@ import IListBaseModuleDataModel from "./IListBaseModuleDataModel";
 import SchemaUtil from "../../../SchemaUtil";
 import IAnswerSchema from "../../../basiscore/schema/IAnswerSchema";
 import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
+
 export default abstract class ListBaseModule extends PartBaseModule<IListBaseModuleDataModel> {
   private static readonly FIX_VALUES_ID = 4;
   private static readonly URL_ID = 5;
@@ -45,7 +46,7 @@ export default abstract class ListBaseModule extends PartBaseModule<IListBaseMod
     return ans;
   }
 
-  protected update(userAction: IUserActionResult): void {
+  public update(userAction: IUserActionResult): void {
     super.update(userAction);
     this.data.fixValues = SchemaUtil.getFixValueProperty(
       userAction,

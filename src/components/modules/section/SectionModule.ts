@@ -8,9 +8,9 @@ import layout from "./assets/layout.html";
 import "./assets/style.css";
 import SchemaUtil from "../../../SchemaUtil";
 import ContainerModule from "../ContainerModule";
-import QuestionModule from "../question/QuestionModule";
+import ToolboxModule from "../base-class/ToolboxModule";
 
-export default class SectionModule extends ContainerModule<QuestionModule> {
+export default class SectionModule extends ContainerModule {
   private _data: Partial<ISection>;
   private static readonly TITLE_ID = 1;
   private static readonly DESCRIPTION_ID = 2;
@@ -71,7 +71,7 @@ export default class SectionModule extends ContainerModule<QuestionModule> {
     return ans;
   }
 
-  protected update(result: IUserActionResult): void {
+  public update(result: IUserActionResult): void {
     const title = SchemaUtil.getPropertyValue(result, SectionModule.TITLE_ID);
     if (title != null) {
       this.title = title;
@@ -85,6 +85,24 @@ export default class SectionModule extends ContainerModule<QuestionModule> {
     }
   }
 
+  protected getChildModules<TType extends ToolboxModule>(): TType[] {
+    return Array.from(
+      this.container.querySelector(
+        "[data-drop-acceptable-container-schema-type]"
+      )?.childNodes
+    ).map((x) => {
+      let retVal: TType = null;
+      if (x instanceof Element) {
+        const id = x.getAttribute("data-bc-module-id");
+        if (id) {
+          const moduleId = parseInt(id);
+          retVal = this.moduleContainer.getModule(moduleId) as TType;
+        }
+      }
+      return retVal;
+    });
+  }
+
   public fillSchema(schema: IQuestionSchema) {
     const section: ISection = {
       id: this._data.id,
@@ -95,6 +113,8 @@ export default class SectionModule extends ContainerModule<QuestionModule> {
       schema.sections = [];
     }
     schema.sections.push(section);
-    this.modules.forEach((x) => x.fillSchema(schema));
+    this.getChildModules<ContainerModule>().forEach((x) =>
+      x.fillSchema(schema)
+    );
   }
 }

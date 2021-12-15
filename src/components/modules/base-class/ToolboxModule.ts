@@ -6,6 +6,7 @@ import DefaultSource from "../../SourceId";
 import ISchemaMakerComponent from "../../schema-maker/ISchemaMakerComponent";
 import IContainerModule from "../IContainerModule";
 import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
+
 export default abstract class ToolboxModule {
   private static _id: number = 1000;
   public readonly usedForId: number;
@@ -46,19 +47,18 @@ export default abstract class ToolboxModule {
     if (template?.length > 0) {
       range.setStart(moduleContainer, 0);
       range.setEnd(moduleContainer, 0);
-
       range.insertNode(range.createContextualFragment(template));
     }
+
     this.container
       .querySelector("[data-btn-remove]")
       .addEventListener("click", (e) => {
         e.preventDefault();
+        this.getChildModules<ToolboxModule>().forEach((x) =>
+          this.moduleContainer.onRemove(x.usedForId)
+        );
+        this.moduleContainer.onRemove(this.usedForId);
         this.container.remove();
-        this.moduleContainer.onRemove(this);
-        if (replace) {
-          const defaultValue = owner.getAttribute("data-default");
-          owner.innerHTML = defaultValue ?? "";
-        }
       });
 
     this.container
@@ -73,14 +73,9 @@ export default abstract class ToolboxModule {
 
   protected abstract getAnswerSchema(): IAnswerSchema;
 
-  protected abstract update(userAction: IUserActionResult): void;
+  public abstract update(userAction: IUserActionResult): void;
 
-  public tryApplyUpdate(userAction: IUserActionResult): boolean {
-    let retVal = false;
-    if (userAction.usedForId == this.usedForId) {
-      this.update(userAction);
-      retVal = true;
-    }
-    return retVal;
+  protected getChildModules<TType extends ToolboxModule>(): TType[] {
+    return null;
   }
 }

@@ -13,9 +13,7 @@ import IQuestionModuleDataModel from "./IQuestionModuleDataModel";
 import PartBaseModule from "../PartBaseModule";
 import IPartBaseModuleDataModel from "../IPartBaseModuleDataModel";
 
-export default class QuestionModule extends ContainerModule<
-  PartBaseModule<IPartBaseModuleDataModel>
-> {
+export default class QuestionModule extends ContainerModule {
   private static readonly TITLE_ID = 1;
   private static readonly PART_ID = 2;
   private static readonly MULTI_ID = 3;
@@ -111,7 +109,7 @@ export default class QuestionModule extends ContainerModule<
     return ans;
   }
 
-  protected update(result: IUserActionResult): void {
+  public update(result: IUserActionResult): void {
     const title = SchemaUtil.getPropertyValue(result, QuestionModule.TITLE_ID);
     if (title != null) {
       this.title = title;
@@ -158,7 +156,11 @@ export default class QuestionModule extends ContainerModule<
       ...(this._data.help && { help: this._data.help }),
       parts: null,
     };
-    question.parts = this.modules.map((x, i) => x.getPartSchema(i + 1));
+
+    question.parts = this.getChildModules<
+      PartBaseModule<IPartBaseModuleDataModel>
+    >().map((x, i) => x.getPartSchema(i + 1));
+
     if (!schema.questions) {
       schema.questions = new Array<IQuestion>();
     }

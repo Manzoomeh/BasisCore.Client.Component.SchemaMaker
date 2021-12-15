@@ -40,7 +40,7 @@ export default class AutocompleteModule extends PartBaseModule<IAutocompleteData
     return ans;
   }
 
-  protected update(userAction: IUserActionResult): void {
+  public update(userAction: IUserActionResult): void {
     super.update(userAction);
     this.data.link = SchemaUtil.getPropertyValue(
       userAction,

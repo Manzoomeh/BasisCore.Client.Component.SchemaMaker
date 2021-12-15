@@ -44,7 +44,7 @@ export default abstract class PartBaseModule<
     return ans;
   }
 
-  protected update(result: IUserActionResult): void {
+  public update(result: IUserActionResult): void {
     const caption = SchemaUtil.getCaptionProperty(result);
     if (caption != null) {
       this.data.caption = caption;
