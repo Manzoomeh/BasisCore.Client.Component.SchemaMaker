@@ -15,16 +15,36 @@
       run="atclient"
     >
     </Basis>
-    <Basis
-      core="component.schemaMaker.schemaMaker"
-      run="atclient"
-      dataMemberName="schema.data"
-      button="[data-get-schema-btn]"
-      resultSourceId="schema.result"
-    >
-    </Basis>
-    <basis core="callback" run="atClient" triggers="schema.result"></basis>
-    <button data-get-schema-btn>Get Schema</button>
+    <fieldset>
+      <legend>Schema Editor</legend>
+      <Basis
+        core="component.schemaMaker.schemaMaker"
+        run="atclient"
+        dataMemberName="schema.data"
+        button="[data-get-schema-btn]"
+        resultSourceId="schema.result"
+      >
+      </Basis>
+      <basis core="callback" run="atClient" triggers="schema.result"></basis>
+      <button data-get-schema-btn>Get Schema</button>
+    </fieldset>
+    <fieldset>
+      <legend>Preview Result</legend>
+      <button data-btn-add>Add</button>
+      <Basis
+        core="schema"
+        run="atclient"
+        schemaCallback="getSchemaAsync"
+        id="1161"
+        version="1.1"
+        triggers="schema.result"
+        button="[data-btn-add]"
+        resultSourceId="preview.data"
+      >
+      </Basis>
+      <button data-btn-add>Add</button>
+    </fieldset>
+
     <script>
       const host = {
         repositories: {
@@ -34,6 +54,11 @@
           "inline.object": [{ id: 1161 }],
         },
       };
+
+      async function getSchemaAsync(context, id, ver, lid) {
+        const source = context.tryToGetSource("schema.result");
+        return source?.rows[0];
+      }
     </script>
     <script src="/assets/basiscore/basiscore.js"></script>
   </body>

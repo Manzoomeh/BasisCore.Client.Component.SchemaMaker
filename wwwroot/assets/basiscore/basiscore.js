@@ -6396,6 +6396,7 @@ let SchemaComponent = class SchemaComponent extends _SourceBaseComponent__WEBPAC
             this.resultSourceIdToken = this.getAttributeToken("resultSourceId");
             this.callbackToken = this.getAttributeToken("callback");
             this.schemaCallbackToken = this.getAttributeToken("schemaCallback");
+            this.lidToken = this.getAttributeToken("lid");
             document
                 .querySelectorAll(this.buttonSelector)
                 .forEach((btn) => btn.addEventListener("click", this.onClick.bind(this)));
@@ -6416,18 +6417,20 @@ let SchemaComponent = class SchemaComponent extends _SourceBaseComponent__WEBPAC
                 _super.runAsync.call(this, source);
             }
             else {
-                yield this.loadInEditModeAsync(null, schemaId);
+                yield this.initUIAsync(null, schemaId);
             }
         });
     }
     renderSourceAsync(dataSource) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.loadInEditModeAsync(dataSource.rows[0]);
+            yield this.initUIAsync(dataSource.rows[0]);
         });
     }
-    loadInEditModeAsync(answer, schemaId) {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
+    initUIAsync(answer, schemaId) {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         return __awaiter(this, void 0, void 0, function* () {
+            this._questions = new Array();
+            this.getAnswers = () => { };
             const container = document.createElement("div");
             this.setContent(container, false);
             const resultSourceId = yield ((_a = this.resultSourceIdToken) === null || _a === void 0 ? void 0 : _a.getValueAsync());
@@ -6436,15 +6439,14 @@ let SchemaComponent = class SchemaComponent extends _SourceBaseComponent__WEBPAC
             const version = yield ((_d = this.versionToken) === null || _d === void 0 ? void 0 : _d.getValueAsync());
             const callback = yield ((_e = this.callbackToken) === null || _e === void 0 ? void 0 : _e.getValueAsync());
             const schemaCallbackStr = yield ((_f = this.schemaCallbackToken) === null || _f === void 0 ? void 0 : _f.getValueAsync());
+            const lidStr = yield ((_g = this.lidToken) === null || _g === void 0 ? void 0 : _g.getValueAsync());
+            const lid = lidStr ? parseInt(lidStr) : null;
             var schemaCallback = schemaCallbackStr
                 ? eval(schemaCallbackStr)
                 : null;
             if (!schemaCallback) {
-                schemaCallback = (id, ver) => __awaiter(this, void 0, void 0, function* () {
-                    const url = _Util__WEBPACK_IMPORTED_MODULE_1__/* ["default"].formatUrl */ .Z.formatUrl(schemaUrlStr, null, {
-                        id: options.schemaId,
-                        ver: options.version,
-                    });
+                schemaCallback = (context, id, ver, lid) => __awaiter(this, void 0, void 0, function* () {
+                    const url = _Util__WEBPACK_IMPORTED_MODULE_1__/* ["default"].formatUrl */ .Z.formatUrl(schemaUrlStr, null, Object.assign(Object.assign(Object.assign({}, (id && { id })), (ver && { ver })), (lid && { lid })));
                     const response = yield _Util__WEBPACK_IMPORTED_MODULE_1__/* ["default"].getDataAsync */ .Z.getDataAsync(url);
                     return response.sources[0].data[0];
                 });
@@ -6452,33 +6454,34 @@ let SchemaComponent = class SchemaComponent extends _SourceBaseComponent__WEBPAC
             const viewMode = answer ? (viewModeStr !== null && viewModeStr !== void 0 ? viewModeStr : "true") == "true" : false;
             const options = {
                 viewMode: viewMode,
-                schemaId: (_g = answer === null || answer === void 0 ? void 0 : answer.schemaId) !== null && _g !== void 0 ? _g : schemaId,
-                getSchemaCallbackAsync: schemaCallback,
-                version: (_h = answer === null || answer === void 0 ? void 0 : answer.schemaVersion) !== null && _h !== void 0 ? _h : version,
+                schemaId: (_h = answer === null || answer === void 0 ? void 0 : answer.schemaId) !== null && _h !== void 0 ? _h : schemaId,
+                lid: lid,
+                version: (_j = answer === null || answer === void 0 ? void 0 : answer.schemaVersion) !== null && _j !== void 0 ? _j : version,
                 callback: viewMode && callback ? eval(callback) : null,
             };
             if (options.schemaId) {
-                const schema = yield options.getSchemaCallbackAsync(options.schemaId, options.version);
-                this._questions = new Array();
-                schema.questions.forEach((question) => {
-                    const partAnswer = answer === null || answer === void 0 ? void 0 : answer.properties.find((x) => x.prpId == question.prpId);
-                    this._questions.push(new _question_container_QuestionContainer__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z(question, options, container, partAnswer));
-                });
-                if (this.buttonSelector && resultSourceId && !options.viewMode) {
-                    this.getAnswers = () => {
-                        const retVal = {
-                            lid: schema.lid,
-                            schemaId: schema.schemaId,
-                            schemaVersion: schema.schemaVersion,
-                            usedForId: answer === null || answer === void 0 ? void 0 : answer.usedForId,
-                            properties: this._questions
-                                .map((x) => x.getUserAction())
-                                .filter((x) => x),
+                const schema = yield schemaCallback(this.context, options.schemaId, options.version, options.lid);
+                if (schema) {
+                    schema.questions.forEach((question) => {
+                        const partAnswer = answer === null || answer === void 0 ? void 0 : answer.properties.find((x) => x.prpId == question.prpId);
+                        this._questions.push(new _question_container_QuestionContainer__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z(question, options, container, partAnswer));
+                    });
+                    if (this.buttonSelector && resultSourceId && !options.viewMode) {
+                        this.getAnswers = () => {
+                            const retVal = {
+                                lid: schema.lid,
+                                schemaId: schema.schemaId,
+                                schemaVersion: schema.schemaVersion,
+                                usedForId: answer === null || answer === void 0 ? void 0 : answer.usedForId,
+                                properties: this._questions
+                                    .map((x) => x.getUserAction())
+                                    .filter((x) => x),
+                            };
+                            if (retVal.properties.length > 0) {
+                                this.context.setAsSource(resultSourceId, retVal);
+                            }
                         };
-                        if (retVal.properties.length > 0) {
-                            this.context.setAsSource(resultSourceId, retVal);
-                        }
-                    };
+                    }
                 }
             }
             else {
@@ -13630,7 +13633,7 @@ class BCWrapperFactory {
 
 console.log(`%cWelcome To BasisCore Ecosystem%c
 follow us on https://BasisCore.com/
-version:2.4.10`, " background: yellow;color: #0078C1; font-size: 2rem; font-family: Arial; font-weight: bolder", "color: #0078C1; font-size: 1rem; font-family: Arial;");
+version:2.4.11`, " background: yellow;color: #0078C1; font-size: 2rem; font-family: Arial; font-weight: bolder", "color: #0078C1; font-size: 1rem; font-family: Arial;");
 const src_$bc = new BCWrapperFactory();
 window.LocalDataBase = LocalDataBase;
 __webpack_require__.g.$bc = src_$bc;

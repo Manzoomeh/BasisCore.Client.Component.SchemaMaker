@@ -24,9 +24,11 @@ export default class PropertyBoxComponent extends ComponentBase {
 
   public async initializeAsync(): Promise<void> {
     const callbackFunction = this.owner.storeAsGlobal(
-      this.getSchemaAsync.bind(this),
-      "getSchemaAsync"
+      this.getSchemaAsync.bind(this)
     );
+    this.container
+      .querySelector("[schemaCallback]")
+      ?.setAttribute("schemaCallback", callbackFunction);
     this._sourceId = await this.owner.getAttributeValueAsync("DataMemberName");
     this.owner.addTrigger([
       this._sourceId,
@@ -61,8 +63,10 @@ export default class PropertyBoxComponent extends ComponentBase {
   }
 
   public getSchemaAsync(
+    context: any,
     schemaId: string,
-    version: string
+    version: string,
+    lid: number
   ): Promise<ISchemaMakerQuestion> {
     schemaId = schemaId.toLowerCase();
     return Promise.resolve(
