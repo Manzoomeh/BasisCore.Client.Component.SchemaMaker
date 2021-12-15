@@ -8,6 +8,10 @@
   </head>
 
   <body dir="rtl">
+    <div dir="ltr">
+      <h3>Sample Fix Data Url: /server/fix-data/13057/${part}</h3>
+      <h3>Sample autocomplete Data Url: /server/autocomplete?term=${term}</h3>
+    </div>
     <Basis
       core="api"
       url="/server/schemas/[##inline.object.id##]"
@@ -60,6 +64,6 @@
         return source?.rows[0];
       }
     </script>
-    <script src="/assets/basiscore/basiscore.js"></script>
+    <script src="http://localhost:3000/basiscore.js"></script>
   </body>
 </html>

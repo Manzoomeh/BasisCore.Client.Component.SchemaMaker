@@ -289,7 +289,7 @@ export default class SchemaUtil {
         });
       }
     }
-    return retVal;
+    return retVal.length > 0 ? retVal : null;
   }
 
   public static toQuestionModuleDataModel(

@@ -354,7 +354,7 @@
                                 },
                                 {
                                     "prpId": 5,
-                                    "title": "Help Url",
+                                    "title": "Help",
                                     "parts": [
                                         {
                                             "part": 1,
@@ -499,7 +499,7 @@
                             ]
                         },
                         {
-                            "schemaId": "Textarea",
+                            "schemaId": "textarea",
                             "schemaType": "part",
                             "title": "Long Text",
                             "image": "",
@@ -517,6 +517,112 @@
                                 {
                                     "prpId": 2,
                                     "title": "Css Class",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3001,
+                                    "title": "required",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 0,
+                                                    "value": "No"
+                                                },
+                                                {
+                                                    "id": 1,
+                                                    "value": "Yes"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3002,
+                                    "title": "minLength",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3003,
+                                    "title": "maxLength",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3004,
+                                    "title": "min",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3005,
+                                    "title": "max",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3006,
+                                    "title": "dataType",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 0,
+                                                    "value": "text"
+                                                },
+                                                {
+                                                    "id": "int",
+                                                    "value": "int"
+                                                },
+                                                {
+                                                    "id": "float",
+                                                    "value": "float"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3007,
+                                    "title": "regex",
                                     "parts": [
                                         {
                                             "part": 1,
@@ -561,8 +667,114 @@
                                             "viewType": "text",
                                             "validations": {
                                                 "required": true,
-                                                "regex": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
+                                                "regex1": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
                                             }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3001,
+                                    "title": "required",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 0,
+                                                    "value": "No"
+                                                },
+                                                {
+                                                    "id": 1,
+                                                    "value": "Yes"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3002,
+                                    "title": "minLength",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3003,
+                                    "title": "maxLength",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3004,
+                                    "title": "min",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3005,
+                                    "title": "max",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3006,
+                                    "title": "dataType",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 0,
+                                                    "value": "text"
+                                                },
+                                                {
+                                                    "id": "int",
+                                                    "value": "int"
+                                                },
+                                                {
+                                                    "id": "float",
+                                                    "value": "float"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3007,
+                                    "title": "regex",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
                                         }
                                     ]
                                 }
@@ -622,8 +834,28 @@
                                             "part": 1,
                                             "viewType": "text",
                                             "validations": {
-                                                "regex": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
+                                                "regex1": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
                                             }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3001,
+                                    "title": "required",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 0,
+                                                    "value": "No"
+                                                },
+                                                {
+                                                    "id": 1,
+                                                    "value": "Yes"
+                                                }
+                                            ]
                                         }
                                     ]
                                 }
@@ -652,6 +884,82 @@
                                         {
                                             "part": 1,
                                             "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 4,
+                                    "title": "Items",
+                                    "multi": "true",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "Text",
+                                            "caption": "Value",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        },
+                                        {
+                                            "part": 2,
+                                            "viewType": "text",
+                                            "caption": "Title"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 5,
+                                    "title": "Url",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3001,
+                                    "title": "required",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 0,
+                                                    "value": "No"
+                                                },
+                                                {
+                                                    "id": 1,
+                                                    "value": "Yes"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3002,
+                                    "title": "minLength",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3003,
+                                    "title": "maxLength",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
                                         }
                                     ]
                                 }

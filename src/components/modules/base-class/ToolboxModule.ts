@@ -54,11 +54,11 @@ export default abstract class ToolboxModule {
       .querySelector("[data-btn-remove]")
       .addEventListener("click", (e) => {
         e.preventDefault();
-        this.getChildModules<ToolboxModule>().forEach((x) =>
+        this.getChildModules<ToolboxModule>()?.forEach((x) =>
           this.moduleContainer.onRemove(x.usedForId)
         );
         this.moduleContainer.onRemove(this.usedForId);
-        this.container.remove();
+        this.owner.remove();
       });
 
     this.container

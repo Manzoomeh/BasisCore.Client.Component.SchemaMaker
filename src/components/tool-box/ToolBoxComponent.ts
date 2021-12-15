@@ -32,8 +32,8 @@ export default class ToolBoxComponent extends ComponentBase {
     const part = this.container.querySelector("[data-bc-toolbox-part-list]");
     source.schemas.forEach((schema) => {
       const copyLayout = itemLayout
-        .replace("@schemaId", schema.schemaId)
-        .replace("@schemaType", schema.schemaType)
+        .replace("@schemaId", schema.schemaId.toLowerCase())
+        .replace("@schemaType", schema.schemaType.toLowerCase())
         .replace("@title", schema.title);
       const item = this.owner.toNode(copyLayout);
       if (schema.schemaType == "part") {
