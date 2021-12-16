@@ -29,11 +29,16 @@
         resultSourceId="schema.result"
       >
       </Basis>
-      <basis core="callback" run="atClient" triggers="schema.result"></basis>
-      <button data-get-schema-btn>Get Schema</button>
+      <basis
+        core="callback"
+        run="atClient"
+        triggers="schema.result"
+        method="displayResult"
+      ></basis>
+      <button data-get-schema-btn>Preview</button>
     </fieldset>
     <fieldset>
-      <legend>Preview Result</legend>
+      <legend>Preview</legend>
       <button data-btn-add>Add</button>
       <Basis
         core="schema"
@@ -43,10 +48,16 @@
         version="1.1"
         triggers="schema.result"
         button="[data-btn-add]"
-        resultSourceId="preview.data"
+        resultSourceId="preview.result"
       >
       </Basis>
       <button data-btn-add>Add</button>
+      <basis
+        core="callback"
+        run="atClient"
+        triggers="preview.result"
+        method="displayResult"
+      ></basis>
     </fieldset>
 
     <script>
@@ -62,6 +73,10 @@
       async function getSchemaAsync(context, id, ver, lid) {
         const source = context.tryToGetSource("schema.result");
         return source?.rows[0];
+      }
+
+      function displayResult(args) {
+        console.table(args.source?.rows[0]);
       }
     </script>
     <script src="http://localhost:3000/basiscore.js"></script>

@@ -57,6 +57,10 @@ export default class PropertyBoxComponent extends ComponentBase {
           this._rootComponent
             .getOwner()
             .setSource(DefaultSource.PROPERTY_RESULT, source.rows[0]);
+          this.owner.setSource(
+            "SchemaMakerComponent_PropertyBoxComponent.question",
+            null
+          );
         }
       }
     }
