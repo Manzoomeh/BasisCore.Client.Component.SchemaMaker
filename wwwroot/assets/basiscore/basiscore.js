@@ -118,6 +118,29 @@ ___CSS_LOADER_EXPORT___.push([module.id, "[data-bc-answer] {\r\n  clear: both;\r
 
 /***/ }),
 
+/***/ 1196:
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Z": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7537);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3645);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "", "",{"version":3,"sources":[],"names":[],"mappings":"","sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ 3645:
 /***/ ((module) => {
 
@@ -6353,6 +6376,7 @@ GroupComponent = __decorate([
 /* harmony import */ var _Util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(6102);
 /* harmony import */ var _SourceBaseComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1674);
 /* harmony import */ var _question_container_QuestionContainer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(1388);
+/* harmony import */ var _section_Section__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7075);
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6374,6 +6398,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+
 
 
 
@@ -6404,7 +6429,9 @@ let SchemaComponent = class SchemaComponent extends _SourceBaseComponent__WEBPAC
     }
     onClick(e) {
         e.preventDefault();
-        this.getAnswers();
+        if (this.getAnswers) {
+            this.getAnswers();
+        }
     }
     runAsync(source) {
         const _super = Object.create(null, {
@@ -6427,44 +6454,61 @@ let SchemaComponent = class SchemaComponent extends _SourceBaseComponent__WEBPAC
         });
     }
     initUIAsync(answer, schemaId) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
         return __awaiter(this, void 0, void 0, function* () {
+            schemaId = (_a = answer === null || answer === void 0 ? void 0 : answer.schemaId) !== null && _a !== void 0 ? _a : schemaId;
             this._questions = new Array();
-            this.getAnswers = () => { };
+            this.getAnswers = null;
             const container = document.createElement("div");
             this.setContent(container, false);
-            const resultSourceId = yield ((_a = this.resultSourceIdToken) === null || _a === void 0 ? void 0 : _a.getValueAsync());
-            const viewModeStr = yield ((_b = this.viewModeToken) === null || _b === void 0 ? void 0 : _b.getValueAsync());
-            const schemaUrlStr = yield ((_c = this.schemaUrlToken) === null || _c === void 0 ? void 0 : _c.getValueAsync());
-            const version = yield ((_d = this.versionToken) === null || _d === void 0 ? void 0 : _d.getValueAsync());
-            const callback = yield ((_e = this.callbackToken) === null || _e === void 0 ? void 0 : _e.getValueAsync());
-            const schemaCallbackStr = yield ((_f = this.schemaCallbackToken) === null || _f === void 0 ? void 0 : _f.getValueAsync());
-            const lidStr = yield ((_g = this.lidToken) === null || _g === void 0 ? void 0 : _g.getValueAsync());
-            const lid = lidStr ? parseInt(lidStr) : null;
-            var schemaCallback = schemaCallbackStr
-                ? eval(schemaCallbackStr)
-                : null;
-            if (!schemaCallback) {
-                schemaCallback = (context, id, ver, lid) => __awaiter(this, void 0, void 0, function* () {
-                    const url = _Util__WEBPACK_IMPORTED_MODULE_1__/* ["default"].formatUrl */ .Z.formatUrl(schemaUrlStr, null, Object.assign(Object.assign(Object.assign({}, (id && { id })), (ver && { ver })), (lid && { lid })));
-                    const response = yield _Util__WEBPACK_IMPORTED_MODULE_1__/* ["default"].getDataAsync */ .Z.getDataAsync(url);
-                    return response.sources[0].data[0];
-                });
-            }
-            const viewMode = answer ? (viewModeStr !== null && viewModeStr !== void 0 ? viewModeStr : "true") == "true" : false;
-            const options = {
-                viewMode: viewMode,
-                schemaId: (_h = answer === null || answer === void 0 ? void 0 : answer.schemaId) !== null && _h !== void 0 ? _h : schemaId,
-                lid: lid,
-                version: (_j = answer === null || answer === void 0 ? void 0 : answer.schemaVersion) !== null && _j !== void 0 ? _j : version,
-                callback: viewMode && callback ? eval(callback) : null,
-            };
-            if (options.schemaId) {
+            if (schemaId) {
+                const resultSourceId = yield ((_b = this.resultSourceIdToken) === null || _b === void 0 ? void 0 : _b.getValueAsync());
+                const viewModeStr = yield ((_c = this.viewModeToken) === null || _c === void 0 ? void 0 : _c.getValueAsync());
+                const schemaUrlStr = yield ((_d = this.schemaUrlToken) === null || _d === void 0 ? void 0 : _d.getValueAsync());
+                const version = yield ((_e = this.versionToken) === null || _e === void 0 ? void 0 : _e.getValueAsync());
+                const callback = yield ((_f = this.callbackToken) === null || _f === void 0 ? void 0 : _f.getValueAsync());
+                const schemaCallbackStr = yield ((_g = this.schemaCallbackToken) === null || _g === void 0 ? void 0 : _g.getValueAsync());
+                const lidStr = yield ((_h = this.lidToken) === null || _h === void 0 ? void 0 : _h.getValueAsync());
+                const lid = lidStr ? parseInt(lidStr) : null;
+                var schemaCallback = schemaCallbackStr
+                    ? eval(schemaCallbackStr)
+                    : null;
+                if (!schemaCallback) {
+                    schemaCallback = (context, id, ver, lid) => __awaiter(this, void 0, void 0, function* () {
+                        const url = _Util__WEBPACK_IMPORTED_MODULE_1__/* ["default"].formatUrl */ .Z.formatUrl(schemaUrlStr, null, Object.assign(Object.assign(Object.assign({}, (id && { id })), (ver && { ver })), (lid && { lid })));
+                        const response = yield _Util__WEBPACK_IMPORTED_MODULE_1__/* ["default"].getDataAsync */ .Z.getDataAsync(url);
+                        return response.sources[0].data[0];
+                    });
+                }
+                const viewMode = answer ? (viewModeStr !== null && viewModeStr !== void 0 ? viewModeStr : "true") == "true" : false;
+                const options = {
+                    viewMode: viewMode,
+                    schemaId: (_j = answer === null || answer === void 0 ? void 0 : answer.schemaId) !== null && _j !== void 0 ? _j : schemaId,
+                    lid: lid,
+                    version: (_k = answer === null || answer === void 0 ? void 0 : answer.schemaVersion) !== null && _k !== void 0 ? _k : version,
+                    callback: viewMode && callback ? eval(callback) : null,
+                };
                 const schema = yield schemaCallback(this.context, options.schemaId, options.version, options.lid);
-                if (schema) {
+                const sections = new Map();
+                if (schema && ((_l = schema.questions) === null || _l === void 0 ? void 0 : _l.length) > 0) {
                     schema.questions.forEach((question) => {
+                        var _a;
                         const partAnswer = answer === null || answer === void 0 ? void 0 : answer.properties.find((x) => x.prpId == question.prpId);
-                        this._questions.push(new _question_container_QuestionContainer__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z(question, options, container, partAnswer));
+                        let questionContainer = container;
+                        if (question.sectionId && ((_a = schema.sections) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+                            if (sections.has(question.sectionId)) {
+                                questionContainer = sections.get(question.sectionId).element;
+                            }
+                            else {
+                                const sectionSchema = schema.sections.find((x) => x.id == question.sectionId);
+                                if (sectionSchema) {
+                                    const section = new _section_Section__WEBPACK_IMPORTED_MODULE_4__/* ["default"] */ .Z(sectionSchema, container);
+                                    sections.set(sectionSchema.id, section);
+                                    questionContainer = section.element;
+                                }
+                            }
+                        }
+                        this._questions.push(new _question_container_QuestionContainer__WEBPACK_IMPORTED_MODULE_3__/* ["default"] */ .Z(question, options, questionContainer, partAnswer));
                     });
                     if (this.buttonSelector && resultSourceId && !options.viewMode) {
                         this.getAnswers = () => {
@@ -6483,9 +6527,6 @@ let SchemaComponent = class SchemaComponent extends _SourceBaseComponent__WEBPAC
                         };
                     }
                 }
-            }
-            else {
-                throw Error("can't detect 'schemaId'");
             }
         });
     }
@@ -7673,6 +7714,9 @@ class QuestionContainer {
         var copyTemplate = question_container_assets_layout.replace("@title", this.questionSchema.title);
         const uiElement = Util/* default.parse */.Z.parse(copyTemplate).querySelector("[data-bc-question]");
         this.element = uiElement.querySelector("[data-bc-answer-collection]");
+        if (!questionSchema.help) {
+            uiElement.querySelector("[data-bc-help-btn]").remove();
+        }
         const headerContainer = uiElement.querySelector("[data-bc-answer-title-container]");
         if (questionSchema.parts.length > 1) {
             const template = document.createElement("div");
@@ -7680,8 +7724,10 @@ class QuestionContainer {
             template.setAttribute("data-bc-part-related-cell", "");
             questionSchema.parts.forEach((part) => {
                 const cpy = template.cloneNode();
-                cpy.appendChild(document.createTextNode(part.caption));
-                headerContainer.appendChild(cpy);
+                if (part.caption) {
+                    cpy.appendChild(document.createTextNode(part.caption));
+                    headerContainer.appendChild(cpy);
+                }
             });
         }
         else {
@@ -7742,6 +7788,90 @@ class QuestionContainer {
             }
         }
         return userAction;
+    }
+}
+
+
+/***/ }),
+
+/***/ 7075:
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "Z": () => (/* binding */ Section)
+});
+
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js
+var injectStylesIntoStyleTag = __webpack_require__(3379);
+var injectStylesIntoStyleTag_default = /*#__PURE__*/__webpack_require__.n(injectStylesIntoStyleTag);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleDomAPI.js
+var styleDomAPI = __webpack_require__(7795);
+var styleDomAPI_default = /*#__PURE__*/__webpack_require__.n(styleDomAPI);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertBySelector.js
+var insertBySelector = __webpack_require__(569);
+var insertBySelector_default = /*#__PURE__*/__webpack_require__.n(insertBySelector);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js
+var setAttributesWithoutAttributes = __webpack_require__(3565);
+var setAttributesWithoutAttributes_default = /*#__PURE__*/__webpack_require__.n(setAttributesWithoutAttributes);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/insertStyleElement.js
+var insertStyleElement = __webpack_require__(9216);
+var insertStyleElement_default = /*#__PURE__*/__webpack_require__.n(insertStyleElement);
+// EXTERNAL MODULE: ./node_modules/style-loader/dist/runtime/styleTagTransform.js
+var styleTagTransform = __webpack_require__(4589);
+var styleTagTransform_default = /*#__PURE__*/__webpack_require__.n(styleTagTransform);
+// EXTERNAL MODULE: ./node_modules/css-loader/dist/cjs.js!./src/component/renderable/schema/section/assets/style.css
+var style = __webpack_require__(1196);
+;// CONCATENATED MODULE: ./src/component/renderable/schema/section/assets/style.css
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (styleTagTransform_default());
+options.setAttributes = (setAttributesWithoutAttributes_default());
+
+      options.insert = insertBySelector_default().bind(null, "head");
+    
+options.domAPI = (styleDomAPI_default());
+options.insertStyleElement = (insertStyleElement_default());
+
+var update = injectStylesIntoStyleTag_default()(style/* default */.Z, options);
+
+
+
+
+       /* harmony default export */ const assets_style = (style/* default */.Z && style/* default.locals */.Z.locals ? style/* default.locals */.Z.locals : undefined);
+
+// EXTERNAL MODULE: ./src/component/renderable/schema/section/assets/layout.html
+var layout = __webpack_require__(4984);
+// EXTERNAL MODULE: ./src/Util.ts
+var Util = __webpack_require__(6102);
+;// CONCATENATED MODULE: ./src/component/renderable/schema/section/Section.ts
+
+
+
+class Section {
+    constructor(sectionSchema, container) {
+        this.element = Util/* default.parse */.Z.parse(layout).querySelector("[data-bc-section]");
+        const title = this.element.querySelector("[data-bc-section-title]");
+        if (sectionSchema.title) {
+            title.innerHTML = sectionSchema.title;
+        }
+        else {
+            title.remove();
+        }
+        container.appendChild(this.element);
     }
 }
 
@@ -10790,6 +10920,14 @@ module.exports = "<div data-bc-part>\r\n  <div data-bc-content></div>\r\n  <ul d
 
 "use strict";
 module.exports = "<div data-bc-answer>\r\n  <div data-bc-part-container></div>\r\n  <div data-bc-part=\"\" data-part-btn-container=\"\">\r\n    <button data-bc-btn=\"add\">&nbsp;</button>\r\n  </div>\r\n</div>\r\n";
+
+/***/ }),
+
+/***/ 4984:
+/***/ ((module) => {
+
+"use strict";
+module.exports = "<fieldset data-bc-section>\r\n  <legend data-bc-section-title></legend>\r\n</fieldset>\r\n";
 
 /***/ })
 
