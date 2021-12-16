@@ -483,66 +483,6 @@
                                             }
                                         }
                                     ]
-                                },
-                                {
-                                    "prpId": 3004,
-                                    "title": "min",
-                                    "parts": [
-                                        {
-                                            "part": 1,
-                                            "viewType": "text",
-                                            "validations": {
-                                                "dataType": "int"
-                                            }
-                                        }
-                                    ]
-                                },
-                                {
-                                    "prpId": 3005,
-                                    "title": "max",
-                                    "parts": [
-                                        {
-                                            "part": 1,
-                                            "viewType": "text",
-                                            "validations": {
-                                                "dataType": "int"
-                                            }
-                                        }
-                                    ]
-                                },
-                                {
-                                    "prpId": 3006,
-                                    "title": "dataType",
-                                    "parts": [
-                                        {
-                                            "part": 1,
-                                            "viewType": "select",
-                                            "fixValues": [
-                                                {
-                                                    "id": 0,
-                                                    "value": "text"
-                                                },
-                                                {
-                                                    "id": "int",
-                                                    "value": "int"
-                                                },
-                                                {
-                                                    "id": "float",
-                                                    "value": "float"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "prpId": 3007,
-                                    "title": "regex",
-                                    "parts": [
-                                        {
-                                            "part": 1,
-                                            "viewType": "text"
-                                        }
-                                    ]
                                 }
                             ]
                         },
