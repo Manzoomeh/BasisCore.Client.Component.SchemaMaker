@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Schema Maker Command - Zero Config</title>
+  </head>
+
+  <body dir="rtl">
+    <div dir="ltr">
+      <h3>Sample Fix Data Url: /server/fix-data/13057/${part}</h3>
+      <h3>Sample autocomplete Data Url: /server/autocomplete?term=${term}</h3>
+    </div>
+    <Basis core="api" url="/server/schemas/new" method="get" run="atclient">
+    </Basis>
+    <fieldset>
+      <legend>Schema Editor</legend>
+      <Basis
+        core="component.schemaMaker.schemaMaker"
+        run="atclient"
+        dataMemberName="schema.data"
+        button="[data-get-schema-btn]"
+        resultSourceId="schema.result"
+      >
+      </Basis>
+      <basis
+        core="callback"
+        run="atClient"
+        triggers="schema.result"
+        method="displayResult"
+      ></basis>
+      <button data-get-schema-btn>Preview</button>
+    </fieldset>
+    <fieldset>
+      <legend>Preview</legend>
+      <button data-btn-add>Add</button>
+      <Basis
+        core="schema"
+        run="atclient"
+        schemaCallback="getSchemaAsync"
+        id="1161"
+        version="1.1"
+        triggers="schema.result"
+        button="[data-btn-add]"
+        resultSourceId="preview.result"
+      >
+      </Basis>
+      <button data-btn-add>Add</button>
+      <basis
+        core="callback"
+        run="atClient"
+        triggers="preview.result"
+        method="displayResult"
+      ></basis>
+    </fieldset>
+
+    <script>
+      const host = {
+        repositories: {
+          schemaMaker: "/basiscore.schemaMaker.component.js",
+        },
+      };
+
+      async function getSchemaAsync(context, id, ver, lid) {
+        const source = context.tryToGetSource("schema.result");
+        return source?.rows[0];
+      }
+
+      function displayResult(args) {
+        console.table(args.source?.rows[0]);
+      }
+    </script>
+    <script src="http://localhost:3000/basiscore.js"></script>
+  </body>
+</html>

@@ -1,0 +1,739 @@
+{
+    "setting": {
+        "keepalive": true
+    },
+    "sources": [
+        {
+            "options": {
+                "tableName": "schema.data",
+                "keyFieldName": null,
+                "statusFieldName": null,
+                "mergeType": 0
+            },
+            "data": [
+                {
+                    "schemas": [
+                        {
+                            "schemaId": "section",
+                            "schemaType": "section",
+                            "title": "Section",
+                            "image": "",
+                            "questions": [
+                                {
+                                    "prpId": 1,
+                                    "title": "عنوان",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "cssClass": "css_13050_1"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 2,
+                                    "title": "توضیحات",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "textarea",
+                                            "cssClass": "css_13050_1"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "schemaId": "question",
+                            "schemaType": "question",
+                            "title": "Question",
+                            "image": "",
+                            "questions": [
+                                {
+                                    "prpId": 1,
+                                    "title": "Title",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "required": true,
+                                                "minLength": 3,
+                                                "maxLength": 50
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 2,
+                                    "title": "Parts",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 1,
+                                                    "value": "1"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "value": "2"
+                                                },
+                                                {
+                                                    "id": 3,
+                                                    "value": "3"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3,
+                                    "title": "Is Multi",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 1,
+                                                    "value": "No"
+                                                },
+                                                {
+                                                    "id": 2,
+                                                    "value": "Yes"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 4,
+                                    "title": "Css Class",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 5,
+                                    "title": "Help",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "schemaId": "text",
+                            "schemaType": "part",
+                            "title": "Short Text",
+                            "image": "",
+                            "questions": [
+                                {
+                                    "prpId": 1,
+                                    "title": "Caption",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 2,
+                                    "title": "Css Class",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3001,
+                                    "title": "required",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 0,
+                                                    "value": "No"
+                                                },
+                                                {
+                                                    "id": 1,
+                                                    "value": "Yes"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3002,
+                                    "title": "minLength",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3003,
+                                    "title": "maxLength",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3004,
+                                    "title": "min",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3005,
+                                    "title": "max",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3006,
+                                    "title": "dataType",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 0,
+                                                    "value": "text"
+                                                },
+                                                {
+                                                    "id": "int",
+                                                    "value": "int"
+                                                },
+                                                {
+                                                    "id": "float",
+                                                    "value": "float"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3007,
+                                    "title": "regex",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "schemaId": "textarea",
+                            "schemaType": "part",
+                            "title": "Long Text",
+                            "image": "",
+                            "questions": [
+                                {
+                                    "prpId": 1,
+                                    "title": "Caption",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 2,
+                                    "title": "Css Class",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3001,
+                                    "title": "required",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 0,
+                                                    "value": "No"
+                                                },
+                                                {
+                                                    "id": 1,
+                                                    "value": "Yes"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3002,
+                                    "title": "minLength",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3003,
+                                    "title": "maxLength",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3004,
+                                    "title": "min",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3005,
+                                    "title": "max",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3006,
+                                    "title": "dataType",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 0,
+                                                    "value": "text"
+                                                },
+                                                {
+                                                    "id": "int",
+                                                    "value": "int"
+                                                },
+                                                {
+                                                    "id": "float",
+                                                    "value": "float"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3007,
+                                    "title": "regex",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "schemaId": "AutoComplete",
+                            "schemaType": "part",
+                            "title": "Autocomplete",
+                            "image": "",
+                            "questions": [
+                                {
+                                    "prpId": 1,
+                                    "title": "Caption",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 2,
+                                    "title": "Css Class",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 5,
+                                    "title": "Url",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "required": true,
+                                                "regex1": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3001,
+                                    "title": "required",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 0,
+                                                    "value": "No"
+                                                },
+                                                {
+                                                    "id": 1,
+                                                    "value": "Yes"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3002,
+                                    "title": "minLength",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3003,
+                                    "title": "maxLength",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3004,
+                                    "title": "min",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3005,
+                                    "title": "max",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3006,
+                                    "title": "dataType",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 0,
+                                                    "value": "text"
+                                                },
+                                                {
+                                                    "id": "int",
+                                                    "value": "int"
+                                                },
+                                                {
+                                                    "id": "float",
+                                                    "value": "float"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3007,
+                                    "title": "regex",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "schemaId": "Select",
+                            "schemaType": "part",
+                            "title": "Select",
+                            "image": "",
+                            "questions": [
+                                {
+                                    "prpId": 1,
+                                    "title": "Caption",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 2,
+                                    "title": "Css Class",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 4,
+                                    "title": "Items",
+                                    "multi": "true",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "Text",
+                                            "caption": "Value",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        },
+                                        {
+                                            "part": 2,
+                                            "viewType": "text",
+                                            "caption": "Title"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 5,
+                                    "title": "Url",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "regex1": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3001,
+                                    "title": "required",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 0,
+                                                    "value": "No"
+                                                },
+                                                {
+                                                    "id": 1,
+                                                    "value": "Yes"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "schemaId": "Checklist",
+                            "schemaType": "part",
+                            "title": "Checklist",
+                            "image": "",
+                            "questions": [
+                                {
+                                    "prpId": 1,
+                                    "title": "Caption",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 2,
+                                    "title": "Css Class",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 4,
+                                    "title": "Items",
+                                    "multi": "true",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "Text",
+                                            "caption": "Value",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        },
+                                        {
+                                            "part": 2,
+                                            "viewType": "text",
+                                            "caption": "Title"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 5,
+                                    "title": "Url",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3001,
+                                    "title": "required",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 0,
+                                                    "value": "No"
+                                                },
+                                                {
+                                                    "id": 1,
+                                                    "value": "Yes"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3002,
+                                    "title": "minLength",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3003,
+                                    "title": "maxLength",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -13,9 +13,23 @@ for (let index = 1; index < 1000; index++) {
   apiDataList.push(data);
 }
 
+router.get("/schemas/new", function (req, res) {
+  const stream = fs.createReadStream(
+    path.join(__dirname, `/schemas/new/questions.json`)
+  );
+  stream.on("open", function () {
+    res.set("Content-Type", "application/json");
+    stream.pipe(res);
+  });
+  stream.on("error", function () {
+    res.set("Content-Type", "text/plain");
+    res.status(404).end("Not found");
+  });
+});
+
 router.get("/schemas/:id", function (req, res) {
   const stream = fs.createReadStream(
-    path.join(__dirname, `/schemas/${req.params.id}/questions.json`)
+    path.join(__dirname, `/schemas/edit/${req.params.id}/questions.json`)
   );
   stream.on("open", function () {
     res.set("Content-Type", "application/json");

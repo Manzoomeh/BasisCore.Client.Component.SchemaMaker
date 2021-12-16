@@ -9,9 +9,11 @@ export default interface ISchemaMakerSchema extends IQuestionSchema {
 
 export interface ISchemaMakerQuestion {
   schemaId: string;
-  schemaType: string;
+  schemaType: ModuleType;
   title: string;
   image: string;
   questions: Array<IQuestion>;
   sections: Array<ISection>;
 }
+
+export type ModuleType = "question" | "section" | "part";

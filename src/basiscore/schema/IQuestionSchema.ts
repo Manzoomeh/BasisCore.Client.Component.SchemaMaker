@@ -3,7 +3,7 @@ import ISchema from "./ISchema";
 export default interface IQuestionSchema extends ISchema {
   baseVocab: string;
   questions: Array<IQuestion>;
-  sections: Array<ISection>;
+  sections?: Array<ISection>;
 }
 
 export interface IQuestion {

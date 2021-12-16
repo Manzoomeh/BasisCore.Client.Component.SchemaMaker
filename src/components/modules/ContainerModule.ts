@@ -24,7 +24,7 @@ export default abstract class ContainerModule
     this.moduleContainer.onRemove(moduleId);
   }
 
-  public abstract fillSchema(schema: IQuestionSchema): void;
+  public abstract fillSchema(schema: Partial<IQuestionSchema>): void;
 
   protected getChildModules<TType extends ToolboxModule>(): TType[] {
     return Array.from(

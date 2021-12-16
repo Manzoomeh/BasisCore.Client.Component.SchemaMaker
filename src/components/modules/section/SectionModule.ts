@@ -46,10 +46,12 @@ export default class SectionModule extends ContainerModule {
     if (!this._data) {
       this._data = {
         id: this.usedForId,
+        title: "Section Title",
+        description: "",
       };
-      this.title = "Section Title";
-      this.description = "";
     }
+    this.title = this._data.title;
+    this.description = this._data.description;
   }
 
   protected getAnswerSchema(): IAnswerSchema {

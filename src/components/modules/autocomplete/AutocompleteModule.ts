@@ -14,7 +14,7 @@ import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
 export default class AutocompleteModule extends PartBaseModule<IAutocompleteDataModel> {
   private static readonly SCHEMA_ID: ViewType = "Autocomplete";
   private static readonly URL_ID = 5;
-  protected data: IAutocompleteDataModel;
+  protected data: Partial<IAutocompleteDataModel>;
   constructor(
     owner: HTMLElement,
     component: IContainerModule,
@@ -22,11 +22,7 @@ export default class AutocompleteModule extends PartBaseModule<IAutocompleteData
   ) {
     super(layout, owner, component, AutocompleteModule.SCHEMA_ID, questionPart);
     if (questionPart) {
-      this.data = SchemaUtil.toAutocompleteModuleDataModel(questionPart);
-    } else {
-      this.data = {
-        viewType: AutocompleteModule.SCHEMA_ID,
-      };
+      this.data.link = questionPart.link;
     }
   }
 

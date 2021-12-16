@@ -41,7 +41,10 @@ export default class QuestionModule extends ContainerModule {
   }
 
   set part(value: number) {
-    if (this._data.part != value) {
+    const currentValue = this.container.querySelectorAll(
+      "[data-bc-sm-part-container]"
+    ).length;
+    if (currentValue != value) {
       this._data.part = value;
       const row = this.container.querySelector("[data-tr]");
       let cols = row.querySelectorAll("td[data-bc-sm-part-container]");
@@ -55,6 +58,10 @@ export default class QuestionModule extends ContainerModule {
           const col = this.moduleContainer
             .getComponent()
             .toHTMLElement(partLayout);
+          col.setAttribute(
+            "data-bc-question-part-number",
+            (cols.length + 1).toString()
+          );
           row.appendChild(col);
           cols = row.querySelectorAll("td[data-bc-sm-part-container]");
         }
@@ -70,14 +77,22 @@ export default class QuestionModule extends ContainerModule {
     super(layout, owner, container);
     this._schema = data;
     if (this._schema) {
-      this._data = SchemaUtil.toQuestionModuleDataModel(this._schema);
+      this._data = {
+        title: this._schema.title,
+        cssClass: this._schema.cssClass,
+        help: this._schema.help,
+        multi: this._schema.multi,
+        part: this._schema.parts?.length,
+      };
     } else {
       this._data = {
         multi: false,
+        title: "Question Title",
+        part: 1,
       };
-      this.title = "Question Title";
-      this.part = 1;
     }
+    this.title = this._data.title;
+    this.part = this._data.part;
   }
 
   protected getAnswerSchema(): IAnswerSchema {

@@ -13,7 +13,7 @@ import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
 export default abstract class ListBaseModule extends PartBaseModule<IListBaseModuleDataModel> {
   private static readonly FIX_VALUES_ID = 4;
   private static readonly URL_ID = 5;
-  protected data: IListBaseModuleDataModel;
+  protected data: Partial<IListBaseModuleDataModel>;
   constructor(
     layout: string,
     owner: HTMLElement,
@@ -23,11 +23,8 @@ export default abstract class ListBaseModule extends PartBaseModule<IListBaseMod
   ) {
     super(layout, owner, component, schemaId, questionPart);
     if (questionPart) {
-      this.data = SchemaUtil.toListBaseModuleDataModel(questionPart);
-    } else {
-      this.data = {
-        viewType: schemaId,
-      };
+      this.data.link = questionPart.link;
+      this.data.fixValues = questionPart.fixValues;
     }
   }
 

@@ -10,7 +10,7 @@ import IContainerModule from "../modules/IContainerModule";
 import IUserActionResult from "../../basiscore/schema/IUserActionResult";
 import IModuleFactory from "../modules/IModuleFactory";
 import IQuestionSchema from "../../basiscore/schema/IQuestionSchema";
-import ISchemaMakerSchema from "../ISchemaMakerSchema";
+import ISchemaMakerSchema, { ModuleType } from "../ISchemaMakerSchema";
 import IToken from "../../basiscore/IToken";
 import * as Dragula from "dragula";
 import "../../../node_modules/dragula/dist/dragula.min.css";
@@ -35,7 +35,8 @@ export default class WorkspaceComponent
     super(owner, layout, "data-bc-sm-toolbox-container");
     this.initDragula();
   }
-  getModule(moduleId: number): ToolboxModule {
+
+  public getModule(moduleId: number): ToolboxModule {
     return this._modules.get(moduleId);
   }
 
@@ -140,14 +141,13 @@ export default class WorkspaceComponent
 
   public onRemove(moduleId: number) {
     this._modules.delete(moduleId);
-    console.log(this._modules);
   }
 
   public async initializeAsync(): Promise<void> {
     this._sourceId = await this.owner.getAttributeValueAsync("DataMemberName");
     this.resultSourceIdToken = this.owner.getAttributeToken("resultSourceId");
     const buttonSelector = await this.owner.getAttributeValueAsync("button");
-    this.owner.addTrigger([DefaultSource.PROPERTY_RESULT]);
+    this.owner.addTrigger([DefaultSource.PROPERTY_RESULT, this._sourceId]);
     if (buttonSelector) {
       document
         .querySelectorAll(buttonSelector)
@@ -168,6 +168,69 @@ export default class WorkspaceComponent
           this.applyPropertyResult(source.rows[0]);
           break;
         }
+        case this._sourceId: {
+          this.createUIFromQuestionSchema(source.rows[0]);
+          break;
+        }
+      }
+    }
+  }
+
+  private createUIFromQuestionSchema(question: IQuestionSchema) {
+    const board = this.container.querySelector("[data-bc-sm-board]");
+    board.innerHTML = "";
+    const createContainer = (
+      schemaId: string,
+      schemaType: ModuleType,
+      data: any
+    ): Element => {
+      const container = document.createElement("div");
+      container.setAttribute("data-schema-id", schemaId);
+      container.setAttribute("data-schema-type", schemaType);
+      const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
+      const module = factory.create(schemaId, container, this, data);
+      container.setAttribute("data-bc-module-id", module.usedForId.toString());
+      this._modules.set(module.usedForId, module);
+      return container;
+    };
+    if (question) {
+      const sections = new Map<Number, Element>();
+      if (question.sections) {
+        question.sections.forEach((x) => {
+          const sectionModule = createContainer("section", "section", x);
+          sections.set(x.id, sectionModule);
+          board.appendChild(sectionModule);
+        });
+      }
+      if (question.questions) {
+        question.questions.forEach((question) => {
+          const questionModule = createContainer(
+            "question",
+            "question",
+            question
+          );
+          if (question.sectionId && sections.has(question.sectionId)) {
+            const section = sections.get(question.sectionId);
+            section
+              .querySelector("[data-drop-acceptable-container-schema-type]")
+              .appendChild(questionModule);
+          } else {
+            board.appendChild(questionModule);
+          }
+          if (question.parts) {
+            question.parts.forEach((part) => {
+              const partModule = createContainer(
+                part.viewType,
+                "question",
+                part
+              );
+              const partContainer = questionModule.querySelector(
+                `[data-bc-question-part-number="${part.part}"]`
+              );
+              partContainer.appendChild(partModule);
+            });
+          }
+        });
       }
     }
   }
@@ -177,13 +240,11 @@ export default class WorkspaceComponent
     if (this.resultSourceIdToken) {
       const source = await this.owner.waitToGetSourceAsync(this._sourceId);
       const schema = source.rows[0] as ISchemaMakerSchema;
-      const retVal: IQuestionSchema = {
-        baseVocab: schema.baseVocab,
-        lid: schema.lid,
-        schemaId: schema.schemaId,
-        schemaVersion: schema.schemaVersion,
-        sections: null,
-        questions: null,
+      const retVal: Partial<IQuestionSchema> = {
+        ...(schema?.baseVocab && { baseVocab: schema.baseVocab }),
+        ...(schema?.lid && { lid: schema.lid }),
+        ...(schema?.schemaId && { schemaId: schema.schemaId }),
+        ...(schema?.schemaVersion && { schemaVersion: schema.schemaVersion }),
       };
 
       const container = this.container.querySelector(

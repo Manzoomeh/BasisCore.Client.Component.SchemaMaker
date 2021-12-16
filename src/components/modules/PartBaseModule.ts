@@ -12,7 +12,7 @@ import IPartBaseModuleDataModel from "./IPartBaseModuleDataModel";
 export default abstract class PartBaseModule<
   TModelType extends IPartBaseModuleDataModel
 > extends ToolboxModule {
-  protected abstract readonly data: TModelType;
+  protected readonly data: Partial<TModelType> = {};
   protected readonly questionPartModel: IQuestionPart;
   protected readonly schemaId: ViewType;
 
@@ -24,8 +24,16 @@ export default abstract class PartBaseModule<
     questionPart?: IQuestionPart
   ) {
     super(layout, owner, true, component);
+
     this.schemaId = schemaId;
     this.questionPartModel = questionPart;
+    this.data.viewType = schemaId;
+    if (questionPart) {
+      this.data.viewType = schemaId;
+      this.data.caption = questionPart.caption;
+      this.data.cssClass = questionPart.cssClass;
+      this.data.validations = questionPart.validations;
+    }
   }
 
   protected getAnswerSchema(): IAnswerSchema {

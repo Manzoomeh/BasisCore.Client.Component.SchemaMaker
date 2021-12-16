@@ -6,10 +6,9 @@ import {
   ViewType,
 } from "../../../basiscore/schema/IQuestionSchema";
 import ITextBaseModuleDataModel from "./ITextBaseModuleDataModel";
-import SchemaUtil from "../../../SchemaUtil";
 
 export default abstract class TextBaseModule extends PartBaseModule<ITextBaseModuleDataModel> {
-  protected readonly data: ITextBaseModuleDataModel;
+  protected readonly data: Partial<ITextBaseModuleDataModel>;
   constructor(
     layout: string,
     owner: HTMLElement,
@@ -18,12 +17,5 @@ export default abstract class TextBaseModule extends PartBaseModule<ITextBaseMod
     questionPart: IQuestionPart
   ) {
     super(layout, owner, component, viewType, questionPart);
-    if (questionPart) {
-      this.data = SchemaUtil.toTextBaseModuleDataModel(questionPart);
-    } else {
-      this.data = {
-        viewType: viewType,
-      };
-    }
   }
 }
