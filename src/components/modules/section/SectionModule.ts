@@ -3,7 +3,7 @@ import IQuestionSchema, {
   ISection,
 } from "../../../basiscore/schema/IQuestionSchema";
 import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
-import IContainerModule from "../IContainerModule";
+import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
 import SchemaUtil from "../../../SchemaUtil";
@@ -14,10 +14,6 @@ export default class SectionModule extends ContainerModule {
   private _data: Partial<ISection>;
   private static readonly TITLE_ID = 1;
   private static readonly DESCRIPTION_ID = 2;
-
-  get id(): number {
-    return this._data.id;
-  }
 
   get title(): string {
     return this._data.title;
@@ -38,7 +34,7 @@ export default class SectionModule extends ContainerModule {
 
   constructor(
     owner: HTMLElement,
-    container: IContainerModule,
+    container: IWorkspaceComponent,
     data?: ISection
   ) {
     super(layout, owner, container);
@@ -50,6 +46,9 @@ export default class SectionModule extends ContainerModule {
         description: "",
       };
     }
+    this.container
+      .querySelector("[data-bc-section-id]")
+      .setAttribute("data-bc-section-id", this._data.id.toString());
     this.title = this._data.title;
     this.description = this._data.description;
   }
@@ -98,7 +97,7 @@ export default class SectionModule extends ContainerModule {
         const id = x.getAttribute("data-bc-module-id");
         if (id) {
           const moduleId = parseInt(id);
-          retVal = this.moduleContainer.getModule(moduleId) as TType;
+          retVal = this.workspace.getModule(moduleId) as TType;
         }
       }
       return retVal;

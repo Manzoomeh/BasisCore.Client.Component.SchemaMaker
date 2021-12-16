@@ -6,7 +6,7 @@ import layout from "./assets/layout.html";
 import "./assets/style.css";
 import DefaultSource from "../SourceId";
 import IAnswerSchema from "../../basiscore/schema/IAnswerSchema";
-import IContainerModule from "../modules/IContainerModule";
+import IWorkspaceComponent from "./IWorkspaceComponent";
 import IUserActionResult from "../../basiscore/schema/IUserActionResult";
 import IModuleFactory from "../modules/IModuleFactory";
 import IQuestionSchema from "../../basiscore/schema/IQuestionSchema";
@@ -18,7 +18,7 @@ import ContainerModule from "../modules/ContainerModule";
 
 export default class WorkspaceComponent
   extends ComponentBase
-  implements IContainerModule
+  implements IWorkspaceComponent
 {
   private _sourceId: string;
   private readonly _modules: Map<number, ToolboxModule> = new Map<
@@ -26,10 +26,6 @@ export default class WorkspaceComponent
     ToolboxModule
   >();
   private resultSourceIdToken: IToken<string>;
-
-  get id(): number {
-    return 0;
-  }
 
   constructor(owner: IUserDefineComponent) {
     super(owner, layout, "data-bc-sm-toolbox-container");

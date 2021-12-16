@@ -1,4 +1,4 @@
-import IContainerModule from "./IContainerModule";
+import IWorkspaceComponent from "../workspace/IWorkspaceComponent";
 import ToolboxModule from "./base-class/ToolboxModule";
 import {
   IQuestionPart,
@@ -19,11 +19,11 @@ export default abstract class PartBaseModule<
   constructor(
     layout: string,
     owner: HTMLElement,
-    component: IContainerModule,
+    workspace: IWorkspaceComponent,
     schemaId: ViewType,
     questionPart?: IQuestionPart
   ) {
-    super(layout, owner, true, component);
+    super(layout, owner, true, workspace);
 
     this.schemaId = schemaId;
     this.questionPartModel = questionPart;

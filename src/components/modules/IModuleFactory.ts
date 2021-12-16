@@ -1,11 +1,11 @@
 import ToolboxModule from "./base-class/ToolboxModule";
-import IContainerModule from "./IContainerModule";
+import IWorkspaceComponent from "../workspace/IWorkspaceComponent";
 
 export default interface IModuleFactory {
   create(
     schemaId: string,
     owner: HTMLElement,
-    container: IContainerModule,
+    container: IWorkspaceComponent,
     data?: any
   ): ToolboxModule;
 }

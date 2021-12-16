@@ -1,6 +1,6 @@
 import AutocompleteModule from "./autocomplete/AutocompleteModule";
 import ToolboxModule from "./base-class/ToolboxModule";
-import IContainerModule from "./IContainerModule";
+import IWorkspaceComponent from "../workspace/IWorkspaceComponent";
 import CheckListModule from "./list-base/check-list/CheckListModule";
 import SelectModule from "./list-base/select/SelectModule";
 import LongTextModule from "./text-base/long-text/LongTextModule";
@@ -13,7 +13,7 @@ export default class ModuleFactory implements IModuleFactory {
   public create(
     schemaId: string,
     owner: HTMLElement,
-    container: IContainerModule,
+    container: IWorkspaceComponent,
     model?: any
   ): ToolboxModule {
     let module: ToolboxModule = null;

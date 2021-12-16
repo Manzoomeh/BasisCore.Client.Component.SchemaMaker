@@ -1,12 +1,13 @@
 import { IQuestionPart } from "../../../../basiscore/schema/IQuestionSchema";
-import IContainerModule from "../../IContainerModule";
+import IWorkspaceComponent from "../../../workspace/IWorkspaceComponent";
 import TextBaseModule from "../TextBaseModule";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
+
 export default class LongTextModule extends TextBaseModule {
   constructor(
     owner: HTMLElement,
-    component: IContainerModule,
+    component: IWorkspaceComponent,
     model: IQuestionPart
   ) {
     super(layout, owner, component, "Textarea", model);

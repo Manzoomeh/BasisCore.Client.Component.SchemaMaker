@@ -1,27 +1,14 @@
-import IUserDefineComponent from "../../basiscore/IUserDefineComponent";
-import IContainerModule from "./IContainerModule";
+import IWorkspaceComponent from "../workspace/IWorkspaceComponent";
 import ToolboxModule from "./base-class/ToolboxModule";
 import IQuestionSchema from "../../basiscore/schema/IQuestionSchema";
 
-export default abstract class ContainerModule
-  extends ToolboxModule
-  implements IContainerModule
-{
-  public abstract id: number;
-
-  constructor(layout: string, owner: HTMLElement, container: IContainerModule) {
+export default abstract class ContainerModule extends ToolboxModule {
+  constructor(
+    layout: string,
+    owner: HTMLElement,
+    container: IWorkspaceComponent
+  ) {
     super(layout, owner, false, container);
-  }
-  getModule(moduleId: number): ToolboxModule {
-    return this.moduleContainer.getModule(moduleId);
-  }
-
-  public getComponent(): IUserDefineComponent {
-    return this.moduleContainer.getComponent();
-  }
-
-  public onRemove(moduleId: number) {
-    this.moduleContainer.onRemove(moduleId);
   }
 
   public abstract fillSchema(schema: Partial<IQuestionSchema>): void;
@@ -32,7 +19,7 @@ export default abstract class ContainerModule
     ).map((x) => {
       const id = x.getAttribute("data-bc-module-id");
       const moduleId = parseInt(id);
-      return this.moduleContainer.getModule(moduleId) as TType;
+      return this.workspace.getModule(moduleId) as TType;
     });
   }
 }

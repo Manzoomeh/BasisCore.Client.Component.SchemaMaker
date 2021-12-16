@@ -1,4 +1,4 @@
-import IContainerModule from "../IContainerModule";
+import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 import "./assets/style.css";
 import PartBaseModule from "../PartBaseModule";
 import {
@@ -12,7 +12,7 @@ export default abstract class TextBaseModule extends PartBaseModule<ITextBaseMod
   constructor(
     layout: string,
     owner: HTMLElement,
-    component: IContainerModule,
+    component: IWorkspaceComponent,
     viewType: ViewType,
     questionPart: IQuestionPart
   ) {

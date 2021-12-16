@@ -4,7 +4,7 @@ import IQuestionSchema, {
 } from "../../../basiscore/schema/IQuestionSchema";
 import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
 import SchemaUtil from "../../../SchemaUtil";
-import IContainerModule from "../IContainerModule";
+import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 import ContainerModule from "../ContainerModule";
 import layout from "./assets/layout.html";
 import partLayout from "./assets/part-layout.html";
@@ -23,7 +23,7 @@ export default class QuestionModule extends ContainerModule {
   private readonly _data: Partial<IQuestionModuleDataModel>;
   private readonly _schema: IQuestion;
 
-  get id(): number {
+  get sectionId(): number {
     return 0;
   }
 
@@ -55,9 +55,7 @@ export default class QuestionModule extends ContainerModule {
         }
       } else if (cols.length < value) {
         while (cols.length != value) {
-          const col = this.moduleContainer
-            .getComponent()
-            .toHTMLElement(partLayout);
+          const col = this.workspace.getComponent().toHTMLElement(partLayout);
           col.setAttribute(
             "data-bc-question-part-number",
             (cols.length + 1).toString()
@@ -71,7 +69,7 @@ export default class QuestionModule extends ContainerModule {
 
   constructor(
     owner: HTMLElement,
-    container: IContainerModule,
+    container: IWorkspaceComponent,
     data?: IQuestion
   ) {
     super(layout, owner, container);
@@ -158,6 +156,10 @@ export default class QuestionModule extends ContainerModule {
   }
 
   public fillSchema(schema: IQuestionSchema) {
+    const sectionId = this.owner
+      .closest("[data-drop-acceptable-container-schema-type]")
+      .getAttribute("data-bc-section-id");
+
     const question: IQuestion = {
       ...(this._schema && { prpId: this._schema.prpId }),
       ...(this._schema && { typeId: this._schema.typeId }),
@@ -166,7 +168,7 @@ export default class QuestionModule extends ContainerModule {
       ...(this._data.title && { title: this._data.title }),
       ...(this._schema && { wordId: this._schema.wordId }),
       ...(this._data.multi && { multi: this._data.multi }),
-      ...(this.moduleContainer.id && { sectionId: this.moduleContainer.id }),
+      ...(sectionId && { sectionId: parseInt(sectionId) }),
       ...(this._data.cssClass && { cssClass: this._data.cssClass }),
       ...(this._data.help && { help: this._data.help }),
       parts: null,

@@ -1,4 +1,4 @@
-import IContainerModule from "../IContainerModule";
+import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
 import PartBaseModule from "../PartBaseModule";
@@ -17,10 +17,10 @@ export default class AutocompleteModule extends PartBaseModule<IAutocompleteData
   protected data: Partial<IAutocompleteDataModel>;
   constructor(
     owner: HTMLElement,
-    component: IContainerModule,
+    workspace: IWorkspaceComponent,
     questionPart: IQuestionPart
   ) {
-    super(layout, owner, component, AutocompleteModule.SCHEMA_ID, questionPart);
+    super(layout, owner, workspace, AutocompleteModule.SCHEMA_ID, questionPart);
     if (questionPart) {
       this.data.link = questionPart.link;
     }

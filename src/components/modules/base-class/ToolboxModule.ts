@@ -4,7 +4,7 @@ import IAnswerSchema from "../../../basiscore/schema/IAnswerSchema";
 import IQuestionSchema from "../../../basiscore/schema/IQuestionSchema";
 import DefaultSource from "../../SourceId";
 import ISchemaMakerComponent from "../../schema-maker/ISchemaMakerComponent";
-import IContainerModule from "../IContainerModule";
+import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
 
 export default abstract class ToolboxModule {
@@ -13,17 +13,17 @@ export default abstract class ToolboxModule {
   public readonly owner: HTMLElement;
   public readonly container: Element;
   protected readonly question: IQuestionSchema;
-  protected readonly moduleContainer: IContainerModule;
+  protected readonly workspace: IWorkspaceComponent;
   protected readonly rootComponent: ISchemaMakerComponent;
 
   constructor(
     template: string,
     owner: HTMLElement,
     replace: boolean,
-    container: IContainerModule
+    workspace: IWorkspaceComponent
   ) {
-    this.moduleContainer = container;
-    this.rootComponent = this.moduleContainer
+    this.workspace = workspace;
+    this.rootComponent = this.workspace
       .getComponent()
       .dc.resolve<ISchemaMakerComponent>("schema_maker_component");
     this.usedForId = ToolboxModule._id++;
@@ -55,9 +55,9 @@ export default abstract class ToolboxModule {
       .addEventListener("click", (e) => {
         e.preventDefault();
         this.getChildModules<ToolboxModule>()?.forEach((x) =>
-          this.moduleContainer.onRemove(x.usedForId)
+          this.workspace.onRemove(x.usedForId)
         );
-        this.moduleContainer.onRemove(this.usedForId);
+        this.workspace.onRemove(this.usedForId);
         this.owner.remove();
       });
 
