@@ -17,11 +17,11 @@
                             "schemaId": "section",
                             "schemaType": "section",
                             "title": "Section",
-                            "image": "",
+                            "image": "/assets/images/sections.png",
                             "questions": [
                                 {
                                     "prpId": 1,
-                                    "title": "عنوان",
+                                    "title": "Title",
                                     "parts": [
                                         {
                                             "part": 1,
@@ -32,7 +32,7 @@
                                 },
                                 {
                                     "prpId": 2,
-                                    "title": "توضیحات",
+                                    "title": "Description",
                                     "parts": [
                                         {
                                             "part": 1,
@@ -47,7 +47,7 @@
                             "schemaId": "question",
                             "schemaType": "question",
                             "title": "Question",
-                            "image": "",
+                            "image": "/assets/images/question.png",
                             "questions": [
                                 {
                                     "prpId": 1,
@@ -134,7 +134,7 @@
                             "schemaId": "text",
                             "schemaType": "part",
                             "title": "Short Text",
-                            "image": "",
+                            "image": "/assets/images/input.png",
                             "questions": [
                                 {
                                     "prpId": 1,
@@ -159,6 +159,7 @@
                                 {
                                     "prpId": 3001,
                                     "title": "required",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -179,6 +180,7 @@
                                 {
                                     "prpId": 3002,
                                     "title": "minLength",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -192,6 +194,7 @@
                                 {
                                     "prpId": 3003,
                                     "title": "maxLength",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -205,6 +208,7 @@
                                 {
                                     "prpId": 3004,
                                     "title": "min",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -218,6 +222,7 @@
                                 {
                                     "prpId": 3005,
                                     "title": "max",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -231,6 +236,7 @@
                                 {
                                     "prpId": 3006,
                                     "title": "dataType",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -255,12 +261,19 @@
                                 {
                                     "prpId": 3007,
                                     "title": "regex",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
                                             "viewType": "text"
                                         }
                                     ]
+                                }
+                            ],
+                            "sections": [
+                                {
+                                    "id": 1,
+                                    "title": "Validations"
                                 }
                             ]
                         },
@@ -268,7 +281,7 @@
                             "schemaId": "textarea",
                             "schemaType": "part",
                             "title": "Long Text",
-                            "image": "",
+                            "image": "/assets/images/text-box.png",
                             "questions": [
                                 {
                                     "prpId": 1,
@@ -293,6 +306,7 @@
                                 {
                                     "prpId": 3001,
                                     "title": "required",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -313,6 +327,7 @@
                                 {
                                     "prpId": 3002,
                                     "title": "minLength",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -326,6 +341,7 @@
                                 {
                                     "prpId": 3003,
                                     "title": "maxLength",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -339,6 +355,7 @@
                                 {
                                     "prpId": 3004,
                                     "title": "min",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -352,6 +369,7 @@
                                 {
                                     "prpId": 3005,
                                     "title": "max",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -365,6 +383,7 @@
                                 {
                                     "prpId": 3006,
                                     "title": "dataType",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -389,6 +408,7 @@
                                 {
                                     "prpId": 3007,
                                     "title": "regex",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -396,13 +416,19 @@
                                         }
                                     ]
                                 }
+                            ],
+                            "sections": [
+                                {
+                                    "id": 1,
+                                    "title": "Validations"
+                                }
                             ]
                         },
                         {
                             "schemaId": "AutoComplete",
                             "schemaType": "part",
                             "title": "Autocomplete",
-                            "image": "",
+                            "image": "/assets/images/autoComplete.png",
                             "questions": [
                                 {
                                     "prpId": 1,
@@ -441,6 +467,7 @@
                                 {
                                     "prpId": 3001,
                                     "title": "required",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -461,6 +488,7 @@
                                 {
                                     "prpId": 3002,
                                     "title": "minLength",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -474,6 +502,7 @@
                                 {
                                     "prpId": 3003,
                                     "title": "maxLength",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -484,13 +513,19 @@
                                         }
                                     ]
                                 }
+                            ],
+                            "sections": [
+                                {
+                                    "id": 1,
+                                    "title": "Validations"
+                                }
                             ]
                         },
                         {
                             "schemaId": "Select",
                             "schemaType": "part",
                             "title": "Select",
-                            "image": "",
+                            "image": "/assets/images/dropdown.png",
                             "questions": [
                                 {
                                     "prpId": 1,
@@ -548,6 +583,7 @@
                                 {
                                     "prpId": 3001,
                                     "title": "required",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -565,13 +601,19 @@
                                         }
                                     ]
                                 }
+                            ],
+                            "sections": [
+                                {
+                                    "id": 1,
+                                    "title": "Validations"
+                                }
                             ]
                         },
                         {
                             "schemaId": "Checklist",
                             "schemaType": "part",
                             "title": "Checklist",
-                            "image": "",
+                            "image": "/assets/images/checklist.png",
                             "questions": [
                                 {
                                     "prpId": 1,
@@ -626,6 +668,7 @@
                                 {
                                     "prpId": 3001,
                                     "title": "required",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -646,6 +689,7 @@
                                 {
                                     "prpId": 3002,
                                     "title": "minLength",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -659,6 +703,7 @@
                                 {
                                     "prpId": 3003,
                                     "title": "maxLength",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -668,6 +713,12 @@
                                             }
                                         }
                                     ]
+                                }
+                            ],
+                            "sections": [
+                                {
+                                    "id": 1,
+                                    "title": "Validations"
                                 }
                             ]
                         }

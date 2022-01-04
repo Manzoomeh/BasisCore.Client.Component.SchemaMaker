@@ -47,11 +47,11 @@ export default class QuestionModule extends ContainerModule {
     if (currentValue != value) {
       this._data.part = value;
       const row = this.container.querySelector("[data-tr]");
-      let cols = row.querySelectorAll("td[data-bc-sm-part-container]");
+      let cols = row.querySelectorAll("div[data-bc-sm-part-container]");
       if (cols.length > value) {
         while (cols.length != value) {
           cols[cols.length - 1].remove();
-          cols = row.querySelectorAll("td[data-bc-sm-part-container]");
+          cols = row.querySelectorAll("div[data-bc-sm-part-container]");
         }
       } else if (cols.length < value) {
         while (cols.length != value) {
@@ -61,7 +61,7 @@ export default class QuestionModule extends ContainerModule {
             (cols.length + 1).toString()
           );
           row.appendChild(col);
-          cols = row.querySelectorAll("td[data-bc-sm-part-container]");
+          cols = row.querySelectorAll("div[data-bc-sm-part-container]");
         }
       }
     }

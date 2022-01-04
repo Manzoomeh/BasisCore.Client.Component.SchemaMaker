@@ -26,6 +26,20 @@ export default class ToolBoxComponent extends ComponentBase {
   }
 
   private crateUI(source: ISchemaMakerSchema) {
+    // add event click to icon
+    this.container
+      .querySelector("[data-bc-toolbox-icon]")
+      .addEventListener("click", (e) => {
+        e.preventDefault();
+        const modeContainer = this.container.querySelector("[data-bc-toolbox-container]");
+        const mode = modeContainer.getAttribute("data-bc-toolbox-mode");
+        if (mode == "show") {
+          modeContainer.setAttribute("data-bc-toolbox-mode", "");
+        } else {
+          modeContainer.setAttribute("data-bc-toolbox-mode", "show");
+        }
+      });
+
     const container = this.container.querySelector(
       "[data-bc-toolbox-container-list]"
     );
@@ -34,7 +48,8 @@ export default class ToolBoxComponent extends ComponentBase {
       const copyLayout = itemLayout
         .replace("@schemaId", schema.schemaId.toLowerCase())
         .replace("@schemaType", schema.schemaType.toLowerCase())
-        .replace("@title", schema.title);
+        .replace("@title", schema.title)
+        .replace("@image", schema.image);
       const item = this.owner.toNode(copyLayout);
       if (schema.schemaType == "part") {
         part.appendChild(item);

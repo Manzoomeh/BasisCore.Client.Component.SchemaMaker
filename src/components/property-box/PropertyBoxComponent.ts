@@ -23,6 +23,27 @@ export default class PropertyBoxComponent extends ComponentBase {
   }
 
   public async initializeAsync(): Promise<void> {
+    // add event click to icon
+    this.container
+      .querySelector("[data-bc-properties-icon]")
+      .addEventListener("click", (e) => {
+        e.preventDefault();
+        const modeContainer = this.container.querySelector("[data-bc-properties-container]");
+        const mode = modeContainer.getAttribute("data-bc-properties-mode");
+        if (mode == "show") {
+          modeContainer.setAttribute("data-bc-properties-mode", "");
+          // empty [data-bc-properties-list]
+          this.owner.setSource(
+            "SchemaMakerComponent_PropertyBoxComponent.question",
+            null
+          );
+          (this.container.querySelector("[data-btn-add]") as HTMLElement).style.display = "none";
+
+        } else {
+          modeContainer.setAttribute("data-bc-properties-mode", "show");
+        }
+      });
+
     const callbackFunction = this.owner.storeAsGlobal(
       this.getSchemaAsync.bind(this)
     );
@@ -40,6 +61,8 @@ export default class PropertyBoxComponent extends ComponentBase {
 
   public runAsync(source?: ISource) {
     if (source) {
+      const saveBtn = (this.container.querySelector("[data-btn-add]") as HTMLElement);
+      const mode = this.container.querySelector("[data-bc-properties-container]");
       switch (source.id) {
         case this._sourceId: {
           this._source = source.rows[0] as ISchemaMakerSchema;
@@ -51,6 +74,8 @@ export default class PropertyBoxComponent extends ComponentBase {
             "SchemaMakerComponent_PropertyBoxComponent.question",
             answer
           );
+          saveBtn.style.display = "block";
+          mode.setAttribute("data-bc-properties-mode", "show");
           break;
         }
         case "schemamakercomponent_propertyboxcomponent.answer": {
@@ -61,6 +86,8 @@ export default class PropertyBoxComponent extends ComponentBase {
             "SchemaMakerComponent_PropertyBoxComponent.question",
             null
           );
+          saveBtn.style.display = "none";
+          mode.setAttribute("data-bc-properties-mode", "");
         }
       }
     }

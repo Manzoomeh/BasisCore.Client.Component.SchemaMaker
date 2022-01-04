@@ -1,9 +1,58 @@
 [data-bc-sm-question-module] {
   width: 100%;
+  margin-bottom: 10px;
 }
 
-[data-bc-sm-question-module] > tbody > tr > td {
-  border: 1px dotted grey;
-  height: 50px;
+[data-bc-sm-question-module] [data-tr] {
+  display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox; /* TWEENER - IE 10 */
+  display: -moz-flex;
+  display: -webkit-flex; /* NEW - Chrome */
+  display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  /* column-gap: 5px; */
+}
+
+[data-bc-sm-question-module] [data-tr] [data-td] {
+  /* height: 50px; */
+  padding: 10px;
   white-space: nowrap;
+  flex-grow: 1;
+  flex: -moz-available;
+  border-radius: 3px;
+}
+
+[data-bc-sm-question-module] [data-tr] [data-td]:first-child {
+  border: 1px solid grey;
+  margin: 0;
+}
+
+[data-bc-sm-question-module] [data-tr] [data-td]:not(:first-child) {
+  border: 1px dashed grey;
+  margin-left: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+[data-bc-sm-question-module] > tbody > tr > td {
+  /* height: 50px; */
+  padding: 10px;
+  white-space: nowrap;
+}
+
+[data-bc-sm-question-module] > tbody > tr > td:first-child {
+  border: 1px solid grey;
+}
+
+[data-bc-sm-question-module] > tbody > tr > td:not(:first-child) {
+  border: 1px dashed grey;
 }

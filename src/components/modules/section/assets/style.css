@@ -1,7 +1,14 @@
 [data-bc-sm-section-module] {
   width: 100%;
-  padding: 0px;
+  padding: 10px;
   min-height: 50px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+[data-bc-sm-section-module] [data-bc-title] {
+  padding: 0 5px;
+  margin: 0 10px;
 }
 
 [data-drop-acceptable-container-schema-type] {

@@ -28,7 +28,7 @@ export default class WorkspaceComponent
   private resultSourceIdToken: IToken<string>;
 
   constructor(owner: IUserDefineComponent) {
-    super(owner, layout, "data-bc-sm-toolbox-container");
+    super(owner, layout, "data-bc-sm-workspace-container");
     this.initDragula();
   }
 

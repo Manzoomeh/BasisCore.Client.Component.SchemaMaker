@@ -1,0 +1,36 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-weight: normal;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+/*  */
+[data-get-schema-preview] {
+    background-color: #f0f3fa;
+    padding: 20px;
+    direction: rtl;
+}
+
+[data-get-schema-preview] > fieldset {
+    padding: 20px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+[data-get-schema-preview] [data-btn-add] {
+    margin-top: 30px;
+    width: 100px;
+    height: 30px;
+    background-color: #3395a5;
+    color: #fff;
+    border: 1px solid #3395a5;
+    border-radius: 3px;
+    cursor: pointer;
+}

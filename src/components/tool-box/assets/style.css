@@ -1,16 +1,131 @@
-[data-bc-sm-main-container]
-  [data-bc-sm-toolbox-container]
-  [data-bc-toolbox-list] {
-  list-style: none;
-  padding: 0px;
+[data-bc-sm-main-container] [data-bc-sm-toolbox-container] [data-bc-toolbox-mode] {
+  width: 50px;
+  height: 100%;
+  background-color: #35414f;
+  transition: 0.3s;
 }
 
-[data-bc-sm-main-container]
-  [data-bc-sm-toolbox-container]
-  [data-bc-toolbox-item] {
+[data-bc-sm-main-container] [data-bc-sm-toolbox-container] [data-bc-toolbox-mode="show"] {
+  width: 200px !important;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-toolbox-container] [data-bc-toolbox-container-icon] {
+  text-align: left;
+  transition: 0.3s;
+  padding: 10px 10px 0;
+  display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox; /* TWEENER - IE 10 */
+  display: -moz-flex;
+  display: -webkit-flex; /* NEW - Chrome */
+  display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  white-space: nowrap;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-toolbox-container] [data-bc-toolbox-icon]  {
+  box-sizing: border-box;
+  color: #6b788b;
+  background: #2c3642;
+  padding: 5px;
+  font-size: 23px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  opacity: 0.7;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-toolbox-container] [data-bc-toolbox-container-icon] span {
   display: block;
-  height: 40px;
-  border: 1px solid black;
-  margin: 9px 0;
-  text-align: center;
+  width: 0;
+  overflow-x: hidden;
+  cursor: auto;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-toolbox-container] [data-bc-toolbox-mode="show"] [data-bc-toolbox-container-icon] span {
+  width: auto;
+  font-size: 14px;
+  padding-left: 20px;
+  overflow-x: visible;
+  color: #fff;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-toolbox-container] [data-bc-toolbox-list] {
+  margin-top: 40px;
+}
+
+[data-bc-toolbox-item] {
+  /* display: block; */
+  /* height: 40px; */
+  border-bottom: 1px solid #6b788b;
+  /* margin: 9px 0; */
+  /* text-align: center; */
+  display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox; /* TWEENER - IE 10 */
+  display: -moz-flex;
+  display: -webkit-flex; /* NEW - Chrome */
+  display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  white-space: nowrap;
+  line-height: 0;
+  /* padding: .75em; */
+  padding: 10px 15px;
+  width: 100%;
+  cursor: all-scroll;
+}
+
+[data-bc-toolbox-item] span {
+  padding-left: 20px;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-toolbox-container] [data-bc-toolbox-item] span {
+  display: block;
+  font-size: 14px;
+  overflow-x: visible;
+  color: #fff;
+  width: 0;
+  overflow-x: hidden;
+  cursor: auto;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-toolbox-container] [data-bc-toolbox-item] i {
+  color: #fff;
+  cursor: auto;
+  font-size: 16px;
+  opacity: 0.7;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-toolbox-container] [data-bc-toolbox-item] img {
+  cursor: auto;
+  width: 20px;
+  opacity: 0.7;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-toolbox-container] [data-bc-toolbox-mode="show"] [data-bc-toolbox-item] span {
+  width: auto;
+  /* font-size: 14px; */
+  /* padding-left: 20px; */
+  overflow-x: visible;
+  /* color: #fff; */
+}
+
+.gu-mirror[data-bc-toolbox-item=""] {
+  position: fixed !important;
+  z-index: 9999 !important;
+  opacity: 1;
+  color: #fff;
+  box-shadow: 0 2px 2px rgba(182, 182, 182, 0.5);
+  /* display: block; */
+  position: relative;
+  padding: 0 20px;
+  border: 2px dashed #fff !important;
+  border-radius: 5px;
+  background-color: #8a8a8a;
 }

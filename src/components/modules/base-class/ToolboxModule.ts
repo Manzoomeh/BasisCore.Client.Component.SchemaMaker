@@ -38,6 +38,10 @@ export default abstract class ToolboxModule {
       `data-bc-${replace ? "part" : "container"}-handler`,
       ""
     );
+    ui.querySelector("[data-bc-handler] img").setAttribute(
+      `data-bc-${replace ? "part" : "container"}-handler`,
+      ""
+    );
     this.container.appendChild(ui);
 
     const moduleContainer = this.container.querySelector(

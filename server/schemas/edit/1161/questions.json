@@ -258,7 +258,7 @@
                             "schemaId": "section",
                             "schemaType": "section",
                             "title": "Section",
-                            "image": "",
+                            "image": "/assets/images/sections.png",
                             "questions": [
                                 {
                                     "prpId": 1,
@@ -288,7 +288,7 @@
                             "schemaId": "question",
                             "schemaType": "question",
                             "title": "Question",
-                            "image": "",
+                            "image": "/assets/images/question.png",
                             "questions": [
                                 {
                                     "prpId": 1,
@@ -375,7 +375,7 @@
                             "schemaId": "text",
                             "schemaType": "part",
                             "title": "Short Text",
-                            "image": "",
+                            "image": "/assets/images/input.png",
                             "questions": [
                                 {
                                     "prpId": 1,
@@ -509,7 +509,7 @@
                             "schemaId": "textarea",
                             "schemaType": "part",
                             "title": "Long Text",
-                            "image": "",
+                            "image": "/assets/images/text-box.png",
                             "questions": [
                                 {
                                     "prpId": 1,
@@ -643,7 +643,7 @@
                             "schemaId": "AutoComplete",
                             "schemaType": "part",
                             "title": "Autocomplete",
-                            "image": "",
+                            "image": "/assets/images/autoComplete.png",
                             "questions": [
                                 {
                                     "prpId": 1,
@@ -731,7 +731,7 @@
                             "schemaId": "Select",
                             "schemaType": "part",
                             "title": "Select",
-                            "image": "",
+                            "image": "/assets/images/dropdown.png",
                             "questions": [
                                 {
                                     "prpId": 1,
@@ -812,7 +812,7 @@
                             "schemaId": "Checklist",
                             "schemaType": "part",
                             "title": "Checklist",
-                            "image": "",
+                            "image": "/assets/images/checklist.png",
                             "questions": [
                                 {
                                     "prpId": 1,

@@ -1,3 +1,13 @@
 [data-bc-sm-board] [data-input] {
   pointer-events: none;
 }
+
+[data-bc-sm-question-module] div[data-input] {
+  padding: 8px 9px;
+  border: 1px solid #c7d6db;
+  border-radius: 4px;
+}
+
+[data-bc-sm-question-module] [data-input] label {
+  display: block;
+}

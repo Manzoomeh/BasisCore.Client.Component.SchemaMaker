@@ -1,3 +1,80 @@
-[data-bc-sm-main-container] > table {
-  height: 400px;
+[data-bc-sm-main-container] [data-bc-sm-requirements] {
+  /* min-height: 40px; */
+  /* background-color: #35414f; */
+  padding: 20px 20px 0px;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-requirements] [data-bc-question] {
+  width: 100%;
+  display: inline-block;
+  margin-bottom: 5px;
+  /* padding: 0 10px; */
+}
+
+/* [data-bc-sm-main-container] [data-bc-sm-requirements] [data-bc-question]:first-child {
+  padding-left: 0;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-requirements] [data-bc-question]:last-child {
+  padding-right: 0;
+} */
+
+[data-bc-sm-main-container] [data-bc-sm-requirements] [data-bc-title] {
+  /* width: 50%; */
+  /* display: inline-block; */
+  float: left;
+  width: 130px;
+  /* margin-right: 10px; */
+  line-height: 30px;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-requirements] [data-bc-answer] {
+  width: calc(100% - 130px);
+  display: inline-block;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-requirements] input[type="text"],
+[data-bc-sm-main-container] [data-bc-sm-requirements] select {
+  padding: 0.1em 0.4em;
+  display: inline-block;
+  border: 1px solid #c7d6db;
+  background: #f5f8f9;
+  border-radius: 4px;
+  transition: border 0.3s linear 0s;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 300px;
+  font-size: 12px;
+  color: #555;
+  height: 30px;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-requirements] input[type="text"]:focus,
+[data-bc-sm-main-container] [data-bc-sm-requirements] select:focus {
+  border-color: #66afe9;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(102, 175, 233, 0.6);
+  outline: 0 none;
+  background: #fff8ee;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-container] {
+  display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+  display: -ms-flexbox; /* TWEENER - IE 10 */
+  display: -moz-flex;
+  display: -webkit-flex; /* NEW - Chrome */
+  display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  /* min-height: calc(100vh - 105px); */
+  height: 100vh;
+  border-bottom: 1px solid #35414f;
+}
+
+[data-bc-sm-main-container] [data-bc-sm-parent] {
+  width: 100%;
+  background-color: #f0f3fa;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  /* padding-top: 30px; */
 }
