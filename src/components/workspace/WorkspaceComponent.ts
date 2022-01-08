@@ -21,6 +21,7 @@ export default class WorkspaceComponent
   implements IWorkspaceComponent
 {
   private _sourceId: string;
+  private _internalSourceId: string;
   private readonly _modules: Map<number, ToolboxModule> = new Map<
     number,
     ToolboxModule
@@ -144,6 +145,24 @@ export default class WorkspaceComponent
     this.resultSourceIdToken = this.owner.getAttributeToken("resultSourceId");
     const buttonSelector = await this.owner.getAttributeValueAsync("button");
     this.owner.addTrigger([DefaultSource.PROPERTY_RESULT, this._sourceId]);
+
+    const resultSourceId = await this.resultSourceIdToken.getValueAsync();
+    this._internalSourceId = this.owner.getRandomName(resultSourceId);
+    const schemaCommand = this.container.querySelector("basis[core='schema']");
+    schemaCommand.setAttribute("triggers", this._internalSourceId);
+
+    const scriptElement = this.container.querySelector<HTMLScriptElement>(
+      "[data-bc-sm-script]"
+    );
+
+    const script_tag = document.createElement("script");
+    script_tag.text = scriptElement.text.replace(
+      "@internalSourceId",
+      this._internalSourceId
+    );
+    schemaCommand.parentElement.appendChild(script_tag);
+    scriptElement.remove();
+
     if (buttonSelector) {
       document
         .querySelectorAll(buttonSelector)
@@ -169,6 +188,8 @@ export default class WorkspaceComponent
           break;
         }
       }
+    } else {
+      this.owner.processNodesAsync(Array.from(this.container.childNodes));
     }
   }
 
@@ -180,6 +201,20 @@ export default class WorkspaceComponent
       schemaType: ModuleType,
       data: any
     ): Element => {
+      this.container.querySelector<HTMLInputElement>(
+        "[data-bc-sm-schema-version]"
+      ).value = question.schemaVersion;
+
+      this.container
+        .querySelector<HTMLSelectElement>(
+          `[data-bc-sm-schema-language] [value='${question.lid}']`
+        )
+        .setAttribute("selected", "");
+
+      this.container.querySelector<HTMLInputElement>(
+        "[data-bc-sm-schema-name]"
+      ).value = question.name;
+
       const container = document.createElement("div");
       container.setAttribute("data-schema-id", schemaId);
       container.setAttribute("data-schema-type", schemaType);
@@ -236,11 +271,25 @@ export default class WorkspaceComponent
     if (this.resultSourceIdToken) {
       const source = await this.owner.waitToGetSourceAsync(this._sourceId);
       const schema = source.rows[0] as ISchemaMakerSchema;
+
+      const schemaVersion = this.container.querySelector<HTMLInputElement>(
+        "[data-bc-sm-schema-version]"
+      ).value;
+      const lid = parseInt(
+        this.container.querySelector<HTMLSelectElement>(
+          "[data-bc-sm-schema-language]"
+        ).value
+      );
+      const schemaName = this.container.querySelector<HTMLInputElement>(
+        "[data-bc-sm-schema-name]"
+      ).value;
+
       const retVal: Partial<IQuestionSchema> = {
         ...(schema?.baseVocab && { baseVocab: schema.baseVocab }),
-        ...(schema?.lid && { lid: schema.lid }),
+        ...(lid && { lid: lid }),
         ...(schema?.schemaId && { schemaId: schema.schemaId }),
-        ...(schema?.schemaVersion && { schemaVersion: schema.schemaVersion }),
+        ...(schemaVersion && { schemaVersion: schemaVersion }),
+        ...(schemaName && { name: schemaName }),
       };
 
       const container = this.container.querySelector(
@@ -260,6 +309,11 @@ export default class WorkspaceComponent
       });
       const resultSourceId = await this.resultSourceIdToken.getValueAsync();
       this.owner.setSource(resultSourceId, retVal);
+      this.owner.setSource(this._internalSourceId, retVal);
+
+      this.container.querySelector<HTMLTextAreaElement>(
+        "[data-bc-sm-preview-json]"
+      ).textContent = JSON.stringify(retVal);
     }
   }
 

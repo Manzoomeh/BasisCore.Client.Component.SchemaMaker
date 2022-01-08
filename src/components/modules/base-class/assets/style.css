@@ -5,6 +5,10 @@
 }
 
 [data-button] [data-btn-item] {
+  width: 27px;
+  height: 27px;
+  background-position: center;
+  background-repeat: no-repeat;
   text-align: center;
   cursor: pointer;
   border: 1px solid;
@@ -18,6 +22,7 @@
 }
 
 /* [data-button] [data-btn-item][data-btn-control] {
+  background-image: url("control.png");
   background-color: #ffb629;
   border-color: #ffb629;
   position: relative;
@@ -25,6 +30,7 @@
 } */
 
 [data-button] [data-btn-item][data-bc-handler] {
+  background-image: url("handler.png");
   background-color: #0293e2;
   border-color: #0293e2;
   /* opacity: 0; */
@@ -37,6 +43,7 @@
 } */
 
 [data-button] [data-btn-item][data-btn-remove] {
+  background-image: url("remove.png");
   background-color: #d73027;
   border-color: #d73027;
   /* opacity: 0; */
@@ -49,6 +56,7 @@
 } */
 
 [data-button] [data-btn-item][data-btn-setting] {
+  background-image: url("setting.png");
   background-color: #a886ca;
   border-color: #a886ca;
   /* opacity: 0; */
@@ -59,17 +67,6 @@
   left: 90px;
   opacity: 1;
 } */
-
-[data-button] [data-btn-item] i {
-  font-size: 15px;
-}
-
-[data-button] [data-btn-item] img {
-  width: 15px;
-  height: 15px;
-  vertical-align: middle;
-  margin: 5px;
-}
 
 [data-bc-sm-board] [data-drop-acceptable-type] {
   min-height: 50px;

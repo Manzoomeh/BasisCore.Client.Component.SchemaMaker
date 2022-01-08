@@ -1,7 +1,8 @@
 [data-bc-sm-main-container] [data-bc-sm-requirements] {
   /* min-height: 40px; */
   /* background-color: #35414f; */
-  padding: 20px 20px 0px;
+  /* padding: 20px 20px 0px; */
+  margin-bottom: 20px;
 }
 
 [data-bc-sm-main-container] [data-bc-sm-requirements] [data-bc-question] {
@@ -74,7 +75,7 @@
 [data-bc-sm-main-container] [data-bc-sm-parent] {
   width: 100%;
   background-color: #f0f3fa;
-  overflow-y: auto;
-  scrollbar-width: thin;
+  /* overflow-y: auto; */
+  /* scrollbar-width: thin; */
   /* padding-top: 30px; */
 }

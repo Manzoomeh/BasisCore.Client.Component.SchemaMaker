@@ -1,5 +1,82 @@
-<div data-bc-sm-board data-drop-acceptable-container-schema-type="section question"></div>
+<div data-bc-sm-tabs>
+  <input type="radio" id="sm-design-tab" name="sm-tab-control" checked />
+  <input type="radio" id="sm-form-tab" name="sm-tab-control" />
+  <input type="radio" id="sm-json-tab" name="sm-tab-control" />
+  <div data-bc-sm-tab-labels>
+    <button>
+      <label for="sm-design-tab">
+        <span>Design</span>
+      </label>
+    </button>
+    <button>
+      <label for="sm-form-tab">
+        <span>Form Preview</span>
+      </label>
+    </button>
+    <button>
+      <label for="sm-json-tab">
+        <span>Json Preview</span>
+      </label>
+    </button>
+  </div>
+  <div data-bc-sm-tab-content>
+    <section>
+      <div data-bc-sm-requirements>
+        <div data-bc-question="">
+          <div data-bc-title="">Schema Name :</div>
+          <div data-bc-answer="">
+            <input type="text" data-bc-sm-schema-name/>
+          </div>
+        </div>
+        <div data-bc-question="">
+          <div data-bc-title="">Schema Version :</div>
+          <div data-bc-answer="">
+            <input type="text" data-bc-sm-schema-version />
+          </div>
+        </div>
+        <div data-bc-question="">
+          <div data-bc-title="">Language :</div>
+          <div data-bc-answer="">
+            <select data-bc-sm-schema-language>
+              <option value="1">فارسی</option>
+              <option value="2">English</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          data-bc-sm-board
+          data-drop-acceptable-container-schema-type="section question"
+        ></div>
 
-<div data-get-btns>
-  <button data-get-btn data-get-schema-btn>Preview</button>
+        <div data-get-btns>
+          <button data-get-btn data-get-schema-btn>Preview</button>
+          <!-- <button data-get-btn data-save-schema-btn>Form Save</button>
+                    <button data-get-btn data-get-json-btn>Json Preview</button> -->
+        </div>
+      </div>
+    </section>
+    <section>
+      <div data-get-schema-preview>
+        <basis
+          core="schema"
+          run="atclient"
+          schemaCallback="getSchemaAsync"
+          id="1161"
+          version="1.1"
+          triggers=""
+        ></basis>
+        <script data-bc-sm-script type="text/javascript">
+          async function getSchemaAsync(context, id, ver, lid) {
+            const source = context.tryToGetSource("@internalSourceId");
+            return source?.rows[0];
+          }
+        </script>
+      </div>
+    </section>
+    <section>
+      <textarea data-get-json-preview data-bc-sm-preview-json disabled></textarea>
+    </section>
+  </div>
 </div>

@@ -14,7 +14,8 @@
                 {
                     "schemaId": 1161,
                     "schemaVersion": 1.1,
-                    "lid": 1,
+                    "lid": 2,
+                    "name": "test-schema",
                     "baseVocab": "http://schema.site/FA/vo",
                     "questions": [
                         {
@@ -262,7 +263,7 @@
                             "questions": [
                                 {
                                     "prpId": 1,
-                                    "title": "عنوان",
+                                    "title": "Title",
                                     "parts": [
                                         {
                                             "part": 1,
@@ -273,7 +274,7 @@
                                 },
                                 {
                                     "prpId": 2,
-                                    "title": "توضیحات",
+                                    "title": "Description",
                                     "parts": [
                                         {
                                             "part": 1,
@@ -400,6 +401,7 @@
                                 {
                                     "prpId": 3001,
                                     "title": "required",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -420,6 +422,7 @@
                                 {
                                     "prpId": 3002,
                                     "title": "minLength",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -433,6 +436,7 @@
                                 {
                                     "prpId": 3003,
                                     "title": "maxLength",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -446,6 +450,7 @@
                                 {
                                     "prpId": 3004,
                                     "title": "min",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -459,6 +464,7 @@
                                 {
                                     "prpId": 3005,
                                     "title": "max",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -472,6 +478,7 @@
                                 {
                                     "prpId": 3006,
                                     "title": "dataType",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -496,12 +503,19 @@
                                 {
                                     "prpId": 3007,
                                     "title": "regex",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
                                             "viewType": "text"
                                         }
                                     ]
+                                }
+                            ],
+                            "sections": [
+                                {
+                                    "id": 1,
+                                    "title": "Validations"
                                 }
                             ]
                         },
@@ -534,6 +548,7 @@
                                 {
                                     "prpId": 3001,
                                     "title": "required",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -554,6 +569,7 @@
                                 {
                                     "prpId": 3002,
                                     "title": "minLength",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -567,6 +583,7 @@
                                 {
                                     "prpId": 3003,
                                     "title": "maxLength",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -574,68 +591,25 @@
                                             "validations": {
                                                 "dataType": "int"
                                             }
-                                        }
-                                    ]
-                                },
-                                {
-                                    "prpId": 3004,
-                                    "title": "min",
-                                    "parts": [
-                                        {
-                                            "part": 1,
-                                            "viewType": "text",
-                                            "validations": {
-                                                "dataType": "int"
-                                            }
-                                        }
-                                    ]
-                                },
-                                {
-                                    "prpId": 3005,
-                                    "title": "max",
-                                    "parts": [
-                                        {
-                                            "part": 1,
-                                            "viewType": "text",
-                                            "validations": {
-                                                "dataType": "int"
-                                            }
-                                        }
-                                    ]
-                                },
-                                {
-                                    "prpId": 3006,
-                                    "title": "dataType",
-                                    "parts": [
-                                        {
-                                            "part": 1,
-                                            "viewType": "select",
-                                            "fixValues": [
-                                                {
-                                                    "id": 0,
-                                                    "value": "text"
-                                                },
-                                                {
-                                                    "id": "int",
-                                                    "value": "int"
-                                                },
-                                                {
-                                                    "id": "float",
-                                                    "value": "float"
-                                                }
-                                            ]
                                         }
                                     ]
                                 },
                                 {
                                     "prpId": 3007,
                                     "title": "regex",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
                                             "viewType": "text"
                                         }
                                     ]
+                                }
+                            ],
+                            "sections": [
+                                {
+                                    "id": 1,
+                                    "title": "Validations"
                                 }
                             ]
                         },
@@ -682,6 +656,7 @@
                                 {
                                     "prpId": 3001,
                                     "title": "required",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -698,32 +673,12 @@
                                             ]
                                         }
                                     ]
-                                },
+                                }
+                            ],
+                            "sections": [
                                 {
-                                    "prpId": 3002,
-                                    "title": "minLength",
-                                    "parts": [
-                                        {
-                                            "part": 1,
-                                            "viewType": "text",
-                                            "validations": {
-                                                "dataType": "int"
-                                            }
-                                        }
-                                    ]
-                                },
-                                {
-                                    "prpId": 3003,
-                                    "title": "maxLength",
-                                    "parts": [
-                                        {
-                                            "part": 1,
-                                            "viewType": "text",
-                                            "validations": {
-                                                "dataType": "int"
-                                            }
-                                        }
-                                    ]
+                                    "id": 1,
+                                    "title": "Validations"
                                 }
                             ]
                         },
@@ -789,6 +744,7 @@
                                 {
                                     "prpId": 3001,
                                     "title": "required",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -805,6 +761,12 @@
                                             ]
                                         }
                                     ]
+                                }
+                            ],
+                            "sections": [
+                                {
+                                    "id": 1,
+                                    "title": "Validations"
                                 }
                             ]
                         },
@@ -867,6 +829,7 @@
                                 {
                                     "prpId": 3001,
                                     "title": "required",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -887,6 +850,7 @@
                                 {
                                     "prpId": 3002,
                                     "title": "minLength",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -900,6 +864,7 @@
                                 {
                                     "prpId": 3003,
                                     "title": "maxLength",
+                                    "sectionId": 1,
                                     "parts": [
                                         {
                                             "part": 1,
@@ -909,6 +874,12 @@
                                             }
                                         }
                                     ]
+                                }
+                            ],
+                            "sections": [
+                                {
+                                    "id": 1,
+                                    "title": "Validations"
                                 }
                             ]
                         }

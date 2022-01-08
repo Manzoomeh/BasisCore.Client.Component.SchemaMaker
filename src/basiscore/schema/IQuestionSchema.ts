@@ -4,6 +4,7 @@ export default interface IQuestionSchema extends ISchema {
   baseVocab: string;
   questions: Array<IQuestion>;
   sections?: Array<ISection>;
+  name?:string;
 }
 
 export interface IQuestion {

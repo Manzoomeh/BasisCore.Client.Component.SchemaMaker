@@ -353,59 +353,6 @@
                                     ]
                                 },
                                 {
-                                    "prpId": 3004,
-                                    "title": "min",
-                                    "sectionId": 1,
-                                    "parts": [
-                                        {
-                                            "part": 1,
-                                            "viewType": "text",
-                                            "validations": {
-                                                "dataType": "int"
-                                            }
-                                        }
-                                    ]
-                                },
-                                {
-                                    "prpId": 3005,
-                                    "title": "max",
-                                    "sectionId": 1,
-                                    "parts": [
-                                        {
-                                            "part": 1,
-                                            "viewType": "text",
-                                            "validations": {
-                                                "dataType": "int"
-                                            }
-                                        }
-                                    ]
-                                },
-                                {
-                                    "prpId": 3006,
-                                    "title": "dataType",
-                                    "sectionId": 1,
-                                    "parts": [
-                                        {
-                                            "part": 1,
-                                            "viewType": "select",
-                                            "fixValues": [
-                                                {
-                                                    "id": 0,
-                                                    "value": "text"
-                                                },
-                                                {
-                                                    "id": "int",
-                                                    "value": "int"
-                                                },
-                                                {
-                                                    "id": "float",
-                                                    "value": "float"
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                },
-                                {
                                     "prpId": 3007,
                                     "title": "regex",
                                     "sectionId": 1,
@@ -482,34 +429,6 @@
                                                     "value": "Yes"
                                                 }
                                             ]
-                                        }
-                                    ]
-                                },
-                                {
-                                    "prpId": 3002,
-                                    "title": "minLength",
-                                    "sectionId": 1,
-                                    "parts": [
-                                        {
-                                            "part": 1,
-                                            "viewType": "text",
-                                            "validations": {
-                                                "dataType": "int"
-                                            }
-                                        }
-                                    ]
-                                },
-                                {
-                                    "prpId": 3003,
-                                    "title": "maxLength",
-                                    "sectionId": 1,
-                                    "parts": [
-                                        {
-                                            "part": 1,
-                                            "viewType": "text",
-                                            "validations": {
-                                                "dataType": "int"
-                                            }
                                         }
                                     ]
                                 }

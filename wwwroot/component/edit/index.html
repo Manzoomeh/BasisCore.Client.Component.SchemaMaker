@@ -20,15 +20,6 @@
   <basis core="component.schemaMaker.schemaMaker" run="atclient" dataMemberName="schema.data" button="[data-get-schema-btn]" resultSourceId="schema.result"></basis>
   <basis core="callback" run="atClient" triggers="schema.result" method="displayResult"></basis>
 
-  <div data-get-schema-preview>
-      <fieldset>
-          <legend>Preview</legend>
-          <basis core="schema" run="atclient" schemaCallback="getSchemaAsync" id="1161" version="1.1" triggers="schema.result" button="[data-btn-add]" resultSourceId="preview.result"></basis>
-          <button data-btn-add>Add</button>
-      </fieldset>
-  </div>
-  <basis core="callback" run="atClient" triggers="preview.result" method="displayResult"></basis>
-
   <script>
     const host = {
       repositories: {
@@ -40,11 +31,6 @@
         }],
       },
     };
-
-    async function getSchemaAsync(context, id, ver, lid) {
-      const source = context.tryToGetSource("schema.result");
-      return source?.rows[0];
-    }
 
     function displayResult(args) {
       console.table(args.source?.rows[0]);
