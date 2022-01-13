@@ -166,13 +166,49 @@ export default class WorkspaceComponent
     if (buttonSelector) {
       document
         .querySelectorAll(buttonSelector)
-        .forEach((btn) =>
+        .forEach((btn) => 
           btn.addEventListener(
             "click",
             this.generateQuestionSchemaAsync.bind(this)
           )
         );
-    }
+    };
+
+    this.container.querySelector("[data-bc-sm-schema-result]").addEventListener(
+      "click",
+      this.generateQuestionSchemaAsync.bind(this)
+    );
+
+    // tab event
+    const tabs = this.container.querySelector("[data-bc-sm-tabs]");
+    const tabButton = this.container.querySelectorAll("[data-bc-sm-tab-button]");
+    const contents = this.container.querySelectorAll("[data-bc-sm-tab-section]");
+
+    tabButton.forEach(btn => {
+      btn.addEventListener("click", function (e) {
+        const name = this.getAttribute("data-bc-sm-tab-button");
+        if (name) {
+          tabButton.forEach(tBtn => {
+            tBtn.setAttribute("data-bc-sm-tab-button-mode", "");
+          });
+          btn.setAttribute("data-bc-sm-tab-button-mode", "active");
+
+          contents.forEach(content => {
+            content.setAttribute("data-bc-sm-tab-section-mode", "");
+          });
+          const element = tabs.querySelector(`[data-bc-sm-tab-section="${name}"]`);
+          element.setAttribute("data-bc-sm-tab-section-mode", "active");
+        }
+      })
+    });
+
+    // add event json copy button
+    this.container.querySelector("[data-bc-sm-json-copy]").addEventListener("click", (e) => {
+      const copyText = (this.container.querySelector("[data-bc-sm-preview-json]") as HTMLTextAreaElement);
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /* For mobile devices */
+      navigator.clipboard.writeText(copyText.textContent);
+    });
   }
 
   public runAsync(source?: ISource) {
@@ -313,7 +349,10 @@ export default class WorkspaceComponent
 
       this.container.querySelector<HTMLTextAreaElement>(
         "[data-bc-sm-preview-json]"
-      ).textContent = JSON.stringify(retVal);
+      ).innerHTML = JSON.stringify(retVal, null, 4);
+
+      // view form tab
+      (this.container.querySelector("[data-bc-sm-tab-button='sm-form-tab']") as HTMLElement).click()
     }
   }
 

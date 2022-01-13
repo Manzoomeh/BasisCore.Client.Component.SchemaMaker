@@ -33,19 +33,23 @@
 }
 
 [data-bc-properties-container] [data-bc-properties-icon] {
+    /* background-image: url("properties.png"); */
+    /* background-position: center; */
+    /* background-repeat: no-repeat; */
     box-sizing: border-box;
     color: #6b788b;
-    background: #2c3642;
+    background-color: #2c3642;
     padding: 5px;
     font-size: 23px;
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
     opacity: 0.7;
+    /* float: right; */
 }
 
 [data-bc-properties-container] [data-bc-properties-container-icon] span {
-    display: block;
+    display: inline-block;
     width: 0;
     overflow-x: hidden;
     cursor: auto;
@@ -57,6 +61,7 @@
     padding-right: 20px;
     overflow-x: visible;
     color: #fff;
+    /* line-height: 29px; */
 }
 
 [data-bc-properties-container] [data-bc-properties-list] {
