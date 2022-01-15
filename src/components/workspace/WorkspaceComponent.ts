@@ -69,6 +69,8 @@ export default class WorkspaceComponent
       moves: function (el, container, handle) {
         return (
           handle.hasAttribute("data-bc-toolbox-item") ||
+          handle.hasAttribute("data-bc-toolbox-item-img") ||
+          handle.hasAttribute("data-bc-toolbox-item-title") ||
           handle.hasAttribute("data-bc-container-handler")
         );
       },
@@ -107,6 +109,8 @@ export default class WorkspaceComponent
       moves: function (el, container, handle) {
         return (
           handle.hasAttribute("data-bc-toolbox-item") ||
+          handle.hasAttribute("data-bc-toolbox-item-img") ||
+          handle.hasAttribute("data-bc-toolbox-item-title") ||
           handle.hasAttribute("data-bc-part-handler")
         );
       },

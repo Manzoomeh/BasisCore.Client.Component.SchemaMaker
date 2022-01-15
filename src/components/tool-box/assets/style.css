@@ -97,18 +97,18 @@
   color: #fff;
   width: 0;
   overflow-x: hidden;
-  cursor: auto;
+  /* cursor: auto; */
 }
 
 [data-bc-sm-main-container] [data-bc-sm-toolbox-container] [data-bc-toolbox-item] i {
   color: #fff;
-  cursor: auto;
+  /* cursor: auto; */
   font-size: 16px;
   opacity: 0.7;
 }
 
 [data-bc-sm-main-container] [data-bc-sm-toolbox-container] [data-bc-toolbox-item] img {
-  cursor: auto;
+  /* cursor: auto; */
   width: 20px;
   opacity: 0.7;
 }
