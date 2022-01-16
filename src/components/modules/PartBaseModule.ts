@@ -46,7 +46,7 @@ export default abstract class PartBaseModule<
       properties: [],
     };
     SchemaUtil.addCaptionProperty(ans, this.data.caption);
-    SchemaUtil.addCssClassProperty(ans, this.questionPartModel?.cssClass);
+    SchemaUtil.addCssClassProperty(ans, this.data.cssClass);
     SchemaUtil.addValidationProperties(ans, this.data.validations);
 
     return ans;
@@ -62,7 +62,10 @@ export default abstract class PartBaseModule<
     if (cssClass != null) {
       this.data.cssClass = cssClass;
     }
-    this.data.validations = SchemaUtil.getValidationsProperties(result);
+    this.data.validations = SchemaUtil.applyValidationsProperties(
+      this.data.validations,
+      result
+    );
   }
 
   public getPartSchema(part: number): IQuestionPart {

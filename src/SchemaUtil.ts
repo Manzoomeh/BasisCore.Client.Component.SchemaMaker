@@ -152,7 +152,7 @@ export default class SchemaUtil {
       if (validations.required != null) {
         SchemaUtil.addSimpleValueProperty(
           answerSchema,
-          validations.required,
+          validations.required ?? false ? "1" : "0",
           SchemaUtil.REQUIRED_VALIDATION_ID
         );
       }
@@ -201,49 +201,68 @@ export default class SchemaUtil {
     }
   }
 
-  public static getValidationsProperties(
+  public static applyValidationsProperties(
+    current: IValidationOptions,
     result: IUserActionResult
   ): IValidationOptions {
+    if (!current) {
+      current = {};
+    }
     const required = SchemaUtil.getPropertyValue(
       result,
       SchemaUtil.REQUIRED_VALIDATION_ID
     );
+    if (required === "1") {
+      current.required = true;
+    }
+
     const minLength = SchemaUtil.getPropertyValue(
       result,
       SchemaUtil.MIN_LENGTH_VALIDATION_ID
     );
+    if (minLength != null) {
+      const value = parseInt(minLength);
+      current.minLength = isNaN(value) ? null : value;
+    }
     const maxLength = SchemaUtil.getPropertyValue(
       result,
       SchemaUtil.MAX_LENGTH_VALIDATION_ID
     );
+    if (maxLength != null) {
+      const value = parseInt(maxLength);
+      current.maxLength = isNaN(value) ? null : value;
+    }
     const min = SchemaUtil.getPropertyValue(
       result,
       SchemaUtil.MIN_VALIDATION_ID
     );
+    if (min != null) {
+      const value = parseInt(min);
+      current.min = isNaN(value) ? null : value;
+    }
     const max = SchemaUtil.getPropertyValue(
       result,
       SchemaUtil.MAX_VALIDATION_ID
     );
+    if (max != null) {
+      const value = parseInt(max);
+      current.max = parseInt(min);
+    }
     const dataType = SchemaUtil.getPropertyValue(
       result,
       SchemaUtil.DATATYPE_VALIDATION_ID
     );
+    if (dataType != null) {
+      current.dataType = dataType;
+    }
     const regex = SchemaUtil.getPropertyValue(
       result,
       SchemaUtil.REGEX_VALIDATION_ID
     );
-
-    const retVal: IValidationOptions = {
-      ...(required === "1" && { required: true }),
-      ...(minLength != null && { minLength: parseInt(minLength) }),
-      ...(maxLength != null && { maxLength: parseInt(maxLength) }),
-      ...(min != null && { min: parseInt(min) }),
-      ...(max != null && { max: parseInt(max) }),
-      ...(dataType != null && { dataType: dataType }),
-      ...(regex != null && { regex: regex }),
-    };
-
-    return Object.getOwnPropertyNames(retVal).length > 0 ? retVal : null;
+    if (regex != null) {
+      current.regex = regex;
+    }
+    return current;
   }
 
   public static getFixValueProperty(

@@ -106,7 +106,7 @@ export default class QuestionModule extends ContainerModule {
     SchemaUtil.addSimpleValueProperty(ans, this.part, QuestionModule.PART_ID);
     SchemaUtil.addSimpleValueProperty(
       ans,
-      this._data.multi,
+      this._data.multi ? "2" : "1",
       QuestionModule.MULTI_ID
     );
     SchemaUtil.addSimpleValueProperty(
