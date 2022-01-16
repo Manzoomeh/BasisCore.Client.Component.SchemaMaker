@@ -20,6 +20,7 @@
   "homepage": "https://github.com/Manzoomeh/BasisCore.Client.Component.SchemaMaker#readme",
   "devDependencies": {
     "@types/dragula": "^3.7.1",
+    "@types/prismjs": "^1.16.6",
     "circular-dependency-plugin": "^5.2.2",
     "css-loader": "^6.5.1",
     "dragula": "^3.7.3",
@@ -31,5 +32,8 @@
     "webpack": "^5.64.4",
     "webpack-cli": "^4.9.1",
     "webpack-dev-server": "^4.6.0"
+  },
+  "dependencies": {
+    "prismjs": "^1.26.0"
   }
 }

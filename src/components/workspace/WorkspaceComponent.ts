@@ -15,7 +15,9 @@ import IToken from "../../basiscore/IToken";
 import * as Dragula from "dragula";
 import "../../../node_modules/dragula/dist/dragula.min.css";
 import ContainerModule from "../modules/ContainerModule";
-
+import * as Prism from "prismjs";
+import "../../../node_modules/prismjs/components/prism-json";
+import "../../../node_modules/prismjs/themes/prism-coy.css";
 export default class WorkspaceComponent
   extends ComponentBase
   implements IWorkspaceComponent
@@ -208,9 +210,8 @@ export default class WorkspaceComponent
 
     // add event json copy button
     this.container.querySelector("[data-bc-sm-json-copy]").addEventListener("click", (e) => {
-      const copyText = (this.container.querySelector("[data-bc-sm-preview-json]") as HTMLTextAreaElement);
-      copyText.select();
-      copyText.setSelectionRange(0, 99999); /* For mobile devices */
+      const copyText = (this.container.querySelector("[data-bc-sm-preview-json]") as HTMLDivElement);
+      window.getSelection().selectAllChildren(copyText);
       navigator.clipboard.writeText(copyText.textContent);
     });
   }
@@ -351,9 +352,13 @@ export default class WorkspaceComponent
       this.owner.setSource(resultSourceId, retVal);
       this.owner.setSource(this._internalSourceId, retVal);
 
+      // Prism highlight
+      const json = JSON.stringify(retVal, null, 4);
+      const html = Prism.highlight(json, Prism.languages.json, 'json');
+
       this.container.querySelector<HTMLTextAreaElement>(
         "[data-bc-sm-preview-json]"
-      ).innerHTML = JSON.stringify(retVal, null, 4);
+      ).innerHTML = html;
 
       // view form tab
       (this.container.querySelector("[data-bc-sm-tab-button='sm-form-tab']") as HTMLElement).click()

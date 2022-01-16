@@ -135,14 +135,25 @@
 /* json preview tab */
 [data-get-json-preview] {
   width: 100%;
-  height: max-content;
+  height: calc(100vh - 200px);;
   /* min-height: 400px; */
-  min-height: calc(100vh - 200px);
-  border: 2px dotted rgba(0, 0, 0, 0.15);
-  background-color: rgba(0, 0, 0, 0.03);
+  /* min-height: calc(100vh - 200px); */
+  /* border: 2px dotted rgba(0, 0, 0, 0.15); */
+  /* background-color: rgba(0, 0, 0, 0.03); */
   /* background-color: #2d2d2d; */
-  border-radius: 10px;
+  /* border-radius: 10px; */
   padding: 25px;
   resize: none;
   scrollbar-width: thin;
+  margin: 0 !important;
+}
+
+[data-get-json-preview] code {
+  scrollbar-width: thin;
+}
+
+[data-get-json-preview][class*="language-"]:before,
+[data-get-json-preview][class*="language-"]:after {
+	box-shadow: none !important;
+  content: none;
 }
