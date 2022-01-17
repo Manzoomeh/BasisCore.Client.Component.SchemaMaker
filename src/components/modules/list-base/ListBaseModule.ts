@@ -1,7 +1,8 @@
-import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 import "./assets/style.css";
+import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 import PartBaseModule from "../PartBaseModule";
 import {
+  IFixValue,
   IQuestionPart,
   ViewType,
 } from "../../../basiscore/schema/IQuestionSchema";
@@ -60,7 +61,13 @@ export default abstract class ListBaseModule extends PartBaseModule<IListBaseMod
   public getPartSchema(part: number): IQuestionPart {
     const retVal = super.getPartSchema(part);
     if (this.data.fixValues) {
-      retVal.fixValues = this.data.fixValues;
+      retVal.fixValues = this.data.fixValues.map(
+        (item, index) =>
+          <IFixValue>{
+            id: item.id ?? -1 * (index + 1),
+            value: item.value,
+          }
+      );
     }
     if (this.data.link) {
       retVal.link = this.data.link;

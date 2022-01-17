@@ -48,46 +48,6 @@ export default class SchemaUtil {
     }
   }
 
-  public static addFixValueProperty(
-    answerSchema: IAnswerSchema,
-    values: IFixValue[],
-    prpId: number
-  ): void {
-    if (values != null && values != undefined && values.length > 0) {
-      const answers: Array<IAnswerPart> = new Array<IAnswerPart>();
-      values.forEach((value) => {
-        const idPartValue: IPartValue = {
-          id: 0,
-          value: value.id,
-        };
-        const idPartCollection: IPartCollection = {
-          part: 1,
-          values: [idPartValue],
-        };
-
-        const valuePartValue: IPartValue = {
-          id: 0,
-          value: value.value,
-        };
-        const valuePartCollection: IPartCollection = {
-          part: 2,
-          values: [valuePartValue],
-        };
-
-        const answerPart: IAnswerPart = {
-          id: value.id,
-          parts: [idPartCollection, valuePartCollection],
-        };
-        answers.push(answerPart);
-      });
-      const retVal: IAnswerProperty = {
-        prpId: prpId,
-        answers: answers,
-      };
-      answerSchema.properties.push(retVal);
-    }
-  }
-
   public static getPropertyValue(
     result: IUserActionResult,
     propId: number,
@@ -265,6 +225,46 @@ export default class SchemaUtil {
     return current;
   }
 
+  public static addFixValueProperty(
+    answerSchema: IAnswerSchema,
+    values: IFixValue[],
+    prpId: number
+  ): void {
+    if (values != null && values != undefined && values.length > 0) {
+      const answers: Array<IAnswerPart> = new Array<IAnswerPart>();
+      values.forEach((value, index) => {
+        const idPartValue: IPartValue = {
+          id: 0,
+          value: value.id,
+        };
+        const idPartCollection: IPartCollection = {
+          part: 1,
+          values: [idPartValue],
+        };
+
+        const valuePartValue: IPartValue = {
+          id: 0,
+          value: value.value,
+        };
+        const valuePartCollection: IPartCollection = {
+          part: 2,
+          values: [valuePartValue],
+        };
+
+        const answerPart: IAnswerPart = {
+          id: value.id ?? -1 * (index + 1),
+          parts: [idPartCollection, valuePartCollection],
+        };
+        answers.push(answerPart);
+      });
+      const retVal: IAnswerProperty = {
+        prpId: prpId,
+        answers: answers,
+      };
+      answerSchema.properties.push(retVal);
+    }
+  }
+
   public static getFixValueProperty(
     result: IUserActionResult,
     values: IFixValue[],
@@ -273,31 +273,43 @@ export default class SchemaUtil {
     const retVal = values ? [...values] : [];
     const property = result.properties.find((x) => x.propId == propId);
     if (property) {
-      if (property.deleted) {
-        property.deleted.forEach((deletedItem) => {
-          if (deletedItem.id) {
-            const deleted = retVal.find((x) => x.id == deletedItem.id);
-            retVal.splice(retVal.indexOf(deleted), 1);
-          }
-        });
-      }
       if (property.edited) {
         property.edited.forEach((editedItem) => {
-          const edited = retVal.find((x) => x.id == editedItem.id);
+          const edited =
+            editedItem.id >= 0
+              ? retVal.find((x) => x.id == editedItem.id)
+              : retVal[Math.abs(editedItem.id + 1)];
           editedItem.parts.forEach((editedPart) => {
             if (editedPart.part == 1) {
-              edited.id = editedPart.values[0].value;
+              edited.id = parseInt(editedPart.values[0].value);
             } else if (editedPart.part == 2) {
               edited.value = editedPart.values[0].value;
             }
           });
         });
       }
+      if (property.deleted) {
+        property.deleted.forEach((deletedItem) => {
+          if (deletedItem.id >= 0) {
+            if (!deletedItem.parts) {
+              const deleted = retVal.find((x) => x.id == deletedItem.id);
+              retVal.splice(retVal.indexOf(deleted), 1);
+            }
+          } else {
+            if (!deletedItem.parts) {
+              retVal.splice(Math.abs(deletedItem.id + 1), 1);
+            }
+          }
+        });
+      }
       if (property.added) {
         property.added.forEach((addedItem) => {
+          const id = addedItem.parts.find((x) => x.part == 1)?.values[0].value;
+          const value = addedItem.parts.find((x) => x.part == 2)?.values[0]
+            .value;
           const added: IFixValue = {
-            id: parseInt(addedItem.parts[0].values[0].value),
-            value: addedItem.parts[1].values[0].value,
+            id: id ? parseInt(id) : null,
+            value: value,
           };
           retVal.push(added);
         });
