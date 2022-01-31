@@ -84,6 +84,31 @@
   padding: 10px 15px;
   width: 100%;
   cursor: all-scroll;
+  position: relative;
+}
+
+[data-bc-toolbox-item][data-schema-type="section"]::after {
+  content: "|";
+  position: absolute;
+  right: 5px;
+  color: #fff;
+  opacity: 0.7;
+}
+
+[data-bc-toolbox-item][data-schema-type="question"]::after {
+  content: "||";
+  position: absolute;
+  right: 5px;
+  color: #fff;
+  opacity: 0.7;
+}
+
+[data-bc-toolbox-item][data-schema-type="part"]::after {
+  content: "|||";
+  position: absolute;
+  right: 5px;
+  color: #fff;
+  opacity: 0.7;
 }
 
 [data-bc-toolbox-item] span {

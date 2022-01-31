@@ -2,6 +2,10 @@
   clear: both;
 }
 
+[data-bc-sm-main-container] {
+  height: 100vh;
+}
+
 [data-bc-sm-main-container] [data-bc-sm-requirements] {
   /* min-height: 40px; */
   /* background-color: #35414f; */
@@ -71,8 +75,8 @@
   display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
   -webkit-flex-direction: row;
   flex-direction: row;
-  min-height: calc(100vh - 50px);
-  /* height: 100vh; */
+  /* min-height: calc(100% - 50px); */
+  height: 100%;
   /* border-bottom: 1px solid #35414f; */
 }
 
@@ -82,18 +86,4 @@
   /* overflow-y: auto; */
   /* scrollbar-width: thin; */
   /* padding-top: 30px; */
-}
-
-/* footer */
-[data-bc-sm-main-container] [data-bc-sm-footer-container] {
-  height: 50px;
-}
-
-[data-bc-sm-main-container] [data-bc-sm-footer] {
-  width: 100%;
-  background: #272f39;
-  color: #fff;
-  /* padding: 15px 0; */
-  line-height: 50px;
-  text-align: center;
 }
