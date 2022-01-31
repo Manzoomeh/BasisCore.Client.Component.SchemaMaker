@@ -22,7 +22,6 @@ export default class SchemaMakerComponent
 
   async initializeAsync(): Promise<void> {
     this.sourceId = await this.owner.getAttributeValueAsync("DataMemberName");
-    const buttonSelector = await this.owner.getAttributeValueAsync("button");
     const resultSourceId = await this.owner.getAttributeValueAsync(
       "resultSourceId"
     );
@@ -31,8 +30,7 @@ export default class SchemaMakerComponent
     this.container.querySelectorAll("basis").forEach((element) => {
       element.setAttribute("dataMemberName", this.sourceId);
       if (element.getAttribute("core") == "component.schemaMaker.workspace") {
-        if (resultSourceId && buttonSelector) {
-          element.setAttribute("button", buttonSelector);
+        if (resultSourceId) {
           element.setAttribute("resultSourceId", resultSourceId);
         }
       }

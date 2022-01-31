@@ -17,8 +17,7 @@
 
   <basis core="api" url="/server/schemas/[##inline.object.id##]" method="get" run="atclient"></basis>
 
-  <basis core="component.schemaMaker.schemaMaker" run="atclient" dataMemberName="schema.data" button="[data-get-schema-btn]" resultSourceId="schema.result"></basis>
-  <basis core="callback" run="atClient" triggers="schema.result" method="displayResult"></basis>
+  <basis core="component.schemaMaker.schemaMaker" run="atclient" dataMemberName="schema.data" resultSourceId=""></basis>
 
   <script>
     const host = {
@@ -31,10 +30,6 @@
         }],
       },
     };
-
-    function displayResult(args) {
-      console.table(args.source?.rows[0]);
-    }
   </script>
   <script src="/assets/basiscore/basiscore.js"></script>
 </body>

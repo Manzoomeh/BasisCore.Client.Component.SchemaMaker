@@ -17,7 +17,7 @@
 
   <basis core="api" url="/server/schemas/new" method="get" run="atclient"></basis>
 
-  <basis core="component.schemaMaker.schemaMaker" run="atclient" dataMemberName="schema.data" button="[data-get-schema-btn]" resultSourceId="schema.result"></basis>
+  <basis core="component.schemaMaker.schemaMaker" run="atclient" dataMemberName="schema.data" resultSourceId="schema.result"></basis>
   <basis core="callback" run="atClient" triggers="schema.result" method="displayResult"></basis>
 
   <script>
