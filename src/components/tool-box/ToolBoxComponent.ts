@@ -5,6 +5,7 @@ import ISchemaMakerSchema from "../ISchemaMakerSchema";
 import layout from "./assets/layout.html";
 import itemLayout from "./assets/item-layout.html";
 import "./assets/style.css";
+import tempSchemasJson from "../tempSchemasJson"
 
 export default class ToolBoxComponent extends ComponentBase {
   private _sourceId: string;
@@ -44,7 +45,7 @@ export default class ToolBoxComponent extends ComponentBase {
       "[data-bc-toolbox-container-list]"
     );
     const part = this.container.querySelector("[data-bc-toolbox-part-list]");
-    source.schemas.forEach((schema) => {
+    (source.schemas ? source.schemas : tempSchemasJson).forEach((schema) => {
       const copyLayout = itemLayout
         .replace("@schemaId", schema.schemaId.toLowerCase())
         .replace("@schemaType", schema.schemaType.toLowerCase())

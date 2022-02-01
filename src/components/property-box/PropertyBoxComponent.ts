@@ -9,6 +9,7 @@ import ISchemaMakerComponent from "../schema-maker/ISchemaMakerComponent";
 import DefaultSource from "../SourceId";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
+import tempSchemasJson from "../tempSchemasJson";
 
 export default class PropertyBoxComponent extends ComponentBase {
   private _sourceId: string;
@@ -101,7 +102,9 @@ export default class PropertyBoxComponent extends ComponentBase {
   ): Promise<ISchemaMakerQuestion> {
     schemaId = schemaId.toLowerCase();
     return Promise.resolve(
-      this._source.schemas.find((x) => x.schemaId.toLowerCase() == schemaId)
+      (this._source.schemas ? this._source.schemas : (tempSchemasJson as ISchemaMakerQuestion[])).find(
+        (x) => x.schemaId.toLowerCase() == schemaId
+      )
     );
   }
 }
