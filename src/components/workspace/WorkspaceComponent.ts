@@ -222,9 +222,11 @@ export default class WorkspaceComponent
 
     // add event on json save button
     const jsonSave = this.container.querySelector("[data-bc-sm-save-form]");
-    if (resultSourceId && resultSourceId != "" && jsonSave.getAttribute("data-get-btn-disabled") != "true") {
+    if (resultSourceId && resultSourceId != "") {
       jsonSave?.addEventListener("click", async (e) => {
-        this.owner.setSource(resultSourceId, this._result);
+        if (jsonSave.getAttribute("data-get-btn-disabled") != "true") {
+          this.owner.setSource(resultSourceId, this._result);
+        }
       });
     } else if (!resultSourceId || resultSourceId == "") {
       jsonSave.remove()
