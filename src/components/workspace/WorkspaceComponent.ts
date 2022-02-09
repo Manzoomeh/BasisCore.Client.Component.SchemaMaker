@@ -18,6 +18,7 @@ import ContainerModule from "../modules/ContainerModule";
 import * as Prism from "prismjs";
 import "../../../node_modules/prismjs/components/prism-json";
 import "../../../node_modules/prismjs/themes/prism-coy.css";
+
 export default class WorkspaceComponent
   extends ComponentBase
   implements IWorkspaceComponent
@@ -33,6 +34,10 @@ export default class WorkspaceComponent
 
   constructor(owner: IUserDefineComponent) {
     super(owner, layout, "data-bc-sm-workspace-container");
+    window.addEventListener(
+      "beforeunload",
+      this.saveAsDraftAsync.bind(this, "bc-sm-auto-draft")
+    );
     this.initDragula();
   }
 
@@ -168,46 +173,78 @@ export default class WorkspaceComponent
     schemaCommand.parentElement.appendChild(script_tag);
     scriptElement.remove();
 
-    this.container.querySelector("[data-bc-sm-schema-result]").addEventListener(
-      "click",
-      this.generateQuestionSchemaAsync.bind(this)
-    );
+    this.container
+      .querySelector("[data-bc-sm-schema-result]")
+      .addEventListener(
+        "click",
+        this.generateAndSetQuestionSchemaAsync.bind(this)
+      );
+
+    this.container
+      .querySelector("[data-bc-sm-save-draft]")
+      .addEventListener(
+        "click",
+        this.saveAsDraftAsync.bind(this, "bc-sm-manually-draft")
+      );
+
+    this.container
+      .querySelector("[data-bc-sm-load-draft]")
+      .addEventListener(
+        "click",
+        this.loadDraft.bind(this, "bc-sm-manually-draft")
+      );
 
     // tab event
     const tabs = this.container.querySelector("[data-bc-sm-tabs]");
-    const tabButton = this.container.querySelectorAll("[data-bc-sm-tab-button]");
-    const contents = this.container.querySelectorAll("[data-bc-sm-tab-section]");
+    const tabButton = this.container.querySelectorAll(
+      "[data-bc-sm-tab-button]"
+    );
+    const contents = this.container.querySelectorAll(
+      "[data-bc-sm-tab-section]"
+    );
 
-    tabButton.forEach(btn => {
+    tabButton.forEach((btn) => {
       btn.addEventListener("click", function (e) {
         const name = this.getAttribute("data-bc-sm-tab-button");
         if (name) {
-          tabButton.forEach(tBtn => {
+          tabButton.forEach((tBtn) => {
             tBtn.setAttribute("data-bc-sm-tab-button-mode", "");
           });
           btn.setAttribute("data-bc-sm-tab-button-mode", "active");
 
-          contents.forEach(content => {
+          contents.forEach((content) => {
             content.setAttribute("data-bc-sm-tab-section-mode", "");
           });
-          const element = tabs.querySelector(`[data-bc-sm-tab-section="${name}"]`);
+          const element = tabs.querySelector(
+            `[data-bc-sm-tab-section="${name}"]`
+          );
           element.setAttribute("data-bc-sm-tab-section-mode", "active");
         }
-      })
+      });
     });
 
     // add event on json copy button
-    this.container.querySelector("[data-bc-sm-json-copy]").addEventListener("click", (e) => {
-      const copyText = (this.container.querySelector("[data-bc-sm-preview-json]") as HTMLDivElement);
-      window.getSelection().selectAllChildren(copyText);
-      navigator.clipboard.writeText(copyText.textContent);
-    });
+    this.container
+      .querySelector("[data-bc-sm-json-copy]")
+      .addEventListener("click", (e) => {
+        const copyText = this.container.querySelector(
+          "[data-bc-sm-preview-json]"
+        ) as HTMLDivElement;
+        window.getSelection().selectAllChildren(copyText);
+        navigator.clipboard.writeText(copyText.textContent);
+      });
 
     // add event on json download button
-    const jsonDownload = this.container.querySelector("[data-bc-sm-json-download]");
+    const jsonDownload = this.container.querySelector(
+      "[data-bc-sm-json-download]"
+    );
     jsonDownload.addEventListener("click", (e) => {
       if (jsonDownload.getAttribute("data-get-btn-disabled") != "true") {
-        const content = (this.container.querySelector("[data-get-json-for-download]") as HTMLDivElement).innerText;
+        const content = (
+          this.container.querySelector(
+            "[data-get-json-for-download]"
+          ) as HTMLDivElement
+        ).innerText;
         const fileName = "freeForm.json";
         const contentType = "text/plain";
 
@@ -229,8 +266,8 @@ export default class WorkspaceComponent
         }
       });
     } else if (!resultSourceId || resultSourceId == "") {
-      jsonSave.remove()
-    };
+      jsonSave.remove();
+    }
   }
 
   public runAsync(source?: ISource) {
@@ -248,6 +285,8 @@ export default class WorkspaceComponent
       }
     } else {
       this.owner.processNodesAsync(Array.from(this.container.childNodes));
+
+      setTimeout(this.loadDraft.bind(this, "bc-sm-auto-draft"), 100);
     }
   }
 
@@ -261,7 +300,7 @@ export default class WorkspaceComponent
     ): Element => {
       this.container.querySelector<HTMLInputElement>(
         "[data-bc-sm-schema-version]"
-      ).value = question.schemaVersion;
+      ).value = question.schemaVersion ?? "";
 
       this.container
         .querySelector<HTMLSelectElement>(
@@ -271,7 +310,7 @@ export default class WorkspaceComponent
 
       this.container.querySelector<HTMLInputElement>(
         "[data-bc-sm-schema-name]"
-      ).value = question.name;
+      ).value = question.name ?? "";
 
       const container = document.createElement("div");
       container.setAttribute("data-schema-id", schemaId);
@@ -324,8 +363,9 @@ export default class WorkspaceComponent
     }
   }
 
-  private async generateQuestionSchemaAsync(e: MouseEvent) {
-    e.preventDefault();
+  private async generateQuestionSchemaAsync(): Promise<
+    Partial<IQuestionSchema>
+  > {
     const source = await this.owner.waitToGetSourceAsync(this._sourceId);
     const schema = source.rows[0] as ISchemaMakerSchema;
 
@@ -364,13 +404,17 @@ export default class WorkspaceComponent
         }
       }
     });
-    
+    return retVal;
+  }
+  private async generateAndSetQuestionSchemaAsync(e: MouseEvent) {
+    e.preventDefault();
+    const retVal = await this.generateQuestionSchemaAsync();
     this.owner.setSource(this._internalSourceId, retVal);
     this._result = retVal as JSON;
 
     // Prism highlight
     const json = JSON.stringify(retVal, null, 4);
-    const html = Prism.highlight(json, Prism.languages.json, 'json');
+    const html = Prism.highlight(json, Prism.languages.json, "json");
 
     this.container.querySelector<HTMLTextAreaElement>(
       "[data-bc-sm-preview-json]"
@@ -380,13 +424,21 @@ export default class WorkspaceComponent
     this.container.querySelector<HTMLTextAreaElement>(
       "[data-get-json-for-download]"
     ).innerText = JSON.stringify(retVal);
-    this.container.querySelector("[data-bc-sm-json-download]").setAttribute("data-get-btn-disabled", "");
+    this.container
+      .querySelector("[data-bc-sm-json-download]")
+      .setAttribute("data-get-btn-disabled", "");
 
     // save form
-    this.container.querySelector("[data-bc-sm-save-form]")?.setAttribute("data-get-btn-disabled", "");
+    this.container
+      .querySelector("[data-bc-sm-save-form]")
+      ?.setAttribute("data-get-btn-disabled", "");
 
     // view form tab
-    (this.container.querySelector("[data-bc-sm-tab-button='sm-form-tab']") as HTMLElement).click();
+    (
+      this.container.querySelector(
+        "[data-bc-sm-tab-button='sm-form-tab']"
+      ) as HTMLElement
+    ).click();
   }
 
   private applyPropertyResult(userAction: IUserActionResult) {
@@ -394,5 +446,16 @@ export default class WorkspaceComponent
     if (module) {
       module.update(userAction);
     }
+  }
+
+  private async saveAsDraftAsync(draftName: string): Promise<void> {
+    const schema = await this.generateQuestionSchemaAsync();
+    console.log(schema);
+    localStorage.setItem(draftName, JSON.stringify(schema));
+  }
+
+  private async loadDraft(draftName: string) {
+    const schema = JSON.parse(localStorage.getItem(draftName));
+    this.createUIFromQuestionSchema(schema);
   }
 }
