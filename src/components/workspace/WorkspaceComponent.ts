@@ -23,6 +23,7 @@ export default class WorkspaceComponent
   extends ComponentBase
   implements IWorkspaceComponent
 {
+  private _saveDraft: boolean;
   private _sourceId: string;
   private _internalSourceId: string;
   private _result: JSON;
@@ -34,10 +35,7 @@ export default class WorkspaceComponent
 
   constructor(owner: IUserDefineComponent) {
     super(owner, layout, "data-bc-sm-workspace-container");
-    window.addEventListener(
-      "beforeunload",
-      this.saveAsDraftAsync.bind(this, "bc-sm-auto-draft")
-    );
+
     this.initDragula();
   }
 
@@ -153,6 +151,8 @@ export default class WorkspaceComponent
   }
 
   public async initializeAsync(): Promise<void> {
+    this._saveDraft =
+      (await this.owner.getAttributeValueAsync("saveDraft", "false")) == "true";
     this._sourceId = await this.owner.getAttributeValueAsync("DataMemberName");
     this.resultSourceIdToken = this.owner.getAttributeToken("resultSourceId");
     this.owner.addTrigger([DefaultSource.PROPERTY_RESULT, this._sourceId]);
@@ -172,7 +172,12 @@ export default class WorkspaceComponent
     );
     schemaCommand.parentElement.appendChild(script_tag);
     scriptElement.remove();
-
+    if (this._saveDraft) {
+      window.addEventListener(
+        "beforeunload",
+        this.saveAsDraftAsync.bind(this, "bc-sm-auto-draft")
+      );
+    }
     this.container
       .querySelector("[data-bc-sm-schema-result]")
       .addEventListener(
@@ -285,8 +290,9 @@ export default class WorkspaceComponent
       }
     } else {
       this.owner.processNodesAsync(Array.from(this.container.childNodes));
-
-      setTimeout(this.loadDraft.bind(this, "bc-sm-auto-draft"), 100);
+      if (this._saveDraft) {
+        setTimeout(this.loadDraft.bind(this, "bc-sm-auto-draft"), 100);
+      }
     }
   }
 

@@ -26,8 +26,13 @@ export default class SchemaMakerComponent
       "resultSourceId"
     );
 
+    const saveDraft = await this.owner.getAttributeValueAsync(
+      "saveDraft",
+      "false"
+    );
     this.owner.addTrigger([this.sourceId]);
     this.container.querySelectorAll("basis").forEach((element) => {
+      element.setAttribute("SaveDraft", saveDraft);
       element.setAttribute("dataMemberName", this.sourceId);
       if (element.getAttribute("core") == "component.schemaMaker.workspace") {
         if (resultSourceId) {
