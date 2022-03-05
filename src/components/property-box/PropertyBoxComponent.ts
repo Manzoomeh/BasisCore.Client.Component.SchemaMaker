@@ -71,11 +71,13 @@ export default class PropertyBoxComponent extends ComponentBase {
         }
         case DefaultSource.DISPLAY_PROPERTY: {
           const answer = source.rows[0] as IAnswerSchema;
-          this.owner.setSource(
-            "SchemaMakerComponent_PropertyBoxComponent.question",
-            answer
-          );
-          saveBtn.style.display = "block";
+          setTimeout( () => {
+            this.owner.setSource(
+              "SchemaMakerComponent_PropertyBoxComponent.question",
+              answer
+            );
+            saveBtn.style.display = "block";
+          }, 300);
           mode.setAttribute("data-bc-properties-mode", "show");
           break;
         }

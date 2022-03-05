@@ -185,19 +185,19 @@ export default class WorkspaceComponent
         this.generateAndSetQuestionSchemaAsync.bind(this)
       );
 
-    this.container
-      .querySelector("[data-bc-sm-save-draft]")
-      .addEventListener(
-        "click",
-        this.saveAsDraftAsync.bind(this, "bc-sm-manually-draft")
-      );
+    // this.container
+    //   .querySelector("[data-bc-sm-save-draft]")
+    //   .addEventListener(
+    //     "click",
+    //     this.saveAsDraftAsync.bind(this, "bc-sm-manually-draft")
+    //   );
 
-    this.container
-      .querySelector("[data-bc-sm-load-draft]")
-      .addEventListener(
-        "click",
-        this.loadDraft.bind(this, "bc-sm-manually-draft")
-      );
+    // this.container
+    //   .querySelector("[data-bc-sm-load-draft]")
+    //   .addEventListener(
+    //     "click",
+    //     this.loadDraft.bind(this, "bc-sm-manually-draft")
+    //   );
 
     // tab event
     const tabs = this.container.querySelector("[data-bc-sm-tabs]");

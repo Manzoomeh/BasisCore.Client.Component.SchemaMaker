@@ -33,9 +33,9 @@
 }
 
 [data-bc-properties-container] [data-bc-properties-icon] {
-    /* background-image: url("properties.png"); */
-    /* background-position: center; */
-    /* background-repeat: no-repeat; */
+    background-image: url("properties.png");
+    background-position: center;
+    background-repeat: no-repeat;
     box-sizing: border-box;
     color: #6b788b;
     background-color: #2c3642;
