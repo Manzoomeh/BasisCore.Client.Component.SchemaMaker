@@ -1,4 +1,5 @@
-import AutocompleteModule from "./autocomplete/AutocompleteModule";
+import AutocompleteModule from "./remote-source/autocomplete/AutocompleteModule";
+import LookupModule from "./remote-source/lookup/LookupModule";
 import ToolboxModule from "./base-class/ToolboxModule";
 import IWorkspaceComponent from "../workspace/IWorkspaceComponent";
 import CheckListModule from "./list-base/check-list/CheckListModule";
@@ -44,6 +45,10 @@ export default class ModuleFactory implements IModuleFactory {
       }
       case "section": {
         module = new SectionModule(owner, container, model);
+        break;
+      }
+      case "lookup": {
+        module = new LookupModule(owner, container, model);
         break;
       }
     }

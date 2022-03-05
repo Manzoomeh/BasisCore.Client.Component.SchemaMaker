@@ -42,7 +42,8 @@ export type ViewType =
   | "Select"
   | "Upload"
   | "Datepicker"
-  | "Checklist";
+  | "Checklist"
+  | "Lookup";
 
 export interface ISection {
   id: number;

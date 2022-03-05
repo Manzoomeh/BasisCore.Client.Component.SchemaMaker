@@ -193,3 +193,8 @@
     margin-left: 0;
     margin-right: 5px;
 }
+
+[data-bc-properties-container] [data-bc-fm-lookup] input[type="text"] {
+    margin-left: 0;
+    margin-right: 5px;
+}
