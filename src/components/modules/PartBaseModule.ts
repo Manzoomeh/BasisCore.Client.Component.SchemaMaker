@@ -3,9 +3,9 @@ import ToolboxModule from "./base-class/ToolboxModule";
 import {
   IQuestionPart,
   ViewType,
-} from "../../basiscore/schema/IQuestionSchema";
-import IAnswerSchema from "../../basiscore/schema/IAnswerSchema";
-import IUserActionResult from "../../basiscore/schema/IUserActionResult";
+  IAnswerSchema,
+  IUserActionResult,
+} from "bclib/dist/bclib";
 import SchemaUtil from "../../SchemaUtil";
 import IPartBaseModuleDataModel from "./IPartBaseModuleDataModel";
 

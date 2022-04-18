@@ -1,4 +1,4 @@
-import { IQuestionPart } from "../../../../basiscore/schema/IQuestionSchema";
+import { IQuestionPart } from "bclib/dist/bclib";
 import IWorkspaceComponent from "../../../workspace/IWorkspaceComponent";
 import RemoteSourceModule from "../RemoteSourceModule";
 import layout from "./assets/layout.html";

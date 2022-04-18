@@ -1,8 +1,9 @@
-import IAnswerSchema from "../../../basiscore/schema/IAnswerSchema";
-import IQuestionSchema, {
+import {
+  IAnswerSchema,
+  IQuestionSchema,
   ISection,
-} from "../../../basiscore/schema/IQuestionSchema";
-import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
+  IUserActionResult,
+} from "bclib/dist/bclib";
 import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 import layout from "./assets/layout.html";
 import "./assets/style.css";

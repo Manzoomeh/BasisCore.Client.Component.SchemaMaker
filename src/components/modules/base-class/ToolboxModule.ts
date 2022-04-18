@@ -1,11 +1,14 @@
+/// <reference path="../../@types/typings.d.ts" />
 import "./assets/style.css";
 import layout from "./assets/layout.html";
-import IAnswerSchema from "../../../basiscore/schema/IAnswerSchema";
-import IQuestionSchema from "../../../basiscore/schema/IQuestionSchema";
+import {
+  IAnswerSchema,
+  IQuestionSchema,
+  IUserActionResult,
+} from "bclib/dist/bclib";
 import DefaultSource from "../../SourceId";
 import ISchemaMakerComponent from "../../schema-maker/ISchemaMakerComponent";
 import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
-import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
 
 export default abstract class ToolboxModule {
   private static _id: number = 1000;

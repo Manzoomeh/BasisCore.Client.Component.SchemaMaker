@@ -1,8 +1,4 @@
-import {
-  IDependency,
-  IValidationOptions,
-  ViewType,
-} from "../../basiscore/schema/IQuestionSchema";
+import { IDependency, IValidationOptions, ViewType } from "bclib/dist/bclib";
 
 export default interface IPartBaseModuleDataModel {
   viewType: string | ViewType;

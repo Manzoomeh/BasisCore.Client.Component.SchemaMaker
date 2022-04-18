@@ -1,11 +1,14 @@
 {
-  "name": "BasisCore.Client.Component.SchemaMaker",
+  "name": "schema-maker",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "schema-maker.js",
+  "types": "schema-maker.d.ts",
   "scripts": {
     "dev": "webpack serve --mode=development",
-    "pub": "webpack --mode=production"
+    "prepub": "if exist dist rd /s /q dist",
+    "pub": "webpack --mode=production",
+    "postpub": "dts-bundle-generator -o dist/schema-maker.d.ts src/ComponentsLoader.ts"
   },
   "repository": {
     "type": "git",
@@ -24,6 +27,7 @@
     "circular-dependency-plugin": "^5.2.2",
     "css-loader": "^6.5.1",
     "dragula": "^3.7.3",
+    "dts-bundle-generator": "^6.7.0",
     "ignore-loader": "^0.1.2",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.2.6",
@@ -34,6 +38,7 @@
     "webpack-dev-server": "^4.7.3"
   },
   "dependencies": {
+    "bclib": "^2.8.42",
     "prismjs": "^1.26.0"
   }
 }

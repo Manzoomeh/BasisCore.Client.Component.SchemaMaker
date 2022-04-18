@@ -1,11 +1,10 @@
-import ISource from "../../basiscore/ISource";
-import IUserDefineComponent from "../../basiscore/IUserDefineComponent";
+import { ISource, IUserDefineComponent } from "bclib/dist/bclib";
 import ComponentBase from "../ComponentBase";
 import ISchemaMakerSchema from "../ISchemaMakerSchema";
 import layout from "./assets/layout.html";
 import itemLayout from "./assets/item-layout.html";
 import "./assets/style.css";
-import tempSchemasJson from "../tempSchemasJson"
+import tempSchemasJson from "../tempSchemasJson";
 
 export default class ToolBoxComponent extends ComponentBase {
   private _sourceId: string;
@@ -32,7 +31,9 @@ export default class ToolBoxComponent extends ComponentBase {
       .querySelector("[data-bc-toolbox-icon]")
       .addEventListener("click", (e) => {
         e.preventDefault();
-        const modeContainer = this.container.querySelector("[data-bc-toolbox-container]");
+        const modeContainer = this.container.querySelector(
+          "[data-bc-toolbox-container]"
+        );
         const mode = modeContainer.getAttribute("data-bc-toolbox-mode");
         if (mode == "show") {
           modeContainer.setAttribute("data-bc-toolbox-mode", "");

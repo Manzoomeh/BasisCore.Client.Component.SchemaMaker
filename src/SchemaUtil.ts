@@ -1,14 +1,13 @@
-import IAnswerSchema, {
+import {
+  IAnswerSchema,
   IAnswerPart,
   IAnswerProperty,
   IPartCollection,
   IPartValue,
-} from "./basiscore/schema/IAnswerSchema";
-import {
   IFixValue,
   IValidationOptions,
-} from "./basiscore/schema/IQuestionSchema";
-import IUserActionResult from "./basiscore/schema/IUserActionResult";
+  IUserActionResult,
+} from "bclib/dist/bclib";
 
 export default class SchemaUtil {
   private static readonly CAPTION_ID = 1;

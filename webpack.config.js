@@ -8,7 +8,7 @@ module.exports = (env, options) => {
     entry: {
       component: {
         import: "./src/ComponentsLoader.ts",
-        filename: "basiscore.schemaMaker.component.js",
+        filename: "schema-maker.js",
         library: {
           name: "schemaMaker",
           type: "assign",
@@ -16,7 +16,7 @@ module.exports = (env, options) => {
       },
       "component.min": {
         import: "./src/ComponentsLoader.ts",
-        filename: "basiscore.schemaMaker.component.min.js",
+        filename: "schema-maker.min.js",
         library: {
           name: "schemaMaker",
           type: "assign",
@@ -28,7 +28,17 @@ module.exports = (env, options) => {
       filename: "[name].js",
     },
     devServer: {
-      static: path.resolve(__dirname, "wwwroot"),
+      static: [
+        {
+          directory: path.resolve(__dirname, "wwwroot"),
+        },
+        {
+          directory: path.resolve(__dirname, "node_modules/alasql/dist"),
+        },
+        {
+          directory: path.resolve(__dirname, "node_modules/bclib/dist"),
+        },
+      ],
       onBeforeSetupMiddleware: function (server) {
         server.app.use("/server", schemaHttpServer);
       },

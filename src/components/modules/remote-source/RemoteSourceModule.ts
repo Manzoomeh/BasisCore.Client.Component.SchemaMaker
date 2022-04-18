@@ -1,13 +1,13 @@
 import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 import PartBaseModule from "../PartBaseModule";
 import IRemoteSourceDataModel from "./IRemoteSourceDataModel";
+import SchemaUtil from "../../../SchemaUtil";
 import {
   IQuestionPart,
   ViewType,
-} from "../../../basiscore/schema/IQuestionSchema";
-import SchemaUtil from "../../../SchemaUtil";
-import IAnswerSchema from "../../../basiscore/schema/IAnswerSchema";
-import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
+  IAnswerSchema,
+  IUserActionResult,
+} from "bclib/dist/bclib";
 
 export default class RemoteSourceModule extends PartBaseModule<IRemoteSourceDataModel> {
   private static readonly URL_ID = 5;

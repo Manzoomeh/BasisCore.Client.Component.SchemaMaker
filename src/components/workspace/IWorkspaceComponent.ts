@@ -1,4 +1,4 @@
-import IUserDefineComponent from "../../basiscore/IUserDefineComponent";
+import { IUserDefineComponent } from "bclib/dist/bclib";
 import ToolboxModule from "../modules/base-class/ToolboxModule";
 
 export default interface IWorkspaceComponent {

@@ -1,15 +1,15 @@
 import "./assets/style.css";
 import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 import PartBaseModule from "../PartBaseModule";
+import IListBaseModuleDataModel from "./IListBaseModuleDataModel";
+import SchemaUtil from "../../../SchemaUtil";
 import {
   IFixValue,
   IQuestionPart,
   ViewType,
-} from "../../../basiscore/schema/IQuestionSchema";
-import IListBaseModuleDataModel from "./IListBaseModuleDataModel";
-import SchemaUtil from "../../../SchemaUtil";
-import IAnswerSchema from "../../../basiscore/schema/IAnswerSchema";
-import IUserActionResult from "../../../basiscore/schema/IUserActionResult";
+  IAnswerSchema,
+  IUserActionResult,
+} from "bclib/dist/bclib";
 
 export default abstract class ListBaseModule extends PartBaseModule<IListBaseModuleDataModel> {
   private static readonly FIX_VALUES_ID = 4;

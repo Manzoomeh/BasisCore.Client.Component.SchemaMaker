@@ -1,6 +1,8 @@
-import IComponentManager from "../basiscore/IComponentManager";
-import ISource from "../basiscore/ISource";
-import IUserDefineComponent from "../basiscore/IUserDefineComponent";
+import {
+  IComponentManager,
+  ISource,
+  IUserDefineComponent,
+} from "bclib/dist/bclib";
 import IComponentOptions from "./IComponentOptions";
 
 export default abstract class ComponentBase implements IComponentManager {
@@ -24,6 +26,6 @@ export default abstract class ComponentBase implements IComponentManager {
       null
     );
   }
-  public abstract initializeAsync(): void | Promise<void>;
+  public abstract initializeAsync(): Promise<void>;
   public abstract runAsync(source?: ISource): any | Promise<any>;
 }

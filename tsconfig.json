@@ -3,6 +3,11 @@
   "compilerOptions": {
     "moduleResolution": "node",
     "target": "ES5",
-    "module": "ES2015"
+    "module": "ES2015",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictNullChecks": false,
+    "declaration": true,
+    "outDir": "src/types"
   }
 }

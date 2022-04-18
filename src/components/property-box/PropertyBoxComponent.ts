@@ -1,6 +1,4 @@
-import IAnswerSchema from "../../basiscore/schema/IAnswerSchema";
-import ISource from "../../basiscore/ISource";
-import IUserDefineComponent from "../../basiscore/IUserDefineComponent";
+import { IAnswerSchema, ISource, IUserDefineComponent } from "bclib/dist/bclib";
 import ComponentBase from "../ComponentBase";
 import ISchemaMakerSchema, {
   ISchemaMakerQuestion,
@@ -29,7 +27,9 @@ export default class PropertyBoxComponent extends ComponentBase {
       .querySelector("[data-bc-properties-icon]")
       .addEventListener("click", (e) => {
         e.preventDefault();
-        const modeContainer = this.container.querySelector("[data-bc-properties-container]");
+        const modeContainer = this.container.querySelector(
+          "[data-bc-properties-container]"
+        );
         const mode = modeContainer.getAttribute("data-bc-properties-mode");
         if (mode == "show") {
           modeContainer.setAttribute("data-bc-properties-mode", "");
@@ -38,8 +38,9 @@ export default class PropertyBoxComponent extends ComponentBase {
             "SchemaMakerComponent_PropertyBoxComponent.question",
             null
           );
-          (this.container.querySelector("[data-btn-add]") as HTMLElement).style.display = "none";
-
+          (
+            this.container.querySelector("[data-btn-add]") as HTMLElement
+          ).style.display = "none";
         } else {
           modeContainer.setAttribute("data-bc-properties-mode", "show");
         }
@@ -62,8 +63,12 @@ export default class PropertyBoxComponent extends ComponentBase {
 
   public runAsync(source?: ISource) {
     if (source) {
-      const saveBtn = (this.container.querySelector("[data-btn-add]") as HTMLElement);
-      const mode = this.container.querySelector("[data-bc-properties-container]");
+      const saveBtn = this.container.querySelector(
+        "[data-btn-add]"
+      ) as HTMLElement;
+      const mode = this.container.querySelector(
+        "[data-bc-properties-container]"
+      );
       switch (source.id) {
         case this._sourceId: {
           this._source = source.rows[0] as ISchemaMakerSchema;
@@ -71,7 +76,7 @@ export default class PropertyBoxComponent extends ComponentBase {
         }
         case DefaultSource.DISPLAY_PROPERTY: {
           const answer = source.rows[0] as IAnswerSchema;
-          setTimeout( () => {
+          setTimeout(() => {
             this.owner.setSource(
               "SchemaMakerComponent_PropertyBoxComponent.question",
               answer
@@ -104,9 +109,10 @@ export default class PropertyBoxComponent extends ComponentBase {
   ): Promise<ISchemaMakerQuestion> {
     schemaId = schemaId.toLowerCase();
     return Promise.resolve(
-      (this._source.schemas ? this._source.schemas : (tempSchemasJson as ISchemaMakerQuestion[])).find(
-        (x) => x.schemaId.toLowerCase() == schemaId
-      )
+      (this._source.schemas
+        ? this._source.schemas
+        : (tempSchemasJson as ISchemaMakerQuestion[])
+      ).find((x) => x.schemaId.toLowerCase() == schemaId)
     );
   }
 }

@@ -1,17 +1,19 @@
-import ISource from "../../basiscore/ISource";
-import IUserDefineComponent from "../../basiscore/IUserDefineComponent";
+import {
+  ISource,
+  IUserDefineComponent,
+  IAnswerSchema,
+  IUserActionResult,
+  IQuestionSchema,
+  IToken,
+} from "bclib/dist/bclib";
 import ComponentBase from "../ComponentBase";
 import ToolboxModule from "../modules/base-class/ToolboxModule";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
 import DefaultSource from "../SourceId";
-import IAnswerSchema from "../../basiscore/schema/IAnswerSchema";
 import IWorkspaceComponent from "./IWorkspaceComponent";
-import IUserActionResult from "../../basiscore/schema/IUserActionResult";
 import IModuleFactory from "../modules/IModuleFactory";
-import IQuestionSchema from "../../basiscore/schema/IQuestionSchema";
 import ISchemaMakerSchema, { ModuleType } from "../ISchemaMakerSchema";
-import IToken from "../../basiscore/IToken";
 import * as Dragula from "dragula";
 import "../../../node_modules/dragula/dist/dragula.min.css";
 import ContainerModule from "../modules/ContainerModule";

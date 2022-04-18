@@ -1,4 +1,4 @@
-import { IFixValue } from "../../../basiscore/schema/IQuestionSchema";
+import { IFixValue } from "bclib/dist/bclib";
 import IPartBaseModuleDataModel from "../IPartBaseModuleDataModel";
 
 export default interface IListBaseModuleDataModel
