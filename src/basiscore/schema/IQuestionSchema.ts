@@ -43,7 +43,8 @@ export type ViewType =
   | "Upload"
   | "Datepicker"
   | "Checklist"
-  | "Lookup";
+  | "Lookup"
+  | "Radio";
 
 export interface ISection {
   id: number;

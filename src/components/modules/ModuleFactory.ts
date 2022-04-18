@@ -4,6 +4,7 @@ import ToolboxModule from "./base-class/ToolboxModule";
 import IWorkspaceComponent from "../workspace/IWorkspaceComponent";
 import CheckListModule from "./list-base/check-list/CheckListModule";
 import SelectModule from "./list-base/select/SelectModule";
+import RadioModule from "./list-base/radio/RadioModule";
 import LongTextModule from "./text-base/long-text/LongTextModule";
 import ShortTextModule from "./text-base/short-text/ShortTextModule";
 import IModuleFactory from "./IModuleFactory";
@@ -49,6 +50,10 @@ export default class ModuleFactory implements IModuleFactory {
       }
       case "lookup": {
         module = new LookupModule(owner, container, model);
+        break;
+      }
+      case "radio": {
+        module = new RadioModule(owner, container, model);
         break;
       }
     }

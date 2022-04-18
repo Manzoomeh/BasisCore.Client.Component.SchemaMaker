@@ -642,6 +642,94 @@
                             ]
                         },
                         {
+                            "schemaId": "Radio",
+                            "schemaType": "part",
+                            "title": "Radio",
+                            "image": "/assets/images/radio.png",
+                            "questions": [
+                                {
+                                    "prpId": 1,
+                                    "title": "Caption",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 2,
+                                    "title": "Css Class",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 4,
+                                    "title": "Items",
+                                    "multi": "true",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "Text",
+                                            "caption": "Value",
+                                            "validations": {
+                                                "dataType": "int"
+                                            }
+                                        },
+                                        {
+                                            "part": 2,
+                                            "viewType": "text",
+                                            "caption": "Title"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 5,
+                                    "title": "Url",
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "text",
+                                            "validations": {
+                                                "regex1": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
+                                            }
+                                        }
+                                    ]
+                                },
+                                {
+                                    "prpId": 3001,
+                                    "title": "required",
+                                    "sectionId": 1,
+                                    "parts": [
+                                        {
+                                            "part": 1,
+                                            "viewType": "select",
+                                            "fixValues": [
+                                                {
+                                                    "id": 0,
+                                                    "value": "No"
+                                                },
+                                                {
+                                                    "id": 1,
+                                                    "value": "Yes"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ],
+                            "sections": [
+                                {
+                                    "id": 1,
+                                    "title": "Validations"
+                                }
+                            ]
+                        },
+                        {
                             "schemaId": "Lookup",
                             "schemaType": "part",
                             "title": "Lookup",
