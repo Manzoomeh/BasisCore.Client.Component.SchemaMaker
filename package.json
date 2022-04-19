@@ -1,7 +1,7 @@
 {
   "name": "schema-maker",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple client side component for create schema in base of Manzoomeh Negaran schema standard.",
   "main": "schema-maker.js",
   "types": "schema-maker.d.ts",
   "scripts": {
@@ -14,8 +14,17 @@
     "type": "git",
     "url": "git+https://github.com/Manzoomeh/BasisCore.Client.Component.SchemaMaker.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "BasisCore",
+    "clientSide",
+    "schema-maker",
+    "schema",
+    "Manzoomeh Negaran",
+    "generator",
+    "form generator",
+    "json"
+  ],
+  "author": "Manzoomeh Negaran <info@manzoomeh.ir> (https://www.manzoomeh.ir)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Manzoomeh/BasisCore.Client.Component.SchemaMaker/issues"
@@ -35,10 +44,10 @@
     "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^5.66.0",
     "webpack-cli": "^4.9.1",
-    "webpack-dev-server": "^4.7.3"
+    "webpack-dev-server": "^4.7.3",
+    "prismjs": "^1.26.0"
   },
   "dependencies": {
-    "bclib": "^2.8.42",
-    "prismjs": "^1.26.0"
+    "bclib": "^2.8.42"
   }
 }
