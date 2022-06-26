@@ -1,4 +1,4 @@
-import { ISource, IUserDefineComponent } from "bclib/dist/bclib";
+import { ISource, IUserDefineComponent } from "basiscore";
 import ComponentBase from "../ComponentBase";
 import ISchemaMakerSchema from "../ISchemaMakerSchema";
 import layout from "./assets/layout.html";

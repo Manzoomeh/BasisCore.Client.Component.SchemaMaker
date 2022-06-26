@@ -3,7 +3,7 @@ import {
   IQuestionSchema,
   ISection,
   IUserActionResult,
-} from "bclib/dist/bclib";
+} from "basiscore";
 import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
@@ -58,6 +58,7 @@ export default class SectionModule extends ContainerModule {
     var ans: IAnswerSchema = {
       schemaVersion: "1.0",
       schemaId: "section",
+      paramUrl: "section",
       lastUpdate: "",
       lid: 0,
       usedForId: this.usedForId,

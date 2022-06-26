@@ -1,4 +1,4 @@
-import { IDependency, IValidationOptions, ViewType } from "bclib/dist/bclib";
+import { IDependency, IValidationOptions, ViewType } from "basiscore";
 
 export default interface IPartBaseModuleDataModel {
   viewType: string | ViewType;

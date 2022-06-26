@@ -1,4 +1,4 @@
-import { IAnswerSchema, ISource, IUserDefineComponent } from "bclib/dist/bclib";
+import { IAnswerSchema, ISource, IUserDefineComponent } from "basiscore";
 import ComponentBase from "../ComponentBase";
 import ISchemaMakerSchema, {
   ISchemaMakerQuestion,
@@ -103,16 +103,16 @@ export default class PropertyBoxComponent extends ComponentBase {
 
   public getSchemaAsync(
     context: any,
-    schemaId: string,
-    version: string,
-    lid: number
+    schemaUrl: string
   ): Promise<ISchemaMakerQuestion> {
-    schemaId = schemaId.toLowerCase();
-    return Promise.resolve(
-      (this._source.schemas
-        ? this._source.schemas
-        : (tempSchemasJson as ISchemaMakerQuestion[])
-      ).find((x) => x.schemaId.toLowerCase() == schemaId)
-    );
+    if (schemaUrl) {
+      schemaUrl = schemaUrl.toLowerCase();
+      return Promise.resolve(
+        (this._source.schemas
+          ? this._source.schemas
+          : (tempSchemasJson as ISchemaMakerQuestion[])
+        ).find((x) => x.schemaId.toLowerCase() == schemaUrl)
+      );
+    }
   }
 }

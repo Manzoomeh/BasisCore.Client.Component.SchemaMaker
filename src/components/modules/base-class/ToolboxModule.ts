@@ -1,11 +1,7 @@
 /// <reference path="../../@types/typings.d.ts" />
 import "./assets/style.css";
 import layout from "./assets/layout.html";
-import {
-  IAnswerSchema,
-  IQuestionSchema,
-  IUserActionResult,
-} from "bclib/dist/bclib";
+import { IAnswerSchema, IQuestionSchema, IUserActionResult } from "basiscore";
 import DefaultSource from "../../SourceId";
 import ISchemaMakerComponent from "../../schema-maker/ISchemaMakerComponent";
 import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";

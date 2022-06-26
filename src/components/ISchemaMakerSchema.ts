@@ -1,4 +1,4 @@
-import { IQuestionSchema, IQuestion, ISection } from "bclib/dist/bclib";
+import { IQuestionSchema, IQuestion, ISection } from "basiscore";
 
 export default interface ISchemaMakerSchema extends IQuestionSchema {
   schemas: Array<ISchemaMakerQuestion>;

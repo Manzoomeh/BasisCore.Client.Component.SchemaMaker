@@ -1,6 +1,6 @@
 import IWorkspaceComponent from "../workspace/IWorkspaceComponent";
 import ToolboxModule from "./base-class/ToolboxModule";
-import { IQuestionSchema } from "bclib/dist/bclib";
+import { IQuestionSchema } from "basiscore";
 
 export default abstract class ContainerModule extends ToolboxModule {
   constructor(

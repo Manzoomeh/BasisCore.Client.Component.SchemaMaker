@@ -1,7 +1,7 @@
 import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 import "./assets/style.css";
 import PartBaseModule from "../PartBaseModule";
-import { IQuestionPart, ViewType } from "bclib/dist/bclib";
+import { IQuestionPart, ViewType } from "basiscore";
 import ITextBaseModuleDataModel from "./ITextBaseModuleDataModel";
 
 export default abstract class TextBaseModule extends PartBaseModule<ITextBaseModuleDataModel> {

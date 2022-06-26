@@ -1,4 +1,4 @@
-import { IFixValue } from "bclib/dist/bclib";
+import { IFixValue } from "basiscore";
 import IPartBaseModuleDataModel from "../IPartBaseModuleDataModel";
 
 export default interface IListBaseModuleDataModel

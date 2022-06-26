@@ -1,4 +1,4 @@
-import { IDisposable, ISource, IUserDefineComponent } from "bclib/dist/bclib";
+import { IDisposable, ISource, IUserDefineComponent } from "basiscore";
 import ComponentBase from "../ComponentBase";
 import ModuleFactory from "../modules/ModuleFactory";
 import layout from "./assets/layout.html";

@@ -5,7 +5,7 @@ import {
   ViewType,
   IAnswerSchema,
   IUserActionResult,
-} from "bclib/dist/bclib";
+} from "basiscore";
 import SchemaUtil from "../../SchemaUtil";
 import IPartBaseModuleDataModel from "./IPartBaseModuleDataModel";
 
@@ -40,6 +40,7 @@ export default abstract class PartBaseModule<
     var ans: IAnswerSchema = {
       schemaVersion: "1.0",
       schemaId: this.schemaId,
+      paramUrl: this.schemaId,
       lastUpdate: "",
       lid: 0,
       usedForId: this.usedForId,

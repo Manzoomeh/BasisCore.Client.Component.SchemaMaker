@@ -3,7 +3,7 @@ import {
   IQuestionSchema,
   IQuestion,
   IUserActionResult,
-} from "bclib/dist/bclib";
+} from "basiscore";
 import SchemaUtil from "../../../SchemaUtil";
 import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 import ContainerModule from "../ContainerModule";
@@ -98,6 +98,7 @@ export default class QuestionModule extends ContainerModule {
     var ans: IAnswerSchema = {
       schemaVersion: "1.0",
       schemaId: "question",
+      paramUrl: "question",
       lastUpdate: "",
       lid: 0,
       usedForId: this.usedForId,

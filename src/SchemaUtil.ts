@@ -7,7 +7,7 @@ import {
   IFixValue,
   IValidationOptions,
   IUserActionResult,
-} from "bclib/dist/bclib";
+} from "basiscore";
 
 export default class SchemaUtil {
   private static readonly CAPTION_ID = 1;

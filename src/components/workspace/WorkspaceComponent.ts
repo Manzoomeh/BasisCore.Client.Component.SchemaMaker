@@ -5,7 +5,7 @@ import {
   IUserActionResult,
   IQuestionSchema,
   IToken,
-} from "bclib/dist/bclib";
+} from "basiscore";
 import ComponentBase from "../ComponentBase";
 import ToolboxModule from "../modules/base-class/ToolboxModule";
 import layout from "./assets/layout.html";
@@ -393,6 +393,7 @@ export default class WorkspaceComponent
       ...(schema?.baseVocab && { baseVocab: schema.baseVocab }),
       ...(lid && { lid: lid }),
       ...(schema?.schemaId && { schemaId: schema.schemaId }),
+      ...(schema?.paramUrl && { paramUrl: schema.paramUrl }),
       ...(schemaVersion && { schemaVersion: schemaVersion }),
       ...(schemaName && { name: schemaName }),
     };
@@ -458,7 +459,6 @@ export default class WorkspaceComponent
 
   private async saveAsDraftAsync(draftName: string): Promise<void> {
     const schema = await this.generateQuestionSchemaAsync();
-    console.log(schema);
     localStorage.setItem(draftName, JSON.stringify(schema));
   }
 

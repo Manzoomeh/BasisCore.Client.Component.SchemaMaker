@@ -36,7 +36,7 @@ module.exports = (env, options) => {
           directory: path.resolve(__dirname, "node_modules/alasql/dist"),
         },
         {
-          directory: path.resolve(__dirname, "node_modules/bclib/dist"),
+          directory: path.resolve(__dirname, "node_modules/basiscore/dist"),
         },
       ],
       onBeforeSetupMiddleware: function (server) {

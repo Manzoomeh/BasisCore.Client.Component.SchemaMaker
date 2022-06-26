@@ -9,7 +9,7 @@ import {
   ViewType,
   IAnswerSchema,
   IUserActionResult,
-} from "bclib/dist/bclib";
+} from "basiscore";
 
 export default abstract class ListBaseModule extends PartBaseModule<IListBaseModuleDataModel> {
   private static readonly FIX_VALUES_ID = 4;

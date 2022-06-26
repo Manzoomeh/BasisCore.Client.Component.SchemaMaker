@@ -7,7 +7,7 @@ import {
   ViewType,
   IAnswerSchema,
   IUserActionResult,
-} from "bclib/dist/bclib";
+} from "basiscore";
 
 export default class RemoteSourceModule extends PartBaseModule<IRemoteSourceDataModel> {
   private static readonly URL_ID = 5;

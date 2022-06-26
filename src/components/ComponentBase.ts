@@ -1,8 +1,4 @@
-import {
-  IComponentManager,
-  ISource,
-  IUserDefineComponent,
-} from "bclib/dist/bclib";
+import { IComponentManager, ISource, IUserDefineComponent } from "basiscore";
 import IComponentOptions from "./IComponentOptions";
 
 export default abstract class ComponentBase implements IComponentManager {
