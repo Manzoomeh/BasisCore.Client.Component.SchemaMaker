@@ -20,6 +20,7 @@ export default class QuestionModule extends ContainerModule {
   private static readonly MULTI_ID = 3;
   private static readonly CSS_CLASS_ID = 4;
   private static readonly HELP_URL_ID = 5;
+  private static readonly USE_IN_LIST = 6;
 
   private readonly _data: Partial<IQuestionModuleDataModel>;
   private readonly _schema: IQuestion;
@@ -81,6 +82,7 @@ export default class QuestionModule extends ContainerModule {
         cssClass: this._schema.cssClass,
         help: this._schema.help,
         multi: this._schema.multi,
+        use_in_list: this._schema.useInList,
         part: this._schema.parts?.length,
       };
     } else {
@@ -121,6 +123,11 @@ export default class QuestionModule extends ContainerModule {
       this._data.help,
       QuestionModule.HELP_URL_ID
     );
+    SchemaUtil.addSimpleValueProperty(
+      ans,
+      this._data.use_in_list ? "2" : "1",
+      QuestionModule.USE_IN_LIST
+    );
     return ans;
   }
 
@@ -155,6 +162,11 @@ export default class QuestionModule extends ContainerModule {
     if (helpUrl != null) {
       this._data.help = helpUrl;
     }
+
+    const useInList = SchemaUtil.getPropertyValue(result, QuestionModule.USE_IN_LIST);
+    if (useInList != null) {
+      this._data.use_in_list = useInList == "2";
+    }
   }
 
   public fillSchema(schema: IQuestionSchema) {
@@ -173,6 +185,7 @@ export default class QuestionModule extends ContainerModule {
       ...(sectionId && { sectionId: parseInt(sectionId) }),
       ...(this._data.cssClass && { cssClass: this._data.cssClass }),
       ...(this._data.help && { help: this._data.help }),
+      ...(this._data.use_in_list && { use_in_list: this._data.use_in_list }),
       parts: null,
     };
 

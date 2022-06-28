@@ -108,6 +108,26 @@
                                 "part": 1,
                                 "viewType": "text"
                             }]
+                        },
+                        {
+                            "prpId": 6,
+                            "title": "Use In List",
+                            "parts": [
+                                {
+                                    "part": 1,
+                                    "viewType": "select",
+                                    "fixValues": [
+                                        {
+                                            "id": 1,
+                                            "value": "No"
+                                        },
+                                        {
+                                            "id": 2,
+                                            "value": "Yes"
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 },
