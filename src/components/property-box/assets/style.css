@@ -155,23 +155,16 @@
     text-align: left;
     direction: ltr;
     margin-left: 0;
-    margin-right: 5px;
+    margin-right: 10px;
     float: left;
 }
 
 [data-bc-properties-container] [data-bc-answer-container] {
-    width: calc(100% - 105px);
+    width: calc(100% - 110px);
 }
 
 [data-bc-properties-container] [data-bc-answer-title-container] {
     float: left;
-    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
-    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
-    display: -ms-flexbox; /* TWEENER - IE 10 */
-    display: -moz-flex;
-    display: -webkit-flex; /* NEW - Chrome */
-    display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
-    width: calc(100% - 30px);
 }
 
 [data-bc-properties-container] [data-bc-answer-title-container] [data-bc-answer-title] {
@@ -179,22 +172,15 @@
 }
 
 [data-bc-properties-container] [data-bc-part-container] {
-    display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
-    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
-    display: -ms-flexbox; /* TWEENER - IE 10 */
-    display: -moz-flex;
-    display: -webkit-flex; /* NEW - Chrome */
-    display: flex; /* NEW, Spec - Opera 12.1, Firefox 20+ */
-    width: calc(100% - 30px);
     float: left;
 }
 
 [data-bc-properties-container] [data-bc-part-related-cell] {
     margin-left: 0;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
 [data-bc-properties-container] [data-bc-fm-lookup] input[type="text"] {
     margin-left: 0;
-    margin-right: 5px;
+    margin-right: 10px;
 }
