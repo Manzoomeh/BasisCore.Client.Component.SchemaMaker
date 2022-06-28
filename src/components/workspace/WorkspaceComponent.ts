@@ -216,8 +216,10 @@ export default class WorkspaceComponent
         if (name) {
           tabButton.forEach((tBtn) => {
             tBtn.setAttribute("data-bc-sm-tab-button-mode", "");
+            tBtn.removeAttribute("data-sys-sm-active-tab");
           });
           btn.setAttribute("data-bc-sm-tab-button-mode", "active");
+          btn.setAttribute("data-sys-sm-active-tab", "active");
 
           contents.forEach((content) => {
             content.setAttribute("data-bc-sm-tab-section-mode", "");
