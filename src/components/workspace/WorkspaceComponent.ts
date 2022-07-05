@@ -29,6 +29,8 @@ export default class WorkspaceComponent
   private _sourceId: string;
   private _internalSourceId: string;
   private _result: JSON;
+  private static _current_container_dragula: Dragula.Drake;
+  private static _current_part_dragula: Dragula.Drake;
   private readonly _modules: Map<number, ToolboxModule> = new Map<
     number,
     ToolboxModule
@@ -65,9 +67,16 @@ export default class WorkspaceComponent
       }
     };
 
+    if (WorkspaceComponent._current_container_dragula) {
+      WorkspaceComponent._current_container_dragula.destroy();
+    }
+
+    if (WorkspaceComponent._current_part_dragula) {
+      WorkspaceComponent._current_part_dragula.destroy();
+    }
     //Doc: https://github.com/bevacqua/dragula
     //Demo: https://bevacqua.github.io/dragula/
-    Dragula({
+    WorkspaceComponent._current_container_dragula = Dragula({
       isContainer: function (el) {
         return (
           el.hasAttribute("data-bc-toolbox-container-list") ||
@@ -107,7 +116,7 @@ export default class WorkspaceComponent
         removeModuleOnSpill(el);
       });
 
-    Dragula({
+    WorkspaceComponent._current_part_dragula = Dragula({
       isContainer: function (el) {
         return (
           el.hasAttribute("data-bc-toolbox-part-list") ||
