@@ -1,5 +1,6 @@
 const tempSchemasJson = [{
     "schemaId": "section",
+    "paramUrl": "section",
     "schemaType": "section",
     "title": "Section",
     "image": "/assets/images/sections.png",
@@ -30,6 +31,7 @@ const tempSchemasJson = [{
 },
 {
     "schemaId": "question",
+    "paramUrl": "question",
     "schemaType": "question",
     "title": "Question",
     "image": "/assets/images/question.png",
@@ -117,6 +119,7 @@ const tempSchemasJson = [{
 },
 {
     "schemaId": "text",
+    "paramUrl": "text",
     "schemaType": "part",
     "title": "Short Text",
     "image": "/assets/images/input.png",
@@ -264,6 +267,7 @@ const tempSchemasJson = [{
 },
 {
     "schemaId": "textarea",
+    "paramUrl": "textarea",
     "schemaType": "part",
     "title": "Long Text",
     "image": "/assets/images/text-box.png",
@@ -358,6 +362,7 @@ const tempSchemasJson = [{
 },
 {
     "schemaId": "AutoComplete",
+    "paramUrl": "AutoComplete",
     "schemaType": "part",
     "title": "Autocomplete",
     "image": "/assets/images/autoComplete.png",
@@ -427,6 +432,7 @@ const tempSchemasJson = [{
 },
 {
     "schemaId": "Select",
+    "paramUrl": "Select",
     "schemaType": "part",
     "title": "Select",
     "image": "/assets/images/dropdown.png",
@@ -515,6 +521,7 @@ const tempSchemasJson = [{
 },
 {
     "schemaId": "Checklist",
+    "paramUrl": "Checklist",
     "schemaType": "part",
     "title": "Checklist",
     "image": "/assets/images/checklist.png",
@@ -628,6 +635,7 @@ const tempSchemasJson = [{
 },
 {
     "schemaId": "Radio",
+    "paramUrl": "Radio",
     "schemaType": "part",
     "title": "Radio",
     "image": "/assets/images/radio.png",

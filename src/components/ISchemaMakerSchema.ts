@@ -6,6 +6,7 @@ export default interface ISchemaMakerSchema extends IQuestionSchema {
 
 export interface ISchemaMakerQuestion {
   schemaId: string;
+  paramUrl: string;
   schemaType: ModuleType;
   title: string;
   image: string;
