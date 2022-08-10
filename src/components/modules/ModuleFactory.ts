@@ -1,5 +1,6 @@
 import AutocompleteModule from "./remote-source/autocomplete/AutocompleteModule";
 import LookupModule from "./remote-source/lookup/LookupModule";
+import UploadModule from "./upload/UploadModule";
 import ToolboxModule from "./base-class/ToolboxModule";
 import IWorkspaceComponent from "../workspace/IWorkspaceComponent";
 import CheckListModule from "./list-base/check-list/CheckListModule";
@@ -54,6 +55,10 @@ export default class ModuleFactory implements IModuleFactory {
       }
       case "radio": {
         module = new RadioModule(owner, container, model);
+        break;
+      }
+      case "upload": {
+        module = new UploadModule(owner, container, model);
         break;
       }
     }

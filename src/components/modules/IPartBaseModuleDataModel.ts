@@ -6,4 +6,5 @@ export default interface IPartBaseModuleDataModel {
   validations?: IValidationOptions;
   caption?: string;
   dependency?: Array<IDependency>;
+  multiple?: boolean;
 }

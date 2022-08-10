@@ -20,7 +20,7 @@ export default class QuestionModule extends ContainerModule {
   private static readonly MULTI_ID = 3;
   private static readonly CSS_CLASS_ID = 4;
   private static readonly HELP_URL_ID = 5;
-  private static readonly USE_IN_LIST = 6;
+  private static readonly USE_IN_LIST_ID = 6;
 
   private readonly _data: Partial<IQuestionModuleDataModel>;
   private readonly _schema: IQuestion;
@@ -126,7 +126,7 @@ export default class QuestionModule extends ContainerModule {
     SchemaUtil.addSimpleValueProperty(
       ans,
       this._data.use_in_list ? "2" : "1",
-      QuestionModule.USE_IN_LIST
+      QuestionModule.USE_IN_LIST_ID
     );
     return ans;
   }
@@ -163,7 +163,7 @@ export default class QuestionModule extends ContainerModule {
       this._data.help = helpUrl;
     }
 
-    const useInList = SchemaUtil.getPropertyValue(result, QuestionModule.USE_IN_LIST);
+    const useInList = SchemaUtil.getPropertyValue(result, QuestionModule.USE_IN_LIST_ID);
     if (useInList != null) {
       this._data.use_in_list = useInList == "2";
     }

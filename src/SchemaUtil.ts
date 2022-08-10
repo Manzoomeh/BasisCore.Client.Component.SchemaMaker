@@ -12,6 +12,7 @@ import {
 export default class SchemaUtil {
   private static readonly CAPTION_ID = 1;
   private static readonly CSS_CLASS_ID = 2;
+  private static readonly MULTIPLE_ID = 3;
 
   private static readonly REQUIRED_VALIDATION_ID = 3001;
   private static readonly MIN_LENGTH_VALIDATION_ID = 3002;
@@ -20,6 +21,8 @@ export default class SchemaUtil {
   private static readonly MAX_VALIDATION_ID = 3005;
   private static readonly DATATYPE_VALIDATION_ID = 3006;
   private static readonly REGEX_VALIDATION_ID = 3007;
+  private static readonly MIMES_VALIDATION_ID = 3008;
+  private static readonly SIZE_VALIDATION_ID = 3009;
 
   public static addSimpleValueProperty(
     answerSchema: IAnswerSchema,
@@ -73,6 +76,32 @@ export default class SchemaUtil {
     return retVal;
   }
 
+  public static getMultiPropertyValue(
+    result: IUserActionResult,
+    propId: number,
+    part: number = 0
+  ): any {
+    let retVal: string = null;
+    const property = result.properties.find((x) => x.propId == propId);
+    if (property) {
+      if (property.edited) {
+        retVal = property.edited[0].parts[part].values[0].value;
+      }
+      if (property.added) {
+        retVal = property.added[0].parts[part].values[0].value;
+      }
+      if (property.deleted) {
+        if (
+          part == 0 ||
+          (property.deleted[0].parts && property.deleted[0].parts[0])
+        ) {
+          retVal = "";
+        }
+      }
+    }
+    return retVal;
+  }
+
   public static addCaptionProperty(
     answerSchema: IAnswerSchema,
     caption: string
@@ -101,6 +130,21 @@ export default class SchemaUtil {
 
   public static getCssClassProperty(result: IUserActionResult) {
     return SchemaUtil.getPropertyValue(result, SchemaUtil.CSS_CLASS_ID);
+  }
+
+  public static addMultipleClassProperty(
+    answerSchema: IAnswerSchema,
+    multiple: boolean
+  ) {
+    SchemaUtil.addSimpleValueProperty(
+      answerSchema,
+      multiple == true ? "2" : "1",
+      SchemaUtil.MULTIPLE_ID
+    );
+  }
+
+  public static getMultipleProperty(result: IUserActionResult) {
+    return SchemaUtil.getPropertyValue(result, SchemaUtil.MULTIPLE_ID);
   }
 
   public static addValidationProperties(
@@ -157,6 +201,13 @@ export default class SchemaUtil {
           SchemaUtil.REGEX_VALIDATION_ID
         );
       }
+      if (validations.size != null) {
+        SchemaUtil.addSimpleValueProperty(
+          answerSchema,
+          validations.size,
+          SchemaUtil.SIZE_VALIDATION_ID
+        );
+      }
     }
   }
 
@@ -164,6 +215,7 @@ export default class SchemaUtil {
     current: IValidationOptions,
     result: IUserActionResult
   ): IValidationOptions {
+    console.log("rrrrrr", result);
     if (!current) {
       current = {};
     }
@@ -221,6 +273,19 @@ export default class SchemaUtil {
     if (regex != null) {
       current.regex = regex;
     }
+    const size = SchemaUtil.getPropertyValue(
+      result,
+      SchemaUtil.SIZE_VALIDATION_ID
+    );
+    if (size != null) {
+      const value = parseInt(size);
+      current.size = isNaN(value) ? null : value;
+    }
+    const mimes = SchemaUtil.getMultiPropertyValue(
+      result,
+      SchemaUtil.MIMES_VALIDATION_ID
+    );
+    console.log("ffff", mimes);
     return current;
   }
 
