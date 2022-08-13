@@ -702,7 +702,7 @@
                     "paramUrl": "Upload",
                     "schemaType": "part",
                     "title": "Upload",
-                    "image": "/assets/images/lookup.png",
+                    "image": "/assets/images/upload.png",
                     "questions": [{
                             "prpId": 1,
                             "title": "Caption",
