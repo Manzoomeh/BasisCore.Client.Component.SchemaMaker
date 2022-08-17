@@ -32,6 +32,7 @@ export default abstract class PartBaseModule<
       this.data.viewType = schemaId;
       this.data.caption = questionPart.caption;
       this.data.cssClass = questionPart.cssClass;
+      this.data.multiple = questionPart.multiple;
       this.data.validations = questionPart.validations;
     }
   }
@@ -48,6 +49,7 @@ export default abstract class PartBaseModule<
     };
     SchemaUtil.addCaptionProperty(ans, this.data.caption);
     SchemaUtil.addCssClassProperty(ans, this.data.cssClass);
+    SchemaUtil.addMultipleClassProperty(ans, this.data.multiple);
     SchemaUtil.addValidationProperties(ans, this.data.validations);
 
     return ans;
@@ -63,6 +65,12 @@ export default abstract class PartBaseModule<
     if (cssClass != null) {
       this.data.cssClass = cssClass;
     }
+
+    const multiple = SchemaUtil.getMultipleProperty(result);
+    if (multiple != null) {
+      this.data.multiple = multiple == "1" ? false : true;
+    }
+    
     this.data.validations = SchemaUtil.applyValidationsProperties(
       this.data.validations,
       result
@@ -77,6 +85,7 @@ export default abstract class PartBaseModule<
       ...(this.data.validations && { validations: this.data.validations }),
       ...(this.data.caption && { caption: this.data.caption }),
       ...(this.data.dependency && { dependency: this.data.dependency }),
+      ...(this.data.multiple && { multiple: this.data.multiple }),
       ...(this.questionPartModel && { method: this.questionPartModel?.method }),
     };
     return retVal;
