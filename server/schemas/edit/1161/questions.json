@@ -2,240 +2,273 @@
     "setting": {
         "keepalive": true
     },
-    "sources": [{
-        "options": {
-            "tableName": "schema.data",
-            "keyFieldName": null,
-            "statusFieldName": null,
-            "mergeType": 0
-        },
-        "data": [{
-            "schemaId": 1161,
-            "paramUrl": "1161",
-            "schemaVersion": 1.1,
-            "lid": 2,
-            "name": "test-schema",
-            "baseVocab": "http://schema.site/FA/vo",
-            "questions": [{
-                    "prpId": 13050,
-                    "typeId": 150,
-                    "ord": 1000,
-                    "vocab": "/عنوان",
-                    "title": "نام دیزل ژنراتور",
-                    "wordId": 63228,
-                    "multi": true,
-                    "sectionId": 1,
-                    "cssClass": "css_13050",
-                    "help": "help data",
-                    "parts": [{
-                        "part": 1,
-                        "viewType": "text",
-                        "cssClass": "css_13050_1",
-                        "validations": {
-                            "required": true,
-                            "minLength": 3,
-                            "maxLength": 20
-                        },
-                        "caption": "",
-                        "link": ""
-                    }]
-                },
+    "sources": [
+        {
+            "options": {
+                "tableName": "schema.data",
+                "keyFieldName": null,
+                "statusFieldName": null,
+                "mergeType": 0
+            },
+            "data": [
                 {
-                    "prpId": 13057,
-                    "typeId": 262,
-                    "ord": 100,
-                    "vocab": "/توان-اضطراری",
-                    "title": "توان اضطراری",
-                    "wordId": 51320,
-                    "multi": true,
-                    "sectionId": 1,
-                    "cssClass": "css_13057",
-                    "help": "help data",
-                    "parts": [{
-                            "part": 1,
-                            "viewType": "select",
-                            "cssClass": "css_13057_1",
-                            "validations": {
-                                "required": true
-                            },
-                            "caption": "واحد اندازه گیری",
-                            "link": "/server/fix-data/${prpId}/${part}"
+                    "schemaId": 1161,
+                    "paramUrl": "1161",
+                    "schemaVersion": 1.1,
+                    "lid": 2,
+                    "name": "test-schema",
+                    "baseVocab": "http://schema.site/FA/vo",
+                    "questions": [
+                        {
+                            "prpId": 13050,
+                            "typeId": 150,
+                            "ord": 1000,
+                            "vocab": "/عنوان",
+                            "title": "نام دیزل ژنراتور",
+                            "wordId": 63228,
+                            "multi": true,
+                            "sectionId": 1,
+                            "cssClass": "css_13050",
+                            "help": "help data",
+                            "parts": [
+                                {
+                                    "part": 1,
+                                    "viewType": "upload",
+                                    "cssClass": "css_13050_1",
+                                    "validations": {
+                                        "required": true,
+                                        "minLength": 3,
+                                        "maxLength": 20,
+                                        "mimes": [
+                                            {
+                                                "mime": "images/jpeg",
+                                                "minSize": 12,
+                                                "maxSize": 300
+                                            },
+                                            {
+                                                "mime": "application/pdf",
+                                                "minSize": 1600,
+                                                "maxSize": 35000
+                                            }
+                                        ]
+                                    },
+                                    "caption": "",
+                                    "link": ""
+                                }
+                            ]
                         },
                         {
-                            "part": 2,
-                            "viewType": "text",
-                            "cssClass": "css_13057_2",
-                            "validations": {
-                                "required": true,
-                                "min": 200,
-                                "max": 4000,
-                                "dataType": "int"
-                            },
-                            "caption": "سرعت (دور بر دقیقه)",
-                            "link": ""
+                            "prpId": 13057,
+                            "typeId": 262,
+                            "ord": 100,
+                            "vocab": "/توان-اضطراری",
+                            "title": "توان اضطراری",
+                            "wordId": 51320,
+                            "multi": true,
+                            "sectionId": 1,
+                            "cssClass": "css_13057",
+                            "help": "help data",
+                            "parts": [
+                                {
+                                    "part": 1,
+                                    "viewType": "select",
+                                    "cssClass": "css_13057_1",
+                                    "validations": {
+                                        "required": true
+                                    },
+                                    "caption": "واحد اندازه گیری",
+                                    "link": "/server/fix-data/${prpId}/${part}"
+                                },
+                                {
+                                    "part": 2,
+                                    "viewType": "text",
+                                    "cssClass": "css_13057_2",
+                                    "validations": {
+                                        "required": true,
+                                        "min": 200,
+                                        "max": 4000,
+                                        "dataType": "int"
+                                    },
+                                    "caption": "سرعت (دور بر دقیقه)",
+                                    "link": ""
+                                },
+                                {
+                                    "part": 3,
+                                    "viewType": "text",
+                                    "cssClass": "css_13057_3",
+                                    "validations1": {
+                                        "minLength": "2",
+                                        "maxLength": "4000",
+                                        "dataType": "int"
+                                    },
+                                    "caption": "میزان توان",
+                                    "link": ""
+                                }
+                            ]
                         },
                         {
-                            "part": 3,
-                            "viewType": "text",
-                            "cssClass": "css_13057_3",
-                            "validations1": {
-                                "minLength": "2",
-                                "maxLength": "4000",
-                                "dataType": "int"
-                            },
-                            "caption": "میزان توان",
-                            "link": ""
+                            "prpId": 13060,
+                            "typeId": 128,
+                            "ord": 100,
+                            "vocab": "/ولتاژ",
+                            "title": "ولتاژ",
+                            "wordId": 50678,
+                            "multi": true,
+                            "sectionId": 3,
+                            "cssClass": "css_13060",
+                            "help": "help data",
+                            "parts": [
+                                {
+                                    "part": 1,
+                                    "viewType": "select",
+                                    "cssClass": "css_13060_1",
+                                    "fixValues": [
+                                        {
+                                            "id": 0,
+                                            "value": "لطفا یکی از موارد را انتخاب کنید"
+                                        },
+                                        {
+                                            "id": 4,
+                                            "value": "110"
+                                        },
+                                        {
+                                            "id": 5,
+                                            "value": "220"
+                                        }
+                                    ],
+                                    "caption": "",
+                                    "link": ""
+                                }
+                            ]
+                        },
+                        {
+                            "prpId": 130601,
+                            "typeId": 128,
+                            "ord": 100,
+                            "vocab": "/ولتاژ",
+                            "title": "ولتاژ",
+                            "wordId": 50678,
+                            "multi": true,
+                            "sectionId": 3,
+                            "cssClass": "css_13060",
+                            "help": "help data",
+                            "parts": [
+                                {
+                                    "part": 1,
+                                    "viewType": "checklist",
+                                    "cssClass": "css_13060_1",
+                                    "validations": {
+                                        "required": true,
+                                        "maxLength": 1
+                                    },
+                                    "fixValues": [
+                                        {
+                                            "id": 4,
+                                            "value": "110"
+                                        },
+                                        {
+                                            "id": 5,
+                                            "value": "220"
+                                        }
+                                    ],
+                                    "caption": "",
+                                    "link": ""
+                                }
+                            ]
+                        },
+                        {
+                            "prpId": 130621,
+                            "typeId": 128,
+                            "ord": 100,
+                            "vocab": "/ولتاژ",
+                            "title": "توضیحات",
+                            "wordId": 50678,
+                            "multi": true,
+                            "sectionId": 3,
+                            "cssClass": "css_13060",
+                            "help": "help data",
+                            "parts": [
+                                {
+                                    "part": 1,
+                                    "viewType": "textarea",
+                                    "cssClass": "css_13060_1",
+                                    "caption": "",
+                                    "link": "",
+                                    "validations": {
+                                        "required": true,
+                                        "minLength": 2,
+                                        "maxLength": 30
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "prpId": 130602,
+                            "typeId": 128,
+                            "ord": 100,
+                            "vocab": "/ولتاژ",
+                            "title": "autocomplete no multi",
+                            "wordId": 50678,
+                            "multi": false,
+                            "sectionId": 3,
+                            "cssClass": "css_13060",
+                            "help": "help data",
+                            "parts": [
+                                {
+                                    "part": 1,
+                                    "viewType": "autocomplete",
+                                    "cssClass": "css_13060_1",
+                                    "validations": {
+                                        "required": true
+                                    },
+                                    "caption": "",
+                                    "link": "/server/autocomplete?term=${term}"
+                                }
+                            ]
+                        },
+                        {
+                            "prpId": 130631,
+                            "typeId": 128,
+                            "ord": 100,
+                            "vocab": "/ولتاژ",
+                            "title": "autocomplete multi",
+                            "wordId": 50678,
+                            "multi": true,
+                            "sectionId": 3,
+                            "cssClass": "css_13060",
+                            "help": "help data",
+                            "parts": [
+                                {
+                                    "part": 1,
+                                    "viewType": "autocomplete",
+                                    "cssClass": "css_13060_1",
+                                    "caption": "کشور",
+                                    "link": "/server/autocomplete?term=${term}"
+                                },
+                                {
+                                    "part": 2,
+                                    "viewType": "text",
+                                    "cssClass": "css_13057_2",
+                                    "validations1": {
+                                        "minLength": "2",
+                                        "maxLength": "4000",
+                                        "dataType": "int"
+                                    },
+                                    "caption": "سرعت (دور بر دقیقه)",
+                                    "link": ""
+                                }
+                            ]
                         }
-                    ]
-                },
-                {
-                    "prpId": 13060,
-                    "typeId": 128,
-                    "ord": 100,
-                    "vocab": "/ولتاژ",
-                    "title": "ولتاژ",
-                    "wordId": 50678,
-                    "multi": true,
-                    "sectionId": 3,
-                    "cssClass": "css_13060",
-                    "help": "help data",
-                    "parts": [{
-                        "part": 1,
-                        "viewType": "select",
-                        "cssClass": "css_13060_1",
-                        "fixValues": [{
-                                "id": 0,
-                                "value": "لطفا یکی از موارد را انتخاب کنید"
-                            },
-                            {
-                                "id": 4,
-                                "value": "110"
-                            },
-                            {
-                                "id": 5,
-                                "value": "220"
-                            }
-                        ],
-                        "caption": "",
-                        "link": ""
-                    }]
-                },
-                {
-                    "prpId": 130601,
-                    "typeId": 128,
-                    "ord": 100,
-                    "vocab": "/ولتاژ",
-                    "title": "ولتاژ",
-                    "wordId": 50678,
-                    "multi": true,
-                    "sectionId": 3,
-                    "cssClass": "css_13060",
-                    "help": "help data",
-                    "parts": [{
-                        "part": 1,
-                        "viewType": "checklist",
-                        "cssClass": "css_13060_1",
-                        "validations": {
-                            "required": true,
-                            "maxLength": 1
-                        },
-                        "fixValues": [{
-                                "id": 4,
-                                "value": "110"
-                            },
-                            {
-                                "id": 5,
-                                "value": "220"
-                            }
-                        ],
-                        "caption": "",
-                        "link": ""
-                    }]
-                },
-                {
-                    "prpId": 130621,
-                    "typeId": 128,
-                    "ord": 100,
-                    "vocab": "/ولتاژ",
-                    "title": "توضیحات",
-                    "wordId": 50678,
-                    "multi": true,
-                    "sectionId": 3,
-                    "cssClass": "css_13060",
-                    "help": "help data",
-                    "parts": [{
-                        "part": 1,
-                        "viewType": "textarea",
-                        "cssClass": "css_13060_1",
-                        "caption": "",
-                        "link": "",
-                        "validations": {
-                            "required": true,
-                            "minLength": 2,
-                            "maxLength": 30
-                        }
-                    }]
-                },
-                {
-                    "prpId": 130602,
-                    "typeId": 128,
-                    "ord": 100,
-                    "vocab": "/ولتاژ",
-                    "title": "autocomplete no multi",
-                    "wordId": 50678,
-                    "multi": false,
-                    "sectionId": 3,
-                    "cssClass": "css_13060",
-                    "help": "help data",
-                    "parts": [{
-                        "part": 1,
-                        "viewType": "autocomplete",
-                        "cssClass": "css_13060_1",
-                        "validations": {
-                            "required": true
-                        },
-                        "caption": "",
-                        "link": "/server/autocomplete?term=${term}"
-                    }]
-                },
-                {
-                    "prpId": 130631,
-                    "typeId": 128,
-                    "ord": 100,
-                    "vocab": "/ولتاژ",
-                    "title": "autocomplete multi",
-                    "wordId": 50678,
-                    "multi": true,
-                    "sectionId": 3,
-                    "cssClass": "css_13060",
-                    "help": "help data",
-                    "parts": [{
-                            "part": 1,
-                            "viewType": "autocomplete",
-                            "cssClass": "css_13060_1",
-                            "caption": "کشور",
-                            "link": "/server/autocomplete?term=${term}"
-                        },
+                    ],
+                    "sections": [
                         {
-                            "part": 2,
-                            "viewType": "text",
-                            "cssClass": "css_13057_2",
-                            "validations1": {
-                                "minLength": "2",
-                                "maxLength": "4000",
-                                "dataType": "int"
-                            },
-                            "caption": "سرعت (دور بر دقیقه)",
-                            "link": ""
+                            "id": 1,
+                            "title": "Sec 1",
+                            "description": "Simple description"
                         }
                     ]
                 }
-            ],
-            "sections": [{
-                "id": 1,
-                "title": "Sec 1",
-                "description": "Simple description"
-            }]
-        }]
-    }]
+            ]
+        }
+    ]
 }

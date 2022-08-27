@@ -7,6 +7,7 @@ import {
   IFixValue,
   IValidationOptions,
   IUserActionResult,
+  IMimes,
 } from "basiscore";
 
 export default class SchemaUtil {
@@ -23,6 +24,65 @@ export default class SchemaUtil {
   private static readonly REGEX_VALIDATION_ID = 3007;
   private static readonly MIMES_VALIDATION_ID = 3008;
   private static readonly SIZE_VALIDATION_ID = 3009;
+
+  public static addMimeValueProperty(
+    answerSchema: IAnswerSchema,
+    mimes: IMimes[],
+    id: number
+  ): void {
+    if (mimes != null && mimes != undefined) {
+      const answers = new Array<IAnswerPart>();
+      mimes.forEach((value, index) => {
+        const mimePartCollection: IPartCollection = {
+          part: 1,
+          values: [
+            {
+              id: 0,
+              value: value.mime,
+            },
+          ],
+        };
+
+        const minSizePartCollection: IPartCollection = {
+          part: 2,
+          values: [
+            {
+              id: 1,
+              value: value.minSize ?? "",
+            },
+          ],
+        };
+
+        const maxSizePartCollection: IPartCollection = {
+          part: 3,
+          values: [
+            {
+              id: 2,
+              value: value.maxSize ?? "",
+            },
+          ],
+        };
+
+        const answerPart: IAnswerPart = {
+          id: index + 1,
+          parts: [
+            mimePartCollection,
+            minSizePartCollection,
+            maxSizePartCollection,
+          ],
+        };
+
+        answers.push(answerPart);
+      });
+
+      const retVal: IAnswerProperty = {
+        prpId: id,
+        answers: answers,
+      };
+
+      answerSchema.properties.push(retVal);
+    }
+  }
 
   public static addSimpleValueProperty(
     answerSchema: IAnswerSchema,
@@ -76,27 +136,66 @@ export default class SchemaUtil {
     return retVal;
   }
 
-  public static getMultiPropertyValue(
+  public static getMimeValidationPropertyValue(
     result: IUserActionResult,
-    propId: number,
-    part: number = 0
-  ): any {
-    let retVal: string = null;
+    current: IMimes[],
+    propId: number
+  ): IMimes[] {
+    let retVal: IMimes[] = null;
     const property = result.properties.find((x) => x.propId == propId);
     if (property) {
+      retVal = current ?? new Array<IMimes>();
       if (property.edited) {
-        retVal = property.edited[0].parts[part].values[0].value;
+        property.edited.forEach((item) => {
+          var currentMime = retVal[item.id - 1];
+          item.parts.forEach((part) => {
+            if (part.part == 1) {
+              currentMime.mime = part.values[0].value;
+            }
+            if (part.part == 2) {
+              currentMime.minSize = parseInt(part.values[0].value);
+            }
+            if (part.part == 3) {
+              currentMime.maxSize = parseInt(part.values[0].value);
+            }
+          });
+        });
       }
       if (property.added) {
-        retVal = property.added[0].parts[part].values[0].value;
+        property.added.forEach((answer) => {
+          var mime: IMimes = {
+            mime: answer.parts[0]?.values[0].value,
+            minSize: answer.parts[1]?.values[0].value ?? 0,
+            maxSize: answer.parts[2]?.values[0].value ?? 0,
+          };
+          retVal.push(mime);
+        });
       }
+
       if (property.deleted) {
-        if (
-          part == 0 ||
-          (property.deleted[0].parts && property.deleted[0].parts[0])
-        ) {
-          retVal = "";
-        }
+        property.deleted
+          .filter((x) => x.parts != null)
+          .forEach((item) => {
+            var currentMime = retVal[item.id - 1];
+            item.parts.forEach((part) => {
+              if (part.part == 1) {
+                currentMime.mime = "";
+              }
+              if (part.part == 2) {
+                currentMime.minSize = 0;
+              }
+              if (part.part == 3) {
+                currentMime.maxSize = 0;
+              }
+            });
+          });
+
+        property.deleted
+          .filter((x) => x.parts == null)
+          .map((x) => x.id)
+          .sort()
+          .reverse()
+          .forEach((_, index) => retVal.splice(index, 1));
       }
     }
     return retVal;
@@ -208,6 +307,13 @@ export default class SchemaUtil {
           SchemaUtil.SIZE_VALIDATION_ID
         );
       }
+      if (validations.mimes != null) {
+        SchemaUtil.addMimeValueProperty(
+          answerSchema,
+          validations.mimes,
+          SchemaUtil.MIMES_VALIDATION_ID
+        );
+      }
     }
   }
 
@@ -215,7 +321,6 @@ export default class SchemaUtil {
     current: IValidationOptions,
     result: IUserActionResult
   ): IValidationOptions {
-    console.log("rrrrrr", result);
     if (!current) {
       current = {};
     }
@@ -257,7 +362,7 @@ export default class SchemaUtil {
     );
     if (max != null) {
       const value = parseInt(max);
-      current.max = parseInt(min);
+      current.max = isNaN(value) ? null : value;
     }
     const dataType = SchemaUtil.getPropertyValue(
       result,
@@ -281,11 +386,12 @@ export default class SchemaUtil {
       const value = parseInt(size);
       current.size = isNaN(value) ? null : value;
     }
-    const mimes = SchemaUtil.getMultiPropertyValue(
+    current.mimes = SchemaUtil.getMimeValidationPropertyValue(
       result,
+      current.mimes,
       SchemaUtil.MIMES_VALIDATION_ID
     );
-    console.log("ffff", mimes);
+    console.log(current.mimes);
     return current;
   }
 
