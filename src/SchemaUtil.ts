@@ -141,10 +141,9 @@ export default class SchemaUtil {
     current: IMimes[],
     propId: number
   ): IMimes[] {
-    let retVal: IMimes[] = null;
+    let retVal: IMimes[] = current ?? new Array<IMimes>();
     const property = result.properties.find((x) => x.propId == propId);
     if (property) {
-      retVal = current ?? new Array<IMimes>();
       if (property.edited) {
         property.edited.forEach((item) => {
           var currentMime = retVal[item.id - 1];
@@ -198,7 +197,7 @@ export default class SchemaUtil {
           .forEach((_, index) => retVal.splice(index, 1));
       }
     }
-    return retVal;
+    return retVal.length == 0 ? null : retVal;
   }
 
   public static addCaptionProperty(
@@ -330,6 +329,8 @@ export default class SchemaUtil {
     );
     if (required === "1") {
       current.required = true;
+    } else if (required === "") {
+      current.required = false;
     }
 
     const minLength = SchemaUtil.getPropertyValue(
@@ -391,7 +392,6 @@ export default class SchemaUtil {
       current.mimes,
       SchemaUtil.MIMES_VALIDATION_ID
     );
-    console.log(current.mimes);
     return current;
   }
 
