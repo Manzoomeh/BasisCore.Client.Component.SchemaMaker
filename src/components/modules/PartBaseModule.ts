@@ -49,7 +49,7 @@ export default abstract class PartBaseModule<
     };
     SchemaUtil.addCaptionProperty(ans, this.data.caption);
     SchemaUtil.addCssClassProperty(ans, this.data.cssClass);
-    SchemaUtil.addMultipleClassProperty(ans, this.data.multiple);
+    SchemaUtil.addMultipleProperty(ans, this.data.multiple);
     SchemaUtil.addValidationProperties(ans, this.data.validations);
 
     return ans;

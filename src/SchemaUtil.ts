@@ -230,7 +230,7 @@ export default class SchemaUtil {
     return SchemaUtil.getPropertyValue(result, SchemaUtil.CSS_CLASS_ID);
   }
 
-  public static addMultipleClassProperty(
+  public static addMultipleProperty(
     answerSchema: IAnswerSchema,
     multiple: boolean
   ) {
