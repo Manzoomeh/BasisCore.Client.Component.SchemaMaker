@@ -387,11 +387,16 @@ export default class SchemaUtil {
       const value = parseInt(size);
       current.size = isNaN(value) ? null : value;
     }
-    current.mimes = SchemaUtil.getMimeValidationPropertyValue(
+
+    const mimes = SchemaUtil.getMimeValidationPropertyValue(
       result,
       current.mimes,
       SchemaUtil.MIMES_VALIDATION_ID
     );
+    if (mimes != null) {
+      current.mimes = mimes;
+    }
+
     return current;
   }
 
