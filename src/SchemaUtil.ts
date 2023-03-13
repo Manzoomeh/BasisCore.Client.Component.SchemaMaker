@@ -164,8 +164,8 @@ export default class SchemaUtil {
         property.added.forEach((answer) => {
           var mime: IMimes = {
             mime: answer.parts[0]?.values[0].value,
-            minSize: answer.parts[1]?.values[0].value ?? 0,
-            maxSize: answer.parts[2]?.values[0].value ?? 0,
+            minSize: answer.parts[1]?.values[0].value ?? "",
+            maxSize: answer.parts[2]?.values[0].value ?? "",
           };
           retVal.push(mime);
         });

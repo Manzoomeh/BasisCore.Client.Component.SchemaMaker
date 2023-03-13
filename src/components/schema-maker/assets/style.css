@@ -58,6 +58,12 @@
   height: 30px;
 }
 
+[data-bc-sm-main-container] [data-bc-sm-requirements] input[type="text"]:disabled,
+[data-bc-sm-main-container] [data-bc-sm-requirements] select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 [data-bc-sm-main-container] [data-bc-sm-requirements] input[type="text"]:focus,
 [data-bc-sm-main-container] [data-bc-sm-requirements] select:focus {
   border-color: #66afe9;
