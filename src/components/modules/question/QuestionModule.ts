@@ -82,7 +82,7 @@ export default class QuestionModule extends ContainerModule {
         cssClass: this._schema.cssClass,
         help: this._schema.help,
         multi: this._schema.multi,
-        use_in_list: this._schema.useInList,
+        useInList: this._schema.useInList,
         part: this._schema.parts?.length,
       };
     } else {
@@ -125,7 +125,7 @@ export default class QuestionModule extends ContainerModule {
     );
     SchemaUtil.addSimpleValueProperty(
       ans,
-      this._data.use_in_list ? "2" : "1",
+      this._data.useInList ? "2" : "1",
       QuestionModule.USE_IN_LIST_ID
     );
     return ans;
@@ -165,7 +165,7 @@ export default class QuestionModule extends ContainerModule {
 
     const useInList = SchemaUtil.getPropertyValue(result, QuestionModule.USE_IN_LIST_ID);
     if (useInList != null) {
-      this._data.use_in_list = useInList == "2";
+      this._data.useInList = useInList == "2";
     }
   }
 
@@ -185,7 +185,7 @@ export default class QuestionModule extends ContainerModule {
       ...(sectionId && { sectionId: parseInt(sectionId) }),
       ...(this._data.cssClass && { cssClass: this._data.cssClass }),
       ...(this._data.help && { help: this._data.help }),
-      ...(this._data.use_in_list && { use_in_list: this._data.use_in_list }),
+      ...(this._data.useInList && { useInList: this._data.useInList }),
       parts: null,
     };
 

@@ -4,5 +4,5 @@ export default interface IQuestionModuleDataModel {
   multi: boolean;
   cssClass: string;
   help: string;
-  use_in_list?: boolean;
+  useInList?: boolean;
 }
