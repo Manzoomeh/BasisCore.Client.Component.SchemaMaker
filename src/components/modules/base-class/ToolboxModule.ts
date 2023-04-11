@@ -7,7 +7,7 @@ import ISchemaMakerComponent from "../../schema-maker/ISchemaMakerComponent";
 import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 
 export default abstract class ToolboxModule {
-  private static _id: number = 1000;
+  private static _id: number = -1;
   public readonly usedForId: number;
   public readonly owner: HTMLElement;
   public readonly container: Element;
@@ -25,7 +25,7 @@ export default abstract class ToolboxModule {
     this.rootComponent = this.workspace
       .getComponent()
       .dc.resolve<ISchemaMakerComponent>("schema_maker_component");
-    this.usedForId = ToolboxModule._id++;
+    this.usedForId = ToolboxModule._id--;
     this.owner = owner;
     if (replace) {
       this.owner.innerHTML = "";
