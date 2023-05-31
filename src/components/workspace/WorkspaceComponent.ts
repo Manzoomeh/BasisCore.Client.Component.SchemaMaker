@@ -329,7 +329,7 @@ export default class WorkspaceComponent
 
       this.container.querySelector<HTMLInputElement>(
         "[data-bc-sm-schema-name]"
-      ).value = question.name ?? "";
+      ).value = question.schemaName ?? "";
 
       const container = document.createElement("div");
       container.setAttribute("data-schema-id", schemaId);

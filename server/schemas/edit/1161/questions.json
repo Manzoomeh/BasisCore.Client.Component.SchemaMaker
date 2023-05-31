@@ -16,7 +16,7 @@
                     "paramUrl": "1161",
                     "schemaVersion": 1.1,
                     "lid": 2,
-                    "name": "test-schema",
+                    "schemaName": "test-schema",
                     "baseVocab": "http://schema.site/FA/vo",
                     "questions": [
                         {
