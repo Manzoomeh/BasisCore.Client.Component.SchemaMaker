@@ -300,6 +300,52 @@
                     }]
                 },
                 {
+                    "schemaId": "datepicker",
+                    "paramUrl": "datepicker",
+                    "schemaType": "part",
+                    "title": "Datepicker",
+                    "image": "/assets/images/date.png",
+                    "questions": [{
+                            "prpId": 1,
+                            "title": "Caption",
+                            "parts": [{
+                                "part": 1,
+                                "viewType": "text"
+                            }]
+                        },
+                        {
+                            "prpId": 2,
+                            "title": "Css Class",
+                            "parts": [{
+                                "part": 1,
+                                "viewType": "text"
+                            }]
+                        },
+                        {
+                            "prpId": 3001,
+                            "title": "required",
+                            "sectionId": 1,
+                            "parts": [{
+                                "part": 1,
+                                "viewType": "select",
+                                "fixValues": [{
+                                        "id": 0,
+                                        "value": "No"
+                                    },
+                                    {
+                                        "id": 1,
+                                        "value": "Yes"
+                                    }
+                                ]
+                            }]
+                        }
+                    ],
+                    "sections": [{
+                        "id": 1,
+                        "title": "Validations"
+                    }]
+                },
+                {
                     "schemaId": "textarea",
                     "paramUrl": "textarea",
                     "schemaType": "part",

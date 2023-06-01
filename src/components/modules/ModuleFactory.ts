@@ -9,6 +9,7 @@ import RadioModule from "./list-base/radio/RadioModule";
 import LongTextModule from "./text-base/long-text/LongTextModule";
 import ShortTextModule from "./text-base/short-text/ShortTextModule";
 import ColorModule from "./text-base/color/ColorModule";
+import DatePickerModule from "./text-base/date-picker/DatePickerModule";
 import IModuleFactory from "./IModuleFactory";
 import QuestionModule from "./question/QuestionModule";
 import SectionModule from "./section/SectionModule";
@@ -64,6 +65,10 @@ export default class ModuleFactory implements IModuleFactory {
       }
       case "color": {
         module = new ColorModule(owner, container, model);
+        break;
+      }
+      case "datepicker": {
+        module = new DatePickerModule(owner, container, model);
         break;
       }
     }
