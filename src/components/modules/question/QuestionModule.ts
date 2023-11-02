@@ -163,7 +163,10 @@ export default class QuestionModule extends ContainerModule {
       this._data.help = helpUrl;
     }
 
-    const useInList = SchemaUtil.getPropertyValue(result, QuestionModule.USE_IN_LIST_ID);
+    const useInList = SchemaUtil.getPropertyValue(
+      result,
+      QuestionModule.USE_IN_LIST_ID
+    );
     if (useInList != null) {
       this._data.useInList = useInList == "2";
     }

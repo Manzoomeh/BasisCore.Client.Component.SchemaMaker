@@ -11,7 +11,14 @@
   padding: 25px;
   /* margin-bottom: 30px; */
 }
-
+[data-get-edit-json] {
+  display: none;
+  border-radius: 5px;
+  width: 90%;
+  border-color: #3395a5;
+  margin: 10px;
+  height: 100%;
+}
 [data-bc-sm-workspace-container] [data-get-btns] {
   /* margin-top: 30px; */
   /* margin-bottom: 30px; */
@@ -23,6 +30,7 @@
   margin-right: 10px;
   padding: 0 15px;
   /* width: 100px; */
+  margin-block: 5px;
   height: 30px;
   background-color: #3395a5;
   color: #fff;
@@ -92,7 +100,9 @@
   opacity: 1;
 }
 
-[data-bc-sm-tabs] [data-bc-sm-tab-buttons] [data-bc-sm-tab-button][data-bc-sm-tab-button-mode="active"] {
+[data-bc-sm-tabs]
+  [data-bc-sm-tab-buttons]
+  [data-bc-sm-tab-button][data-bc-sm-tab-button-mode="active"] {
   color: #fff;
   background-color: #35414f;
   opacity: 1;
@@ -114,7 +124,8 @@
   display: none;
 }
 
-[data-bc-sm-tabs] [data-bc-sm-tab-section][data-bc-sm-tab-section-mode="active"] {
+[data-bc-sm-tabs]
+  [data-bc-sm-tab-section][data-bc-sm-tab-section-mode="active"] {
   display: block;
 }
 
@@ -126,7 +137,9 @@
   scrollbar-width: thin;
 }
 
-[data-bc-sm-tabs] [data-bc-sm-tab-content] [data-bc-sm-tab-section-content][data-bc-sm-tab-section-top] {
+[data-bc-sm-tabs]
+  [data-bc-sm-tab-content]
+  [data-bc-sm-tab-section-content][data-bc-sm-tab-section-top] {
   height: calc(100vh - 110px);
   /* height: calc(100% - 61px); */
 }
@@ -142,10 +155,28 @@
   border-radius: 10px;
   padding: 25px;
 }
-
+[data-bc-sm-preview-json] {
+  width: 100%;
+}
+[data-bc-sm-display-none] {
+  display: none;
+}
+.highlight {
+  background-color: yellow;
+}
+[data-get-edit-error] {
+  padding: 20px;
+  border: dashed;
+  border-color: #d44545;
+  margin: 10px;
+  border-radius: 5px;
+  display: none;
+}
 /* json preview tab */
 [data-get-json-preview] {
   width: 100%;
+  display: flex;
+  flex-direction: column;
   /* height: calc(100vh - 200px);; */
   height: 100%;
   /* min-height: 400px; */
@@ -167,7 +198,7 @@
 
 [data-get-json-preview][class*="language-"]:before,
 [data-get-json-preview][class*="language-"]:after {
-	box-shadow: none !important;
+  box-shadow: none !important;
   content: none;
 }
 
