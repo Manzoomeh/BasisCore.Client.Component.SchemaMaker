@@ -85,6 +85,7 @@ export default class WorkspaceComponent
         "[data-bc-sm-cancel-save-form]"
       ).style.display = "none";
       const source = await this.owner.waitToGetSourceAsync(this._sourceId);
+      this.owner.setSource(this._internalSourceId, json);
 
       this.createUIFromQuestionSchema(json);
     } catch (error) {
