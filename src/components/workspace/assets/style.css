@@ -140,7 +140,7 @@
 [data-bc-sm-tabs]
   [data-bc-sm-tab-content]
   [data-bc-sm-tab-section-content][data-bc-sm-tab-section-top] {
-  height: calc(100vh - 110px);
+  height: calc(100vh - 180px);
   /* height: calc(100% - 61px); */
 }
 
