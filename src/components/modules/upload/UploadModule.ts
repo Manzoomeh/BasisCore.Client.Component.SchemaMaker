@@ -1,18 +1,20 @@
 import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 import "./assets/style.css";
 import PartBaseModule from "../PartBaseModule";
-import { IAnswerSchema, IQuestionPart, IUserActionResult } from "basiscore";
+import { IAnswerSchema, IQuestionPart, IUserActionResult, ViewType } from "basiscore";
 import layout from "./assets/layout.html";
 import IUploadModuleDataModel from "./IUploadModuleDataModel";
 import SchemaUtil from "../../../SchemaUtil";
 
 export default class UploadModule extends PartBaseModule<IUploadModuleDataModel> {
   constructor(
+    layout: string,
     owner: HTMLElement,
     component: IWorkspaceComponent,
+    viewType: ViewType,
     questionPart: IQuestionPart
   ) {
-    super(layout, owner, component, "Upload", questionPart);
+    super(layout, owner, component, viewType, questionPart);
   }
 
   protected getAnswerSchema(): IAnswerSchema {
