@@ -380,7 +380,7 @@ export default class WorkspaceComponent
     saveJsonForm.addEventListener("click", () => {
       this.validateJSON();
       jsonDownload.setAttribute("data-get-btn-disabled", "");
-      jasonCopy.setAttribute("data-get-btn-disabled", "");
+      jsonCopy.setAttribute("data-get-btn-disabled", "");
       jsonSave.setAttribute("data-get-btn-disabled", "");
       editForm.setAttribute("data-get-btn-disabled", "");
     });
@@ -397,7 +397,7 @@ export default class WorkspaceComponent
     const editForm = this.container.querySelector("[data-bc-sm-edit-form]");
     editForm.addEventListener("click", () => {
       jsonDownload.setAttribute("data-get-btn-disabled", "true");
-      jasonCopy.setAttribute("data-get-btn-disabled", "true");
+      jsonCopy.setAttribute("data-get-btn-disabled", "true");
       jsonSave.setAttribute("data-get-btn-disabled", "true");
       editForm.setAttribute("data-get-btn-disabled", "true");
       this.container.querySelector<HTMLTextAreaElement>(
@@ -443,7 +443,7 @@ export default class WorkspaceComponent
       this._textArea.style.display = "none";
       this.errorContainer.style.display = "none";
       jsonDownload.setAttribute("data-get-btn-disabled", "");
-      jasonCopy.setAttribute("data-get-btn-disabled", "");
+      jsonCopy.setAttribute("data-get-btn-disabled", "");
       jsonSave.setAttribute("data-get-btn-disabled", "");
       editForm.setAttribute("data-get-btn-disabled", "");
     });
