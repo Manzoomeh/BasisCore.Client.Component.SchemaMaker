@@ -338,15 +338,15 @@ export default class WorkspaceComponent
     });
 
     // add event on json copy button
-    this.container
-      .querySelector("[data-bc-sm-json-copy]")
-      .addEventListener("click", (e) => {
-        const copyText = this.container.querySelector(
-          "[data-bc-sm-preview-json]"
-        ) as HTMLDivElement;
-        window.getSelection().selectAllChildren(copyText);
-        navigator.clipboard.writeText(copyText.textContent);
-      });
+    const jsonCopy = this.container.querySelector("[data-bc-sm-json-copy]");
+
+    jsonCopy.addEventListener("click", (e) => {
+      const copyText = this.container.querySelector(
+        "[data-bc-sm-preview-json]"
+      ) as HTMLDivElement;
+      window.getSelection().selectAllChildren(copyText);
+      navigator.clipboard.writeText(copyText.textContent);
+    });
 
     // add event on json download button
     const jsonDownload = this.container.querySelector(
@@ -376,6 +376,44 @@ export default class WorkspaceComponent
     const saveJsonForm = this.container.querySelector(
       "[data-bc-sm-save-json-form]"
     );
+
+    saveJsonForm.addEventListener("click", () => {
+      this.validateJSON();
+      jsonDownload.setAttribute("data-get-btn-disabled", "");
+      jasonCopy.setAttribute("data-get-btn-disabled", "");
+      jsonSave.setAttribute("data-get-btn-disabled", "");
+      editForm.setAttribute("data-get-btn-disabled", "");
+    });
+    const jsonSave = this.container.querySelector("[data-bc-sm-save-form]");
+    if (resultSourceId && resultSourceId != "") {
+      jsonSave?.addEventListener("click", async (e) => {
+        if (jsonSave.getAttribute("data-get-btn-disabled") != "true") {
+          this.owner.setSource(resultSourceId, this._result);
+        }
+      });
+    } else if (!resultSourceId || resultSourceId == "") {
+      jsonSave.remove();
+    }
+    const editForm = this.container.querySelector("[data-bc-sm-edit-form]");
+    editForm.addEventListener("click", () => {
+      jsonDownload.setAttribute("data-get-btn-disabled", "true");
+      jasonCopy.setAttribute("data-get-btn-disabled", "true");
+      jsonSave.setAttribute("data-get-btn-disabled", "true");
+      editForm.setAttribute("data-get-btn-disabled", "true");
+      this.container.querySelector<HTMLTextAreaElement>(
+        "[data-bc-sm-preview-json]"
+      ).style.display = "none";
+      this._textArea.style.display = "block";
+      this._textArea.innerHTML = JSON.stringify(this._result, null, 4);
+      this.container.querySelector<HTMLTextAreaElement>(
+        "[data-bc-sm-save-json-form]"
+      ).style.display = "inline";
+
+      this.container.querySelector<HTMLTextAreaElement>(
+        "[data-bc-sm-cancel-save-form]"
+      ).style.display = "inline";
+    });
+
     cancelSaveJson.addEventListener("click", () => {
       const json = JSON.stringify(this._result, null, 4);
       const html = Prism.highlight(json, Prism.languages.json, "json");
@@ -404,37 +442,11 @@ export default class WorkspaceComponent
 
       this._textArea.style.display = "none";
       this.errorContainer.style.display = "none";
+      jsonDownload.setAttribute("data-get-btn-disabled", "");
+      jasonCopy.setAttribute("data-get-btn-disabled", "");
+      jsonSave.setAttribute("data-get-btn-disabled", "");
+      editForm.setAttribute("data-get-btn-disabled", "");
     });
-    saveJsonForm.addEventListener("click", () => {
-      this.validateJSON();
-    });
-    const editForm = this.container.querySelector("[data-bc-sm-edit-form]");
-    editForm.addEventListener("click", () => {
-      this.container.querySelector<HTMLTextAreaElement>(
-        "[data-bc-sm-preview-json]"
-      ).style.display = "none";
-      this._textArea.style.display = "block";
-      this._textArea.innerHTML = JSON.stringify(this._result, null, 4);
-      this.container.querySelector<HTMLTextAreaElement>(
-        "[data-bc-sm-save-json-form]"
-      ).style.display = "inline";
-
-      this.container.querySelector<HTMLTextAreaElement>(
-        "[data-bc-sm-cancel-save-form]"
-      ).style.display = "inline";
-    });
-
-    // add event on json save button
-    const jsonSave = this.container.querySelector("[data-bc-sm-save-form]");
-    if (resultSourceId && resultSourceId != "") {
-      jsonSave?.addEventListener("click", async (e) => {
-        if (jsonSave.getAttribute("data-get-btn-disabled") != "true") {
-          this.owner.setSource(resultSourceId, this._result);
-        }
-      });
-    } else if (!resultSourceId || resultSourceId == "") {
-      jsonSave.remove();
-    }
   }
 
   public runAsync(source?: ISource) {

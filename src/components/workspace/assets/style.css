@@ -13,6 +13,7 @@
 }
 [data-get-edit-json] {
   display: none;
+  overflow: scroll;
   border-radius: 5px;
   width: 90%;
   border-color: #3395a5;
