@@ -891,6 +891,109 @@
                         "id": 1,
                         "title": "Validations"
                     }]
+                },
+                {
+                    "schemaId": "Blob",
+                    "paramUrl": "Blob",
+                    "schemaType": "part",
+                    "title": "Upload Multi Part",
+                    "image": "/assets/images/upload.png",
+                    "questions": [{
+                            "prpId": 1,
+                            "title": "Caption",
+                            "parts": [{
+                                "part": 1,
+                                "viewType": "text"
+                            }]
+                        },
+                        {
+                            "prpId": 2,
+                            "title": "Css Class",
+                            "parts": [{
+                                "part": 1,
+                                "viewType": "text"
+                            }]
+                        },
+                        {
+                            "prpId": 3,
+                            "title": "multiple",
+                            "parts": [{
+                                "part": 1,
+                                "viewType": "select",
+                                "fixValues": [{
+                                        "id": 1,
+                                        "value": "No"
+                                    },
+                                    {
+                                        "id": 2,
+                                        "value": "Yes"
+                                    }
+                                ]
+                            }]
+                        },
+                        {
+                            "prpId": 3001,
+                            "title": "required",
+                            "sectionId": 1,
+                            "parts": [{
+                                "part": 1,
+                                "viewType": "select",
+                                "fixValues": [{
+                                        "id": 0,
+                                        "value": "No"
+                                    },
+                                    {
+                                        "id": 1,
+                                        "value": "Yes"
+                                    }
+                                ]
+                            }]
+                        },
+                        {
+                            "prpId": 3008,
+                            "title": "mimes",
+                            "multi": "true",
+                            "sectionId": 1,
+                            "parts": [{
+                                    "part": 1,
+                                    "viewType": "Text",
+                                    "caption": "mime"
+                                },
+                                {
+                                    "part": 2,
+                                    "viewType": "text",
+                                    "caption": "minSize",
+                                    "validations": {
+                                        "dataType": "int"
+                                    }
+                                },
+                                {
+                                    "part": 3,
+                                    "viewType": "text",
+                                    "caption": "maxSize",
+                                    "validations": {
+                                        "dataType": "int"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "prpId": 3009,
+                            "title": "size",
+                            "sectionId": 1,
+                            "parts": [{
+                                "part": 1,
+                                "viewType": "text",
+                                "validations": {
+                                    "dataType": "int"
+                                }
+                            }]
+                        }
+                    ],
+                    "sections": [{
+                        "id": 1,
+                        "title": "Validations"
+                    }]
                 }
             ]
         }]

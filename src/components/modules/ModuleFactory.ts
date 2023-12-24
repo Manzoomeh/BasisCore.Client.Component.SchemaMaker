@@ -1,6 +1,7 @@
 import AutocompleteModule from "./remote-source/autocomplete/AutocompleteModule";
 import LookupModule from "./remote-source/lookup/LookupModule";
-import UploadModule from "./upload/UploadModule";
+import UploadSimpleModule from "./upload/simple/UploadSimpleModule";
+import UploadMultiPartModule from "./upload/multi-part/UploadMultiPartModule";
 import ToolboxModule from "./base-class/ToolboxModule";
 import IWorkspaceComponent from "../workspace/IWorkspaceComponent";
 import CheckListModule from "./list-base/check-list/CheckListModule";
@@ -60,7 +61,11 @@ export default class ModuleFactory implements IModuleFactory {
         break;
       }
       case "upload": {
-        module = new UploadModule(owner, container, model);
+        module = new UploadSimpleModule(owner, container, model);
+        break;
+      }
+      case "blob": {
+        module = new UploadMultiPartModule(owner, container, model);
         break;
       }
       case "color": {
