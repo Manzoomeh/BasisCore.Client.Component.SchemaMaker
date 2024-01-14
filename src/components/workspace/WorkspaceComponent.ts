@@ -53,7 +53,6 @@ export default class WorkspaceComponent
     return str.replace(/<\/?(span|br|div)\b[^>]*>/g, "");
   }
   private async validateJSON() {
-    // Clear any previous error messages and highlights
     this.errorContainer.innerHTML = "";
 
     try {
@@ -61,11 +60,9 @@ export default class WorkspaceComponent
         "this.removeSpanAndBrTags(this._textArea.innerHTML) :>> ",
         this.removeSpanAndBrTags(this._textArea.innerHTML)
       );
-      // Parse the JSON from the this._textArea value
       const json = JSON.parse(
         this.removeSpanAndBrTags(this._textArea.innerHTML)
       );
-      // If parsing succeeded, display a success message
       this.errorContainer.textContent = "JSON is valid.";
       this._textArea.style.display = "none";
       this.errorContainer.style.display = "none";
@@ -74,7 +71,6 @@ export default class WorkspaceComponent
       ).style.display = "block";
       const newJson = JSON.stringify(json, null, 4);
       const html = Prism.highlight(newJson, Prism.languages.json, "json");
-      console.log("object :>> ", json, html);
       this.container.querySelector<HTMLTextAreaElement>(
         "[data-bc-sm-preview-json]"
       ).innerHTML = html;
@@ -84,33 +80,25 @@ export default class WorkspaceComponent
       this.container.querySelector<HTMLElement>(
         "[data-bc-sm-cancel-save-form]"
       ).style.display = "none";
-      const source = await this.owner.waitToGetSourceAsync(this._sourceId);
+      this._result = json;
       this.owner.setSource(this._internalSourceId, json);
 
       this.createUIFromQuestionSchema(json);
     } catch (error) {
-      // If parsing failed, display the error message and highlight the error line
       this.errorContainer.style.display = "flex";
       this.errorContainer.textContent = error.message;
-      // Get the error location from the error message
       const errorLocation = error.message.match(/position (\d+)/);
-      console.log("errorLocation :>> ", errorLocation);
       if (errorLocation && errorLocation[1]) {
         const position = parseInt(errorLocation[1], 10);
-        console.log("position :>> ", position);
-        // Get the line number and column number of the error
-        const { lineNumber, columnNumber } = this.getLineAndColumnNumbers(
+        const { lineNumber } = this.getLineAndColumnNumbers(
           this._textArea.innerHTML,
           position
         );
-        console.log("lineNumber,columnNumber :>> ", lineNumber, columnNumber);
-        // Highlight the error line in the this._textArea
         this.highlightLine(lineNumber);
       }
     }
   }
 
-  // Helper private to get the line number and column number of a character position in a text
   private getLineAndColumnNumbers(text, position) {
     let lineNumber = 1;
     let columnNumber = 1;
@@ -127,12 +115,10 @@ export default class WorkspaceComponent
     return { lineNumber, columnNumber };
   }
 
-  // Helper private to highlight a specific line in a textarea
   private highlightLine(lineNumber) {
     const lines = this.removeSpanAndBrTags(this._textArea.innerHTML).split(
       "\n"
     );
-    console.log("lines :>> ", lines);
     if (lineNumber <= lines.length) {
       lines[lineNumber - 1] = `<span class="highlight">${
         lines[lineNumber - 1]
@@ -140,8 +126,6 @@ export default class WorkspaceComponent
       this._textArea.innerHTML = lines.join("\n");
     }
   }
-
-  // Helper private to set the cursor position in a textarea
 
   private initDragula() {
     const addingModuleInDropTemplate = (el: Element) => {
