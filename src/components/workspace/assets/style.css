@@ -13,14 +13,20 @@
 }
 [data-get-edit-json] {
   display: none;
-  overflow-y: scroll;
+  overflow-y: auto;
   border-radius: 5px;
-  width: 100%;
+  width: calc(100% - 20px);
   padding: 20px;
   border-color: #3395a5;
   margin: 10px;
   height: 100%;
+  scrollbar-width: thin;
 }
+
+[data-get-edit-json]:focus-visible {
+  border-color: #3395a5;
+}
+
 [data-bc-sm-workspace-container] [data-get-btns] {
   /* margin-top: 30px; */
   /* margin-bottom: 30px; */
