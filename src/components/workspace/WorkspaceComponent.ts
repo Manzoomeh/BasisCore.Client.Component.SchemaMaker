@@ -56,10 +56,6 @@ export default class WorkspaceComponent
     this.errorContainer.innerHTML = "";
 
     try {
-      console.log(
-        "this.removeSpanAndBrTags(this._textArea.innerHTML) :>> ",
-        this.removeSpanAndBrTags(this._textArea.innerHTML)
-      );
       const json = JSON.parse(
         this.removeSpanAndBrTags(this._textArea.innerHTML)
       );
@@ -401,7 +397,6 @@ export default class WorkspaceComponent
     cancelSaveJson.addEventListener("click", () => {
       const json = JSON.stringify(this._result, null, 4);
       const html = Prism.highlight(json, Prism.languages.json, "json");
-      console.log("object :>> ", json, html);
       this.container.querySelector<HTMLTextAreaElement>(
         "[data-bc-sm-preview-json]"
       ).style.display = "block";
@@ -435,7 +430,6 @@ export default class WorkspaceComponent
 
   public runAsync(source?: ISource) {
     if (source) {
-      console.log("source.rows[0] :>> ", source.rows[0]);
       switch (source.id) {
         case DefaultSource.PROPERTY_RESULT: {
           const result: IAnswerSchema = source.rows[0];
@@ -456,7 +450,6 @@ export default class WorkspaceComponent
   }
 
   private createUIFromQuestionSchema(question: IQuestionSchema) {
-    console.log("question :>> ", question);
     const board = this.container.querySelector("[data-bc-sm-board]");
     board.innerHTML = "";
     const createContainer = (
@@ -582,7 +575,6 @@ export default class WorkspaceComponent
     // Prism highlight
     const json = JSON.stringify(retVal, null, 4);
     const html = Prism.highlight(json, Prism.languages.json, "json");
-    console.log("object :>> ", json, html);
     this.container.querySelector<HTMLTextAreaElement>(
       "[data-bc-sm-preview-json]"
     ).innerHTML = html;
