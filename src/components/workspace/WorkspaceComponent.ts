@@ -52,65 +52,7 @@ export default class WorkspaceComponent
   private removeSpanAndBrTags(str) {
     return str.replace(/<\/?(span|br|div)\b[^>]*>/g, "");
   }
-  private async validateJSON() {
-    // Clear any previous error messages and highlights
-    this.errorContainer.innerHTML = "";
 
-    try {
-      console.log(
-        "this.removeSpanAndBrTags(this._textArea.innerHTML) :>> ",
-        this.removeSpanAndBrTags(this._textArea.innerHTML)
-      );
-      // Parse the JSON from the this._textArea value
-      const json = JSON.parse(
-        this.removeSpanAndBrTags(this._textArea.innerHTML)
-      );
-      // If parsing succeeded, display a success message
-      this.errorContainer.textContent = "JSON is valid.";
-      this._textArea.style.display = "none";
-      this.errorContainer.style.display = "none";
-      this.container.querySelector<HTMLElement>(
-        "[data-bc-sm-preview-json]"
-      ).style.display = "block";
-      const newJson = JSON.stringify(json, null, 4);
-      const html = Prism.highlight(newJson, Prism.languages.json, "json");
-      console.log("object :>> ", json, html);
-      this.container.querySelector<HTMLTextAreaElement>(
-        "[data-bc-sm-preview-json]"
-      ).innerHTML = html;
-      this.container.querySelector<HTMLElement>(
-        "[data-bc-sm-save-json-form]"
-      ).style.display = "none";
-      this.container.querySelector<HTMLElement>(
-        "[data-bc-sm-cancel-save-form]"
-      ).style.display = "none";
-      const source = await this.owner.waitToGetSourceAsync(this._sourceId);
-      this.owner.setSource(this._internalSourceId, json);
-
-      this.createUIFromQuestionSchema(json);
-    } catch (error) {
-      // If parsing failed, display the error message and highlight the error line
-      this.errorContainer.style.display = "flex";
-      this.errorContainer.textContent = error.message;
-      // Get the error location from the error message
-      const errorLocation = error.message.match(/position (\d+)/);
-      console.log("errorLocation :>> ", errorLocation);
-      if (errorLocation && errorLocation[1]) {
-        const position = parseInt(errorLocation[1], 10);
-        console.log("position :>> ", position);
-        // Get the line number and column number of the error
-        const { lineNumber, columnNumber } = this.getLineAndColumnNumbers(
-          this._textArea.innerHTML,
-          position
-        );
-        console.log("lineNumber,columnNumber :>> ", lineNumber, columnNumber);
-        // Highlight the error line in the this._textArea
-        this.highlightLine(lineNumber);
-      }
-    }
-  }
-
-  // Helper private to get the line number and column number of a character position in a text
   private getLineAndColumnNumbers(text, position) {
     let lineNumber = 1;
     let columnNumber = 1;
@@ -127,12 +69,10 @@ export default class WorkspaceComponent
     return { lineNumber, columnNumber };
   }
 
-  // Helper private to highlight a specific line in a textarea
   private highlightLine(lineNumber) {
     const lines = this.removeSpanAndBrTags(this._textArea.innerHTML).split(
       "\n"
     );
-    console.log("lines :>> ", lines);
     if (lineNumber <= lines.length) {
       lines[lineNumber - 1] = `<span class="highlight">${
         lines[lineNumber - 1]
@@ -140,8 +80,6 @@ export default class WorkspaceComponent
       this._textArea.innerHTML = lines.join("\n");
     }
   }
-
-  // Helper private to set the cursor position in a textarea
 
   private initDragula() {
     const addingModuleInDropTemplate = (el: Element) => {
@@ -316,8 +254,11 @@ export default class WorkspaceComponent
     );
 
     tabButton.forEach((btn) => {
-      btn.addEventListener("click", function (e) {
-        const name = this.getAttribute("data-bc-sm-tab-button");
+      btn.addEventListener("click", (e) => {
+        this.cancelEditJson();
+        const name = (e.target as Element).attributes.getNamedItem(
+          "data-bc-sm-tab-button"
+        ).value;
         if (name) {
           tabButton.forEach((tBtn) => {
             tBtn.setAttribute("data-bc-sm-tab-button-mode", "");
@@ -337,7 +278,17 @@ export default class WorkspaceComponent
       });
     });
 
-    // add event on json copy button
+    const jsonDownload = this.container.querySelector(
+      "[data-bc-sm-json-download]"
+    );
+    const cancelSaveJson = this.container.querySelector(
+      "[data-bc-sm-cancel-save-form]"
+    );
+    const saveJsonForm = this.container.querySelector(
+      "[data-bc-sm-save-json-form]"
+    );
+    const jsonSave = this.container.querySelector("[data-bc-sm-save-form]");
+    const editForm = this.container.querySelector("[data-bc-sm-edit-form]");
     const jsonCopy = this.container.querySelector("[data-bc-sm-json-copy]");
 
     jsonCopy.addEventListener("click", (e) => {
@@ -347,11 +298,6 @@ export default class WorkspaceComponent
       window.getSelection().selectAllChildren(copyText);
       navigator.clipboard.writeText(copyText.textContent);
     });
-
-    // add event on json download button
-    const jsonDownload = this.container.querySelector(
-      "[data-bc-sm-json-download]"
-    );
     jsonDownload.addEventListener("click", (e) => {
       if (jsonDownload.getAttribute("data-get-btn-disabled") != "true") {
         const content = (
@@ -370,21 +316,52 @@ export default class WorkspaceComponent
         a.click();
       }
     });
-    const cancelSaveJson = this.container.querySelector(
-      "[data-bc-sm-cancel-save-form]"
-    );
-    const saveJsonForm = this.container.querySelector(
-      "[data-bc-sm-save-json-form]"
-    );
 
     saveJsonForm.addEventListener("click", () => {
-      this.validateJSON();
-      jsonDownload.setAttribute("data-get-btn-disabled", "");
-      jsonCopy.setAttribute("data-get-btn-disabled", "");
-      jsonSave.setAttribute("data-get-btn-disabled", "");
-      editForm.setAttribute("data-get-btn-disabled", "");
+      this.errorContainer.innerHTML = "";
+
+      try {
+        const json = JSON.parse(
+          this.removeSpanAndBrTags(this._textArea.innerHTML)
+        );
+        this.errorContainer.textContent = "JSON is valid.";
+        this._textArea.style.display = "none";
+        this.errorContainer.style.display = "none";
+        this.container.querySelector<HTMLElement>(
+          "[data-bc-sm-preview-json]"
+        ).style.display = "block";
+        const newJson = JSON.stringify(json, null, 4);
+        const html = Prism.highlight(newJson, Prism.languages.json, "json");
+        this.container.querySelector<HTMLTextAreaElement>(
+          "[data-bc-sm-preview-json]"
+        ).innerHTML = html;
+        this.container.querySelector<HTMLElement>(
+          "[data-bc-sm-save-json-form]"
+        ).style.display = "none";
+        this.container.querySelector<HTMLElement>(
+          "[data-bc-sm-cancel-save-form]"
+        ).style.display = "none";
+        this._result = json;
+        this.owner.setSource(this._internalSourceId, json);
+        jsonDownload.setAttribute("data-get-btn-disabled", "");
+        jsonCopy.setAttribute("data-get-btn-disabled", "");
+        jsonSave.setAttribute("data-get-btn-disabled", "");
+        editForm.setAttribute("data-get-btn-disabled", "");
+        this.createUIFromQuestionSchema(json);
+      } catch (error) {
+        this.errorContainer.style.display = "flex";
+        this.errorContainer.textContent = error.message;
+        const errorLocation = error.message.match(/position (\d+)/);
+        if (errorLocation && errorLocation[1]) {
+          const position = parseInt(errorLocation[1], 10);
+          const { lineNumber } = this.getLineAndColumnNumbers(
+            this._textArea.innerHTML,
+            position
+          );
+          this.highlightLine(lineNumber);
+        }
+      }
     });
-    const jsonSave = this.container.querySelector("[data-bc-sm-save-form]");
     if (resultSourceId && resultSourceId != "") {
       jsonSave?.addEventListener("click", async (e) => {
         if (jsonSave.getAttribute("data-get-btn-disabled") != "true") {
@@ -394,7 +371,6 @@ export default class WorkspaceComponent
     } else if (!resultSourceId || resultSourceId == "") {
       jsonSave.remove();
     }
-    const editForm = this.container.querySelector("[data-bc-sm-edit-form]");
     editForm.addEventListener("click", () => {
       jsonDownload.setAttribute("data-get-btn-disabled", "true");
       jsonCopy.setAttribute("data-get-btn-disabled", "true");
@@ -415,43 +391,12 @@ export default class WorkspaceComponent
     });
 
     cancelSaveJson.addEventListener("click", () => {
-      const json = JSON.stringify(this._result, null, 4);
-      const html = Prism.highlight(json, Prism.languages.json, "json");
-      console.log("object :>> ", json, html);
-      this.container.querySelector<HTMLTextAreaElement>(
-        "[data-bc-sm-preview-json]"
-      ).style.display = "block";
-      this.container.querySelector<HTMLTextAreaElement>(
-        "[data-bc-sm-preview-json]"
-      ).innerHTML = html;
-
-      // json for download
-      this.container.querySelector<HTMLTextAreaElement>(
-        "[data-get-json-for-download]"
-      ).innerText = JSON.stringify(this._result);
-      this.container
-        .querySelector("[data-bc-sm-json-download]")
-        .setAttribute("data-get-btn-disabled", "");
-      this.container.querySelector<HTMLTextAreaElement>(
-        "[data-bc-sm-save-json-form]"
-      ).style.display = "none";
-
-      this.container.querySelector<HTMLTextAreaElement>(
-        "[data-bc-sm-cancel-save-form]"
-      ).style.display = "none";
-
-      this._textArea.style.display = "none";
-      this.errorContainer.style.display = "none";
-      jsonDownload.setAttribute("data-get-btn-disabled", "");
-      jsonCopy.setAttribute("data-get-btn-disabled", "");
-      jsonSave.setAttribute("data-get-btn-disabled", "");
-      editForm.setAttribute("data-get-btn-disabled", "");
+      this.cancelEditJson();
     });
   }
 
   public runAsync(source?: ISource) {
     if (source) {
-      console.log("source.rows[0] :>> ", source.rows[0]);
       switch (source.id) {
         case DefaultSource.PROPERTY_RESULT: {
           const result: IAnswerSchema = source.rows[0];
@@ -472,7 +417,6 @@ export default class WorkspaceComponent
   }
 
   private createUIFromQuestionSchema(question: IQuestionSchema) {
-    console.log("question :>> ", question);
     const board = this.container.querySelector("[data-bc-sm-board]");
     board.innerHTML = "";
     const createContainer = (
@@ -544,7 +488,46 @@ export default class WorkspaceComponent
       }
     }
   }
+  private cancelEditJson(): void {
+    const jsonDownload = this.container.querySelector(
+      "[data-bc-sm-json-download]"
+    );
+    const jsonCopy = this.container.querySelector("[data-bc-sm-json-copy]");
 
+    const jsonSave = this.container.querySelector("[data-bc-sm-save-form]");
+    const editForm = this.container.querySelector("[data-bc-sm-edit-form]");
+
+    const json = JSON.stringify(this._result, null, 4);
+    const html = Prism.highlight(json, Prism.languages.json, "json");
+    this.container.querySelector<HTMLTextAreaElement>(
+      "[data-bc-sm-preview-json]"
+    ).style.display = "block";
+    this.container.querySelector<HTMLTextAreaElement>(
+      "[data-bc-sm-preview-json]"
+    ).innerHTML = html;
+
+    // json for download
+    this.container.querySelector<HTMLTextAreaElement>(
+      "[data-get-json-for-download]"
+    ).innerText = JSON.stringify(this._result);
+    this.container
+      .querySelector("[data-bc-sm-json-download]")
+      .setAttribute("data-get-btn-disabled", "");
+    this.container.querySelector<HTMLTextAreaElement>(
+      "[data-bc-sm-save-json-form]"
+    ).style.display = "none";
+
+    this.container.querySelector<HTMLTextAreaElement>(
+      "[data-bc-sm-cancel-save-form]"
+    ).style.display = "none";
+
+    this._textArea.style.display = "none";
+    this.errorContainer.style.display = "none";
+    jsonDownload.setAttribute("data-get-btn-disabled", "");
+    jsonCopy.setAttribute("data-get-btn-disabled", "");
+    jsonSave.setAttribute("data-get-btn-disabled", "");
+    editForm.setAttribute("data-get-btn-disabled", "");
+  }
   private async generateQuestionSchemaAsync(): Promise<
     Partial<IQuestionSchema>
   > {
@@ -598,7 +581,6 @@ export default class WorkspaceComponent
     // Prism highlight
     const json = JSON.stringify(retVal, null, 4);
     const html = Prism.highlight(json, Prism.languages.json, "json");
-    console.log("object :>> ", json, html);
     this.container.querySelector<HTMLTextAreaElement>(
       "[data-bc-sm-preview-json]"
     ).innerHTML = html;
