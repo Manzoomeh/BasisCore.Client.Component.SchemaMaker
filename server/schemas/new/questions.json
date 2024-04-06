@@ -94,7 +94,7 @@
                             }]
                         },
                         {
-                            "prpId": 4,
+                            "prpId": 2,
                             "title": "Css Class",
                             "parts": [{
                                 "part": 1,
@@ -929,6 +929,14 @@
                                         "value": "Yes"
                                     }
                                 ]
+                            }]
+                        },
+                        {
+                            "prpId": 4,
+                            "title": "upload token",
+                            "parts": [{
+                                "part": 1,
+                                "viewType": "text"
                             }]
                         },
                         {

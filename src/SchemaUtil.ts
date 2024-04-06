@@ -14,6 +14,7 @@ export default class SchemaUtil {
   private static readonly CAPTION_ID = 1;
   private static readonly CSS_CLASS_ID = 2;
   private static readonly MULTIPLE_ID = 3;
+  private static readonly UPLOAD_TOKEN_ID = 4;
 
   private static readonly REQUIRED_VALIDATION_ID = 3001;
   private static readonly MIN_LENGTH_VALIDATION_ID = 3002;
@@ -243,6 +244,21 @@ export default class SchemaUtil {
 
   public static getMultipleProperty(result: IUserActionResult) {
     return SchemaUtil.getPropertyValue(result, SchemaUtil.MULTIPLE_ID);
+  }
+  
+  public static addUploadTokenProperty(
+    answerSchema: IAnswerSchema,
+    uploadToken: string
+  ) {
+    SchemaUtil.addSimpleValueProperty(
+      answerSchema,
+      uploadToken,
+      SchemaUtil.UPLOAD_TOKEN_ID
+    );
+  }
+
+  public static getUploadTokenProperty(result: IUserActionResult) {
+    return SchemaUtil.getPropertyValue(result, SchemaUtil.UPLOAD_TOKEN_ID);
   }
 
   public static addValidationProperties(

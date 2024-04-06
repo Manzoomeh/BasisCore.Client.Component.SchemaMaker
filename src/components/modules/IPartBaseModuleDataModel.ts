@@ -7,4 +7,5 @@ export default interface IPartBaseModuleDataModel {
   caption?: string;
   dependency?: Array<IDependency>;
   multiple?: boolean;
+  uploadToken?: string;
 }
