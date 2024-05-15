@@ -28,9 +28,27 @@ export default class SchemaMakerComponent
       "saveDraft",
       "false"
     );
+
+    const objectTypeUrl = await this.owner.getAttributeValueAsync(
+      "objectTypeUrl",
+      ""
+    );
+
+    const defaultQuestionsUrl = await this.owner.getAttributeValueAsync(
+      "defaultQuestionsUrl",
+      ""
+    );
+
+    const groupsUrl = await this.owner.getAttributeValueAsync(
+      "groupsUrl",
+      ""
+    );
     this.owner.addTrigger([this.sourceId]);
     this.container.querySelectorAll("basis").forEach((element) => {
       element.setAttribute("SaveDraft", saveDraft);
+      element.setAttribute("objectTypeUrl", objectTypeUrl);
+      element.setAttribute("groupsUrl", groupsUrl);
+      element.setAttribute("defaultQuestionsUrl", defaultQuestionsUrl);
       element.setAttribute("dataMemberName", this.sourceId);
       if (element.getAttribute("core") == "component.schemaMaker.workspace") {
         if (resultSourceId) {

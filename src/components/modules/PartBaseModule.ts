@@ -7,7 +7,7 @@ import {
   IUserActionResult,
 } from "basiscore";
 import SchemaUtil from "../../SchemaUtil";
-import IPartBaseModuleDataModel from "./IPartBaseModuleDataModel";
+import IPartBaseModuleDataModel, { IQuestionPartBuiltIn } from "./IPartBaseModuleDataModel";
 
 export default abstract class PartBaseModule<
   TModelType extends IPartBaseModuleDataModel
@@ -21,7 +21,7 @@ export default abstract class PartBaseModule<
     owner: HTMLElement,
     workspace: IWorkspaceComponent,
     schemaId: ViewType,
-    questionPart?: IQuestionPart
+    questionPart?: IQuestionPartBuiltIn
   ) {
     super(layout, owner, true, workspace);
 
@@ -34,6 +34,10 @@ export default abstract class PartBaseModule<
       this.data.cssClass = questionPart.cssClass;
       this.data.multiple = questionPart.multiple;
       this.data.validations = questionPart.validations;
+    }
+
+    if (questionPart?.default) {
+      this.setBuiltInAttribute(true);
     }
   }
 
@@ -83,4 +87,13 @@ export default abstract class PartBaseModule<
     };
     return retVal;
   }
+
+  protected setBuiltInAttribute(invisible: boolean) {
+    if (invisible) {
+      super.setBuiltInAttribute(invisible);
+      (this.owner.querySelector("[data-btn-handler]") as HTMLButtonElement).style.display = "none";
+      (this.owner.querySelector("[data-btn-remove]") as HTMLButtonElement).style.display = "none";
+      (this.owner.querySelector("[data-btn-setting]") as HTMLButtonElement).style.display = "none";
+    }
+  };
 }

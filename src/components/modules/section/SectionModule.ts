@@ -10,6 +10,7 @@ import "./assets/style.css";
 import SchemaUtil from "../../../SchemaUtil";
 import ContainerModule from "../ContainerModule";
 import ToolboxModule from "../base-class/ToolboxModule";
+import ISectionBuiltIn from "./ISectionModuleDataModel";
 
 export default class SectionModule extends ContainerModule {
   private _data: Partial<ISection>;
@@ -36,7 +37,7 @@ export default class SectionModule extends ContainerModule {
   constructor(
     owner: HTMLElement,
     container: IWorkspaceComponent,
-    data?: ISection
+    data?: ISectionBuiltIn
   ) {
     super(layout, owner, container);
     this._data = data;
@@ -52,6 +53,10 @@ export default class SectionModule extends ContainerModule {
       .setAttribute("data-bc-section-id", this._data.id.toString());
     this.title = this._data.title;
     this.description = this._data.description;
+
+    if (data?.default) {
+      this.setBuiltInAttribute(true);
+    }
   }
 
   protected getAnswerSchema(): IAnswerSchema {
@@ -120,4 +125,12 @@ export default class SectionModule extends ContainerModule {
       x.fillSchema(schema)
     );
   }
+
+  protected setBuiltInAttribute(invisible: boolean) {
+    if (invisible) {
+      super.setBuiltInAttribute(invisible);
+      (this.owner.querySelector("[data-btn-remove]") as HTMLButtonElement).style.display = "none";
+      (this.owner.querySelector("[data-btn-setting]") as HTMLButtonElement).style.display = "none";
+    }
+  };
 }

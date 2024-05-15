@@ -10,7 +10,7 @@ import ContainerModule from "../ContainerModule";
 import layout from "./assets/layout.html";
 import partLayout from "./assets/part-layout.html";
 import "./assets/style.css";
-import IQuestionModuleDataModel from "./IQuestionModuleDataModel";
+import IQuestionModuleDataModel, { IQuestionBuiltIn } from "./IQuestionModuleDataModel";
 import PartBaseModule from "../PartBaseModule";
 import IPartBaseModuleDataModel from "../IPartBaseModuleDataModel";
 
@@ -72,7 +72,7 @@ export default class QuestionModule extends ContainerModule {
   constructor(
     owner: HTMLElement,
     container: IWorkspaceComponent,
-    data?: IQuestion
+    data?: IQuestionBuiltIn
   ) {
     super(layout, owner, container);
     this._schema = data;
@@ -94,6 +94,10 @@ export default class QuestionModule extends ContainerModule {
     }
     this.title = this._data.title;
     this.part = this._data.part;
+
+    if (data?.default) {
+      this.setBuiltInAttribute(true);
+    }
   }
 
   protected getAnswerSchema(): IAnswerSchema {
@@ -201,4 +205,12 @@ export default class QuestionModule extends ContainerModule {
     }
     schema.questions.push(question);
   }
+
+  protected setBuiltInAttribute(invisible: boolean) {
+    if (invisible) {
+      super.setBuiltInAttribute(invisible);
+      (this.owner.querySelector("[data-btn-remove]") as HTMLButtonElement).style.display = "none";
+      (this.owner.querySelector("[data-btn-setting]") as HTMLButtonElement).style.display = "none";
+    }
+  };
 }

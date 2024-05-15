@@ -1,4 +1,4 @@
-import { IDependency, IValidationOptions, ViewType } from "basiscore";
+import { IDependency, IQuestionPart, IValidationOptions, ViewType } from "basiscore";
 
 export default interface IPartBaseModuleDataModel {
   viewType: string | ViewType;
@@ -8,4 +8,7 @@ export default interface IPartBaseModuleDataModel {
   dependency?: Array<IDependency>;
   multiple?: boolean;
   uploadToken?: string;
+}
+export interface IQuestionPartBuiltIn extends IQuestionPart {
+  default?: boolean
 }

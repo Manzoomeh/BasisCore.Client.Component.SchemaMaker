@@ -11,7 +11,7 @@ import ToolboxModule from "../modules/base-class/ToolboxModule";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
 import DefaultSource from "../SourceId";
-import IWorkspaceComponent from "./IWorkspaceComponent";
+import IWorkspaceComponent, { IQuestionSchemaBuiltIn } from "./IWorkspaceComponent";
 import IModuleFactory from "../modules/IModuleFactory";
 import ISchemaMakerSchema, { ModuleType } from "../ISchemaMakerSchema";
 import * as Dragula from "dragula";
@@ -38,6 +38,9 @@ export default class WorkspaceComponent
     ToolboxModule
   >();
   private resultSourceIdToken: IToken<string>;
+  private _objectTypeUrl: string;
+  private _groupsUrl: string;
+  private _defaultQuestionsUrl: string;
 
   constructor(owner: IUserDefineComponent) {
     super(owner, layout, "data-bc-sm-workspace-container");
@@ -200,6 +203,9 @@ export default class WorkspaceComponent
       (await this.owner.getAttributeValueAsync("saveDraft", "false")) == "true";
     this._sourceId = await this.owner.getAttributeValueAsync("DataMemberName");
     this.resultSourceIdToken = this.owner.getAttributeToken("resultSourceId");
+    this._objectTypeUrl = await this.owner.getAttributeValueAsync("objectTypeUrl", "");
+    this._groupsUrl = await this.owner.getAttributeValueAsync("groupsUrl", "");
+    this._defaultQuestionsUrl = await this.owner.getAttributeValueAsync("defaultQuestionsUrl", "");
     this.owner.addTrigger([DefaultSource.PROPERTY_RESULT, this._sourceId]);
     const resultSourceId = await this.resultSourceIdToken?.getValueAsync();
     this._internalSourceId = this.owner.getRandomName(resultSourceId);
@@ -393,6 +399,13 @@ export default class WorkspaceComponent
     cancelSaveJson.addEventListener("click", () => {
       this.cancelEditJson();
     });
+
+    if (this._objectTypeUrl && this._objectTypeUrl != "") {
+      this.loadObjectTypes();
+    } else {
+      this.container.querySelector("[data-bc-sm-object-type]").remove();
+      this.container.querySelector("[data-bc-sm-schema-group]").remove();
+    }
   }
 
   public runAsync(source?: ISource) {
@@ -419,50 +432,22 @@ export default class WorkspaceComponent
   private createUIFromQuestionSchema(question: IQuestionSchema) {
     const board = this.container.querySelector("[data-bc-sm-board]");
     board.innerHTML = "";
-    const createContainer = (
-      schemaId: string,
-      schemaType: ModuleType,
-      data: any
-    ): Element => {
-      this.container.querySelector<HTMLInputElement>(
-        "[data-bc-sm-schema-version]"
-      ).value = question.schemaVersion ?? "";
+    this.createUIElements(board, question);
+  }
 
-      this.container
-        .querySelector<HTMLSelectElement>(
-          `[data-bc-sm-schema-language] [value='${question.lid}']`
-        )
-        .setAttribute("selected", "");
-
-      this.container.querySelector<HTMLInputElement>(
-        "[data-bc-sm-schema-name]"
-      ).value = question.schemaName ?? "";
-
-      const container = document.createElement("div");
-      container.setAttribute("data-schema-id", schemaId);
-      container.setAttribute("data-schema-type", schemaType);
-      const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
-      const module = factory.create(schemaId, container, this, data);
-      container.setAttribute("data-bc-module-id", module.usedForId.toString());
-      this._modules.set(module.usedForId, module);
-      return container;
-    };
-    if (question) {
+  private createUIElements(board: Element, questionSchema: IQuestionSchema) {
+    if (questionSchema) {
       const sections = new Map<Number, Element>();
-      if (question.sections) {
-        question.sections.forEach((x) => {
-          const sectionModule = createContainer("section", "section", x);
+      if (questionSchema.sections) {
+        questionSchema.sections.forEach((x) => {
+          const sectionModule = this.createContainer(questionSchema, "section", "section", x);
           sections.set(x.id, sectionModule);
           board.appendChild(sectionModule);
         });
       }
-      if (question.questions) {
-        question.questions.forEach((question) => {
-          const questionModule = createContainer(
-            "question",
-            "question",
-            question
-          );
+      if (questionSchema.questions) {
+        questionSchema.questions.forEach((question) => {
+          const questionModule = this.createContainer(questionSchema, "question", "question", question);
           if (question.sectionId && sections.has(question.sectionId)) {
             const section = sections.get(question.sectionId);
             section
@@ -473,11 +458,7 @@ export default class WorkspaceComponent
           }
           if (question.parts) {
             question.parts.forEach((part) => {
-              const partModule = createContainer(
-                part.viewType,
-                "question",
-                part
-              );
+              const partModule = this.createContainer(questionSchema, part.viewType, "question", part);
               const partContainer = questionModule.querySelector(
                 `[data-bc-question-part-number="${part.part}"]`
               );
@@ -488,6 +469,32 @@ export default class WorkspaceComponent
       }
     }
   }
+
+  private createContainer (question: IQuestionSchema, schemaId: string, schemaType: ModuleType, data: any): Element {
+    this.container.querySelector<HTMLInputElement>(
+      "[data-bc-sm-schema-version]"
+    ).value = question.schemaVersion ?? "";
+
+    this.container
+      .querySelector<HTMLSelectElement>(
+        `[data-bc-sm-schema-language] [value='${question.lid}']`
+      )
+      .setAttribute("selected", "");
+
+    this.container.querySelector<HTMLInputElement>(
+      "[data-bc-sm-schema-name]"
+    ).value = question.schemaName ?? "";
+
+    const container = document.createElement("div");
+    container.setAttribute("data-schema-id", schemaId);
+    container.setAttribute("data-schema-type", schemaType);
+    const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
+    const module = factory.create(schemaId, container, this, data);
+    container.setAttribute("data-bc-module-id", module.usedForId.toString());
+    this._modules.set(module.usedForId, module);
+    return container;
+  };
+
   private cancelEditJson(): void {
     const jsonDownload = this.container.querySelector(
       "[data-bc-sm-json-download]"
@@ -545,10 +552,28 @@ export default class WorkspaceComponent
     const schemaName = this.container.querySelector<HTMLInputElement>(
       "[data-bc-sm-schema-name]"
     ).value;
-
-    const retVal: Partial<IQuestionSchema> = {
+    const mid = parseInt(
+      this.container.querySelector<HTMLSelectElement>(
+        "[data-bc-sm-schema-object-type-select]"
+      )?.value
+    );
+    const selectGroups = this.container.querySelectorAll<HTMLSelectElement>(
+      "[data-bc-sm-schema-group-select]"
+    )
+    let groupHashId = "";
+    for (let i = selectGroups.length-1; i >= 0; i--) {
+      const selectGroupValue = selectGroups[i].value;
+      if (selectGroupValue != "0") {
+        groupHashId = selectGroups[i].value;
+        break;
+      }
+    }
+    
+    const retVal: Partial<IQuestionSchemaBuiltIn> = {
       ...(schema?.baseVocab && { baseVocab: schema.baseVocab }),
       ...(lid && { lid: lid }),
+      ...(mid && { mid: mid }),
+      ...(groupHashId && { groupHashId: groupHashId }),
       ...(schema?.schemaId && { schemaId: schema.schemaId }),
       ...(schema?.paramUrl && { paramUrl: schema.paramUrl }),
       ...(schemaVersion && { schemaVersion: schemaVersion }),
@@ -624,5 +649,127 @@ export default class WorkspaceComponent
   private async loadDraft(draftName: string) {
     const schema = JSON.parse(localStorage.getItem(draftName));
     this.createUIFromQuestionSchema(schema);
+  }
+
+  async loadObjectTypes() {
+    const objectTypes = await this.requestJsonAsync(this._objectTypeUrl, "GET");
+    const objectTypesContainer = this.container.querySelector("[data-bc-sm-schema-object-type-select]");
+    objectTypesContainer.innerHTML = "";
+    const firstOption = document.createElement("option");
+    firstOption.value = "0";
+    firstOption.textContent = "لطفا یکی از موارد را انتخاب کنید";
+    objectTypesContainer.appendChild(firstOption);
+    if (objectTypes.length > 0) {
+      objectTypes.forEach(object => {
+        const option = document.createElement("option");
+        option.value = object.id.toString();
+        option.text = object.value;
+        objectTypesContainer.appendChild(option);
+      });
+    }
+    objectTypesContainer.addEventListener("change", (e) => {
+      e.preventDefault();
+      const id = (objectTypesContainer as HTMLSelectElement).value;
+      this.resetGroupSection();
+      this.removeDefaultQuestions();
+      if (Number(id) > 0) {
+        this.loadDefaultQuestions(Number(id));
+        this.loadGroups(Number(id), "");
+      }
+    })
+  }
+
+  async loadDefaultQuestions(id: number) {
+    const questions = await this.requestJsonAsync(`${this._defaultQuestionsUrl}?mid=${id}`, "GET");
+    let questionsBuiltIn : IQuestionSchemaBuiltIn = questions.sources[0].data[0];
+    questionsBuiltIn.questions.forEach(question => {
+      question["default"] = true;
+      question.parts.forEach(part => {
+        part["default"] = true;
+      });
+    });
+    
+    const board = this.container.querySelector("[data-bc-sm-board]");
+    this.createUIElements(board, questionsBuiltIn);
+  }
+
+  removeDefaultQuestions() {
+    const defaultQuestions = this.container.querySelector("[data-bc-sm-board]").querySelectorAll("[data-bc-built-in-selector]");
+    defaultQuestions.forEach(element => {
+      const moduleId = element.closest("[data-bc-module-id]").getAttribute("data-bc-module-id");
+      
+      this._modules.forEach(element => {
+        if (element.usedForId == parseInt(moduleId)) {
+          this._modules.delete(parseInt(moduleId));
+        }
+      });
+
+      element.closest("[data-bc-module-id]").remove();
+    });
+  }
+
+  resetGroupSection() {
+    const groupContainer = this.container.querySelector("[data-bc-sm-schema-group]").querySelector("[data-bc-answer]");
+    groupContainer.innerHTML = `<select data-bc-sm-schema-group-select data-sys-select-option="" disabled></select>`;
+    groupContainer.setAttribute("data-load", "active");
+  }
+
+  async loadGroups(mid: number, parent_hashid: string, selectEl?: HTMLSelectElement) {
+    const groups = await this.requestJsonAsync(this._groupsUrl, "POST", {mid: mid, parent_hashid: parent_hashid});
+
+    if (groups.length > 0) {
+      if (selectEl) {
+        selectEl.nextElementSibling.innerHTML = "";
+        selectEl.nextElementSibling.setAttribute("data-load", "active");
+      }
+
+      const groupsContainer = this.container.querySelector('[data-bc-sm-schema-group-child][data-load="active"]');
+      groupsContainer.innerHTML = "";
+
+      if (parent_hashid != "0") {
+        const select = document.createElement("select");
+        select.setAttribute("data-bc-sm-schema-group-select", "");
+        select.setAttribute("data-sys-select-option", "");
+        const firstOption = document.createElement("option");
+        firstOption.value = "0";
+        firstOption.textContent = "لطفا یکی از موارد را انتخاب کنید";
+        select.appendChild(firstOption);
+  
+        groups.forEach(object => {
+          const option = document.createElement("option");
+          option.value = object.hashid;
+          option.text = object.title;
+          select.appendChild(option);
+        });
+  
+        (select as Element).addEventListener("change", (e) => {
+          e.preventDefault();
+          this.loadGroups(mid, select.value, select);
+        });
+        
+        groupsContainer.appendChild(select);
+        const div = document.createElement("div");
+        div.setAttribute("data-bc-sm-schema-group-child", "");
+        div.setAttribute("data-load", "active");
+        groupsContainer.appendChild(div);
+        groupsContainer.setAttribute("data-load", "");
+      }
+    }
+  }
+
+  async requestJsonAsync(
+    url: string,
+    method: "POST" | "GET" = "GET",
+    data?: object
+  ): Promise<any> {
+    const init: any = {
+      method: method,
+    };
+    if (data) {
+      init.body = JSON.stringify(data)
+    }
+    const response = await fetch(url, init);
+    const result = await response.json();
+    return result;
   }
 }

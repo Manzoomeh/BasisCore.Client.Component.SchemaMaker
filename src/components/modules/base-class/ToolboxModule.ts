@@ -77,4 +77,10 @@ export default abstract class ToolboxModule {
   protected getChildModules<TType extends ToolboxModule>(): TType[] {
     return null;
   }
+
+  protected setBuiltInAttribute(invisible: boolean) {
+    if (invisible) {
+      this.container.setAttribute("data-bc-built-in-selector", "");
+    }
+  };
 }
