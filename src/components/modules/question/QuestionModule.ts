@@ -10,7 +10,7 @@ import ContainerModule from "../ContainerModule";
 import layout from "./assets/layout.html";
 import partLayout from "./assets/part-layout.html";
 import "./assets/style.css";
-import IQuestionModuleDataModel, { IQuestionBuiltIn } from "./IQuestionModuleDataModel";
+import IQuestionModuleDataModel from "./IQuestionModuleDataModel";
 import PartBaseModule from "../PartBaseModule";
 import IPartBaseModuleDataModel from "../IPartBaseModuleDataModel";
 
@@ -72,7 +72,8 @@ export default class QuestionModule extends ContainerModule {
   constructor(
     owner: HTMLElement,
     container: IWorkspaceComponent,
-    data?: IQuestionBuiltIn
+    isABuiltIn: boolean,
+    data?: IQuestion
   ) {
     super(layout, owner, container);
     this._schema = data;
@@ -95,7 +96,7 @@ export default class QuestionModule extends ContainerModule {
     this.title = this._data.title;
     this.part = this._data.part;
 
-    if (data?.default) {
+    if (isABuiltIn) {
       this.setBuiltInAttribute(true);
     }
   }
@@ -209,8 +210,8 @@ export default class QuestionModule extends ContainerModule {
   protected setBuiltInAttribute(invisible: boolean) {
     if (invisible) {
       super.setBuiltInAttribute(invisible);
-      (this.owner.querySelector("[data-btn-remove]") as HTMLButtonElement).style.display = "none";
-      (this.owner.querySelector("[data-btn-setting]") as HTMLButtonElement).style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>("[data-btn-remove]").style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>("[data-btn-setting]").style.display = "none";
     }
   };
 }

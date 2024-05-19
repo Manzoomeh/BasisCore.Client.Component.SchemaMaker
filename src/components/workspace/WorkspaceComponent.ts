@@ -91,7 +91,7 @@ export default class WorkspaceComponent
       el.innerHTML = "";
       const owner = el as HTMLElement;
       const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
-      const module = factory.create(schemaId, owner, this);
+      const module = factory.create(schemaId, owner, this, false);
       el.setAttribute("data-bc-module-id", module.usedForId.toString());
       this._modules.set(module.usedForId, module);
     };
@@ -432,22 +432,22 @@ export default class WorkspaceComponent
   private createUIFromQuestionSchema(question: IQuestionSchema) {
     const board = this.container.querySelector("[data-bc-sm-board]");
     board.innerHTML = "";
-    this.createUIElements(board, question);
+    this.createUIElements(board, question, false);
   }
 
-  private createUIElements(board: Element, questionSchema: IQuestionSchema) {
+  private createUIElements(board: Element, questionSchema: IQuestionSchema, isABuiltIn: boolean) {
     if (questionSchema) {
       const sections = new Map<Number, Element>();
       if (questionSchema.sections) {
         questionSchema.sections.forEach((x) => {
-          const sectionModule = this.createContainer(questionSchema, "section", "section", x);
+          const sectionModule = this.createContainer(questionSchema, "section", "section", x, isABuiltIn);
           sections.set(x.id, sectionModule);
           board.appendChild(sectionModule);
         });
       }
       if (questionSchema.questions) {
         questionSchema.questions.forEach((question) => {
-          const questionModule = this.createContainer(questionSchema, "question", "question", question);
+          const questionModule = this.createContainer(questionSchema, "question", "question", question, isABuiltIn);
           if (question.sectionId && sections.has(question.sectionId)) {
             const section = sections.get(question.sectionId);
             section
@@ -458,7 +458,7 @@ export default class WorkspaceComponent
           }
           if (question.parts) {
             question.parts.forEach((part) => {
-              const partModule = this.createContainer(questionSchema, part.viewType, "question", part);
+              const partModule = this.createContainer(questionSchema, part.viewType, "question", part, isABuiltIn);
               const partContainer = questionModule.querySelector(
                 `[data-bc-question-part-number="${part.part}"]`
               );
@@ -470,7 +470,7 @@ export default class WorkspaceComponent
     }
   }
 
-  private createContainer (question: IQuestionSchema, schemaId: string, schemaType: ModuleType, data: any): Element {
+  private createContainer (question: IQuestionSchema, schemaId: string, schemaType: ModuleType, data: any, isABuiltIn: boolean): Element {
     this.container.querySelector<HTMLInputElement>(
       "[data-bc-sm-schema-version]"
     ).value = question.schemaVersion ?? "";
@@ -489,7 +489,7 @@ export default class WorkspaceComponent
     container.setAttribute("data-schema-id", schemaId);
     container.setAttribute("data-schema-type", schemaType);
     const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
-    const module = factory.create(schemaId, container, this, data);
+    const module = factory.create(schemaId, container, this, isABuiltIn, data);
     container.setAttribute("data-bc-module-id", module.usedForId.toString());
     this._modules.set(module.usedForId, module);
     return container;
@@ -655,10 +655,7 @@ export default class WorkspaceComponent
     const objectTypes = await this.requestJsonAsync(this._objectTypeUrl, "GET");
     const objectTypesContainer = this.container.querySelector("[data-bc-sm-schema-object-type-select]");
     objectTypesContainer.innerHTML = "";
-    const firstOption = document.createElement("option");
-    firstOption.value = "0";
-    firstOption.textContent = "لطفا یکی از موارد را انتخاب کنید";
-    objectTypesContainer.appendChild(firstOption);
+    this.addFirstItem(objectTypesContainer);
     if (objectTypes.length > 0) {
       objectTypes.forEach(object => {
         const option = document.createElement("option");
@@ -679,18 +676,19 @@ export default class WorkspaceComponent
     })
   }
 
+  private addFirstItem(select: Element) {
+    const firstOption = document.createElement("option");
+    firstOption.value = "0";
+    firstOption.textContent = "لطفا یکی از موارد را انتخاب کنید";
+    select.appendChild(firstOption);
+  }
+
   async loadDefaultQuestions(id: number) {
     const questions = await this.requestJsonAsync(`${this._defaultQuestionsUrl}?mid=${id}`, "GET");
     let questionsBuiltIn : IQuestionSchemaBuiltIn = questions.sources[0].data[0];
-    questionsBuiltIn.questions.forEach(question => {
-      question["default"] = true;
-      question.parts.forEach(part => {
-        part["default"] = true;
-      });
-    });
     
     const board = this.container.querySelector("[data-bc-sm-board]");
-    this.createUIElements(board, questionsBuiltIn);
+    this.createUIElements(board, questionsBuiltIn, true);
   }
 
   removeDefaultQuestions() {
@@ -730,10 +728,7 @@ export default class WorkspaceComponent
         const select = document.createElement("select");
         select.setAttribute("data-bc-sm-schema-group-select", "");
         select.setAttribute("data-sys-select-option", "");
-        const firstOption = document.createElement("option");
-        firstOption.value = "0";
-        firstOption.textContent = "لطفا یکی از موارد را انتخاب کنید";
-        select.appendChild(firstOption);
+        this.addFirstItem(select);
   
         groups.forEach(object => {
           const option = document.createElement("option");

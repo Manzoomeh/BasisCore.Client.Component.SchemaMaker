@@ -8,8 +8,9 @@ export default class ColorModule extends TextBaseModule {
   constructor(
     owner: HTMLElement,
     component: IWorkspaceComponent,
+    isABuiltIn: boolean,
     model: IQuestionPart
   ) {
-    super(layout, owner, component, "Color", model);
+    super(layout, owner, component, "Color", isABuiltIn, model);
   }
 }

@@ -12,9 +12,10 @@ export default class UploadModule extends PartBaseModule<IUploadModuleDataModel>
     owner: HTMLElement,
     component: IWorkspaceComponent,
     viewType: ViewType,
+    isABuiltIn: boolean,
     questionPart: IQuestionPart
   ) {
-    super(layout, owner, component, viewType, questionPart);
+    super(layout, owner, component, viewType, isABuiltIn, questionPart);
   }
 
   protected getAnswerSchema(): IAnswerSchema {

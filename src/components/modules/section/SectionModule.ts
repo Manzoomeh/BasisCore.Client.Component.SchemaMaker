@@ -10,7 +10,6 @@ import "./assets/style.css";
 import SchemaUtil from "../../../SchemaUtil";
 import ContainerModule from "../ContainerModule";
 import ToolboxModule from "../base-class/ToolboxModule";
-import ISectionBuiltIn from "./ISectionModuleDataModel";
 
 export default class SectionModule extends ContainerModule {
   private _data: Partial<ISection>;
@@ -37,7 +36,8 @@ export default class SectionModule extends ContainerModule {
   constructor(
     owner: HTMLElement,
     container: IWorkspaceComponent,
-    data?: ISectionBuiltIn
+    isABuiltIn: boolean,
+    data?: ISection
   ) {
     super(layout, owner, container);
     this._data = data;
@@ -54,7 +54,7 @@ export default class SectionModule extends ContainerModule {
     this.title = this._data.title;
     this.description = this._data.description;
 
-    if (data?.default) {
+    if (isABuiltIn) {
       this.setBuiltInAttribute(true);
     }
   }
@@ -129,8 +129,8 @@ export default class SectionModule extends ContainerModule {
   protected setBuiltInAttribute(invisible: boolean) {
     if (invisible) {
       super.setBuiltInAttribute(invisible);
-      (this.owner.querySelector("[data-btn-remove]") as HTMLButtonElement).style.display = "none";
-      (this.owner.querySelector("[data-btn-setting]") as HTMLButtonElement).style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>("[data-btn-remove]").style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>("[data-btn-setting]").style.display = "none";
     }
   };
 }

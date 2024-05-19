@@ -1,5 +1,3 @@
-import { IQuestion } from "basiscore";
-
 export default interface IQuestionModuleDataModel {
   title: string;
   part: number;
@@ -7,8 +5,4 @@ export default interface IQuestionModuleDataModel {
   cssClass: string;
   help: string;
   useInList?: boolean;
-}
-
-export interface IQuestionBuiltIn extends IQuestion {
-  default?: boolean
 }
