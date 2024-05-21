@@ -490,6 +490,7 @@ export default class WorkspaceComponent
     container.setAttribute("data-schema-type", schemaType);
     const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
     const module = factory.create(schemaId, container, this, data);
+    console.log('test',module, this._modules)
     container.setAttribute("data-bc-module-id", module.usedForId.toString());
     this._modules.set(module.usedForId, module);
     return container;
@@ -595,6 +596,7 @@ export default class WorkspaceComponent
         }
       }
     });
+    console.log('m :>>',retVal)
     return retVal;
   }
   private async generateAndSetQuestionSchemaAsync(e: MouseEvent) {

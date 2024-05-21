@@ -245,7 +245,7 @@ export default class SchemaUtil {
   public static getMultipleProperty(result: IUserActionResult) {
     return SchemaUtil.getPropertyValue(result, SchemaUtil.MULTIPLE_ID);
   }
-  
+
   public static addUploadTokenProperty(
     answerSchema: IAnswerSchema,
     uploadToken: string

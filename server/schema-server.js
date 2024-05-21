@@ -2,7 +2,20 @@ const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const router = express.Router();
-
+router.use(express.json());
+router.use("/public",express.static(path.resolve(__dirname,'public')))
+const data = [
+  { id: 1, value: "چاقو" },
+  { id: 2, value: "میز" },
+  { id: 3, value: "کتاب" },
+  { id: 4, value: "مانیتور" },
+  { id: 5, value: "بروشور" },
+  { id: 6, value: "کاغذ A4" },
+  { id: 7, value: "کشو" },
+  { id: 8, value: "بادام" },
+  { id: 9, value: "بادمجان" },
+  { id: 10, value: "موبایل" },
+];
 const apiDataList = [];
 
 for (let index = 1; index < 1000; index++) {
@@ -91,14 +104,60 @@ router.get("/defaultQuestions", function (req, res) {
 
 router.post("/groupsUrl", function (req, res) {
   res.json([
-    { hashid: "1-754ED4E0-C4B8-4013-B26D-5ED00825D28A", title: "الکترونیک و کامپیوتر" },
+    {
+      hashid: "1-754ED4E0-C4B8-4013-B26D-5ED00825D28A",
+      title: "الکترونیک و کامپیوتر",
+    },
     { hashid: "6-754ED4E0-C4B8-4013-B26D-5ED00825D28A", title: "آموزش" },
     { hashid: "9-754ED4E0-C4B8-4013-B26D-5ED00825D28A", title: "لوازم خانگی" },
     { hashid: "18-754ED4E0-C4B8-4013-B26D-5ED00825D28A", title: "مواد غذائی" },
-    { hashid: "25-754ED4E0-C4B8-4013-B26D-5ED00825D28A", title: "دکوراسیون و نورپردازی" },
-    { hashid: "30-754ED4E0-C4B8-4013-B26D-5ED00825D28A", title: "پزشکی و سلامت" },
-    { hashid: "206-754ED4E0-C4B8-4013-B26D-5ED00825D28A", title: "اسباب بازی، کودک ، نوزاد" },
+    {
+      hashid: "25-754ED4E0-C4B8-4013-B26D-5ED00825D28A",
+      title: "دکوراسیون و نورپردازی",
+    },
+    {
+      hashid: "30-754ED4E0-C4B8-4013-B26D-5ED00825D28A",
+      title: "پزشکی و سلامت",
+    },
+    {
+      hashid: "206-754ED4E0-C4B8-4013-B26D-5ED00825D28A",
+      title: "اسباب بازی، کودک ، نوزاد",
+    },
   ]);
+});
+router.get("/popup", async (req, res) => {
+  res.sendFile(path.join(__dirname, "schemas", "popUp.html"));
+});
+router.get("/keys", async (req, res) => {
+  if (req.query.term) {
+    const filteredData = data.filter((element) => {
+      if (element.value.startsWith(req.query.term)) {
+        return true;
+      }
+      return false;
+    });
+    return res.status(200).json(filteredData);
+  }
+  return res.status(200).json(data);
+});
+router.post("/schema/new", async (req, res) => {
+  const { value } = req.body;
+  const result = { id: data.length + 1, value };
+  data.push(result);
+  return res.status(200).json(result);
+});
+router.get("/keywordinfo", async (req, res) => {
+  console.log(req.query.id)
+  const id = Number(req.query.id);
+  console.log("44444444444444444444444444",id)
+  const result = data.find((element) => element.id == id);
+  return res.status(200).json({
+    culture: "fa",
+    title: result.value,
+  });
+});
+router.get("/js", async (req, res) => {
+  res.sendFile("F:\\AliBazregar\\BasisCore.Client.Component.SchemaMaker\\bc\\basiscore.js")
 });
 
 module.exports = router;

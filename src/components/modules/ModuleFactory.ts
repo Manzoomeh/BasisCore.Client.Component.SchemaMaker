@@ -9,6 +9,7 @@ import SelectModule from "./list-base/select/SelectModule";
 import RadioModule from "./list-base/radio/RadioModule";
 import LongTextModule from "./text-base/long-text/LongTextModule";
 import ShortTextModule from "./text-base/short-text/ShortTextModule";
+import HTMLModule from "./text-base/html/HTMLModule";
 import ColorModule from "./text-base/color/ColorModule";
 import DatePickerModule from "./text-base/date-picker/DatePickerModule";
 import IModuleFactory from "./IModuleFactory";
@@ -26,6 +27,10 @@ export default class ModuleFactory implements IModuleFactory {
     switch (schemaId) {
       case "text": {
         module = new ShortTextModule(owner, container, model);
+        break;
+      }
+      case "html": {
+        module = new HTMLModule(owner, container, model);
         break;
       }
       case "textarea": {
