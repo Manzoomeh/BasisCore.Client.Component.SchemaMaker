@@ -10,7 +10,11 @@ import ContainerModule from "../ContainerModule";
 import layout from "./assets/layout.html";
 import partLayout from "./assets/part-layout.html";
 import "./assets/style.css";
-import IQuestionModuleDataModel, { IQuestionBuiltIn } from "./IQuestionModuleDataModel";
+import IQuestionModuleDataModel, {
+  IpopUpAnswer,
+  IQuestionBuiltIn,
+  IQuestionModulePopUpDataModel,
+} from "./IQuestionModuleDataModel";
 import PartBaseModule from "../PartBaseModule";
 import IPartBaseModuleDataModel from "../IPartBaseModuleDataModel";
 
@@ -21,9 +25,10 @@ export default class QuestionModule extends ContainerModule {
   private static readonly CSS_CLASS_ID = 4;
   private static readonly HELP_URL_ID = 5;
   private static readonly USE_IN_LIST_ID = 6;
+  private static readonly TITLE_DATA_ID = 7;
 
-  private readonly _data: Partial<IQuestionModuleDataModel>;
-  private readonly _schema: IQuestion;
+  private readonly _data: Partial<IQuestionModulePopUpDataModel>;
+  private readonly _schema: IQuestionBuiltIn;
 
   get sectionId(): number {
     return 0;
@@ -32,10 +37,17 @@ export default class QuestionModule extends ContainerModule {
   get title(): string {
     return this._data.title;
   }
+  get titleData(): IpopUpAnswer {
+    return this._data.titleData;
+  }
 
   set title(value: string) {
     this._data.title = value;
     this.container.querySelector("[data-bc-title]").innerHTML = value;
+  }
+  set titleData(value: IpopUpAnswer) {
+    this._data.titleData = (value);
+    this.container.querySelector("[data-bc-title]").innerHTML = value.value;
   }
 
   get part(): number {
@@ -76,9 +88,11 @@ export default class QuestionModule extends ContainerModule {
   ) {
     super(layout, owner, container);
     this._schema = data;
+    console.log(this._schema);
     if (this._schema) {
       this._data = {
         title: this._schema.title,
+        titleData: this._schema.titleData,
         cssClass: this._schema.cssClass,
         help: this._schema.help,
         multi: this._schema.multi,
@@ -89,10 +103,13 @@ export default class QuestionModule extends ContainerModule {
       this._data = {
         multi: false,
         title: "Question Title",
+        titleData: { value: "Test" },
         part: 1,
       };
+      console.log(this._data);
     }
-    this.title = this._data.title;
+    this.title = this._data.titleData.value;
+
     this.part = this._data.part;
 
     if (data?.default) {
@@ -110,6 +127,15 @@ export default class QuestionModule extends ContainerModule {
       usedForId: this.usedForId,
       properties: [],
     };
+    try {
+      SchemaUtil.addSimpleValueProperty(
+        ans,
+        JSON.parse(this.title),
+        QuestionModule.TITLE_DATA_ID
+      );
+    } catch (err) {
+      SchemaUtil.addSimpleValueProperty(ans, {}, QuestionModule.TITLE_DATA_ID);
+    }
     SchemaUtil.addSimpleValueProperty(ans, this.title, QuestionModule.TITLE_ID);
     SchemaUtil.addSimpleValueProperty(ans, this.part, QuestionModule.PART_ID);
     SchemaUtil.addSimpleValueProperty(
@@ -139,6 +165,10 @@ export default class QuestionModule extends ContainerModule {
     const title = SchemaUtil.getPropertyValue(result, QuestionModule.TITLE_ID);
     if (title != null) {
       this.title = title;
+    }
+    const titleData = SchemaUtil.getPropertyValue(result, QuestionModule.TITLE_DATA_ID);
+    if (titleData != null) {
+      this.titleData = titleData;
     }
 
     const part = SchemaUtil.getPropertyValue(result, QuestionModule.PART_ID);
@@ -209,8 +239,12 @@ export default class QuestionModule extends ContainerModule {
   protected setBuiltInAttribute(invisible: boolean) {
     if (invisible) {
       super.setBuiltInAttribute(invisible);
-      (this.owner.querySelector("[data-btn-remove]") as HTMLButtonElement).style.display = "none";
-      (this.owner.querySelector("[data-btn-setting]") as HTMLButtonElement).style.display = "none";
+      (
+        this.owner.querySelector("[data-btn-remove]") as HTMLButtonElement
+      ).style.display = "none";
+      (
+        this.owner.querySelector("[data-btn-setting]") as HTMLButtonElement
+      ).style.display = "none";
     }
-  };
+  }
 }

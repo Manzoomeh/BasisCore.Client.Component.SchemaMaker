@@ -7526,6 +7526,7 @@ let SchemaComponent = class SchemaComponent extends _SourceBaseComponent__WEBPAC
                     options.displayMode != "view") {
                     this.getAnswersAndSetAsSource = () => __awaiter(this, void 0, void 0, function* () {
                         const answer = yield this.getAnswersAsync(false);
+                        console.log("SSSSSSSSSSSSSSSSSSSSSSSSS",answer)
                         if (answer) {
                             this.context.setAsSource(resultSourceId, answer);
                         }

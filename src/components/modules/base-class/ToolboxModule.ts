@@ -63,6 +63,7 @@ export default abstract class ToolboxModule {
     this.container
       .querySelector("[data-btn-setting]")
       .addEventListener("click", (e) => {
+        console.log("ttttttttttttt",this.getAnswerSchema())
         e.preventDefault();
         this.rootComponent
           .getOwner()

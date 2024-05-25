@@ -3,7 +3,7 @@ const path = require("path");
 const express = require("express");
 const router = express.Router();
 router.use(express.json());
-router.use("/public",express.static(path.resolve(__dirname,'public')))
+router.use("/public", express.static(path.resolve(__dirname, "public")));
 const data = [
   { id: 1, value: "چاقو" },
   { id: 2, value: "میز" },
@@ -140,24 +140,28 @@ router.get("/keys", async (req, res) => {
   }
   return res.status(200).json(data);
 });
-router.post("/schema/new", async (req, res) => {
+router.post("/temp-schema-maker", async (req, res) => {
   const { value } = req.body;
   const result = { id: data.length + 1, value };
   data.push(result);
   return res.status(200).json(result);
 });
 router.get("/keywordinfo", async (req, res) => {
-  console.log(req.query.id)
+  console.log(req.query.id);
   const id = Number(req.query.id);
-  console.log("44444444444444444444444444",id)
+  console.log("44444444444444444444444444", id);
   const result = data.find((element) => element.id == id);
-  return res.status(200).json({
-    culture: "fa",
-    title: result.value,
-  });
+  if (result) {
+    return res.status(200).json({
+      culture: "fa",
+      title: result.value,
+    });
+  }
 });
 router.get("/js", async (req, res) => {
-  res.sendFile("F:\\AliBazregar\\BasisCore.Client.Component.SchemaMaker\\bc\\basiscore.js")
+  res.sendFile(
+    "F:\\AliBazregar\\BasisCore.Client.Component.SchemaMaker\\bc\\basiscore.js"
+  );
 });
 
 module.exports = router;

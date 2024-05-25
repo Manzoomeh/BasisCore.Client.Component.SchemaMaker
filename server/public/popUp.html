@@ -111,7 +111,7 @@
 
         if (isNaN(id)) {
           // Check if id is not a number
-          fetch("/server/schema/new", {
+          fetch("/server/temp-schema-maker", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -155,7 +155,7 @@
           placeholder: "انتخاب کنید",
           tags: true,
           ajax: {
-            url: "/server/keys",
+            url: "/server/keywordinfo",
             dataType: "json",
 
             delay: 250,

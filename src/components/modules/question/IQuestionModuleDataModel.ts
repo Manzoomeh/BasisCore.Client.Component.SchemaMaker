@@ -8,7 +8,16 @@ export default interface IQuestionModuleDataModel {
   help: string;
   useInList?: boolean;
 }
-
-export interface IQuestionBuiltIn extends IQuestion {
-  default?: boolean
+export interface IpopUpAnswer {
+  value?: string;
+  id?: string;
+}
+export interface IQuestionBuiltIn extends Omit<IQuestion, 'parts'> {
+  default?: boolean;
+  parts: Array<IQuestionModulePopUpDataModel>;
+  titleData : object;
+}
+export interface IQuestionModulePopUpDataModel
+  extends IQuestionModuleDataModel {
+  titleData: IpopUpAnswer ;
 }
