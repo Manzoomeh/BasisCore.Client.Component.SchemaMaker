@@ -76,6 +76,7 @@ export default class PropertyBoxComponent extends ComponentBase {
         }
         case DefaultSource.DISPLAY_PROPERTY: {
           const answer = source.rows[0] as IAnswerSchema;
+          console.log("CCCCCCCCCCCCCCCCC",answer)
           setTimeout(() => {
             this.owner.setSource(
               "SchemaMakerComponent_PropertyBoxComponent.question",
@@ -107,6 +108,11 @@ export default class PropertyBoxComponent extends ComponentBase {
   ): Promise<ISchemaMakerQuestion> {
     if (schemaUrl) {
       schemaUrl = schemaUrl.toLowerCase();
+      let variable =  this._source.schemas
+        ? this._source.schemas
+        : (tempSchemasJson as ISchemaMakerQuestion[]    
+      ).find((x) => x.schemaId.toLowerCase() == schemaUrl)
+      console.log("qqqqqqqqqqq",variable)
       return Promise.resolve(
         (this._source.schemas
           ? this._source.schemas

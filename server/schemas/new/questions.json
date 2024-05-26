@@ -58,8 +58,8 @@
                     {
                       "part": 1,
                       "link": "/server/popup",
-                      "viewType": "html"
-                   
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
