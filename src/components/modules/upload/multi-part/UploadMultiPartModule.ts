@@ -9,9 +9,10 @@ export default class UploadMultiPartModule extends UploadModule {
   constructor(
     owner: HTMLElement,
     component: IWorkspaceComponent,
+    isABuiltIn: boolean,
     model: IQuestionPart
   ) {
-    super(layout, owner, component, "Blob", model);
+    super(layout, owner, component, "Blob", isABuiltIn, model);
   }
 
   protected getAnswerSchema(): IAnswerSchema {

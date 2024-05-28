@@ -26,8 +26,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text",
-                      "cssClass": "css_13050_1"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },

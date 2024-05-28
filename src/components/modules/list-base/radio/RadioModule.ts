@@ -8,8 +8,9 @@ export default class RadioModule extends ListBaseModule {
   constructor(
     owner: HTMLElement,
     component: IWorkspaceComponent,
+    isABuiltIn: boolean,
     questionPart: IQuestionPart
   ) {
-    super(layout, owner, component, "Radio", questionPart);
+    super(layout, owner, component, "Radio", isABuiltIn, questionPart);
   }
 }

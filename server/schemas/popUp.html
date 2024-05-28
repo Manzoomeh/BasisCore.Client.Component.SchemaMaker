@@ -111,7 +111,6 @@
     <select id="mySelect"></select>
     <div class="detailcontainer"></div>
     <button onclick="onSubmit()">تایید</button>
-    <button onclick="onCancel()">انصراف</button>
   </div>
   <script>
     // Third party function
@@ -132,9 +131,10 @@
             body: JSON.stringify({
               value: value,
             }),
-          })
+          }) 
             .then(async (response) => {
               const result = await response.json();
+
               bcCallback({ ...result, isSubmited: true });
             })
             .catch((error) => {
@@ -222,8 +222,8 @@
     function renderData(data) {
       const container = document.querySelector(".detailcontainer");
       let html = `<div class='test'>`;
-      for (let key of Object.keys(data)) {
-        html += `<span>${key} : ${data[key]}</span> \n`;
+      for (let object of data) {
+        html += `<span>${object.culture} : ${object.title}</span> \n`;
       }
       html += `</div>`;
       container.innerHTML = html;

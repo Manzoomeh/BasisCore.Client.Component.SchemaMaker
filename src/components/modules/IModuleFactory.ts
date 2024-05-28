@@ -6,6 +6,7 @@ export default interface IModuleFactory {
     schemaId: string,
     owner: HTMLElement,
     container: IWorkspaceComponent,
-    data?: any
+    isABuiltIn: boolean,
+    data?: any,
   ): ToolboxModule;
 }

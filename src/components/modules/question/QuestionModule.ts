@@ -24,23 +24,32 @@ export default class QuestionModule extends ContainerModule {
 
   private readonly _data: Partial<IQuestionModuleDataModel>;
   private readonly _schema: IQuestion;
-
+  titleData: string;
   get sectionId(): number {
     return 0;
   }
-
-  get title(): string  | {value : string, id : number} {
-    return this._data.title ;
+  setTitleData() {
+    this._data.titleData =
+      typeof this._data.title == "string" ? null : this._data.title;
+  }
+  getTitleData() {
+    return this._data.titleData;
+  }
+  get title(): string | { value: string; id: number } {
+    return this._data.title;
   }
 
-  set title(value: string | {value : string, id : number}) {
-    console.log("rrrrrrrrrrrrrrrrrrrrrrr",value)
-    try{
+  set title(value: string | { value: string; id: number }) {
+    try {
       this._data.title = JSON.parse(value as string);
-    }catch(err){
+    } catch (err) {
       this._data.title = value;
     }
-    this.container.querySelector("[data-bc-title]").innerHTML = typeof this._data.title == "string" ? this._data.title : this._data.title?.value;
+    this.container.querySelector("[data-bc-title]").innerHTML =
+      typeof this._data.title == "string"
+        ? this._data.title
+        : this._data.title?.value;
+    this.setTitleData();
   }
 
   get part(): number {
@@ -77,6 +86,7 @@ export default class QuestionModule extends ContainerModule {
   constructor(
     owner: HTMLElement,
     container: IWorkspaceComponent,
+    isABuiltIn: boolean,
     data?: IQuestion
   ) {
     super(layout, owner, container);
@@ -93,12 +103,17 @@ export default class QuestionModule extends ContainerModule {
     } else {
       this._data = {
         multi: false,
-        title: "Question Title",
+        title: { value: "test value", id: 0 },
         part: 1,
       };
     }
     this.title = this._data.title as string;
+    //this.titleData = this.getTitleData()
     this.part = this._data.part;
+
+    if (isABuiltIn) {
+      this.setBuiltInAttribute(true);
+    }
   }
 
   protected getAnswerSchema(): IAnswerSchema {
@@ -187,7 +202,15 @@ export default class QuestionModule extends ContainerModule {
       ...(this._schema && { typeId: this._schema.typeId }),
       ...(this._schema && { ord: this._schema.ord }),
       ...(this._schema && { vocab: this._schema.vocab }),
-      ...(this._data.title && { title: typeof this._data.title == "string" ? this._data.title  : this._data.title.value}),
+      ...(this._data.title && {
+        title:
+          typeof this._data.title == "string"
+            ? this._data.title
+            : this._data.title.value,
+      }),
+      ...(this._data.titleData && {
+        titleData: this.getTitleData(),
+      }),
       ...(this._schema && { wordId: this._schema.wordId }),
       ...(this._data.multi && { multi: this._data.multi }),
       ...(sectionId && { sectionId: parseInt(sectionId) }),
@@ -205,5 +228,17 @@ export default class QuestionModule extends ContainerModule {
       schema.questions = new Array<IQuestion>();
     }
     schema.questions.push(question);
+  }
+
+  protected setBuiltInAttribute(invisible: boolean) {
+    if (invisible) {
+      super.setBuiltInAttribute(invisible);
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-remove]"
+      ).style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-setting]"
+      ).style.display = "none";
+    }
   }
 }

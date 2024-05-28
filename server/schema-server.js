@@ -147,14 +147,19 @@ router.post("/temp-schema-maker", async (req, res) => {
   return res.status(200).json(result);
 });
 router.get("/keywordinfo", async (req, res) => {
-  console.log(req.query.id);
   const id = Number(req.query.id);
   const result = data.find((element) => element.id == id);
   if (result) {
-    return res.status(200).json({
-      culture: "fa",
-      title: result.value,
-    });
+    return res.status(200).json([
+      {
+        culture: "fa",
+        title: result.value,
+      },
+      {
+        culture: "en",
+        title: "Value",
+      },
+    ]);
   }
 });
 router.get("/js", async (req, res) => {
@@ -162,5 +167,4 @@ router.get("/js", async (req, res) => {
     "F:\\AliBazregar\\BasisCore.Client.Component.SchemaMaker\\bc\\basiscore.js"
   );
 });
-
 module.exports = router;

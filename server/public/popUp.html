@@ -104,7 +104,6 @@
 
     function onSubmit() {
       const selectedOption = $("#mySelect").select2("data")[0];
-      console.log(selectedOption);
       if (selectedOption) {
         const value = selectedOption.text;
         const id = selectedOption.id;
@@ -175,7 +174,6 @@
         })
         .on("change", function () {
           let id = $(this).val();
-          console.log(id);
           if (!isNaN(id)) {
             fetch(`/server/keywordinfo?id=${id}`, {
               method: "GET",

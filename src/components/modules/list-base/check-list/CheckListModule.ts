@@ -8,8 +8,9 @@ export default class CheckListModule extends ListBaseModule {
   constructor(
     owner: HTMLElement,
     component: IWorkspaceComponent,
+    isABuiltIn: boolean,
     questionPart: IQuestionPart
   ) {
-    super(layout, owner, component, "Checklist", questionPart);
+    super(layout, owner, component, "Checklist", isABuiltIn, questionPart);
   }
 }

@@ -16,12 +16,14 @@ export default class SectionModule extends ContainerModule {
   private static readonly TITLE_ID = 1;
   private static readonly DESCRIPTION_ID = 2;
 
-  get title(): string | {value : string, id : number} {
-    return this._data.title;
+  get titleData(): string  {
+    return this._data.titleData;
+  }
+ set titleData(value: string ){
+   this._data.titleData= value
   }
 
   set title(value: string | {value : string, id : number}) {
-    console.log(value)
     try{
       this._data.title = JSON.parse(value as string) 
     }catch(err){
@@ -41,6 +43,7 @@ export default class SectionModule extends ContainerModule {
   constructor(
     owner: HTMLElement,
     container: IWorkspaceComponent,
+    isABuiltIn: boolean,
     data?: ISection
   ) {
     super(layout, owner, container);
@@ -48,7 +51,7 @@ export default class SectionModule extends ContainerModule {
     if (!this._data) {
       this._data = {
         id: this.usedForId,
-        title: "Section Title",
+        title: {id : 0, value : "test title"},
         description: "",
       };
     }
@@ -57,6 +60,10 @@ export default class SectionModule extends ContainerModule {
       .setAttribute("data-bc-section-id", this._data.id.toString());
     this.title = this._data.title;
     this.description = this._data.description;
+
+    if (isABuiltIn) {
+      this.setBuiltInAttribute(true);
+    }
   }
 
   protected getAnswerSchema(): IAnswerSchema {
@@ -116,6 +123,7 @@ export default class SectionModule extends ContainerModule {
       id: this._data.id,
       title: this._data.title,
       description: this._data.description,
+      titleData : this._data.titleData
     };
     if (!schema.sections) {
       schema.sections = [];
@@ -125,4 +133,12 @@ export default class SectionModule extends ContainerModule {
       x.fillSchema(schema)
     );
   }
+
+  protected setBuiltInAttribute(invisible: boolean) {
+    if (invisible) {
+      super.setBuiltInAttribute(invisible);
+      this.owner.querySelector<HTMLButtonElement>("[data-btn-remove]").style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>("[data-btn-setting]").style.display = "none";
+    }
+  };
 }
