@@ -233,12 +233,8 @@ export default class QuestionModule extends ContainerModule {
   protected setBuiltInAttribute(invisible: boolean) {
     if (invisible) {
       super.setBuiltInAttribute(invisible);
-      this.owner.querySelector<HTMLButtonElement>(
-        "[data-btn-remove]"
-      ).style.display = "none";
-      this.owner.querySelector<HTMLButtonElement>(
-        "[data-btn-setting]"
-      ).style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>("[data-btn-remove]").style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>("[data-btn-setting]").style.display = "none";
     }
-  }
+  };
 }

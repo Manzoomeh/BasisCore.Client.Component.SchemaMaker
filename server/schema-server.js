@@ -167,4 +167,5 @@ router.get("/js", async (req, res) => {
     "F:\\AliBazregar\\BasisCore.Client.Component.SchemaMaker\\bc\\basiscore.js"
   );
 });
+
 module.exports = router;
