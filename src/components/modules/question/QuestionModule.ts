@@ -29,13 +29,18 @@ export default class QuestionModule extends ContainerModule {
     return 0;
   }
 
-  get title(): string {
-    return this._data.title;
+  get title(): string  | {value : string, id : number} {
+    return this._data.title ;
   }
 
-  set title(value: string) {
-    this._data.title = value;
-    this.container.querySelector("[data-bc-title]").innerHTML = value;
+  set title(value: string | {value : string, id : number}) {
+    console.log("rrrrrrrrrrrrrrrrrrrrrrr",value)
+    try{
+      this._data.title = JSON.parse(value as string);
+    }catch(err){
+      this._data.title = value;
+    }
+    this.container.querySelector("[data-bc-title]").innerHTML = typeof this._data.title == "string" ? this._data.title : this._data.title?.value;
   }
 
   get part(): number {
@@ -92,7 +97,7 @@ export default class QuestionModule extends ContainerModule {
         part: 1,
       };
     }
-    this.title = this._data.title;
+    this.title = this._data.title as string;
     this.part = this._data.part;
   }
 
@@ -182,7 +187,7 @@ export default class QuestionModule extends ContainerModule {
       ...(this._schema && { typeId: this._schema.typeId }),
       ...(this._schema && { ord: this._schema.ord }),
       ...(this._schema && { vocab: this._schema.vocab }),
-      ...(this._data.title && { title: this._data.title }),
+      ...(this._data.title && { title: typeof this._data.title == "string" ? this._data.title  : this._data.title.value}),
       ...(this._schema && { wordId: this._schema.wordId }),
       ...(this._data.multi && { multi: this._data.multi }),
       ...(sectionId && { sectionId: parseInt(sectionId) }),

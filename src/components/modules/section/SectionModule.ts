@@ -16,13 +16,18 @@ export default class SectionModule extends ContainerModule {
   private static readonly TITLE_ID = 1;
   private static readonly DESCRIPTION_ID = 2;
 
-  get title(): string {
+  get title(): string | {value : string, id : number} {
     return this._data.title;
   }
 
-  set title(value: string) {
-    this._data.title = value;
-    this.container.querySelector("[data-bc-title]").innerHTML = value;
+  set title(value: string | {value : string, id : number}) {
+    console.log(value)
+    try{
+      this._data.title = JSON.parse(value as string) 
+    }catch(err){
+      this._data.title = value;
+    }
+    this.container.querySelector("[data-bc-title]").innerHTML = typeof this._data.title == "string" ? this._data.title : this._data.title?.value;
   }
 
   get description(): string {

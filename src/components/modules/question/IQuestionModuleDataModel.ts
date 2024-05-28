@@ -1,5 +1,5 @@
 export default interface IQuestionModuleDataModel {
-  title: string;
+  title: string | {value : string, id : number};
   part: number;
   multi: boolean;
   cssClass: string;

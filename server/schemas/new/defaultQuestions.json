@@ -1,0 +1,96 @@
+{
+    "setting": {
+      "keepalive": true
+    },
+    "sources": [
+      {
+        "options": {
+          "tableName": "answer.data",
+          "keyFieldName": "",
+          "statusFieldName": "",
+          "mergeType": 0
+        },
+        "data": [
+          {
+            "lid": 1,
+            "questions": [
+              {
+                "TypeID": 150,
+                "Ord": 700,
+                "multi": false,
+                "class": "css_150",
+                "Url": "FA/vo/عنوان",
+                "title": "عنوان",
+                "parts": [
+                  {
+                    "part": 1,
+                    "viewType": "text",
+                    "cssClass": "css_150_1",
+                    "validations": {
+                      "required": true,
+                      "minLength": "2",
+                      "maxLength": "100"
+                    }
+                  }
+                ]
+              },
+              {
+                "TypeID": 164,
+                "Ord": 720,
+                "multi": false,
+                "class": "css_164",
+                "Url": "FA/vo/برند",
+                "title": "برند",
+                "parts": [
+                  {
+                    "part": 1,
+                    "viewType": "text",
+                    "cssClass": "css_164_1",
+                    "validations": {
+                      "minLength": "2",
+                      "maxLength": "4000"
+                    }
+                  }
+                ]
+              },
+              {
+                "TypeID": 163,
+                "Ord": 740,
+                "multi": false,
+                "class": "css_163",
+                "Url": "FA/vo/مدل",
+                "title": "مدل",
+                "parts": [
+                  {
+                    "part": 1,
+                    "viewType": "text",
+                    "cssClass": "css_163_1",
+                    "validations": {
+                      "minLength": "2",
+                      "maxLength": "4000"
+                    }
+                  }
+                ]
+              },
+              {
+                "TypeID": 144,
+                "Ord": 1220,
+                "multi": true,
+                "class": "css_144",
+                "Url": "FA/vo/توضیحات",
+                "title": "توضیحات",
+                "parts": [
+                  {
+                    "part": 1,
+                    "viewType": "textarea",
+                    "cssClass": "css_144_1",
+                    "validations": {}
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
