@@ -20,32 +20,33 @@ export default class ModuleFactory implements IModuleFactory {
     schemaId: string,
     owner: HTMLElement,
     container: IWorkspaceComponent,
+    isABuiltIn: boolean,
     model?: any
   ): ToolboxModule {
     let module: ToolboxModule = null;
     switch (schemaId) {
       case "text": {
-        module = new ShortTextModule(owner, container, model);
+        module = new ShortTextModule(owner, container, isABuiltIn, model);
         break;
       }
       case "textarea": {
-        module = new LongTextModule(owner, container, model);
+        module = new LongTextModule(owner, container, isABuiltIn, model);
         break;
       }
       case "select": {
-        module = new SelectModule(owner, container, model);
+        module = new SelectModule(owner, container, isABuiltIn, model);
         break;
       }
       case "checklist": {
-        module = new CheckListModule(owner, container, model);
+        module = new CheckListModule(owner, container, isABuiltIn, model);
         break;
       }
       case "autocomplete": {
-        module = new AutocompleteModule(owner, container, model);
+        module = new AutocompleteModule(owner, container, isABuiltIn, model);
         break;
       }
       case "question": {
-        module = new QuestionModule(owner, container, model);
+        module = new QuestionModule(owner, container, isABuiltIn, model);
         break;
       }
       case "section": {
@@ -53,27 +54,27 @@ export default class ModuleFactory implements IModuleFactory {
         break;
       }
       case "lookup": {
-        module = new LookupModule(owner, container, model);
+        module = new LookupModule(owner, container, isABuiltIn, model);
         break;
       }
       case "radio": {
-        module = new RadioModule(owner, container, model);
+        module = new RadioModule(owner, container, isABuiltIn, model);
         break;
       }
       case "upload": {
-        module = new UploadSimpleModule(owner, container, model);
+        module = new UploadSimpleModule(owner, container, isABuiltIn, model);
         break;
       }
       case "blob": {
-        module = new UploadMultiPartModule(owner, container, model);
+        module = new UploadMultiPartModule(owner, container, isABuiltIn, model);
         break;
       }
       case "color": {
-        module = new ColorModule(owner, container, model);
+        module = new ColorModule(owner, container, isABuiltIn, model);
         break;
       }
       case "datepicker": {
-        module = new DatePickerModule(owner, container, model);
+        module = new DatePickerModule(owner, container, isABuiltIn, model);
         break;
       }
     }

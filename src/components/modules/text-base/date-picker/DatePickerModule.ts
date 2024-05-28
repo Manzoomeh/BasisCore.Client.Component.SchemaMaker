@@ -8,8 +8,9 @@ export default class DatePickerModule extends TextBaseModule {
   constructor(
     owner: HTMLElement,
     component: IWorkspaceComponent,
+    isABuiltIn: boolean,
     model: IQuestionPart
   ) {
-    super(layout, owner, component, "Datepicker", model);
+    super(layout, owner, component, "Datepicker", isABuiltIn, model);
   }
 }

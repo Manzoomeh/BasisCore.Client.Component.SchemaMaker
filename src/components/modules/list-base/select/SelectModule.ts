@@ -8,8 +8,9 @@ export default class SelectModule extends ListBaseModule {
   constructor(
     owner: HTMLElement,
     component: IWorkspaceComponent,
+    isABuiltIn: boolean,
     questionPart: IQuestionPart
   ) {
-    super(layout, owner, component, "Select", questionPart);
+    super(layout, owner, component, "Select", isABuiltIn, questionPart);
   }
 }

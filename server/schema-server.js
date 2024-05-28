@@ -64,4 +64,41 @@ router.get("/autocomplete", (req, res) => {
   }
 });
 
+router.get("/objectType", function (req, res) {
+  res.json([
+    { id: 20, value: "محصولات" },
+    { id: 1, value: "اخبار و مقالات" },
+    { id: 19, value: "خدمات" },
+    { id: 10, value: "اماکن" },
+    { id: 11, value: "اشخاص" },
+    { id: 2, value: "رویدادها" },
+  ]);
+});
+
+router.get("/defaultQuestions", function (req, res) {
+  const stream = fs.createReadStream(
+    path.join(__dirname, `/schemas/new/defaultQuestions.json`)
+  );
+  stream.on("open", function () {
+    res.set("Content-Type", "application/json");
+    stream.pipe(res);
+  });
+  stream.on("error", function () {
+    res.set("Content-Type", "text/plain");
+    res.status(404).end("Not found");
+  });
+});
+
+router.post("/groupsUrl", function (req, res) {
+  res.json([
+    { hashid: "1-754ED4E0-C4B8-4013-B26D-5ED00825D28A", title: "الکترونیک و کامپیوتر" },
+    { hashid: "6-754ED4E0-C4B8-4013-B26D-5ED00825D28A", title: "آموزش" },
+    { hashid: "9-754ED4E0-C4B8-4013-B26D-5ED00825D28A", title: "لوازم خانگی" },
+    { hashid: "18-754ED4E0-C4B8-4013-B26D-5ED00825D28A", title: "مواد غذائی" },
+    { hashid: "25-754ED4E0-C4B8-4013-B26D-5ED00825D28A", title: "دکوراسیون و نورپردازی" },
+    { hashid: "30-754ED4E0-C4B8-4013-B26D-5ED00825D28A", title: "پزشکی و سلامت" },
+    { hashid: "206-754ED4E0-C4B8-4013-B26D-5ED00825D28A", title: "اسباب بازی، کودک ، نوزاد" },
+  ]);
+});
+
 module.exports = router;

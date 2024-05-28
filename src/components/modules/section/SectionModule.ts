@@ -36,6 +36,7 @@ export default class SectionModule extends ContainerModule {
   constructor(
     owner: HTMLElement,
     container: IWorkspaceComponent,
+    isABuiltIn: boolean,
     data?: ISection
   ) {
     super(layout, owner, container);
@@ -52,6 +53,10 @@ export default class SectionModule extends ContainerModule {
       .setAttribute("data-bc-section-id", this._data.id.toString());
     this.title = this._data.title;
     this.description = this._data.description;
+
+    if (isABuiltIn) {
+      this.setBuiltInAttribute(true);
+    }
   }
 
   protected getAnswerSchema(): IAnswerSchema {
@@ -120,4 +125,12 @@ export default class SectionModule extends ContainerModule {
       x.fillSchema(schema)
     );
   }
+
+  protected setBuiltInAttribute(invisible: boolean) {
+    if (invisible) {
+      super.setBuiltInAttribute(invisible);
+      this.owner.querySelector<HTMLButtonElement>("[data-btn-remove]").style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>("[data-btn-setting]").style.display = "none";
+    }
+  };
 }

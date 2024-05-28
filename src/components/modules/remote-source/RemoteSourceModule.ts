@@ -17,9 +17,10 @@ export default class RemoteSourceModule extends PartBaseModule<IRemoteSourceData
     owner: HTMLElement,
     workspace: IWorkspaceComponent,
     viewType: ViewType,
+    isABuiltIn: boolean,
     questionPart: IQuestionPart
   ) {
-    super(layout, owner, workspace, viewType, questionPart);
+    super(layout, owner, workspace, viewType, isABuiltIn, questionPart);
     if (questionPart) {
       this.data.link = questionPart.link;
     }

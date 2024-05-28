@@ -21,6 +21,7 @@ export default abstract class PartBaseModule<
     owner: HTMLElement,
     workspace: IWorkspaceComponent,
     schemaId: ViewType,
+    isABuiltIn: boolean,
     questionPart?: IQuestionPart
   ) {
     super(layout, owner, true, workspace);
@@ -34,6 +35,10 @@ export default abstract class PartBaseModule<
       this.data.cssClass = questionPart.cssClass;
       this.data.multiple = questionPart.multiple;
       this.data.validations = questionPart.validations;
+    }
+
+    if (isABuiltIn) {
+      this.setBuiltInAttribute(true);
     }
   }
 
@@ -83,4 +88,13 @@ export default abstract class PartBaseModule<
     };
     return retVal;
   }
+
+  protected setBuiltInAttribute(invisible: boolean) {
+    if (invisible) {
+      super.setBuiltInAttribute(invisible);
+      this.owner.querySelector<HTMLButtonElement>("[data-btn-handler]").style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>("[data-btn-remove]").style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>("[data-btn-setting]").style.display = "none";
+    }
+  };
 }

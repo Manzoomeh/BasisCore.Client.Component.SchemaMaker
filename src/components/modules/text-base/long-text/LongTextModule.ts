@@ -8,8 +8,9 @@ export default class LongTextModule extends TextBaseModule {
   constructor(
     owner: HTMLElement,
     component: IWorkspaceComponent,
+    isABuiltIn: boolean,
     model: IQuestionPart
   ) {
-    super(layout, owner, component, "Textarea", model);
+    super(layout, owner, component, "Textarea", isABuiltIn, model);
   }
 }

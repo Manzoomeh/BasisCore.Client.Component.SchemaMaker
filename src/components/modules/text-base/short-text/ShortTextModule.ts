@@ -8,8 +8,9 @@ export default class ShortTextModule extends TextBaseModule {
   constructor(
     owner: HTMLElement,
     component: IWorkspaceComponent,
+    isABuiltIn: boolean,
     model: IQuestionPart
   ) {
-    super(layout, owner, component, "Text", model);
+    super(layout, owner, component, "Text", isABuiltIn, model);
   }
 }

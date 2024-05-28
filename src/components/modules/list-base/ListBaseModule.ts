@@ -20,9 +20,10 @@ export default abstract class ListBaseModule extends PartBaseModule<IListBaseMod
     owner: HTMLElement,
     component: IWorkspaceComponent,
     schemaId: ViewType,
+    isABuiltIn: boolean,
     questionPart: IQuestionPart
   ) {
-    super(layout, owner, component, schemaId, questionPart);
+    super(layout, owner, component, schemaId, isABuiltIn, questionPart);
     if (questionPart) {
       this.data.link = questionPart.link;
       this.data.fixValues = questionPart.fixValues;
