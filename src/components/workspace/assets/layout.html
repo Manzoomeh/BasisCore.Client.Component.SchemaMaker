@@ -1,61 +1,83 @@
 <div data-bc-sm-tabs>
   <div data-bc-sm-tab-buttons>
-    <button data-bc-sm-tab-button="sm-design-tab" data-bc-sm-tab-button-mode="active" data-sys-sm-active-tab="">Design</button>
-    <button data-bc-sm-tab-button="sm-form-tab" data-bc-sm-tab-button-mode="">Form Preview</button>
-    <button data-bc-sm-tab-button="sm-json-tab" data-bc-sm-tab-button-mode="">Json Preview</button>
+    <button
+      data-bc-sm-tab-button="sm-design-tab"
+      data-bc-sm-tab-button-mode="active"
+      data-sys-sm-active-tab=""
+    >
+      Design
+    </button>
+    <button data-bc-sm-tab-button="sm-form-tab" data-bc-sm-tab-button-mode="">
+      Form Preview
+    </button>
+    <button data-bc-sm-tab-button="sm-json-tab" data-bc-sm-tab-button-mode="">
+      Json Preview
+    </button>
   </div>
   <div data-bc-sm-tab-content data-sys-border-color="">
-    <section data-bc-sm-tab-section="sm-design-tab" data-bc-sm-tab-section-mode="active">
+    <section
+      data-bc-sm-tab-section="sm-design-tab"
+      data-bc-sm-tab-section-mode="active"
+    >
       <div data-bc-sm-tab-section-content data-bc-sm-tab-section-top>
         <div data-bc-sm-requirements>
           <div data-bc-question="" data-bc-sm-object-type>
             <div data-bc-title="" data-sys-text="">Object Type :</div>
             <div data-bc-answer="">
-              <select data-bc-sm-schema-object-type-select data-sys-select-option=""></select>
+              <select
+                data-bc-sm-schema-object-type-select
+                data-sys-select-option=""
+              ></select>
             </div>
           </div>
           <div data-bc-question="" data-bc-sm-schema-group>
             <div data-bc-title="" data-sys-text="">group :</div>
-            <div data-bc-answer="" data-bc-sm-schema-group-child data-load="active">
-              <select data-bc-sm-schema-group-select data-sys-select-option="" disabled></select>
-            </div>
-          </div>
-          <div data-bc-question="">
-            <div data-bc-title="" data-sys-text="">Schema Name :</div>
-            <div data-bc-answer="">
-              <input type="text" data-bc-sm-schema-name data-sys-input-text="" />
-            </div>
-          </div>
-          <div data-bc-question="">
-            <div data-bc-title="" data-sys-text="">Language :</div>
-            <div data-bc-answer="">
-              <select data-bc-sm-schema-language data-sys-select-option="">
-                <option value="1">فارسی</option>
-                <option value="2">English</option>
-              </select>
-            </div>
-          </div>
-          <div data-bc-question="">
-            <div data-bc-title="" data-sys-text="">Schema Version :</div>
-            <div data-bc-answer="">
-              <input type="text" data-bc-sm-schema-version data-sys-input-text="" disabled />
+            <div
+              data-bc-answer=""
+              data-bc-sm-schema-group-child
+              data-load="active"
+            >
+              <select
+                data-bc-sm-schema-group-select
+                data-sys-select-option=""
+                disabled
+              ></select>
             </div>
           </div>
         </div>
+        <div data-bc-question=""><Basis core="schema" run="atclient" schemaUrl="/server" paramUrl="/details" displayMode="new" button="[data-get-btn]" resultSourceId="details.data">   
+        </div>
+
         <div>
-          <div data-bc-sm-board data-drop-acceptable-container-schema-type="section question" data-sys-sm-board=""></div>
+          <div
+            data-bc-sm-board
+            data-drop-acceptable-container-schema-type="section question"
+            data-sys-sm-board=""
+          ></div>
         </div>
       </div>
       <div data-get-btns>
-        <button data-get-btn data-bc-sm-schema-result data-sys-button="">پیش نمایش</button>
+        <button data-get-btn data-bc-sm-schema-result data-sys-button="">
+          پیش نمایش
+        </button>
         <!-- <button data-get-btn data-bc-sm-save-draft>Save as Draft</button> -->
         <!-- <button data-get-btn data-bc-sm-load-draft>Load Draft</button> -->
       </div>
     </section>
-    <section data-bc-sm-tab-section="sm-form-tab" data-bc-sm-tab-section-mode="">
+    <section
+      data-bc-sm-tab-section="sm-form-tab"
+      data-bc-sm-tab-section-mode=""
+    >
       <div data-bc-sm-tab-section-content>
         <div data-get-schema-preview data-sys-sm-board="">
-          <basis core="schema" run="atclient" schemaCallback="getSchemaAsync" id="1161" version="1.1" triggers=""></basis>
+          <basis
+            core="schema"
+            run="atclient"
+            schemaCallback="getSchemaAsync"
+            id="1161"
+            version="1.1"
+            triggers=""
+          ></basis>
           <script data-bc-sm-script type="text/javascript">
             async function getSchemaAsync(context, id, ver, lid) {
               const source = context.tryToGetSource("@internalSourceId");
@@ -65,7 +87,10 @@
         </div>
       </div>
     </section>
-    <section data-bc-sm-tab-section="sm-json-tab" data-bc-sm-tab-section-mode="">
+    <section
+      data-bc-sm-tab-section="sm-json-tab"
+      data-bc-sm-tab-section-mode=""
+    >
       <div data-bc-sm-tab-section-content data-bc-sm-tab-section-top>
         <pre class="language-json" data-get-json-preview>
           <div data-get-edit-json contenteditable="true"></div>
@@ -75,12 +100,49 @@
         <div data-get-json-for-download></div>
       </div>
       <div data-get-btns>
-        <button data-get-btn data-bc-sm-json-copy data-sys-button="">کپی جیسون</button>
-        <button data-get-btn data-bc-sm-json-download data-get-btn-disabled="true" data-sys-button="">دانلود جیسون</button>
-        <button data-get-btn data-bc-sm-save-form data-get-btn-disabled="true" data-sys-button="">ذخیره فرم</button>
-        <button data-get-btn data-bc-sm-edit-form data-get-btn-disabled="true" data-sys-button="">ویرایش جیسون</button>
-        <button data-get-btn data-bc-sm-save-json-form data-bc-sm-display-none data-sys-button="">ذخیره جیسون</button>
-        <button data-get-btn data-bc-sm-cancel-save-form data-bc-sm-display-none data-sys-button="">انصراف</button>
+        <button data-get-btn data-bc-sm-json-copy data-sys-button="">
+          کپی جیسون
+        </button>
+        <button
+          data-get-btn
+          data-bc-sm-json-download
+          data-get-btn-disabled="true"
+          data-sys-button=""
+        >
+          دانلود جیسون
+        </button>
+        <button
+          data-get-btn
+          data-bc-sm-save-form
+          data-get-btn-disabled="true"
+          data-sys-button=""
+        >
+          ذخیره فرم
+        </button>
+        <button
+          data-get-btn
+          data-bc-sm-edit-form
+          data-get-btn-disabled="true"
+          data-sys-button=""
+        >
+          ویرایش جیسون
+        </button>
+        <button
+          data-get-btn
+          data-bc-sm-save-json-form
+          data-bc-sm-display-none
+          data-sys-button=""
+        >
+          ذخیره جیسون
+        </button>
+        <button
+          data-get-btn
+          data-bc-sm-cancel-save-form
+          data-bc-sm-display-none
+          data-sys-button=""
+        >
+          انصراف
+        </button>
       </div>
     </section>
   </div>

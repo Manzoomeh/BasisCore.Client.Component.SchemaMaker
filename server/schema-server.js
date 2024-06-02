@@ -39,7 +39,6 @@ router.get("/schemas/new", function (req, res) {
     res.status(404).end("Not found");
   });
 });
-
 router.get("/schemas/:id", function (req, res) {
   const stream = fs.createReadStream(
     path.join(__dirname, `/schemas/edit/${req.params.id}/questions.json`)
@@ -52,6 +51,9 @@ router.get("/schemas/:id", function (req, res) {
     res.set("Content-Type", "text/plain");
     res.status(404).end("Not found");
   });
+});
+router.get("/details", async function (req, res) {
+  return res.json(JSON.parse(await fs.promises.readFile(path.join(__dirname, `/schemas/new/details.json`))))
 });
 
 router.get("/fix-data/:prpId/:part", function (req, res) {
@@ -164,7 +166,7 @@ router.get("/keywordinfo", async (req, res) => {
 });
 router.get("/js", async (req, res) => {
   res.sendFile(
-    "F:\\AliBazregar\\BasisCore.Client.Component.SchemaMaker\\bc\\basiscore.js"
+    "F:\\AliBazregar\\schemamaker\\BasisCore.Client.Component.SchemaMaker\\bc\\basiscore.js"
   );
 });
 

@@ -15,21 +15,32 @@ export default class SectionModule extends ContainerModule {
   private _data: Partial<ISection>;
   private static readonly TITLE_ID = 1;
   private static readonly DESCRIPTION_ID = 2;
-
-  get titleData(): string  {
+  titleData: string;
+  get sectionId(): number {
+    return 0;
+  }
+  setTitleData() {
+    this._data.titleData =
+      typeof this._data.title == "string" ? null : this._data.title;
+  }
+  getTitleData() {
     return this._data.titleData;
   }
- set titleData(value: string ){
-   this._data.titleData= value
+  get title(): string | { value: string; id: number } {
+    return this._data.title;
   }
 
-  set title(value: string | {value : string, id : number}) {
-    try{
-      this._data.title = JSON.parse(value as string) 
-    }catch(err){
+  set title(value: string | { value: string; id: number }) {
+    try {
+      this._data.title = JSON.parse(value as string);
+    } catch (err) {
       this._data.title = value;
     }
-    this.container.querySelector("[data-bc-title]").innerHTML = typeof this._data.title == "string" ? this._data.title : this._data.title?.value;
+    this.container.querySelector("[data-bc-title]").innerHTML =
+      typeof this._data.title == "string"
+        ? this._data.title
+        : this._data.title?.value;
+    this.setTitleData();
   }
 
   get description(): string {
@@ -51,7 +62,7 @@ export default class SectionModule extends ContainerModule {
     if (!this._data) {
       this._data = {
         id: this.usedForId,
-        title: {id : 0, value : "test title"},
+        title: { id: 0, value: "test title" },
         description: "",
       };
     }
@@ -123,7 +134,7 @@ export default class SectionModule extends ContainerModule {
       id: this._data.id,
       title: this._data.title,
       description: this._data.description,
-      titleData : this._data.titleData
+      titleData: this._data.titleData,
     };
     if (!schema.sections) {
       schema.sections = [];
@@ -137,8 +148,12 @@ export default class SectionModule extends ContainerModule {
   protected setBuiltInAttribute(invisible: boolean) {
     if (invisible) {
       super.setBuiltInAttribute(invisible);
-      this.owner.querySelector<HTMLButtonElement>("[data-btn-remove]").style.display = "none";
-      this.owner.querySelector<HTMLButtonElement>("[data-btn-setting]").style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-remove]"
+      ).style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-setting]"
+      ).style.display = "none";
     }
-  };
+  }
 }

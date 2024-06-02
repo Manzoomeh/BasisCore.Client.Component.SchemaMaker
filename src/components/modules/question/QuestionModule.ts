@@ -110,7 +110,6 @@ export default class QuestionModule extends ContainerModule {
     this.title = this._data.title as string;
     //this.titleData = this.getTitleData()
     this.part = this._data.part;
-
     if (isABuiltIn) {
       this.setBuiltInAttribute(true);
     }
@@ -233,8 +232,12 @@ export default class QuestionModule extends ContainerModule {
   protected setBuiltInAttribute(invisible: boolean) {
     if (invisible) {
       super.setBuiltInAttribute(invisible);
-      this.owner.querySelector<HTMLButtonElement>("[data-btn-remove]").style.display = "none";
-      this.owner.querySelector<HTMLButtonElement>("[data-btn-setting]").style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-remove]"
+      ).style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-setting]"
+      ).style.display = "none";
     }
-  };
+  }
 }

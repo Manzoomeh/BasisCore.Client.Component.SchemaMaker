@@ -1,0 +1,33 @@
+[
+  {
+    "propId": 1,
+    "added": [
+      {
+        "parts": [
+          {
+            "part": 1,
+            "values": [
+              {
+                "value": {
+                  "id": 49,
+                  "value": "gggggggggggg\\",
+                  "status": "tempKeyWord"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "propId": 2,
+    "added": [{ "parts": [{ "part": 1, "values": [{ "value": "1" }] }] }]
+  },
+  {
+    "propId": 3,
+    "added": [
+      { "parts": [{ "part": 1, "values": [{ "value": "uuuuuuuuuuuuuuu" }] }] }
+    ]
+  }
+]

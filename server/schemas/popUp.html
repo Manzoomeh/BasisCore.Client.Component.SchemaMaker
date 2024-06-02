@@ -134,7 +134,7 @@
           }) 
             .then(async (response) => {
               const result = await response.json();
-
+              console.log(result)
               bcCallback({ ...result, isSubmited: true });
             })
             .catch((error) => {
