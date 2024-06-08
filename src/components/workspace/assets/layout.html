@@ -45,9 +45,11 @@
             </div>
           </div>
         </div>
-        <div data-bc-question=""><Basis core="schema" run="atclient" schemaUrl="/server" paramUrl="/details" displayMode="new" button="[data-get-btn]" resultSourceId="details.data">   
+        <div class="data-details" data-bc-question=""><Basis core="schema" run="atclient" schemaUrl="/server" paramUrl="/details" displayMode="new" button="[data-get-btn]" resultSourceId="details.data" datamembername="test.schema">  
         </div>
-
+<script>
+  console.log("123456")
+</script>
         <div>
           <div
             data-bc-sm-board
@@ -147,3 +149,8 @@
     </section>
   </div>
 </div>
+<style>
+  .data-details {
+    text-align: left !important;
+  }
+</style>

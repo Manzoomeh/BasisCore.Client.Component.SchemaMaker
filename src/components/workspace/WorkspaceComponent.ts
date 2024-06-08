@@ -564,23 +564,23 @@ export default class WorkspaceComponent
   private async generateQuestionSchemaAsync(): Promise<
     Partial<IQuestionSchema>
   > {
-    const source = await this.owner.waitToGetSourceAsync(this._sourceId);
-    const schema = source.rows[0] as ISchemaMakerSchema;
-    const detailSource = await this.owner.waitToGetSourceAsync("details.data");
-    console.log(JSON.stringify(detailSource))
-    const rowProperties = detailSource.rows[0]?.properties;
-    const schemaVersion = this.findElementByPropId(rowProperties, 3)?.added[0].parts[0].values[0].value ??this.findElementByPropId(rowProperties, 3)?.edited[0].parts[0].values[0].value
-    const lid = parseInt(
-      this.findElementByPropId(rowProperties, 2)?.added[0].parts[0].values[0] ?? this.findElementByPropId(rowProperties, 2)?.edited[0].parts[0].values[0].value
-        .value
-    );
-    const schemaName = this.findElementByPropId(rowProperties, 1)?.added[0]
-      .parts[0].values[0].value ??this.findElementByPropId(rowProperties, 1)?.edited[0].parts[0].values[0].value
-    const mid = parseInt(
-      this.container.querySelector<HTMLSelectElement>(
-        "[data-bc-sm-schema-object-type-select]"
-      )?.value
-    );
+    // const source = await this.owner.waitToGetSourceAsync(this._sourceId);
+    // const schema = source.rows[0] as ISchemaMakerSchema;
+    // const detailSource = await this.owner.waitToGetSourceAsync("details.data");
+    // console.log(JSON.stringify(detailSource))
+    // const rowProperties = detailSource.rows[0]?.properties;
+    // const schemaVersion = this.findElementByPropId(rowProperties, 3)?.added[0].parts[0].values[0].value ??this.findElementByPropId(rowProperties, 3)?.edited[0].parts[0].values[0].value
+    // const lid = parseInt(
+    //   this.findElementByPropId(rowProperties, 2)?.added[0].parts[0].values[0] ?? this.findElementByPropId(rowProperties, 2)?.edited[0].parts[0].values[0].value
+    //     .value
+    // );
+    // const schemaName = this.findElementByPropId(rowProperties, 1)?.added[0]
+    //   .parts[0].values[0].value ??this.findElementByPropId(rowProperties, 1)?.edited[0].parts[0].values[0].value
+    // const mid = parseInt(
+    //   this.container.querySelector<HTMLSelectElement>(
+    //     "[data-bc-sm-schema-object-type-select]"
+    //   )?.value
+    // );
     const selectGroups = this.container.querySelectorAll<HTMLSelectElement>(
       "[data-bc-sm-schema-group-select]"
     );
@@ -594,15 +594,15 @@ export default class WorkspaceComponent
     }
 
     const retVal: Partial<IQuestionSchemaBuiltIn> = {
-      ...(schema?.baseVocab && { baseVocab: schema.baseVocab }),
-      ...(lid && { lid: lid }),
-      ...(mid && { mid: mid }),
-      ...(groupHashId && { groupHashId: groupHashId }),
-      ...(schema?.schemaId && { schemaId: schema.schemaId }),
-      ...(schema?.paramUrl && { paramUrl: schema.paramUrl }),
-      ...(schemaVersion && { schemaVersion: schemaVersion }),
-      ...(schemaName && { name: schemaName.value }),
-      ...(schemaName && { nameData: schemaName }),
+      // ...(schema?.baseVocab && { baseVocab: schema.baseVocab }),
+      // ...(lid && { lid: lid }),
+      // ...(mid && { mid: mid }),
+      // ...(groupHashId && { groupHashId: groupHashId }),
+      // ...(schema?.schemaId && { schemaId: schema.schemaId }),
+      // ...(schema?.paramUrl && { paramUrl: schema.paramUrl }),
+      // ...(schemaVersion && { schemaVersion: schemaVersion }),
+      // ...(schemaName && { name: schemaName.value }),
+      // ...(schemaName && { nameData: schemaName }),
     };
 
     const container = this.container.querySelector(

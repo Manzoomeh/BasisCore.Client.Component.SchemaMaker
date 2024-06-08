@@ -163,7 +163,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -311,7 +313,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -367,7 +371,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -518,7 +524,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -588,7 +596,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -677,7 +687,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -791,7 +803,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -880,7 +894,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -950,7 +966,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -1069,7 +1087,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
