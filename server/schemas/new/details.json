@@ -15,7 +15,7 @@
           "schemaId": 1161,
           "paramUrl": "/1161",
           "schemaVersion": 1.1,
-          "lid": 1,
+          "lid": 2,
           "baseVocab": "http://schema.site/FA/vo",
           "sections": [
             {
@@ -36,7 +36,6 @@
                   "part": 1,
                   "link": "/server/popup",
                   "viewType": "html",
-                  "cssClass": "data-bc-sm-schema-name",
                   "multi": false
                 }
               ]
@@ -47,7 +46,6 @@
               "parts": [
                 {
                   "part": 1,
-                  "cssClass": "data-bc-sm-schema-object-type-select",
                   "viewType": "select",
                   "fixValues": [
                     {
@@ -68,9 +66,9 @@
               "title": "Schema Version",
               "parts": [
                 {
-                  "cssClass": "data-bc-sm-schema-version",
                   "part": 1,
                   "viewType": "text"
+
                 }
               ]
             }

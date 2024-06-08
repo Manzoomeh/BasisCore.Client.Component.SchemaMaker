@@ -627,7 +627,9 @@
                     },
                     {
                       "part": 2,
-                      "viewType": "text",
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": true,
                       "caption": "Title"
                     }
                   ]
@@ -718,7 +720,9 @@
                     },
                     {
                       "part": 2,
-                      "viewType": "text",
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": true,
                       "caption": "Title"
                     }
                   ]
@@ -834,7 +838,9 @@
                     },
                     {
                       "part": 2,
-                      "viewType": "text",
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": true,
                       "caption": "Title"
                     }
                   ]
