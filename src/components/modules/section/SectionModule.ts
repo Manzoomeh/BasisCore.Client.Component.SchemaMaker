@@ -10,6 +10,7 @@ import "./assets/style.css";
 import SchemaUtil from "../../../SchemaUtil";
 import ContainerModule from "../ContainerModule";
 import ToolboxModule from "../base-class/ToolboxModule";
+import PopUpOutPut from "../../popUpOutput";
 
 export default class SectionModule extends ContainerModule {
   private _data: Partial<ISection>;
@@ -26,11 +27,11 @@ export default class SectionModule extends ContainerModule {
   getTitleData() {
     return this._data.titleData;
   }
-  get title(): string | { value: string; id: number } {
+  get title(): string | PopUpOutPut {
     return this._data.title;
   }
 
-  set title(value: string | { value: string; id: number }) {
+  set title(value: string | PopUpOutPut) {
     try {
       this._data.title = JSON.parse(value as string);
     } catch (err) {

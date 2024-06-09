@@ -1,6 +1,8 @@
+import PopUpOutPut from "../../popUpOutput";
+
 export default interface IQuestionModuleDataModel {
-  titleData : {value : string, id : number},
-  title: string | {value : string, id : number};
+  titleData : PopUpOutPut,
+  title: string | PopUpOutPut;
   part: number;
   multi: boolean;
   cssClass: string;

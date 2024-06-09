@@ -569,7 +569,6 @@ export default class WorkspaceComponent
     const source = await this.owner.waitToGetSourceAsync(this._sourceId);
     const schema = source.rows[0] as ISchemaMakerSchema;
     const detailSource = await this.owner.waitToGetSourceAsync("details.data");
-    console.log(JSON.stringify(detailSource))
     const rowProperties = detailSource.rows[0]?.properties;
     const schemaVersion = this.findElementByPropId(rowProperties, 3)?.added[0].parts[0].values[0].value ??this.findElementByPropId(rowProperties, 3)?.edited[0].parts[0].values[0].value
     const lid = parseInt(

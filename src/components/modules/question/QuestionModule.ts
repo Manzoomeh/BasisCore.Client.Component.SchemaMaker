@@ -13,6 +13,7 @@ import "./assets/style.css";
 import IQuestionModuleDataModel from "./IQuestionModuleDataModel";
 import PartBaseModule from "../PartBaseModule";
 import IPartBaseModuleDataModel from "../IPartBaseModuleDataModel";
+import PopUpOutPut from "../../popUpOutput";
 
 export default class QuestionModule extends ContainerModule {
   private static readonly TITLE_ID = 1;
@@ -35,11 +36,11 @@ export default class QuestionModule extends ContainerModule {
   getTitleData() {
     return this._data.titleData;
   }
-  get title(): string | { value: string; id: number } {
+  get title(): string | PopUpOutPut {
     return this._data.title;
   }
 
-  set title(value: string | { value: string; id: number }) {
+  set title(value: string | PopUpOutPut) {
     try {
       this._data.title = JSON.parse(value as string);
     } catch (err) {
