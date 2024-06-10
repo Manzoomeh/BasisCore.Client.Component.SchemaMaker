@@ -1,8 +1,9 @@
-import PopUpOutPut from "../../popUpOutput";
+import { HTMLValueType } from "basiscore";
+
 
 export default interface IQuestionModuleDataModel {
-  titleData : PopUpOutPut,
-  title: string | PopUpOutPut;
+  titleData : HTMLValueType,
+  title: string | HTMLValueType;
   part: number;
   multi: boolean;
   cssClass: string;

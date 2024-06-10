@@ -164,10 +164,5 @@ router.get("/keywordinfo", async (req, res) => {
     ]);
   }
 });
-router.get("/js", async (req, res) => {
-  res.sendFile(
-    "F:\\AliBazregar\\schemamaker\\BasisCore.Client.Component.SchemaMaker\\bc\\basiscore.js"
-  );
-});
 
 module.exports = router;

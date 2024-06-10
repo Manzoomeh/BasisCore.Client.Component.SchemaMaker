@@ -3,6 +3,7 @@ import {
   IQuestionSchema,
   IQuestion,
   IUserActionResult,
+  HTMLValueType,
 } from "basiscore";
 import SchemaUtil from "../../../SchemaUtil";
 import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
@@ -13,7 +14,6 @@ import "./assets/style.css";
 import IQuestionModuleDataModel from "./IQuestionModuleDataModel";
 import PartBaseModule from "../PartBaseModule";
 import IPartBaseModuleDataModel from "../IPartBaseModuleDataModel";
-import PopUpOutPut from "../../popUpOutput";
 
 export default class QuestionModule extends ContainerModule {
   private static readonly TITLE_ID = 1;
@@ -36,11 +36,11 @@ export default class QuestionModule extends ContainerModule {
   getTitleData() {
     return this._data.titleData;
   }
-  get title(): string | PopUpOutPut {
+  get title(): string | HTMLValueType {
     return this._data.title;
   }
 
-  set title(value: string | PopUpOutPut) {
+  set title(value: string | HTMLValueType) {
     try {
       this._data.title = JSON.parse(value as string);
     } catch (err) {

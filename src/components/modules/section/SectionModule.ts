@@ -1,7 +1,8 @@
 import {
+  HTMLValueType,
   IAnswerSchema,
   IQuestionSchema,
-  ISection,
+  ISection, 
   IUserActionResult,
 } from "basiscore";
 import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
@@ -9,8 +10,7 @@ import layout from "./assets/layout.html";
 import "./assets/style.css";
 import SchemaUtil from "../../../SchemaUtil";
 import ContainerModule from "../ContainerModule";
-import ToolboxModule from "../base-class/ToolboxModule";
-import PopUpOutPut from "../../popUpOutput";
+import ToolboxModule from "../base-class/ToolboxModule";;
 
 export default class SectionModule extends ContainerModule {
   private _data: Partial<ISection>;
@@ -27,11 +27,11 @@ export default class SectionModule extends ContainerModule {
   getTitleData() {
     return this._data.titleData;
   }
-  get title(): string | PopUpOutPut {
+  get title(): string | HTMLValueType {
     return this._data.title;
   }
 
-  set title(value: string | PopUpOutPut) {
+  set title(value: string | HTMLValueType) {
     try {
       this._data.title = JSON.parse(value as string);
     } catch (err) {
