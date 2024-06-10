@@ -213,3 +213,32 @@
 [data-get-json-for-download] {
   display: none;
 }
+[data-details]
+  [data-bc-schema-main-container]
+  [data-bc-schema-column]
+  [data-bc-question] {
+  display: flex !important;
+  direction: ltr !important;
+  margin-right: 0;
+}
+[data-details]
+  [data-bc-schema-main-container]
+  [data-bc-schema-column]
+  [data-bc-answer] {
+  display: flex !important;
+  direction: ltr !important;
+  margin-right: 0;
+  padding-left: 0px !important;
+}
+[data-bc-part-related-cell] {
+  margin-left: 0px !important;
+}
+[data-bc-title-container] {
+  width: 130px !important;
+  height: 30px !important;
+  margin-left: 0px;
+}
+[data-bc-title-container] [data-bc-question-title] {
+  margin-left: 0px;
+}
+
