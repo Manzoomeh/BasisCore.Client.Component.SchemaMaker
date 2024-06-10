@@ -48,6 +48,6 @@
     "webpack-dev-server": "^4.7.3"
   },
   "dependencies": {
-    "basiscore": "^2.14.3"
+    "basiscore": "^2.31.0"
   }
 }
