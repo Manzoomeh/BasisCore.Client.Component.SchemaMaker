@@ -46,6 +46,7 @@ export default class ModuleFactory implements IModuleFactory {
         break;
       }
       case "question": {
+  
         module = new QuestionModule(owner, container, isABuiltIn, model);
         break;
       }

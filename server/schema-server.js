@@ -53,9 +53,14 @@ router.get("/schemas/:id", function (req, res) {
   });
 });
 router.get("/details", async function (req, res) {
-  return res.json(JSON.parse(await fs.promises.readFile(path.join(__dirname, `/schemas/new/details.json`))))
+  return res.json(JSON.parse(await fs.promises.readFile(path.join(__dirname, `/schemas/newSchema/details.json`))))
 });
-
+router.get("/new-schema", async function (req, res) {
+  return res.json(JSON.parse(await fs.promises.readFile(path.join(__dirname, `/schemas/newSchema/questions.json`))))
+});
+router.get("/add-to-log", async function (req, res) {
+  return res.json(JSON.parse(await fs.promises.readFile(path.join(__dirname, `/schemas/new/addToLog.json`))))
+});
 router.get("/fix-data/:prpId/:part", function (req, res) {
   const fixDataStr = fs.readFileSync(
     path.join(__dirname, "/schemas/data.json"),

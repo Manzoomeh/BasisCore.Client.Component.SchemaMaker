@@ -5,7 +5,7 @@
   "sources": [
     {
       "options": {
-        "tableName": "schema.data",
+        "tableName": "schema.newdata",
         "keyFieldName": null,
         "statusFieldName": null,
         "mergeType": 0
@@ -26,8 +26,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text",
-                      "cssClass": "css_13050_1"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -57,12 +58,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text",
-                      "validations": {
-                        "required": true,
-                        "minLength": 3,
-                        "maxLength": 50
-                      }
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -95,7 +93,7 @@
                   "title": "Is Multi",
                   "parts": [
                     {
-                      "part": 3,
+                      "part": 1,
                       "viewType": "select",
                       "fixValues": [
                         {
@@ -149,35 +147,6 @@
                       ]
                     }
                   ]
-                },                {
-                  "prpId": 7,
-                  "vocab": "AddToLog",
-                  "title": "AddToLog",
-                  "multi": false,
-                  "parts": [
-                    {
-                      "part": 1,
-                      "viewType": "radio",
-                      "fixValues": [
-                        {
-                          "id": 0,
-                          "value": "off"
-                        },
-                        {
-                          "id": 4,
-                          "value": "on",
-                          "schema": {
-                            "schemaId": 10,
-                            "paramUrl": "add-to-log",
-                            "lid": 1,
-                            "schemaVersion": 1.1
-                          }
-                        }
-                      ],
-                      "caption": "",
-                      "link": ""
-                    }
-                  ]
                 }
               ]
             },
@@ -194,7 +163,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -342,7 +313,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -398,7 +371,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -549,7 +524,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -619,7 +596,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -648,7 +627,9 @@
                     },
                     {
                       "part": 2,
-                      "viewType": "text",
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": true,
                       "caption": "Title"
                     }
                   ]
@@ -708,7 +689,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -737,7 +720,9 @@
                     },
                     {
                       "part": 2,
-                      "viewType": "text",
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": true,
                       "caption": "Title"
                     }
                   ]
@@ -822,7 +807,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -851,7 +838,9 @@
                     },
                     {
                       "part": 2,
-                      "viewType": "text",
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": true,
                       "caption": "Title"
                     }
                   ]
@@ -911,7 +900,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -981,7 +972,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -1100,7 +1093,9 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
+                      "link": "/server/popup",
+                      "viewType": "html",
+                      "multi": false
                     }
                   ]
                 },
@@ -1213,31 +1208,6 @@
                 {
                   "id": 1,
                   "title": "Validations"
-                }
-              ]
-            },
-            {
-              "paramUrl": "add-to-log",
-              
-              "schemaVersion": 1.1,
-              "lid": 1,
-              "schemaId": "add-to-log",
-              "baseVocab": "http://schema.site/FA/vo",
-              "questions": [
-                {
-                  "prpId": 1,
-                  "vocab": "LogName",
-                  "title": "LogName",
-                  "multi": false,
-                  "parts": [
-                    {
-                      "part": 1,
-                      "viewType": "text",
-                      "validations": {
-                        "required": true
-                      }
-                    }
-                  ]
                 }
               ]
             }
