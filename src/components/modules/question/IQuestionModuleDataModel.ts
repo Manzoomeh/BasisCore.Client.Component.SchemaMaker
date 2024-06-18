@@ -9,5 +9,5 @@ export default interface IQuestionModuleDataModel {
   help: string;
   useInList?: boolean;
   addToLog?: boolean;
-  logValue? :string;
+  logName? :string;
 }

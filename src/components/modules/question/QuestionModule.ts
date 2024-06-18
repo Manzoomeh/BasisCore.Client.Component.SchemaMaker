@@ -44,10 +44,10 @@ export default class QuestionModule extends ContainerModule {
     return this._data.addToLog;
   }
   set logName(value: string) {
-    this._data.logValue = value;
+    this._data.logName = value;
   }
   get logName(): string {
-    return this._data.logValue;
+    return this._data.logName;
   }
 
   get title(): string | HTMLValueType {
@@ -109,8 +109,6 @@ export default class QuestionModule extends ContainerModule {
     if (this._schema) {
       this._data = {
         title: this._schema.title,
-        addToLog: this._schema?.addToLog,
-        logValue: this._schema?.logValue,
         cssClass: this._schema.cssClass,
         help: this._schema.help,
         multi: this._schema.multi,
@@ -122,6 +120,7 @@ export default class QuestionModule extends ContainerModule {
         multi: false,
         title: "test title",
         part: 1,
+        logName : "test title"
       };
     }
     this.title = this._data.title as string;
@@ -164,13 +163,13 @@ export default class QuestionModule extends ContainerModule {
       this._data.useInList ? "2" : "1",
       QuestionModule.USE_IN_LIST_ID
     );
-    console.log("RRRRRRRR",this.logName)
+    console.log(this.logName)
     SchemaUtil.addSimpleValuePropertyToSubSchema(
       ans,
-      this._data.addToLog,
-      QuestionModule.ADD_LOG_ID,1,this.logName
+      this._data.addToLog ? "1" : null,
+      QuestionModule.ADD_LOG_ID,71,this.logName,this.usedForId
     );
-    console.log("mf doom",ans)
+    console.log(JSON.stringify(ans))
     return ans;
   }
 
@@ -215,14 +214,13 @@ export default class QuestionModule extends ContainerModule {
       result,
       QuestionModule.ADD_LOG_ID
     );
-    this.addToLog = addToLog;
+    this.addToLog = addToLog ? true : false;
     if (this.addToLog) {
-      
       const subSchema = SchemaUtil.getSubSchema(result, QuestionModule.ADD_LOG_ID);
-      this.logName =  SchemaUtil.getPropertyValue(
+      this.logName = SchemaUtil.getPropertyValue(
         subSchema,
-        1
-      );console.log("monster",this.addToLog,this.logName)
+        71
+      );console.log("monster",subSchema,this.addToLog,this.logName)
     }
     if (useInList != null) {
       this._data.useInList = useInList == "2";
@@ -233,7 +231,6 @@ export default class QuestionModule extends ContainerModule {
     const sectionId = this.owner
       .closest("[data-drop-acceptable-container-schema-type]")
       .getAttribute("data-bc-section-id");
-    console.log("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFff", this._data);
     console.log("sina",this.logName)
     const question: IQuestion = {
       ...(this._schema && { prpId: this._schema.prpId }),
@@ -257,7 +254,7 @@ export default class QuestionModule extends ContainerModule {
       ...(this._data.help && { help: this._data.help }),
       ...(this._data.useInList && { useInList: this._data.useInList }),
       ...(this._data.addToLog && { addToLog: this._data.addToLog }),
-      ...(this.logName && {logValue : this.logName}),
+      ...(this.logName && {logName : this.logName}),
       parts: null,
     };
 

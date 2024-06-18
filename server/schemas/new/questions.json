@@ -157,15 +157,11 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "radio",
+                      "viewType": "checklist",
                       "fixValues": [
                         {
-                          "id": 0,
-                          "value": "off"
-                        },
-                        {
-                          "id": 4,
-                          "value": "on",
+                          "id": 1,
+                          "value": "",
                           "schema": {
                             "schemaId": 10,
                             "paramUrl": "add-to-log",
@@ -1218,14 +1214,13 @@
             },
             {
               "paramUrl": "add-to-log",
-              
               "schemaVersion": 1.1,
               "lid": 1,
               "schemaId": "add-to-log",
               "baseVocab": "http://schema.site/FA/vo",
               "questions": [
                 {
-                  "prpId": 1,
+                  "prpId": 71,
                   "vocab": "LogName",
                   "title": "LogName",
                   "multi": false,

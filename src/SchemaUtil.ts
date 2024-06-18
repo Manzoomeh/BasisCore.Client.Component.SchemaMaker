@@ -115,31 +115,34 @@ export default class SchemaUtil {
     value: any,
     prpId: number,
     innerPrpId: number,
-    innerValue: string
+    innerValue: string,
+    usedForId :number
   ): void {
+    console.log(innerValue)
     if (value != null && value != undefined) {
       const partValue: IPartValue = {
-        id: 0,
+        id: 1,
         value: value,
         answer: {
-          usedForId: 1,
-          lastUpdate: Date.now().toString(),
+          usedForId: usedForId,
+          lastUpdate: "",
           schemaVersion: "1.1",
           schemaId: "add-to-log",
           paramUrl: "add-to-log",
           lid: 1,
           properties: [
             {
+              //@ts-ignore
               prpId: innerPrpId,
               answers: [
                 {
-                  id: 0,
+                  id : 1, 
                   parts: [
                     {
                       part: 1,
                       values: [
                         {
-                          id: 0,
+                          id : 1,
                           value: innerValue,
                         },
                       ],
