@@ -118,7 +118,6 @@ export default class SchemaUtil {
     innerValue: string,
     usedForId :number
   ): void {
-    console.log(innerValue)
     if (value != null && value != undefined) {
       const partValue: IPartValue = {
         id: 1,

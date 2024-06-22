@@ -163,18 +163,15 @@ export default class QuestionModule extends ContainerModule {
       this._data.useInList ? "2" : "1",
       QuestionModule.USE_IN_LIST_ID
     );
-    console.log(this.logName)
     SchemaUtil.addSimpleValuePropertyToSubSchema(
       ans,
       this._data.addToLog ? "1" : null,
       QuestionModule.ADD_LOG_ID,71,this.logName,this.usedForId
     );
-    console.log(JSON.stringify(ans))
     return ans;
   }
 
   public update(result: IUserActionResult): void {
-    console.log("result", result);
     const title = SchemaUtil.getPropertyValue(result, QuestionModule.TITLE_ID);
     if (title != null) {
       this.title = title;
@@ -220,7 +217,7 @@ export default class QuestionModule extends ContainerModule {
       this.logName = SchemaUtil.getPropertyValue(
         subSchema,
         71
-      );console.log("monster",subSchema,this.addToLog,this.logName)
+      )
     }
     if (useInList != null) {
       this._data.useInList = useInList == "2";
@@ -231,7 +228,6 @@ export default class QuestionModule extends ContainerModule {
     const sectionId = this.owner
       .closest("[data-drop-acceptable-container-schema-type]")
       .getAttribute("data-bc-section-id");
-    console.log("sina",this.logName)
     const question: IQuestion = {
       ...(this._schema && { prpId: this._schema.prpId }),
       ...(this._schema && { typeId: this._schema.typeId }),
