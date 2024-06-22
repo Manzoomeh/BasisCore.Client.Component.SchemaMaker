@@ -184,3 +184,6 @@
     margin-left: 0;
     margin-right: 10px;
 }
+[data-bc-sm-sub-schema-container] [data-bc-part-container] {
+    width : -webkit-fill-available
+  }

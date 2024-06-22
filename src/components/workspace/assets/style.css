@@ -233,7 +233,7 @@
 [data-bc-part-related-cell] {
   margin-left: 0px !important;
 }
-[data-bc-title-container] {
+[data-details] [data-bc-title-container] {
   width: 130px !important;
   height: 30px !important;
   margin-left: 0px;

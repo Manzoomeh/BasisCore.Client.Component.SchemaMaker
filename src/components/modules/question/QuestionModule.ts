@@ -22,6 +22,7 @@ export default class QuestionModule extends ContainerModule {
   private static readonly CSS_CLASS_ID = 4;
   private static readonly HELP_URL_ID = 5;
   private static readonly USE_IN_LIST_ID = 6;
+  private static readonly ADD_LOG_ID = 7;
 
   private readonly _data: Partial<IQuestionModuleDataModel>;
   private readonly _schema: IQuestion;
@@ -36,6 +37,19 @@ export default class QuestionModule extends ContainerModule {
   getTitleData() {
     return this._data.titleData;
   }
+  set addToLog(value: boolean) {
+    this._data.addToLog = value;
+  }
+  get addToLog() {
+    return this._data.addToLog;
+  }
+  set logName(value: string) {
+    this._data.logName = value;
+  }
+  get logName(): string {
+    return this._data.logName;
+  }
+
   get title(): string | HTMLValueType {
     return this._data.title;
   }
@@ -104,8 +118,9 @@ export default class QuestionModule extends ContainerModule {
     } else {
       this._data = {
         multi: false,
-        title: { value: "test value", id: 0 },
+        title: "test title",
         part: 1,
+        logName : "test title"
       };
     }
     this.title = this._data.title as string;
@@ -148,6 +163,11 @@ export default class QuestionModule extends ContainerModule {
       this._data.useInList ? "2" : "1",
       QuestionModule.USE_IN_LIST_ID
     );
+    SchemaUtil.addSimpleValuePropertyToSubSchema(
+      ans,
+      this._data.addToLog ? "1" : null,
+      QuestionModule.ADD_LOG_ID,71,this.logName,this.usedForId
+    );
     return ans;
   }
 
@@ -187,6 +207,18 @@ export default class QuestionModule extends ContainerModule {
       result,
       QuestionModule.USE_IN_LIST_ID
     );
+    const addToLog = SchemaUtil.getPropertyValue(
+      result,
+      QuestionModule.ADD_LOG_ID
+    );
+    this.addToLog = addToLog ? true : false;
+    if (this.addToLog) {
+      const subSchema = SchemaUtil.getSubSchema(result, QuestionModule.ADD_LOG_ID);
+      this.logName = SchemaUtil.getPropertyValue(
+        subSchema,
+        71
+      )
+    }
     if (useInList != null) {
       this._data.useInList = useInList == "2";
     }
@@ -196,7 +228,6 @@ export default class QuestionModule extends ContainerModule {
     const sectionId = this.owner
       .closest("[data-drop-acceptable-container-schema-type]")
       .getAttribute("data-bc-section-id");
-
     const question: IQuestion = {
       ...(this._schema && { prpId: this._schema.prpId }),
       ...(this._schema && { typeId: this._schema.typeId }),
@@ -211,12 +242,15 @@ export default class QuestionModule extends ContainerModule {
       ...(this._data.titleData && {
         titleData: this.getTitleData(),
       }),
+
       ...(this._schema && { wordId: this._schema.wordId }),
       ...(this._data.multi && { multi: this._data.multi }),
       ...(sectionId && { sectionId: parseInt(sectionId) }),
       ...(this._data.cssClass && { cssClass: this._data.cssClass }),
       ...(this._data.help && { help: this._data.help }),
       ...(this._data.useInList && { useInList: this._data.useInList }),
+      ...(this._data.addToLog && { addToLog: this._data.addToLog }),
+      ...(this.logName && {logName : this.logName}),
       parts: null,
     };
 

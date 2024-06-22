@@ -110,6 +110,64 @@ export default class SchemaUtil {
       answerSchema.properties.push(retVal);
     }
   }
+  public static addSimpleValuePropertyToSubSchema(
+    answerSchema: IAnswerSchema,
+    value: any,
+    prpId: number,
+    innerPrpId: number,
+    innerValue: string,
+    usedForId :number
+  ): void {
+    if (value != null && value != undefined) {
+      const partValue: IPartValue = {
+        id: 1,
+        value: value,
+        answer: {
+          usedForId: usedForId,
+          lastUpdate: "",
+          schemaVersion: "1.1",
+          schemaId: "add-to-log",
+          paramUrl: "add-to-log",
+          lid: 1,
+          properties: [
+            {
+              //@ts-ignore
+              prpId: innerPrpId,
+              answers: [
+                {
+                  id : 1, 
+                  parts: [
+                    {
+                      part: 1,
+                      values: [
+                        {
+                          id : 1,
+                          value: innerValue,
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      };
+      const partCollection: IPartCollection = {
+        part: 1,
+        values: [partValue],
+      };
+      const answerPart: IAnswerPart = {
+        id: 0,
+        parts: [partCollection],
+      };
+      const retVal: IAnswerProperty = {
+        prpId: prpId,
+        answers: [answerPart],
+      };
+      answerSchema.properties.push(retVal);
+    }
+  }
 
   public static getPropertyValue(
     result: IUserActionResult,
@@ -132,6 +190,26 @@ export default class SchemaUtil {
         ) {
           retVal = "";
         }
+      }
+    }
+    return retVal;
+  }
+  public static getSubSchema(
+    result: IUserActionResult,
+    propId: number,
+    part: number = 0
+  ): any {
+    let retVal: IUserActionResult = null;
+    const property = result.properties.find((x) => x.propId == propId);
+    if (property) {
+      if (property.edited) {
+        retVal = property.edited[0].parts[part].values[0].answer;
+      }
+      if (property.added) {
+        retVal = property.added[0].parts[part].values[0].answer;
+      }
+      if (property.deleted) {
+        retVal = property.deleted[0].parts[0].values[0].answer;
       }
     }
     return retVal;
@@ -245,7 +323,7 @@ export default class SchemaUtil {
   public static getMultipleProperty(result: IUserActionResult) {
     return SchemaUtil.getPropertyValue(result, SchemaUtil.MULTIPLE_ID);
   }
-  
+
   public static addUploadTokenProperty(
     answerSchema: IAnswerSchema,
     uploadToken: string

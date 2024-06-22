@@ -63,7 +63,7 @@ export default class SectionModule extends ContainerModule {
     if (!this._data) {
       this._data = {
         id: this.usedForId,
-        title: { id: 0, value: "test title" },
+        title : "test title" ,
         description: "",
       };
     }
