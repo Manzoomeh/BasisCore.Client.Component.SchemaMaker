@@ -149,7 +149,8 @@
                       ]
                     }
                   ]
-                },                {
+                },
+                {
                   "prpId": 7,
                   "vocab": "AddToLog",
                   "title": "AddToLog",
@@ -646,6 +647,14 @@
                       "part": 2,
                       "viewType": "text",
                       "caption": "Title"
+                    },
+                    {
+                      "part": 3,
+                      "viewType": "text",
+                      "caption": "priority",
+                      "validations": {
+                        "dataType": "float"
+                      }
                     }
                   ]
                 },
@@ -735,6 +744,14 @@
                       "part": 2,
                       "viewType": "text",
                       "caption": "Title"
+                    },
+                    {
+                      "part": 3,
+                      "viewType": "text",
+                      "caption": "priority",
+                      "validations": {
+                        "dataType": "float"
+                      }
                     }
                   ]
                 },
@@ -849,6 +866,14 @@
                       "part": 2,
                       "viewType": "text",
                       "caption": "Title"
+                    },
+                    {
+                      "part": 3,
+                      "viewType": "text",
+                      "caption": "priority",
+                      "validations": {
+                        "dataType": "float"
+                      }
                     }
                   ]
                 },

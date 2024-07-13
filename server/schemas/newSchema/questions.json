@@ -631,6 +631,14 @@
                       "viewType": "html",
                       "multi": true,
                       "caption": "Title"
+                    },
+                    {
+                      "part": 3,
+                      "viewType": "text",
+                      "caption": "priority",
+                      "validations": {
+                        "dataType": "float"
+                      }
                     }
                   ]
                 },
@@ -724,6 +732,14 @@
                       "viewType": "html",
                       "multi": true,
                       "caption": "Title"
+                    },
+                    {
+                      "part": 3,
+                      "viewType": "text",
+                      "caption": "priority",
+                      "validations": {
+                        "dataType": "float"
+                      }
                     }
                   ]
                 },
@@ -842,6 +858,14 @@
                       "viewType": "html",
                       "multi": true,
                       "caption": "Title"
+                    },
+                    {
+                      "part": 3,
+                      "viewType": "text",
+                      "caption": "priority",
+                      "validations": {
+                        "dataType": "float"
+                      }
                     }
                   ]
                 },

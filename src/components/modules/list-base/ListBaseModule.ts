@@ -26,7 +26,7 @@ export default abstract class ListBaseModule extends PartBaseModule<IListBaseMod
     super(layout, owner, component, schemaId, isABuiltIn, questionPart);
     if (questionPart) {
       this.data.link = questionPart.link;
-      this.data.fixValues = questionPart.fixValues;
+      this.data.fixValues = questionPart.fixValues
     }
   }
 
@@ -49,7 +49,11 @@ export default abstract class ListBaseModule extends PartBaseModule<IListBaseMod
     super.update(userAction);
     this.data.fixValues = SchemaUtil.getFixValueProperty(
       userAction,
-      this.data.fixValues,
+      this.data.fixValues ? this.data.fixValues.map((fixedValue,index)=>{
+        return {
+          ...fixedValue,priority : index + 1
+        }
+      }) : null ,
       ListBaseModule.FIX_VALUES_ID
     );
 
