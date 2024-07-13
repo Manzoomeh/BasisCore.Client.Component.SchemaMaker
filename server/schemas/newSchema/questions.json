@@ -738,7 +738,7 @@
                     {
                       "part": 1,
                       "viewType": "Text",
-                      "caption": "Value",
+                      "caption": "Id",
                       "validations": {
                         "dataType": "int"
                       }
@@ -839,7 +839,7 @@
                     {
                       "part": 1,
                       "viewType": "Text",
-                      "caption": "Value",
+                      "caption": "Id",
                       "validations": {
                         "dataType": "int"
                       }
@@ -965,7 +965,7 @@
                     {
                       "part": 1,
                       "viewType": "Text",
-                      "caption": "Value",
+                      "caption": "Id",
                       "validations": {
                         "dataType": "int"
                       }

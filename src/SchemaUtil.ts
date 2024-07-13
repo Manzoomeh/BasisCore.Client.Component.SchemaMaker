@@ -10,6 +10,9 @@ import {
   IMimes,
 } from "basiscore";
 
+interface IFixValueEx extends IFixValue {
+  priority : number
+}
 export default class SchemaUtil {
   private static readonly CAPTION_ID = 1;
   private static readonly CSS_CLASS_ID = 2;
@@ -543,9 +546,9 @@ export default class SchemaUtil {
 
   public static getFixValueProperty(
     result: IUserActionResult,
-    values: IFixValue[],
+    values: IFixValueEx[],
     propId: number
-  ): IFixValue[] {
+  ): IFixValueEx[] {
     const retVal = values ? [...values] : [];
     console.log("alireza",result,values,propId)
     const property = result.properties.find((x) => x.propId == propId);
@@ -588,7 +591,7 @@ export default class SchemaUtil {
             .value;
           const priority = addedItem.parts.find((x) => x.part == 3)?.values[0]
             .value;
-          const added: IFixValue = {
+          const added: IFixValueEx = {
             id: id ? parseInt(id) : null,
             value: value,
             priority : priority
