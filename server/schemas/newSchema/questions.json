@@ -388,6 +388,120 @@
                   ]
                 },
                 {
+                  "prpId": 3,
+                  "title": "dateProvider",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 1,
+                          "value": "basisCalendar"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 4,
+                  "title": "yearsList",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "false"
+                        },
+                        {
+                          "id": 1,
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 6,
+                  "title": "rangeDates",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "false"
+                        },
+                        {
+                          "id": 1,
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 7,
+                  "title": "switchType",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "false"
+                        },
+                        {
+                          "id": 1,
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 8,
+                  "title": "Type",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 1,
+                          "value": "click"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 9,
+                  "title": "Mode",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 1,
+                          "value": "Desktop"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
                   "prpId": 3001,
                   "title": "required",
                   "sectionId": 1,
@@ -413,6 +527,10 @@
                 {
                   "id": 1,
                   "title": "Validations"
+                },
+                {
+                  "id" : 2,
+                  "title" : "Options"
                 }
               ]
             },

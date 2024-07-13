@@ -547,6 +547,7 @@ export default class SchemaUtil {
     propId: number
   ): IFixValue[] {
     const retVal = values ? [...values] : [];
+    console.log("alireza",result,values,propId)
     const property = result.properties.find((x) => x.propId == propId);
     if (property) {
       if (property.edited) {
