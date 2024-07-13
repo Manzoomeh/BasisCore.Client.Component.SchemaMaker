@@ -548,7 +548,7 @@ export default class SchemaUtil {
     result: IUserActionResult,
     values: IFixValueEx[],
     propId: number
-  ): IFixValueEx[] {
+  ): IFixValue[] {
     const retVal = values ? [...values] : [];
     const property = result.properties.find((x) => x.propId == propId);
     if (property) {
