@@ -411,7 +411,7 @@
                 },
                 {
                   "prpId": 3,
-                  "title": "dateProvider",
+                  "title": "todayButton",
                   "sectionId": 2,
                   "parts": [
                     {
@@ -419,8 +419,12 @@
                       "viewType": "select",
                       "fixValues": [
                         {
+                          "id": 0,
+                          "value": "false"
+                        },
+                        {
                           "id": 1,
-                          "value": "basisCalendar"
+                          "value": "true"
                         }
                       ]
                     }
@@ -429,6 +433,27 @@
                 {
                   "prpId": 4,
                   "title": "yearsList",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "false"
+                        },
+                        {
+                          "id": 1,
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 5,
+                  "title": "monthList",
                   "sectionId": 2,
                   "parts": [
                     {
@@ -491,35 +516,12 @@
                 },
                 {
                   "prpId": 8,
-                  "title": "Type",
+                  "title": "style",
                   "sectionId": 2,
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "select",
-                      "fixValues": [
-                        {
-                          "id": 1,
-                          "value": "click"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "prpId": 9,
-                  "title": "Mode",
-                  "sectionId": 2,
-                  "parts": [
-                    {
-                      "part": 1,
-                      "viewType": "select",
-                      "fixValues": [
-                        {
-                          "id": 1,
-                          "value": "Desktop"
-                        }
-                      ]
+                      "viewType": "text"
                     }
                   ]
                 },
@@ -551,8 +553,8 @@
                   "title": "Validations"
                 },
                 {
-                  "id" : 2,
-                  "title" : "Options"
+                  "id": 2,
+                  "title": "Options"
                 }
               ]
             },

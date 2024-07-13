@@ -1,19 +1,24 @@
-import { IQuestionPart } from "basiscore";
+import SchemaUtil from "../../../../SchemaUtil";
 import IWorkspaceComponent from "../../../workspace/IWorkspaceComponent";
 import TextBaseModule from "../TextBaseModule";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
 import IDateQuestionPart from "./IDateQuestionPart";
+import {
+  IFixValue,
+  IQuestionPart,
+  ViewType,
+  IAnswerSchema,
+  IUserActionResult,
+} from "basiscore";
 
 export default class DatePickerModule extends TextBaseModule {
-  
-  private readonly DATE_PROVIDER_ID = 3
-  private readonly YEARS_LIST_ID  =4
-  private readonly MONTH_LIST_ID  =5
-  protected readonly RANGE_DATES_ID = 6
-  protected readonly SWITCH_TYPE_ID = 7
-  protected readonly TYPE_ID = 8
-  protected readonly MODE_ID = 9
+  private readonly TODAY_BUTTON_ID = 3;
+  private readonly YEARS_LIST_ID = 4;
+  private readonly MONTH_LIST_ID = 5;
+  protected readonly RANGE_DATES_ID = 6;
+  protected readonly SWITCH_TYPE_ID = 7;
+  protected readonly STYLE_ID = 8;
 
   constructor(
     owner: HTMLElement,
@@ -22,16 +27,59 @@ export default class DatePickerModule extends TextBaseModule {
     questionPart: IDateQuestionPart
   ) {
     super(layout, owner, component, "Datepicker", isABuiltIn, questionPart);
-    if(questionPart){
+    if (questionPart) {
       this.data.options = {
-        Culture : questionPart.Culture,
-        lid : questionPart.lid,
-        yearsList : questionPart.yearsList,
-        monthList : questionPart.monthList,
-        switchType : questionPart.switchType,
-        Type : questionPart.Type,
-        Style : questionPart.Style
-      }
+        todayButton: questionPart.todayButton,
+        yearsList: questionPart.yearsList,
+        monthList: questionPart.monthList,
+        rangeDates: questionPart.rangeDates,
+        switchType: questionPart.switchType,
+        style: questionPart.style,
+      };
     }
+  }
+
+  protected getAnswerSchema(): IAnswerSchema {
+    var ans = super.getAnswerSchema();
+    SchemaUtil.addSimpleValueProperty(
+      ans,
+      this.data.options.todayButton == true ? 1 : 0,
+      this.TODAY_BUTTON_ID
+    );
+    SchemaUtil.addSimpleValueProperty(
+      ans,
+      this.data.options.yearsList == true ? 1 : 0,
+      this.YEARS_LIST_ID
+    );
+    SchemaUtil.addSimpleValueProperty(
+      ans,
+      this.data.options.yearsList == true ? 1 : 0,
+      this.MONTH_LIST_ID
+    );
+    SchemaUtil.addSimpleValueProperty(
+      ans,
+      this.data.options.rangeDates == true ? 1 : 0,
+      this.RANGE_DATES_ID
+    );
+    SchemaUtil.addSimpleValueProperty(
+      ans,
+      this.data.options.switchType == true ? 1 : 0,
+      this.SWITCH_TYPE_ID
+    );
+    SchemaUtil.addSimpleValueProperty(
+      ans,
+      this.data.options.style,
+      this.STYLE_ID
+    );
+    return ans;
+  }
+  public update(userAction: IUserActionResult): void {
+    super.update(userAction);
+    this.data.options.monthList = SchemaUtil.getPropertyValue(userAction,this.MONTH_LIST_ID) == 1 
+    this.data.options.yearsList = SchemaUtil.getPropertyValue(userAction,this.YEARS_LIST_ID) == 1 
+    this.data.options.rangeDates = SchemaUtil.getPropertyValue(userAction,this.RANGE_DATES_ID) == 1 
+    this.data.options.todayButton = SchemaUtil.getPropertyValue(userAction,this.TODAY_BUTTON_ID) == 1 
+    this.data.options.switchType = SchemaUtil.getPropertyValue(userAction,this.SWITCH_TYPE_ID) == 1 
+    this.data.options.style= SchemaUtil.getPropertyValue(userAction,this.SWITCH_TYPE_ID)
   }
 }
