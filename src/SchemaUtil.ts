@@ -10,6 +10,9 @@ import {
   IMimes,
 } from "basiscore";
 
+interface IFixValueEx extends IFixValue {
+  priority : number
+}
 export default class SchemaUtil {
   private static readonly CAPTION_ID = 1;
   private static readonly CSS_CLASS_ID = 2;
@@ -519,10 +522,17 @@ export default class SchemaUtil {
           part: 2,
           values: [valuePartValue],
         };
-
+        const priorityPartValue :IPartValue = {
+          id: 0,
+          value: index +1 ,
+        };
+        const priorityPartCollection: IPartCollection = {
+          part: 3,
+          values: [priorityPartValue],
+        };
         const answerPart: IAnswerPart = {
           id: value.id ?? -1 * (index + 1),
-          parts: [idPartCollection, valuePartCollection],
+          parts: [idPartCollection, valuePartCollection,priorityPartCollection],
         };
         answers.push(answerPart);
       });
@@ -536,7 +546,7 @@ export default class SchemaUtil {
 
   public static getFixValueProperty(
     result: IUserActionResult,
-    values: IFixValue[],
+    values: IFixValueEx[],
     propId: number
   ): IFixValue[] {
     const retVal = values ? [...values] : [];
@@ -553,6 +563,8 @@ export default class SchemaUtil {
               edited.id = parseInt(editedPart.values[0].value);
             } else if (editedPart.part == 2) {
               edited.value = editedPart.values[0].value;
+            } else if (editedPart.part == 3) {
+              edited.priority = editedPart.values[0].value;
             }
           });
         });
@@ -576,14 +588,20 @@ export default class SchemaUtil {
           const id = addedItem.parts.find((x) => x.part == 1)?.values[0].value;
           const value = addedItem.parts.find((x) => x.part == 2)?.values[0]
             .value;
-          const added: IFixValue = {
+          const priority = addedItem.parts.find((x) => x.part == 3)?.values[0]
+            .value;
+          const added: IFixValueEx = {
             id: id ? parseInt(id) : null,
             value: value,
+            priority : priority
           };
           retVal.push(added);
         });
+        
       }
     }
-    return retVal.length > 0 ? retVal : null;
+    return retVal.length > 0
+      ? retVal.sort((a, b) => a.priority - b.priority)
+      : null;
   }
 }

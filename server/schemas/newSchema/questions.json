@@ -620,7 +620,7 @@
                     {
                       "part": 1,
                       "viewType": "Text",
-                      "caption": "Value",
+                      "caption": "Id",
                       "validations": {
                         "dataType": "int"
                       }
@@ -631,6 +631,14 @@
                       "viewType": "html",
                       "multi": true,
                       "caption": "Title"
+                    },
+                    {
+                      "part": 3,
+                      "viewType": "text",
+                      "caption": "priority",
+                      "validations": {
+                        "dataType": "float"
+                      }
                     }
                   ]
                 },
@@ -713,7 +721,7 @@
                     {
                       "part": 1,
                       "viewType": "Text",
-                      "caption": "Value",
+                      "caption": "Id",
                       "validations": {
                         "dataType": "int"
                       }
@@ -724,6 +732,14 @@
                       "viewType": "html",
                       "multi": true,
                       "caption": "Title"
+                    },
+                    {
+                      "part": 3,
+                      "viewType": "text",
+                      "caption": "priority",
+                      "validations": {
+                        "dataType": "float"
+                      }
                     }
                   ]
                 },
@@ -831,7 +847,7 @@
                     {
                       "part": 1,
                       "viewType": "Text",
-                      "caption": "Value",
+                      "caption": "Id",
                       "validations": {
                         "dataType": "int"
                       }
@@ -842,6 +858,14 @@
                       "viewType": "html",
                       "multi": true,
                       "caption": "Title"
+                    },
+                    {
+                      "part": 3,
+                      "viewType": "text",
+                      "caption": "priority",
+                      "validations": {
+                        "dataType": "float"
+                      }
                     }
                   ]
                 },
