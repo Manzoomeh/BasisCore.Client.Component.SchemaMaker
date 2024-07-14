@@ -559,6 +559,87 @@
               ]
             },
             {
+              "schemaId": "TimePicker",
+              "paramUrl": "TimePicker",
+              "schemaType": "part",
+              "title": "TimePicker",
+              "image": "/assets/images/time.png",
+              "questions": [
+                {
+                  "prpId": 1,
+                  "title": "Caption",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text"
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2,
+                  "title": "Css Class",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text"
+                    }
+                  ]
+                },
+                {
+                  "prpId": 3,
+                  "title": "clockType",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "12h"
+                        },
+                        {
+                          "id": 1,
+                          "value": "24h"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 3001,
+                  "title": "required",
+                  "sectionId": 1,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "No"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Yes"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "sections": [
+                {
+                  "id": 1,
+                  "title": "Validations"
+                },
+                {
+                  "id": 2,
+                  "title": "Options"
+                }
+              ]
+            },
+            {
               "schemaId": "textarea",
               "paramUrl": "textarea",
               "schemaType": "part",

@@ -14,6 +14,7 @@ import DatePickerModule from "./text-base/date-picker/DatePickerModule";
 import IModuleFactory from "./IModuleFactory";
 import QuestionModule from "./question/QuestionModule";
 import SectionModule from "./section/SectionModule";
+import TimePickerModule from "./text-base/timePicker/TimePickerModule";
 
 export default class ModuleFactory implements IModuleFactory {
   public create(
@@ -76,6 +77,10 @@ export default class ModuleFactory implements IModuleFactory {
       }
       case "datepicker": {
         module = new DatePickerModule(owner, container, isABuiltIn, model);
+        break;
+      }
+      case "timepicker": {
+        module = new TimePickerModule(owner, container, isABuiltIn, model);
         break;
       }
     }

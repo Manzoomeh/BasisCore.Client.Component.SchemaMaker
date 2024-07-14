@@ -40,6 +40,9 @@ export default class DatePickerModule extends TextBaseModule {
   }
 
   protected getAnswerSchema(): IAnswerSchema {
+    if(!this.data.options){
+      this.data.options = {}
+    }
     var ans = super.getAnswerSchema();
     SchemaUtil.addSimpleValueProperty(
       ans,
@@ -75,11 +78,19 @@ export default class DatePickerModule extends TextBaseModule {
   }
   public update(userAction: IUserActionResult): void {
     super.update(userAction);
+    if(!this.data.options){
+      this.data.options = {};
+    }
     this.data.options.monthList = SchemaUtil.getPropertyValue(userAction,this.MONTH_LIST_ID) == 1 
     this.data.options.yearsList = SchemaUtil.getPropertyValue(userAction,this.YEARS_LIST_ID) == 1 
     this.data.options.rangeDates = SchemaUtil.getPropertyValue(userAction,this.RANGE_DATES_ID) == 1 
     this.data.options.todayButton = SchemaUtil.getPropertyValue(userAction,this.TODAY_BUTTON_ID) == 1 
     this.data.options.switchType = SchemaUtil.getPropertyValue(userAction,this.SWITCH_TYPE_ID) == 1 
     this.data.options.style= SchemaUtil.getPropertyValue(userAction,this.SWITCH_TYPE_ID)
+  }
+  public getPartSchema(part: number): IQuestionPart {
+    const retVal = super.getPartSchema(part)
+    retVal.options = this.data.options
+    return retVal
   }
 }
