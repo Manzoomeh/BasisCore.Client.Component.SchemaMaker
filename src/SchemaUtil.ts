@@ -119,7 +119,7 @@ export default class SchemaUtil {
     prpId: number,
     innerPrpId: number,
     innerValue: string,
-    usedForId: number
+    usedForId :number
   ): void {
     if (value != null && value != undefined) {
       const partValue: IPartValue = {
@@ -138,7 +138,7 @@ export default class SchemaUtil {
               prpId: innerPrpId,
               answers: [
                 {
-                  id: 1,
+                  id : 1, 
                   parts: [
                     {
                       part: 1,
