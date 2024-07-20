@@ -126,14 +126,11 @@
         const status  = selectedOption.status
         if (isNaN(id)) {
           // Check if id is not a number
-          fetch("/server/temp-schema-maker?isSchema="+ isSchemaValue, {
-            method: "POST",
+          fetch("/server/temp-schema-maker?isSchema="+ isSchemaValue + "&term=" +value, {
+            method: "GET",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-              value: value,
-            }),
           }) 
             .then(async (response) => {
               const result = await response.json();
