@@ -156,7 +156,9 @@ router.get("/temp-schema-maker", async (req, res) => {
 router.get("/keywordinfo", async (req, res) => {
   const id = Number(req.query.id);
   const result = data.find((element) => element.id == id);
-  if (result ) {
+  if (result.status = "tempKeyWord") {
+    return res.status(200).json([])
+  }
     return res.status(200).json([
       {
         culture: "fa",
@@ -167,7 +169,6 @@ router.get("/keywordinfo", async (req, res) => {
         title: "Value",
       },
     ]);
-  }
 });
 
 module.exports = router;
