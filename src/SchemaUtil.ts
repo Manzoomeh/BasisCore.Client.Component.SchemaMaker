@@ -19,6 +19,7 @@ export default class SchemaUtil {
   private static readonly MULTIPLE_ID = 3;
   private static readonly UPLOAD_TOKEN_ID = 4;
   private static readonly PLACE_HOLDER_ID = 2000;
+  private static readonly DISABLED_ID = 2000;
   private static readonly REQUIRED_VALIDATION_ID = 3001;
   private static readonly MIN_LENGTH_VALIDATION_ID = 3002;
   private static readonly MAX_LENGTH_VALIDATION_ID = 3003;
@@ -302,12 +303,25 @@ export default class SchemaUtil {
       SchemaUtil.PLACE_HOLDER_ID
     );
   }
+  public static addDisabledProperty(
+    answerSchema: IAnswerSchema,
+    disabled: boolean
+  ) {
+    SchemaUtil.addSimpleValueProperty(
+      answerSchema,
+      disabled ? 1 : 0,
+      SchemaUtil.DISABLED_ID
+    );
+  }
 
   public static getCaptionProperty(result: IUserActionResult) {
     return SchemaUtil.getPropertyValue(result, SchemaUtil.CAPTION_ID);
   }
   public static getPlaceHolderProperty(result: IUserActionResult) {
-    return SchemaUtil.getPropertyValue(result, SchemaUtil.PLACE_HOLDER_ID);
+    return SchemaUtil.getPropertyValue(result, SchemaUtil.PLACE_HOLDER_ID)
+  }
+  public static getDisabledProperty(result: IUserActionResult) {
+    return SchemaUtil.getPropertyValue(result, SchemaUtil.PLACE_HOLDER_ID) ==0 ?  false : true;
   }
 
   public static addCssClassProperty(

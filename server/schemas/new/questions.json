@@ -196,6 +196,46 @@
                   ]
                 },
                 {
+                  "prpId": 2001,
+                  "title": "disabled",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "No"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Yes"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2001,
+                  "title": "disabled",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "No"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Yes"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
                   "prpId": 2,
                   "title": "Css Class",
                   "parts": [
@@ -344,6 +384,26 @@
                   ]
                 },
                 {
+                  "prpId": 2001,
+                  "title": "disabled",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "No"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Yes"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
                   "prpId": 2,
                   "title": "Css Class",
                   "parts": [
@@ -396,6 +456,26 @@
                     {
                       "part": 1,
                       "viewType": "text"
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2001,
+                  "title": "disabled",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "No"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Yes"
+                        }
+                      ]
                     }
                   ]
                 },
@@ -576,6 +656,26 @@
                   ]
                 },
                 {
+                  "prpId": 2001,
+                  "title": "disabled",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "No"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Yes"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
                   "prpId": 2,
                   "title": "Css Class",
                   "parts": [
@@ -667,6 +767,26 @@
                     {
                       "part": 1,
                       "viewType": "text"
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2001,
+                  "title": "disabled",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "No"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Yes"
+                        }
+                      ]
                     }
                   ]
                 },
