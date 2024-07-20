@@ -10,7 +10,7 @@ import SchemaUtil from "../../SchemaUtil";
 import IPartBaseModuleDataModel from "./IPartBaseModuleDataModel";
 
 export default abstract class PartBaseModule<
-  TModelType extends IPartBaseModuleDataModel
+  TModelType extends IPartBaseModuleDataModel 
 > extends ToolboxModule {
   protected readonly data: Partial<TModelType> = {};
   protected readonly questionPartModel: IQuestionPart;
@@ -55,7 +55,6 @@ export default abstract class PartBaseModule<
     SchemaUtil.addCaptionProperty(ans, this.data.caption);
     SchemaUtil.addCssClassProperty(ans, this.data.cssClass);
     SchemaUtil.addValidationProperties(ans, this.data.validations);
-
     return ans;
   }
 
@@ -64,7 +63,6 @@ export default abstract class PartBaseModule<
     if (caption != null) {
       this.data.caption = caption;
     }
-
     const cssClass = SchemaUtil.getCssClassProperty(result);
     if (cssClass != null) {
       this.data.cssClass = cssClass;

@@ -18,7 +18,6 @@ export default class SchemaUtil {
   private static readonly CSS_CLASS_ID = 2;
   private static readonly MULTIPLE_ID = 3;
   private static readonly UPLOAD_TOKEN_ID = 4;
-
   private static readonly REQUIRED_VALIDATION_ID = 3001;
   private static readonly MIN_LENGTH_VALIDATION_ID = 3002;
   private static readonly MAX_LENGTH_VALIDATION_ID = 3003;
