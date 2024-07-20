@@ -147,8 +147,8 @@ router.get("/keys", async (req, res) => {
   }
   return res.status(200).json(data);
 });
-router.post("/temp-schema-maker", async (req, res) => {
-  const { value } = req.body;
+router.get("/temp-schema-maker", async (req, res) => {
+  const  value  = req.query.term;
   const result = { id: data.length + 1, value, status: "tempKeyWord" };
   data.push(result);
   return res.status(200).json(result);
@@ -156,7 +156,7 @@ router.post("/temp-schema-maker", async (req, res) => {
 router.get("/keywordinfo", async (req, res) => {
   const id = Number(req.query.id);
   const result = data.find((element) => element.id == id);
-  if (result) {
+  if (result ) {
     return res.status(200).json([
       {
         culture: "fa",
