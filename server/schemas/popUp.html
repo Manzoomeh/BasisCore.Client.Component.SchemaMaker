@@ -113,9 +113,12 @@
     <button onclick="onSubmit()">تایید</button>
   </div>
   <script>
-    // Third party function
-
+    function getQueryParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+    }
     function onSubmit() {
+      const isSchemaValue = getQueryParameter('isSchema');
       const selectedOption = $("#mySelect").select2("data")[0];
       if (selectedOption) {
         const value = selectedOption.text;
@@ -123,7 +126,7 @@
         const status  = selectedOption.status
         if (isNaN(id)) {
           // Check if id is not a number
-          fetch("/server/temp-schema-maker", {
+          fetch("/server/temp-schema-maker?isSchema="+ isSchemaValue, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

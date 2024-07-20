@@ -26,7 +26,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -58,7 +58,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -163,7 +163,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -313,7 +313,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -371,7 +371,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -644,7 +644,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -716,7 +716,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -747,7 +747,7 @@
                     },
                     {
                       "part": 2,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": true,
                       "caption": "Title"
@@ -817,7 +817,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -848,7 +848,7 @@
                     },
                     {
                       "part": 2,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": true,
                       "caption": "Title"
@@ -943,7 +943,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -974,7 +974,7 @@
                     },
                     {
                       "part": 2,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": true,
                       "caption": "Title"
@@ -1044,7 +1044,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -1116,7 +1116,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -1237,7 +1237,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
