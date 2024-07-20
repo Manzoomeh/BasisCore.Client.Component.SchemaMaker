@@ -291,11 +291,9 @@ export default class SchemaUtil {
       SchemaUtil.CAPTION_ID
     );
   }
-
   public static getCaptionProperty(result: IUserActionResult) {
     return SchemaUtil.getPropertyValue(result, SchemaUtil.CAPTION_ID);
   }
-
   public static addCssClassProperty(
     answerSchema: IAnswerSchema,
     cssClass: string
