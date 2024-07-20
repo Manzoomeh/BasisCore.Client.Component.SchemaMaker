@@ -35,7 +35,6 @@ export default abstract class PartBaseModule<
       this.data.cssClass = questionPart.cssClass;
       this.data.multiple = questionPart.multiple;
       this.data.validations = questionPart.validations;
-      this.data.placeHolder = questionPart.placeHolder
     }
 
     if (isABuiltIn) {
@@ -82,7 +81,6 @@ export default abstract class PartBaseModule<
       ...(this.data.cssClass && { cssClass: this.data.cssClass }),
       ...(this.data.validations && { validations: this.data.validations }),
       ...(this.data.caption && { caption: this.data.caption }),
-      ...(this.data.placeHolder && { placeHolder: this.data.placeHolder }),
       ...(this.data.dependency && { dependency: this.data.dependency }),
       ...(this.questionPartModel && { method: this.questionPartModel?.method }),
     };
