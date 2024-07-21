@@ -10,7 +10,7 @@ import SchemaUtil from "../../SchemaUtil";
 import IPartBaseModuleDataModel from "./IPartBaseModuleDataModel";
 
 export default abstract class PartBaseModule<
-  TModelType extends IPartBaseModuleDataModel 
+  TModelType extends IPartBaseModuleDataModel
 > extends ToolboxModule {
   protected readonly data: Partial<TModelType> = {};
   protected readonly questionPartModel: IQuestionPart;
@@ -35,7 +35,8 @@ export default abstract class PartBaseModule<
       this.data.cssClass = questionPart.cssClass;
       this.data.multiple = questionPart.multiple;
       this.data.validations = questionPart.validations;
-      this.data.placeHolder = questionPart.placeHolder
+      this.data.placeHolder = questionPart.placeHolder;
+      this.data.disabled = questionPart.disabled;
     }
 
     if (isABuiltIn) {
@@ -56,7 +57,8 @@ export default abstract class PartBaseModule<
     SchemaUtil.addCaptionProperty(ans, this.data.caption);
     SchemaUtil.addCssClassProperty(ans, this.data.cssClass);
     SchemaUtil.addValidationProperties(ans, this.data.validations);
-    SchemaUtil.addPlaceHolderProperty(ans,this.data.placeHolder)  
+    SchemaUtil.addPlaceHolderProperty(ans, this.data.placeHolder);
+    SchemaUtil.addDisabledProperty(ans, this.data.disabled);
     return ans;
   }
 
@@ -69,12 +71,16 @@ export default abstract class PartBaseModule<
     if (placeHolder != null) {
       this.data.placeHolder = placeHolder;
     }
+    const disabled = SchemaUtil.getDisabledProperty(result);
+    if (disabled != null) {
+      this.data.disabled = disabled;
+    }
 
     const cssClass = SchemaUtil.getCssClassProperty(result);
     if (cssClass != null) {
       this.data.cssClass = cssClass;
     }
-   
+
     this.data.validations = SchemaUtil.applyValidationsProperties(
       this.data.validations,
       result
@@ -82,25 +88,37 @@ export default abstract class PartBaseModule<
   }
 
   public getPartSchema(part: number): IQuestionPart {
-    const retVal: IQuestionPart = {
-      part: part,
-      viewType: this.data.viewType.toLowerCase(),
-      ...(this.data.cssClass && { cssClass: this.data.cssClass }),
-      ...(this.data.validations && { validations: this.data.validations }),
-      ...(this.data.caption && { caption: this.data.caption }),
-      ...(this.data.placeHolder && { placeHolder: this.data.placeHolder }),
-      ...(this.data.dependency && { dependency: this.data.dependency }),
-      ...(this.questionPartModel && { method: this.questionPartModel?.method }),
-    };
-    return retVal;
+    console.log("disabled",this.data.disabled)
+    if (!this.data.disabled) {
+      const retVal: IQuestionPart = {
+        part: part,
+        viewType: this.data.viewType.toLowerCase(),
+        ...(this.data.cssClass && { cssClass: this.data.cssClass }),
+        ...(this.data.validations && { validations: this.data.validations }),
+        ...(this.data.caption && { caption: this.data.caption }),
+        ...(this.data.placeHolder && { placeHolder: this.data.placeHolder }),
+        ...(this.data.disabled && { disabled: this.data.disabled }),
+        ...(this.data.dependency && { dependency: this.data.dependency }),
+        ...(this.questionPartModel && {
+          method: this.questionPartModel?.method,
+        }),
+      };
+      return retVal;
+    }
   }
 
   protected setBuiltInAttribute(invisible: boolean) {
     if (invisible) {
       super.setBuiltInAttribute(invisible);
-      this.owner.querySelector<HTMLButtonElement>("[data-btn-handler]").style.display = "none";
-      this.owner.querySelector<HTMLButtonElement>("[data-btn-remove]").style.display = "none";
-      this.owner.querySelector<HTMLButtonElement>("[data-btn-setting]").style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-handler]"
+      ).style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-remove]"
+      ).style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-setting]"
+      ).style.display = "none";
     }
-  };
+  }
 }

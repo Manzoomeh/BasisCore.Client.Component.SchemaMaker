@@ -9,4 +9,5 @@ export default interface IPartBaseModuleDataModel {
   multiple?: boolean;
   uploadToken?: string;
   placeHolder?:string
+  disabled:boolean
 }
