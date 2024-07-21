@@ -35,8 +35,7 @@ export default abstract class PartBaseModule<
       this.data.cssClass = questionPart.cssClass;
       this.data.multiple = questionPart.multiple;
       this.data.validations = questionPart.validations;
-      this.data.placeHolder = questionPart.placeHolder;
-      this.data.disabled = questionPart.disabled;
+      this.data.placeHolder = questionPart.placeHolder
     }
 
     if (isABuiltIn) {
@@ -57,8 +56,7 @@ export default abstract class PartBaseModule<
     SchemaUtil.addCaptionProperty(ans, this.data.caption);
     SchemaUtil.addCssClassProperty(ans, this.data.cssClass);
     SchemaUtil.addValidationProperties(ans, this.data.validations);
-    SchemaUtil.addPlaceHolderProperty(ans, this.data.placeHolder);
-    SchemaUtil.addDisabledProperty(ans, this.data.disabled);
+    SchemaUtil.addPlaceHolderProperty(ans,this.data.placeHolder)  
     return ans;
   }
 
@@ -88,7 +86,6 @@ export default abstract class PartBaseModule<
   }
 
   public getPartSchema(part: number): IQuestionPart {
-    console.log("disabled",this.data.disabled)
     if (!this.data.disabled) {
       const retVal: IQuestionPart = {
         part: part,

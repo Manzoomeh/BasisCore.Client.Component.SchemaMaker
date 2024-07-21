@@ -321,7 +321,6 @@ export default class SchemaUtil {
     return SchemaUtil.getPropertyValue(result, SchemaUtil.PLACE_HOLDER_ID)
   }
   public static getDisabledProperty(result: IUserActionResult) {
-    console.log("util",SchemaUtil.getPropertyValue(result, SchemaUtil.DISABLED_ID))
     return SchemaUtil.getPropertyValue(result, SchemaUtil.DISABLED_ID) == 0 ?  false : true;
   }
 
