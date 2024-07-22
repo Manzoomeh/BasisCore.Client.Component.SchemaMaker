@@ -619,7 +619,6 @@ export default class SchemaUtil {
               edited.id = parseInt(editedPart.values[0].value);
             } else if (editedPart.part == 2) {
               let value = editedPart.values[0].value;
-              console.log(value)
               if(value && typeof value != "string"){
                 edited.valueData = value
                 edited.value = value.value

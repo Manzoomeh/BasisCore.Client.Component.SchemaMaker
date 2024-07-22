@@ -91,7 +91,6 @@ export default class ModuleFactory implements IModuleFactory {
         break;
       }
     }
-    console.log(module,schemaId)
     return module;
   }
 }
