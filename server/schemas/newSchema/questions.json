@@ -325,6 +325,7 @@
                     {
                       "part": 1,
                       "link": "/server/popup?isSchema=false",
+                      "link": "/server/popup",
                       "viewType": "html",
                       "multi": false
                     }
