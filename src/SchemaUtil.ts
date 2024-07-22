@@ -11,7 +11,12 @@ import {
 } from "basiscore";
 
 interface IFixValueEx extends IFixValue {
-  priority : number
+  priority: number;
+  valueData?: {
+    id: number;
+    value: string;
+    status: string;
+  };
 }
 export default class SchemaUtil {
   private static readonly CAPTION_ID = 1;
@@ -318,10 +323,12 @@ export default class SchemaUtil {
     return SchemaUtil.getPropertyValue(result, SchemaUtil.CAPTION_ID);
   }
   public static getPlaceHolderProperty(result: IUserActionResult) {
-    return SchemaUtil.getPropertyValue(result, SchemaUtil.PLACE_HOLDER_ID)
+    return SchemaUtil.getPropertyValue(result, SchemaUtil.PLACE_HOLDER_ID);
   }
   public static getDisabledProperty(result: IUserActionResult) {
-    return SchemaUtil.getPropertyValue(result, SchemaUtil.DISABLED_ID) == 0 ?  false : true;
+    return SchemaUtil.getPropertyValue(result, SchemaUtil.DISABLED_ID) == 1
+      ? true
+      : false;
   }
 
   public static addCssClassProperty(
@@ -549,17 +556,39 @@ export default class SchemaUtil {
           part: 2,
           values: [valuePartValue],
         };
-        const priorityPartValue :IPartValue = {
+        const priorityPartValue: IPartValue = {
           id: 0,
-          value: index +1 ,
+          value: index + 1,
         };
         const priorityPartCollection: IPartCollection = {
           part: 3,
           values: [priorityPartValue],
         };
+        const schemaPartValue: IPartValue = {
+          id: 0,
+          value: value.schema,
+        };
+        const schemaPartCollection: IPartCollection = {
+          part: 4,
+          values: [schemaPartValue],
+        };
+        const selectedPartValue: IPartValue = {
+          id: 0,
+          value: value.selected == true ? 1 : 0,
+        };
+        const selectedPartCollection: IPartCollection = {
+          part: 5,
+          values: [selectedPartValue],
+        };
         const answerPart: IAnswerPart = {
           id: value.id ?? -1 * (index + 1),
-          parts: [idPartCollection, valuePartCollection,priorityPartCollection],
+          parts: [
+            idPartCollection,
+            valuePartCollection,
+            priorityPartCollection,
+            schemaPartCollection,
+            selectedPartCollection,
+          ],
         };
         answers.push(answerPart);
       });
@@ -577,7 +606,6 @@ export default class SchemaUtil {
     propId: number
   ): IFixValue[] {
     const retVal = values ? [...values] : [];
-    console.log("alireza",result,values,propId)
     const property = result.properties.find((x) => x.propId == propId);
     if (property) {
       if (property.edited) {
@@ -590,9 +618,20 @@ export default class SchemaUtil {
             if (editedPart.part == 1) {
               edited.id = parseInt(editedPart.values[0].value);
             } else if (editedPart.part == 2) {
-              edited.value = editedPart.values[0].value;
+              let value = editedPart.values[0].value;
+              console.log(value)
+              if(value && typeof value != "string"){
+                edited.valueData = value
+                edited.value = value.value
+              }else{
+                edited.value = value
+              }
             } else if (editedPart.part == 3) {
               edited.priority = editedPart.values[0].value;
+            } else if (editedPart.part == 4) {
+              edited.schema = editedPart.values[0].value;
+            } else if (editedPart.part == 5) {
+              edited.selected = editedPart.values[0].value == 1 ? true : false;
             }
           });
         });
@@ -614,18 +653,30 @@ export default class SchemaUtil {
       if (property.added) {
         property.added.forEach((addedItem) => {
           const id = addedItem.parts.find((x) => x.part == 1)?.values[0].value;
-          const value = addedItem.parts.find((x) => x.part == 2)?.values[0]
-            .value;
+          let value = addedItem.parts.find((x) => x.part == 2)?.values[0]
+          .value;  
+          let valueData : NodeJS.Dict<any>
+          if(value && typeof value != "string"){
+            valueData = value
+            value = value.value
+          }
           const priority = addedItem.parts.find((x) => x.part == 3)?.values[0]
             .value;
+          const schema = addedItem.parts.find((x) => x.part == 4)?.values[0]
+            .value;
+          const selected =
+            addedItem.parts.find((x) => x.part == 5)?.values[0].value == 1
+              ? true
+              : false;
           const added: IFixValueEx = {
             id: id ? parseInt(id) : null,
             value: value,
-            priority : priority
+            priority: priority,
+            schema: schema,
+            selected: selected,
           };
           retVal.push(added);
         });
-        
       }
     }
     return retVal.length > 0

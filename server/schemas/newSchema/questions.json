@@ -905,6 +905,127 @@
               ]
             },
             {
+              "schemaId": "advancedselect",
+              "paramUrl": "advancedselect",
+              "schemaType": "part",
+              "title": "advanced select",
+              "image": "/assets/images/dropdown.png",
+              "questions": [
+                {
+                  "prpId": 1,
+                  "title": "Caption",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "link": "/server/popup?isSchema=false",
+                      "viewType": "html",
+                      "multi": false
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2,
+                  "title": "Css Class",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text"
+                    }
+                  ]
+                },
+                {
+                  "prpId": 4,
+                  "title": "Items",
+                  "multi": "true",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "Text",
+                      "caption": "Id",
+                      "validations": {
+                        "dataType": "int"
+                      }
+                    },
+                    {
+                      "part": 2,
+                      "link": "/server/popup?isSchema=false",
+                      "viewType": "html",
+                      "multi": true,
+                      "caption": "Title"
+                    },
+                    {
+                      "part": 3,
+                      "viewType": "text",
+                      "caption": "priority",
+                      "validations": {
+                        "dataType": "float"
+                      }
+                    },
+                    {
+                      "part": 4,
+                      "viewType": "text",
+                      "caption": "schema"
+                    },
+                    {
+                      "part": 5,
+                      "caption": "selected",
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "No"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Yes"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 5,
+                  "title": "Url",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
+                      "validations": {
+                        "regex1": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "prpId": 3001,
+                  "title": "required",
+                  "sectionId": 1,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "No"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Yes"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "sections": [
+                {
+                  "id": 1,
+                  "title": "Validations"
+                }
+              ]
+            },
+            {
               "schemaId": "Checklist",
               "paramUrl": "Checklist",
               "schemaType": "part",
@@ -1031,6 +1152,152 @@
               ]
             },
             {
+              "schemaId": "advancedchecklist",
+              "paramUrl": "advancedchecklist",
+              "schemaType": "part",
+              "title": "advanced Checklist",
+              "image": "/assets/images/checklist.png",
+              "questions": [
+                {
+                  "prpId": 1,
+                  "title": "Caption",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "link": "/server/popup?isSchema=false",
+                      "viewType": "html",
+                      "multi": false
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2,
+                  "title": "Css Class",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text"
+                    }
+                  ]
+                },
+                {
+                  "prpId": 4,
+                  "title": "Items",
+                  "multi": "true",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "Text",
+                      "caption": "Id",
+                      "validations": {
+                        "dataType": "int"
+                      }
+                    },
+                    {
+                      "part": 2,
+                      "link": "/server/popup?isSchema=false",
+                      "viewType": "html",
+                      "multi": true,
+                      "caption": "Title"
+                    },
+                    {
+                      "part": 3,
+                      "viewType": "text",
+                      "caption": "priority",
+                      "validations": {
+                        "dataType": "float"
+                      }
+                    },
+                    {
+                      "part": 4,
+                      "viewType": "text",
+                      "caption": "schema"
+                    },
+                    {
+                      "part": 5,
+                      "caption": "selected",
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "No"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Yes"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 5,
+                  "title": "Url",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text"
+                    }
+                  ]
+                },
+                {
+                  "prpId": 3001,
+                  "title": "required",
+                  "sectionId": 1,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "No"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Yes"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 3002,
+                  "title": "minLength",
+                  "sectionId": 1,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
+                      "validations": {
+                        "dataType": "int"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "prpId": 3003,
+                  "title": "maxLength",
+                  "sectionId": 1,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
+                      "validations": {
+                        "dataType": "int"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "sections": [
+                {
+                  "id": 1,
+                  "title": "Validations"
+                }
+              ]
+            },
+            {
               "schemaId": "Radio",
               "paramUrl": "Radio",
               "schemaType": "part",
@@ -1086,6 +1353,228 @@
                       "validations": {
                         "dataType": "float"
                       }
+                    }
+                  ]
+                },
+                {
+                  "prpId": 5,
+                  "title": "Url",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
+                      "validations": {
+                        "regex1": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "prpId": 3001,
+                  "title": "required",
+                  "sectionId": 1,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "No"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Yes"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "sections": [
+                {
+                  "id": 1,
+                  "title": "Validations"
+                }
+              ]
+            },
+            {
+              "schemaId": "Radio",
+              "paramUrl": "Radio",
+              "schemaType": "part",
+              "title": "Radio",
+              "image": "/assets/images/radio.png",
+              "questions": [
+                {
+                  "prpId": 1,
+                  "title": "Caption",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "link": "/server/popup?isSchema=false",
+                      "viewType": "html",
+                      "multi": false
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2,
+                  "title": "Css Class",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text"
+                    }
+                  ]
+                },
+                {
+                  "prpId": 4,
+                  "title": "Items",
+                  "multi": "true",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "Text",
+                      "caption": "Id",
+                      "validations": {
+                        "dataType": "int"
+                      }
+                    },
+                    {
+                      "part": 2,
+                      "link": "/server/popup?isSchema=false",
+                      "viewType": "html",
+                      "multi": true,
+                      "caption": "Title"
+                    },
+                    {
+                      "part": 3,
+                      "viewType": "text",
+                      "caption": "priority",
+                      "validations": {
+                        "dataType": "float"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "prpId": 5,
+                  "title": "Url",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
+                      "validations": {
+                        "regex1": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "prpId": 3001,
+                  "title": "required",
+                  "sectionId": 1,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "No"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Yes"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "sections": [
+                {
+                  "id": 1,
+                  "title": "Validations"
+                }
+              ]
+            },
+            {
+              "schemaId": "advancedradio",
+              "paramUrl": "advancedradio",
+              "schemaType": "part",
+              "title": "advanced Radio",
+              "image": "/assets/images/radio.png",
+              "questions": [
+                {
+                  "prpId": 1,
+                  "title": "Caption",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "link": "/server/popup?isSchema=false",
+                      "viewType": "html",
+                      "multi": false
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2,
+                  "title": "Css Class",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text"
+                    }
+                  ]
+                },
+                {
+                  "prpId": 4,
+                  "title": "Items",
+                  "multi": "true",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "Text",
+                      "caption": "Id",
+                      "validations": {
+                        "dataType": "int"
+                      }
+                    },
+                    {
+                      "part": 2,
+                      "link": "/server/popup?isSchema=false",
+                      "viewType": "html",
+                      "multi": true,
+                      "caption": "Title"
+                    },
+                    {
+                      "part": 3,
+                      "viewType": "text",
+                      "caption": "priority",
+                      "validations": {
+                        "dataType": "float"
+                      }
+                    },
+                    {
+                      "part": 4,
+                      "viewType": "text",
+                      "caption": "schema"
+                    },
+                    {
+                      "part": 5,
+                      "caption": "selected",
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "No"
+                        },
+                        {
+                          "id": 1,
+                          "value": "Yes"
+                        }
+                      ]
                     }
                   ]
                 },

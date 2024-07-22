@@ -86,10 +86,11 @@ export default abstract class PartBaseModule<
   }
 
   public getPartSchema(part: number): IQuestionPart {
+    let lowerCaseViewType = this.data.viewType.toLowerCase() 
     if (!this.data.disabled) {
       const retVal: IQuestionPart = {
         part: part,
-        viewType: this.data.viewType.toLowerCase(),
+        viewType: lowerCaseViewType  == "advancedselect" ?"select" :lowerCaseViewType == "advancedratio" ?"ratio"  :lowerCaseViewType ==  "advancedchecklist" ? "checklist" : lowerCaseViewType,
         ...(this.data.cssClass && { cssClass: this.data.cssClass }),
         ...(this.data.validations && { validations: this.data.validations }),
         ...(this.data.caption && { caption: this.data.caption }),

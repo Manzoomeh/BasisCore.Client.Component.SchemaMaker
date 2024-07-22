@@ -34,11 +34,19 @@ export default class ModuleFactory implements IModuleFactory {
         break;
       }
       case "select": {
-        module = new SelectModule(owner, container, isABuiltIn, model);
+        module = new SelectModule(owner, container, isABuiltIn, model,false);
+        break;
+      }
+      case "advancedselect": {
+        module = new SelectModule(owner, container, isABuiltIn, model,true);
         break;
       }
       case "checklist": {
-        module = new CheckListModule(owner, container, isABuiltIn, model);
+        module = new CheckListModule(owner, container, isABuiltIn, model,false);
+        break;
+      }
+      case "advancedchecklist": {
+        module = new CheckListModule(owner, container, isABuiltIn, model,true);
         break;
       }
       case "autocomplete": {
@@ -59,7 +67,11 @@ export default class ModuleFactory implements IModuleFactory {
         break;
       }
       case "radio": {
-        module = new RadioModule(owner, container, isABuiltIn, model);
+        module = new RadioModule(owner, container, isABuiltIn, model,false);
+        break;
+      }
+      case "advancedradio": {
+        module = new RadioModule(owner, container, isABuiltIn, model,true);
         break;
       }
       case "upload": {
@@ -79,7 +91,7 @@ export default class ModuleFactory implements IModuleFactory {
         break;
       }
     }
-
+    console.log(module,schemaId)
     return module;
   }
 }
