@@ -676,6 +676,7 @@ export default class SchemaUtil {
           };
           retVal.push(added);
         });
+        
       }
     }
     return retVal.length > 0

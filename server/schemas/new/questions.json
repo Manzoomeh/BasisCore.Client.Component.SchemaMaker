@@ -28,6 +28,8 @@
                       "part": 1,
                       "viewType": "text",
                       "cssClass": "css_13050_1"
+                      "viewType": "text",
+                      "cssClass": "css_13050_1"
                     }
                   ]
                 },
@@ -57,6 +59,12 @@
                   "parts": [
                     {
                       "part": 1,
+                      "viewType": "text",
+                      "validations": {
+                        "required": true,
+                        "minLength": 3,
+                        "maxLength": 50
+                      }
                       "viewType": "text",
                       "validations": {
                         "required": true,
@@ -95,6 +103,7 @@
                   "title": "Is Multi",
                   "parts": [
                     {
+                      "part": 3,
                       "part": 3,
                       "viewType": "select",
                       "fixValues": [
@@ -147,6 +156,32 @@
                           "value": "Yes"
                         }
                       ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 7,
+                  "vocab": "AddToLog",
+                  "title": "AddToLog",
+                  "multi": false,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "checklist",
+                      "fixValues": [
+                        {
+                          "id": 1,
+                          "value": "",
+                          "schema": {
+                            "schemaId": 10,
+                            "paramUrl": "add-to-log",
+                            "lid": 1,
+                            "schemaVersion": 1.1
+                          }
+                        }
+                      ],
+                      "caption": "",
+                      "link": ""
                     }
                   ]
                 },
@@ -857,6 +892,7 @@
                     {
                       "part": 1,
                       "viewType": "text"
+                      "viewType": "text"
                     }
                   ]
                 },
@@ -879,12 +915,14 @@
                       "part": 1,
                       "viewType": "Text",
                       "caption": "Id",
+                      "caption": "Id",
                       "validations": {
                         "dataType": "int"
                       }
                     },
                     {
                       "part": 2,
+                      "viewType": "text",
                       "viewType": "text",
                       "caption": "Title"
                     },
@@ -1071,6 +1109,7 @@
                     {
                       "part": 1,
                       "viewType": "text"
+                      "viewType": "text"
                     }
                   ]
                 },
@@ -1093,12 +1132,14 @@
                       "part": 1,
                       "viewType": "Text",
                       "caption": "Id",
+                      "caption": "Id",
                       "validations": {
                         "dataType": "int"
                       }
                     },
                     {
                       "part": 2,
+                      "viewType": "text",
                       "viewType": "text",
                       "caption": "Title"
                     },
@@ -1335,6 +1376,7 @@
                     {
                       "part": 1,
                       "viewType": "text"
+                      "viewType": "text"
                     }
                   ]
                 },
@@ -1357,12 +1399,14 @@
                       "part": 1,
                       "viewType": "Text",
                       "caption": "Id",
+                      "caption": "Id",
                       "validations": {
                         "dataType": "int"
                       }
                     },
                     {
                       "part": 2,
+                      "viewType": "text",
                       "viewType": "text",
                       "caption": "Title"
                     },
@@ -1549,6 +1593,7 @@
                     {
                       "part": 1,
                       "viewType": "text"
+                      "viewType": "text"
                     }
                   ]
                 },
@@ -1618,6 +1663,7 @@
                   "parts": [
                     {
                       "part": 1,
+                      "viewType": "text"
                       "viewType": "text"
                     }
                   ]
@@ -1738,6 +1784,7 @@
                     {
                       "part": 1,
                       "viewType": "text"
+                      "viewType": "text"
                     }
                   ]
                 },
@@ -1850,6 +1897,30 @@
                 {
                   "id": 1,
                   "title": "Validations"
+                }
+              ]
+            },
+            {
+              "paramUrl": "add-to-log",
+              "schemaVersion": 1.1,
+              "lid": 1,
+              "schemaId": "add-to-log",
+              "baseVocab": "http://schema.site/FA/vo",
+              "questions": [
+                {
+                  "prpId": 71,
+                  "vocab": "LogName",
+                  "title": "LogName",
+                  "multi": false,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
+                      "validations": {
+                        "required": true
+                      }
+                    }
+                  ]
                 }
               ]
             },
