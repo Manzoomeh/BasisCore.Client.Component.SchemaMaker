@@ -28,8 +28,6 @@
                       "part": 1,
                       "viewType": "text",
                       "cssClass": "css_13050_1"
-                      "viewType": "text",
-                      "cssClass": "css_13050_1"
                     }
                   ]
                 },
@@ -59,12 +57,6 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text",
-                      "validations": {
-                        "required": true,
-                        "minLength": 3,
-                        "maxLength": 50
-                      }
                       "viewType": "text",
                       "validations": {
                         "required": true,
@@ -103,7 +95,6 @@
                   "title": "Is Multi",
                   "parts": [
                     {
-                      "part": 3,
                       "part": 3,
                       "viewType": "select",
                       "fixValues": [
@@ -892,7 +883,6 @@
                     {
                       "part": 1,
                       "viewType": "text"
-                      "viewType": "text"
                     }
                   ]
                 },
@@ -915,14 +905,12 @@
                       "part": 1,
                       "viewType": "Text",
                       "caption": "Id",
-                      "caption": "Id",
                       "validations": {
                         "dataType": "int"
                       }
                     },
                     {
                       "part": 2,
-                      "viewType": "text",
                       "viewType": "text",
                       "caption": "Title"
                     },
@@ -1109,7 +1097,6 @@
                     {
                       "part": 1,
                       "viewType": "text"
-                      "viewType": "text"
                     }
                   ]
                 },
@@ -1132,14 +1119,12 @@
                       "part": 1,
                       "viewType": "Text",
                       "caption": "Id",
-                      "caption": "Id",
                       "validations": {
                         "dataType": "int"
                       }
                     },
                     {
                       "part": 2,
-                      "viewType": "text",
                       "viewType": "text",
                       "caption": "Title"
                     },
@@ -1376,7 +1361,6 @@
                     {
                       "part": 1,
                       "viewType": "text"
-                      "viewType": "text"
                     }
                   ]
                 },
@@ -1399,14 +1383,12 @@
                       "part": 1,
                       "viewType": "Text",
                       "caption": "Id",
-                      "caption": "Id",
                       "validations": {
                         "dataType": "int"
                       }
                     },
                     {
                       "part": 2,
-                      "viewType": "text",
                       "viewType": "text",
                       "caption": "Title"
                     },
@@ -1593,7 +1575,6 @@
                     {
                       "part": 1,
                       "viewType": "text"
-                      "viewType": "text"
                     }
                   ]
                 },
@@ -1663,7 +1644,6 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
                       "viewType": "text"
                     }
                   ]
@@ -1783,7 +1763,6 @@
                   "parts": [
                     {
                       "part": 1,
-                      "viewType": "text"
                       "viewType": "text"
                     }
                   ]
