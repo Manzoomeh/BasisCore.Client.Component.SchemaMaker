@@ -410,6 +410,122 @@
                   ]
                 },
                 {
+                  "prpId": 3,
+                  "title": "todayButton",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "false"
+                        },
+                        {
+                          "id": 1,
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 4,
+                  "title": "yearsList",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "false"
+                        },
+                        {
+                          "id": 1,
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 5,
+                  "title": "monthList",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "false"
+                        },
+                        {
+                          "id": 1,
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 6,
+                  "title": "rangeDates",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "false"
+                        },
+                        {
+                          "id": 1,
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 7,
+                  "title": "switchType",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "false"
+                        },
+                        {
+                          "id": 1,
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 8,
+                  "title": "style",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text"
+                    }
+                  ]
+                },
+                {
                   "prpId": 3001,
                   "title": "required",
                   "sectionId": 1,
@@ -435,6 +551,10 @@
                 {
                   "id": 1,
                   "title": "Validations"
+                },
+                {
+                  "id": 2,
+                  "title": "Options"
                 }
               ]
             },

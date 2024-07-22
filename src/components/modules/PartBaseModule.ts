@@ -10,7 +10,7 @@ import SchemaUtil from "../../SchemaUtil";
 import IPartBaseModuleDataModel from "./IPartBaseModuleDataModel";
 
 export default abstract class PartBaseModule<
-  TModelType extends IPartBaseModuleDataModel
+  TModelType extends IPartBaseModuleDataModel 
 > extends ToolboxModule {
   protected readonly data: Partial<TModelType> = {};
   protected readonly questionPartModel: IQuestionPart;
@@ -35,6 +35,7 @@ export default abstract class PartBaseModule<
       this.data.cssClass = questionPart.cssClass;
       this.data.multiple = questionPart.multiple;
       this.data.validations = questionPart.validations;
+      this.data.placeHolder = questionPart.placeHolder
     }
 
     if (isABuiltIn) {
@@ -55,7 +56,7 @@ export default abstract class PartBaseModule<
     SchemaUtil.addCaptionProperty(ans, this.data.caption);
     SchemaUtil.addCssClassProperty(ans, this.data.cssClass);
     SchemaUtil.addValidationProperties(ans, this.data.validations);
-
+    SchemaUtil.addPlaceHolderProperty(ans,this.data.placeHolder)  
     return ans;
   }
 
@@ -63,6 +64,10 @@ export default abstract class PartBaseModule<
     const caption = SchemaUtil.getCaptionProperty(result);
     if (caption != null) {
       this.data.caption = caption;
+    }
+    const placeHolder = SchemaUtil.getPlaceHolderProperty(result);
+    if (placeHolder != null) {
+      this.data.placeHolder = placeHolder;
     }
 
     const cssClass = SchemaUtil.getCssClassProperty(result);
@@ -83,6 +88,7 @@ export default abstract class PartBaseModule<
       ...(this.data.cssClass && { cssClass: this.data.cssClass }),
       ...(this.data.validations && { validations: this.data.validations }),
       ...(this.data.caption && { caption: this.data.caption }),
+      ...(this.data.placeHolder && { placeHolder: this.data.placeHolder }),
       ...(this.data.dependency && { dependency: this.data.dependency }),
       ...(this.questionPartModel && { method: this.questionPartModel?.method }),
     };

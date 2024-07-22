@@ -34,7 +34,7 @@
               "parts": [
                 {
                   "part": 1,
-                  "link": "/server/popup",
+                  "link": "/server/popup?isSchema=true",
                   "viewType": "html",
                   "multi": false
                 }

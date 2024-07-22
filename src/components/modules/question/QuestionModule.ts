@@ -44,7 +44,10 @@ export default class QuestionModule extends ContainerModule {
     return this._data.addToLog;
   }
   set logName(value: string) {
-    this._data.logName = value;
+    if(this.addToLog ==true){
+      this._data.logName = value;
+    }
+    
   }
   get logName(): string {
     return this._data.logName;

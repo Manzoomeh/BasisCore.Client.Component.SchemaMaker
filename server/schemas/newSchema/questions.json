@@ -26,7 +26,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -58,7 +58,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -163,8 +163,19 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
+                      "multi": false
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2000,
+                  "title": "placeholder",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
                       "multi": false
                     }
                   ]
@@ -313,8 +324,20 @@
                   "parts": [
                     {
                       "part": 1,
+                      "link": "/server/popup?isSchema=false",
                       "link": "/server/popup",
                       "viewType": "html",
+                      "multi": false
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2000,
+                  "title": "placeholder",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
                       "multi": false
                     }
                   ]
@@ -371,8 +394,19 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
+                      "multi": false
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2000,
+                  "title": "placeholder",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
                       "multi": false
                     }
                   ]
@@ -380,6 +414,122 @@
                 {
                   "prpId": 2,
                   "title": "Css Class",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text"
+                    }
+                  ]
+                },
+                {
+                  "prpId": 3,
+                  "title": "todayButton",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "false"
+                        },
+                        {
+                          "id": 1,
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 4,
+                  "title": "yearsList",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "false"
+                        },
+                        {
+                          "id": 1,
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 5,
+                  "title": "monthList",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "false"
+                        },
+                        {
+                          "id": 1,
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 6,
+                  "title": "rangeDates",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "false"
+                        },
+                        {
+                          "id": 1,
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 7,
+                  "title": "switchType",
+                  "sectionId": 2,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "select",
+                      "fixValues": [
+                        {
+                          "id": 0,
+                          "value": "false"
+                        },
+                        {
+                          "id": 1,
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "prpId": 8,
+                  "title": "style",
+                  "sectionId": 2,
                   "parts": [
                     {
                       "part": 1,
@@ -413,6 +563,10 @@
                 {
                   "id": 1,
                   "title": "Validations"
+                },
+                {
+                  "id": 2,
+                  "title": "Options"
                 }
               ]
             },
@@ -430,6 +584,17 @@
                     {
                       "part": 1,
                       "viewType": "text"
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2000,
+                  "title": "placeholder",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
+                      "multi": false
                     }
                   ]
                 },
@@ -524,8 +689,19 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
+                      "multi": false
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2000,
+                  "title": "placeholder",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
                       "multi": false
                     }
                   ]
@@ -596,7 +772,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -627,7 +803,7 @@
                     },
                     {
                       "part": 2,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": true,
                       "caption": "Title"
@@ -697,7 +873,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -728,7 +904,7 @@
                     },
                     {
                       "part": 2,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": true,
                       "caption": "Title"
@@ -823,7 +999,7 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": false
                     }
@@ -854,7 +1030,7 @@
                     },
                     {
                       "part": 2,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
                       "multi": true,
                       "caption": "Title"
@@ -924,8 +1100,19 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
+                      "multi": false
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2000,
+                  "title": "placeholder",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
                       "multi": false
                     }
                   ]
@@ -996,8 +1183,19 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
+                      "multi": false
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2000,
+                  "title": "placeholder",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
                       "multi": false
                     }
                   ]
@@ -1117,8 +1315,19 @@
                   "parts": [
                     {
                       "part": 1,
-                      "link": "/server/popup",
+                      "link": "/server/popup?isSchema=false",
                       "viewType": "html",
+                      "multi": false
+                    }
+                  ]
+                },
+                {
+                  "prpId": 2000,
+                  "title": "placeholder",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
                       "multi": false
                     }
                   ]
