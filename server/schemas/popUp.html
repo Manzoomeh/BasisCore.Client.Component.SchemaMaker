@@ -114,24 +114,30 @@
   </div>
   <script>
     function getQueryParameter(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
     }
     function onSubmit() {
-      const isSchemaValue = getQueryParameter('isSchema');
+      const isSchemaValue = getQueryParameter("isSchema");
       const selectedOption = $("#mySelect").select2("data")[0];
       if (selectedOption) {
         const value = selectedOption.text;
         const id = selectedOption.id;
-        const status  = selectedOption.status
+        const status = selectedOption.status;
         if (isNaN(id)) {
           // Check if id is not a number
-          fetch("/server/temp-schema-maker?isSchema="+ isSchemaValue + "&term=" +value, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }) 
+          fetch(
+            "/server/temp-schema-maker?isSchema=" +
+              isSchemaValue +
+              "&term=" +
+              value,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
             .then(async (response) => {
               const result = await response.json();
               bcCallback({ ...result, isSubmited: true });
@@ -221,9 +227,12 @@
     function renderData(data) {
       const container = document.querySelector(".detailcontainer");
       let html = `<div class='test'>`;
-      for (let object of data) {
-        html += `<span>${object.culture} : ${object.title}</span> \n`;
+      if (data.status != "tempKeyWord") {
+        for (let object of data.rows) {
+          html += `<span>${object.culture} : ${object.title}</span> \n`;
+        }
       }
+
       html += `</div>`;
       container.innerHTML = html;
     }

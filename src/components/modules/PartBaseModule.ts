@@ -35,7 +35,6 @@ export default abstract class PartBaseModule<
       this.data.cssClass = questionPart.cssClass;
       this.data.multiple = questionPart.multiple;
       this.data.validations = questionPart.validations;
-      this.data.placeHolder = questionPart.placeHolder
     }
 
     if (isABuiltIn) {
@@ -56,7 +55,6 @@ export default abstract class PartBaseModule<
     SchemaUtil.addCaptionProperty(ans, this.data.caption);
     SchemaUtil.addCssClassProperty(ans, this.data.cssClass);
     SchemaUtil.addValidationProperties(ans, this.data.validations);
-    SchemaUtil.addPlaceHolderProperty(ans,this.data.placeHolder)  
     return ans;
   }
 

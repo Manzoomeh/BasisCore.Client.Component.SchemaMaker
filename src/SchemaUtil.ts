@@ -330,7 +330,6 @@ export default class SchemaUtil {
       ? true
       : false;
   }
-
   public static addCssClassProperty(
     answerSchema: IAnswerSchema,
     cssClass: string
