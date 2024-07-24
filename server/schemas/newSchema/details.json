@@ -17,16 +17,6 @@
           "schemaVersion": 1.1,
           "lid": 2,
           "baseVocab": "http://schema.site/FA/vo",
-          "sections": [
-            {
-              "id": 1,
-              "title": "Sec 1",
-              "description": "Simple description"
-            },
-            {
-              "id": 2
-            }
-          ],
           "questions": [
             {
               "prpId": 1,
@@ -34,7 +24,7 @@
               "parts": [
                 {
                   "part": 1,
-                  "link": "/server/popup",
+                  "link": "/server/popup?isSchema=true",
                   "viewType": "html",
                   "multi": false
                 }
@@ -68,7 +58,6 @@
                 {
                   "part": 1,
                   "viewType": "text"
-
                 }
               ]
             }

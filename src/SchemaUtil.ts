@@ -11,14 +11,20 @@ import {
 } from "basiscore";
 
 interface IFixValueEx extends IFixValue {
-  priority : number
+  priority: number;
+  valueData?: {
+    id: number;
+    value: string;
+    status: string;
+  };
 }
 export default class SchemaUtil {
   private static readonly CAPTION_ID = 1;
   private static readonly CSS_CLASS_ID = 2;
   private static readonly MULTIPLE_ID = 3;
   private static readonly UPLOAD_TOKEN_ID = 4;
-
+  private static readonly PLACE_HOLDER_ID = 2000;
+  private static readonly DISABLED_ID = 2001;
   private static readonly REQUIRED_VALIDATION_ID = 3001;
   private static readonly MIN_LENGTH_VALIDATION_ID = 3002;
   private static readonly MAX_LENGTH_VALIDATION_ID = 3003;
@@ -119,7 +125,7 @@ export default class SchemaUtil {
     prpId: number,
     innerPrpId: number,
     innerValue: string,
-    usedForId :number
+    usedForId: number
   ): void {
     if (value != null && value != undefined) {
       const partValue: IPartValue = {
@@ -144,7 +150,7 @@ export default class SchemaUtil {
                       part: 1,
                       values: [
                         {
-                          id : 1,
+                          id: 1,
                           value: innerValue,
                         },
                       ],
@@ -292,11 +298,38 @@ export default class SchemaUtil {
       SchemaUtil.CAPTION_ID
     );
   }
+  public static addPlaceHolderProperty(
+    answerSchema: IAnswerSchema,
+    placeHolder: string
+  ) {
+    SchemaUtil.addSimpleValueProperty(
+      answerSchema,
+      placeHolder,
+      SchemaUtil.PLACE_HOLDER_ID
+    );
+  }
+  public static addDisabledProperty(
+    answerSchema: IAnswerSchema,
+    disabled: boolean
+  ) {
+    SchemaUtil.addSimpleValueProperty(
+      answerSchema,
+      disabled ? 1 : 0,
+      SchemaUtil.DISABLED_ID
+    );
+  }
 
   public static getCaptionProperty(result: IUserActionResult) {
     return SchemaUtil.getPropertyValue(result, SchemaUtil.CAPTION_ID);
   }
-
+  public static getPlaceHolderProperty(result: IUserActionResult) {
+    return SchemaUtil.getPropertyValue(result, SchemaUtil.PLACE_HOLDER_ID);
+  }
+  public static getDisabledProperty(result: IUserActionResult) {
+    return SchemaUtil.getPropertyValue(result, SchemaUtil.DISABLED_ID) == 1
+      ? true
+      : false;
+  }
   public static addCssClassProperty(
     answerSchema: IAnswerSchema,
     cssClass: string
@@ -522,17 +555,39 @@ export default class SchemaUtil {
           part: 2,
           values: [valuePartValue],
         };
-        const priorityPartValue :IPartValue = {
+        const priorityPartValue: IPartValue = {
           id: 0,
-          value: index +1 ,
+          value: index + 1,
         };
         const priorityPartCollection: IPartCollection = {
           part: 3,
           values: [priorityPartValue],
         };
+        const schemaPartValue: IPartValue = {
+          id: 0,
+          value: value.schema,
+        };
+        const schemaPartCollection: IPartCollection = {
+          part: 4,
+          values: [schemaPartValue],
+        };
+        const selectedPartValue: IPartValue = {
+          id: 0,
+          value: value.selected == true ? 1 : 0,
+        };
+        const selectedPartCollection: IPartCollection = {
+          part: 5,
+          values: [selectedPartValue],
+        };
         const answerPart: IAnswerPart = {
           id: value.id ?? -1 * (index + 1),
-          parts: [idPartCollection, valuePartCollection,priorityPartCollection],
+          parts: [
+            idPartCollection,
+            valuePartCollection,
+            priorityPartCollection,
+            schemaPartCollection,
+            selectedPartCollection,
+          ],
         };
         answers.push(answerPart);
       });
@@ -562,9 +617,19 @@ export default class SchemaUtil {
             if (editedPart.part == 1) {
               edited.id = parseInt(editedPart.values[0].value);
             } else if (editedPart.part == 2) {
-              edited.value = editedPart.values[0].value;
+              let value = editedPart.values[0].value;
+              if(value && typeof value != "string"){
+                edited.valueData = value
+                edited.value = value.value
+              }else{
+                edited.value = value
+              }
             } else if (editedPart.part == 3) {
               edited.priority = editedPart.values[0].value;
+            } else if (editedPart.part == 4) {
+              edited.schema = editedPart.values[0].value;
+            } else if (editedPart.part == 5) {
+              edited.selected = editedPart.values[0].value == 1 ? true : false;
             }
           });
         });
@@ -586,14 +651,27 @@ export default class SchemaUtil {
       if (property.added) {
         property.added.forEach((addedItem) => {
           const id = addedItem.parts.find((x) => x.part == 1)?.values[0].value;
-          const value = addedItem.parts.find((x) => x.part == 2)?.values[0]
-            .value;
+          let value = addedItem.parts.find((x) => x.part == 2)?.values[0]
+          .value;  
+          let valueData : NodeJS.Dict<any>
+          if(value && typeof value != "string"){
+            valueData = value
+            value = value.value
+          }
           const priority = addedItem.parts.find((x) => x.part == 3)?.values[0]
             .value;
+          const schema = addedItem.parts.find((x) => x.part == 4)?.values[0]
+            .value;
+          const selected =
+            addedItem.parts.find((x) => x.part == 5)?.values[0].value == 1
+              ? true
+              : false;
           const added: IFixValueEx = {
             id: id ? parseInt(id) : null,
             value: value,
-            priority : priority
+            priority: priority,
+            schema: schema,
+            selected: selected,
           };
           retVal.push(added);
         });

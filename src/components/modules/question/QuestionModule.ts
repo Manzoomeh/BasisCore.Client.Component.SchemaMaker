@@ -44,7 +44,9 @@ export default class QuestionModule extends ContainerModule {
     return this._data.addToLog;
   }
   set logName(value: string) {
-    this._data.logName = value;
+    if (this.addToLog == true) {
+      this._data.logName = value;
+    }
   }
   get logName(): string {
     return this._data.logName;
@@ -120,7 +122,7 @@ export default class QuestionModule extends ContainerModule {
         multi: false,
         title: "test title",
         part: 1,
-        logName : "test title"
+        logName: "test title",
       };
     }
     this.title = this._data.title as string;
@@ -166,7 +168,10 @@ export default class QuestionModule extends ContainerModule {
     SchemaUtil.addSimpleValuePropertyToSubSchema(
       ans,
       this._data.addToLog ? "1" : null,
-      QuestionModule.ADD_LOG_ID,71,this.logName,this.usedForId
+      QuestionModule.ADD_LOG_ID,
+      71,
+      this.logName,
+      this.usedForId
     );
     return ans;
   }
@@ -213,11 +218,11 @@ export default class QuestionModule extends ContainerModule {
     );
     this.addToLog = addToLog ? true : false;
     if (this.addToLog) {
-      const subSchema = SchemaUtil.getSubSchema(result, QuestionModule.ADD_LOG_ID);
-      this.logName = SchemaUtil.getPropertyValue(
-        subSchema,
-        71
-      )
+      const subSchema = SchemaUtil.getSubSchema(
+        result,
+        QuestionModule.ADD_LOG_ID
+      );
+      this.logName = SchemaUtil.getPropertyValue(subSchema, 71);
     }
     if (useInList != null) {
       this._data.useInList = useInList == "2";
@@ -250,13 +255,20 @@ export default class QuestionModule extends ContainerModule {
       ...(this._data.help && { help: this._data.help }),
       ...(this._data.useInList && { useInList: this._data.useInList }),
       ...(this._data.addToLog && { addToLog: this._data.addToLog }),
-      ...(this.logName && {logName : this.logName}),
+      ...(this.logName && { logName: this.logName }),
       parts: null,
     };
 
     question.parts = this.getChildModules<
       PartBaseModule<IPartBaseModuleDataModel>
-    >().map((x, i) => x.getPartSchema(i + 1));
+    >()
+      .map((x, i) => x.getPartSchema(i + 1))
+      .filter((x) => {
+        if (x) {
+          return true;
+        }
+        return false
+      });
 
     if (!schema.questions) {
       schema.questions = new Array<IQuestion>();

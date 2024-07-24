@@ -8,4 +8,6 @@ export default interface IPartBaseModuleDataModel {
   dependency?: Array<IDependency>;
   multiple?: boolean;
   uploadToken?: string;
+  placeHolder?:string
+  disabled:boolean
 }

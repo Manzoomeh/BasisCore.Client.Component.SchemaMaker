@@ -14,6 +14,7 @@ import DatePickerModule from "./text-base/date-picker/DatePickerModule";
 import IModuleFactory from "./IModuleFactory";
 import QuestionModule from "./question/QuestionModule";
 import SectionModule from "./section/SectionModule";
+import TimePickerModule from "./text-base/timePicker/TimePickerModule";
 
 export default class ModuleFactory implements IModuleFactory {
   public create(
@@ -34,11 +35,19 @@ export default class ModuleFactory implements IModuleFactory {
         break;
       }
       case "select": {
-        module = new SelectModule(owner, container, isABuiltIn, model);
+        module = new SelectModule(owner, container, isABuiltIn, model,false);
+        break;
+      }
+      case "advancedselect": {
+        module = new SelectModule(owner, container, isABuiltIn, model,true);
         break;
       }
       case "checklist": {
-        module = new CheckListModule(owner, container, isABuiltIn, model);
+        module = new CheckListModule(owner, container, isABuiltIn, model,false);
+        break;
+      }
+      case "advancedchecklist": {
+        module = new CheckListModule(owner, container, isABuiltIn, model,true);
         break;
       }
       case "autocomplete": {
@@ -59,7 +68,11 @@ export default class ModuleFactory implements IModuleFactory {
         break;
       }
       case "radio": {
-        module = new RadioModule(owner, container, isABuiltIn, model);
+        module = new RadioModule(owner, container, isABuiltIn, model,false);
+        break;
+      }
+      case "advancedradio": {
+        module = new RadioModule(owner, container, isABuiltIn, model,true);
         break;
       }
       case "upload": {
@@ -78,8 +91,11 @@ export default class ModuleFactory implements IModuleFactory {
         module = new DatePickerModule(owner, container, isABuiltIn, model);
         break;
       }
+      case "timepicker": {
+        module = new TimePickerModule(owner, container, isABuiltIn, model);
+        break;
+      }
     }
-
     return module;
   }
 }

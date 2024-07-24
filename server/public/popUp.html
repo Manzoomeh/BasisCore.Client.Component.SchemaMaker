@@ -110,8 +110,8 @@
 
         if (isNaN(id)) {
           // Check if id is not a number
-          fetch("/server/temp-schema-maker", {
-            method: "POST",
+          fetch("/server/temp-schema-maker?isSchema="+ isSchemaValue + "&term=" +value, {
+            method: "GET",
             headers: {
               "Content-Type": "application/json",
             },

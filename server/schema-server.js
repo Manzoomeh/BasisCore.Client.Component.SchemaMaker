@@ -147,8 +147,8 @@ router.get("/keys", async (req, res) => {
   }
   return res.status(200).json(data);
 });
-router.post("/temp-schema-maker", async (req, res) => {
-  const { value } = req.body;
+router.get("/temp-schema-maker", async (req, res) => {
+  const value= req.query.term;
   const result = { id: data.length + 1, value, status: "tempKeyWord" };
   data.push(result);
   return res.status(200).json(result);
@@ -156,8 +156,7 @@ router.post("/temp-schema-maker", async (req, res) => {
 router.get("/keywordinfo", async (req, res) => {
   const id = Number(req.query.id);
   const result = data.find((element) => element.id == id);
-  if (result) {
-    return res.status(200).json([
+    return res.status(200).json({rows : [
       {
         culture: "fa",
         title: result.value,
@@ -166,8 +165,7 @@ router.get("/keywordinfo", async (req, res) => {
         culture: "en",
         title: "Value",
       },
-    ]);
-  }
+    ],status: result.status});
 });
 
 module.exports = router;

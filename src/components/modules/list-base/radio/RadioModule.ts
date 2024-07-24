@@ -9,8 +9,10 @@ export default class RadioModule extends ListBaseModule {
     owner: HTMLElement,
     component: IWorkspaceComponent,
     isABuiltIn: boolean,
-    questionPart: IQuestionPart
+    questionPart: IQuestionPart,
+    isAdvanced : boolean
   ) {
-    super(layout, owner, component, "Radio", isABuiltIn, questionPart);
+    //@ts-ignore
+    super(layout, owner, component, ISAdvanced ? "advancedRadio" : "Radio", isABuiltIn, questionPart);
   }
 }

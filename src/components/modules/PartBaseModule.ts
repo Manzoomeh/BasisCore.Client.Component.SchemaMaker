@@ -55,7 +55,6 @@ export default abstract class PartBaseModule<
     SchemaUtil.addCaptionProperty(ans, this.data.caption);
     SchemaUtil.addCssClassProperty(ans, this.data.cssClass);
     SchemaUtil.addValidationProperties(ans, this.data.validations);
-
     return ans;
   }
 
@@ -64,12 +63,20 @@ export default abstract class PartBaseModule<
     if (caption != null) {
       this.data.caption = caption;
     }
+    const placeHolder = SchemaUtil.getPlaceHolderProperty(result);
+    if (placeHolder != null) {
+      this.data.placeHolder = placeHolder;
+    }
+    const disabled = SchemaUtil.getDisabledProperty(result);
+    if (disabled != null) {
+      this.data.disabled = disabled;
+    }
 
     const cssClass = SchemaUtil.getCssClassProperty(result);
     if (cssClass != null) {
       this.data.cssClass = cssClass;
     }
-   
+
     this.data.validations = SchemaUtil.applyValidationsProperties(
       this.data.validations,
       result
@@ -77,24 +84,37 @@ export default abstract class PartBaseModule<
   }
 
   public getPartSchema(part: number): IQuestionPart {
-    const retVal: IQuestionPart = {
-      part: part,
-      viewType: this.data.viewType.toLowerCase(),
-      ...(this.data.cssClass && { cssClass: this.data.cssClass }),
-      ...(this.data.validations && { validations: this.data.validations }),
-      ...(this.data.caption && { caption: this.data.caption }),
-      ...(this.data.dependency && { dependency: this.data.dependency }),
-      ...(this.questionPartModel && { method: this.questionPartModel?.method }),
-    };
-    return retVal;
+    let lowerCaseViewType = this.data.viewType.toLowerCase() 
+    if (!this.data.disabled) {
+      const retVal: IQuestionPart = {
+        part: part,
+        viewType: lowerCaseViewType  == "advancedselect" ?"select" :lowerCaseViewType == "advancedratio" ?"ratio"  :lowerCaseViewType ==  "advancedchecklist" ? "checklist" : lowerCaseViewType,
+        ...(this.data.cssClass && { cssClass: this.data.cssClass }),
+        ...(this.data.validations && { validations: this.data.validations }),
+        ...(this.data.caption && { caption: this.data.caption }),
+        ...(this.data.placeHolder && { placeHolder: this.data.placeHolder }),
+        ...(this.data.disabled && { disabled: this.data.disabled }),
+        ...(this.data.dependency && { dependency: this.data.dependency }),
+        ...(this.questionPartModel && {
+          method: this.questionPartModel?.method,
+        }),
+      };
+      return retVal;
+    }
   }
 
   protected setBuiltInAttribute(invisible: boolean) {
     if (invisible) {
       super.setBuiltInAttribute(invisible);
-      this.owner.querySelector<HTMLButtonElement>("[data-btn-handler]").style.display = "none";
-      this.owner.querySelector<HTMLButtonElement>("[data-btn-remove]").style.display = "none";
-      this.owner.querySelector<HTMLButtonElement>("[data-btn-setting]").style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-handler]"
+      ).style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-remove]"
+      ).style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-setting]"
+      ).style.display = "none";
     }
-  };
+  }
 }
