@@ -602,8 +602,8 @@ export default class WorkspaceComponent
       ...(schema?.schemaId && { schemaId: schema.schemaId }),
       ...(schema?.paramUrl && { paramUrl: schema.paramUrl }),
       ...(schemaVersion && { schemaVersion: schemaVersion }),
-      ...(schemaName && { name: schemaName.value }),
-      ...(schemaName && { nameData: schemaName }),
+      ...(schemaName && { name: schemaName.value ?? schemaName }),
+      ...(schemaName && { nameData: schemaName.value ? schemaName : null }),
     };
 
     const container = this.container.querySelector(
