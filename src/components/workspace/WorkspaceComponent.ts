@@ -627,11 +627,9 @@ export default class WorkspaceComponent
   }
   private async generateAndSetQuestionSchemaAsync(e: MouseEvent) {
     e.preventDefault();
-    
     const retVal = await this.generateQuestionSchemaAsync();
     this.owner.setSource(this._internalSourceId, retVal);
     this._result = retVal as JSON;
-
     // Prism highlight
     const json = JSON.stringify(retVal, null, 4);
     const html = Prism.highlight(json, Prism.languages.json, "json");
