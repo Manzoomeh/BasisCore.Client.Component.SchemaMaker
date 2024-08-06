@@ -10,7 +10,7 @@ export default abstract class TextBaseModule extends PartBaseModule<ITextBaseMod
     layout: string,
     owner: HTMLElement,
     component: IWorkspaceComponent,
-    viewType: ViewType,
+    viewType: ViewType | string,
     isABuiltIn: boolean,
     questionPart: IQuestionPart
   ) {

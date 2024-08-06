@@ -38,6 +38,9 @@ export default class SchemaMakerComponent
       "defaultQuestionsUrl",
       ""
     );
+    const detailsApiUrl = await this.owner.getAttributeValueAsync(
+      "detailsApiUrl"
+    );
 
     const groupsUrl = await this.owner.getAttributeValueAsync(
       "groupsUrl",
@@ -56,11 +59,19 @@ export default class SchemaMakerComponent
         }
       }
     });
+    console.log(
+      document,
+      document.querySelector(
+        "[data-bc-sm-main-container] [data-bc-sm-container] [data-bc-sm-parent]"
+      )
+    );
+    if(detailsApiUrl && detailsApiUrl.length>0){
+       console.log("doc", document.querySelector(".form-details-schema"));
+    }
     this.runTask = this.owner.processNodesAsync(
       Array.from(this.container.childNodes)
     );
   }
-
   runAsync(source?: ISource) {
     return this.runTask;
   }

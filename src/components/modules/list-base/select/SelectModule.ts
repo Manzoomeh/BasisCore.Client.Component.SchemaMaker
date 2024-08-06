@@ -13,6 +13,6 @@ export default class SelectModule extends ListBaseModule {
     isAdvanced : boolean
   ) {
     //@ts-ignore
-    super(layout, owner, component, isAdvanced ? "advancedSelect":"Select", isABuiltIn, questionPart);
+    super(layout, owner, component, isAdvanced ? "advancedselect":"select", isABuiltIn, questionPart);
   }
 }

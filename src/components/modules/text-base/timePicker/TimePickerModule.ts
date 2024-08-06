@@ -14,12 +14,11 @@ export default class TimePickerModule extends TextBaseModule {
     isABuiltIn: boolean,
     questionPart: ITimeQuestionPart
   ) {
-    //@ts-ignore
     super(
       layout,
       owner,
       component,
-      "Time",
+      "component.bc.timepicker",
       isABuiltIn,
       questionPart
     );

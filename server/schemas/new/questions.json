@@ -175,32 +175,6 @@
                       "link": ""
                     }
                   ]
-                },
-                {
-                  "prpId": 7,
-                  "vocab": "AddToLog",
-                  "title": "AddToLog",
-                  "multi": false,
-                  "parts": [
-                    {
-                      "part": 1,
-                      "viewType": "checklist",
-                      "fixValues": [
-                        {
-                          "id": 1,
-                          "value": "",
-                          "schema": {
-                            "schemaId": 10,
-                            "paramUrl": "add-to-log",
-                            "lid": 1,
-                            "schemaVersion": 1.1
-                          }
-                        }
-                      ],
-                      "caption": "",
-                      "link": ""
-                    }
-                  ]
                 }
               ]
             },
@@ -469,8 +443,8 @@
               ]
             },
             {
-              "schemaId": "datepicker",
-              "paramUrl": "datepicker",
+              "schemaId": "component.calendar.datepicker",
+              "paramUrl": "component.calendar.datepicker",
               "schemaType": "part",
               "title": "Datepicker",
               "image": "/assets/images/date.png",
@@ -665,8 +639,8 @@
               ]
             },
             {
-              "schemaId": "TimePicker",
-              "paramUrl": "TimePicker",
+              "schemaId": "component.bc.timepicker",
+              "paramUrl": "component.bc.timepicker",
               "schemaType": "part",
               "title": "TimePicker",
               "image": "/assets/images/time.png",
@@ -1048,7 +1022,7 @@
               ]
             },
             {
-              "schemaId": "advacedselect",
+              "schemaId": "advancedselect",
               "paramUrl": "advancedselect",
               "schemaType": "part",
               "title": "advancedselect",
@@ -1965,30 +1939,7 @@
               "schemaVersion": 1.1,
               "lid": 1,
               "schemaId": "add-to-log",
-              "baseVocab": "http://schema.site/FA/vo",
-              "questions": [
-                {
-                  "prpId": 71,
-                  "vocab": "LogName",
-                  "title": "LogName",
-                  "multi": false,
-                  "parts": [
-                    {
-                      "part": 1,
-                      "viewType": "text",
-                      "validations": {
-                        "required": true
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "paramUrl": "add-to-log",
-              "schemaVersion": 1.1,
-              "lid": 1,
-              "schemaId": "add-to-log",
+              "schemaType" :"part",
               "baseVocab": "http://schema.site/FA/vo",
               "questions": [
                 {
