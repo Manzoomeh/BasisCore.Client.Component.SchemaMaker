@@ -13,6 +13,6 @@ export default class RadioModule extends ListBaseModule {
     isAdvanced : boolean
   ) {
     //@ts-ignore
-    super(layout, owner, component, ISAdvanced ? "advancedRadio" : "Radio", isABuiltIn, questionPart);
+    super(layout, owner, component, isAdvanced ? "advancedRadio" : "Radio", isABuiltIn, questionPart);
   }
 }

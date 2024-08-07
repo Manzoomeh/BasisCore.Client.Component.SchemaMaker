@@ -399,8 +399,8 @@
               ]
             },
             {
-              "schemaId": "datepicker",
-              "paramUrl": "datepicker",
+              "schemaId": "component.calendar.datepicker",
+              "paramUrl": "component.calendar.datepicker",
               "schemaType": "part",
               "title": "Datepicker",
               "image": "/assets/images/date.png",
@@ -597,8 +597,8 @@
               ]
             },
             {
-              "schemaId": "timepicker",
-              "paramUrl": "timepicker",
+              "schemaId": "component.bc.timepicker",
+              "paramUrl": "component.bc.timepicker",
               "schemaType": "part",
               "title": "TimePicker",
               "image": "/assets/images/time.png",
@@ -1367,107 +1367,6 @@
                       "validations": {
                         "dataType": "int"
                       }
-                    }
-                  ]
-                }
-              ],
-              "sections": [
-                {
-                  "id": 1,
-                  "title": "Validations"
-                }
-              ]
-            },
-            {
-              "schemaId": "Radio",
-              "paramUrl": "Radio",
-              "schemaType": "part",
-              "title": "Radio",
-              "image": "/assets/images/radio.png",
-              "questions": [
-                {
-                  "prpId": 1,
-                  "title": "Caption",
-                  "parts": [
-                    {
-                      "part": 1,
-                      "link": "/server/popup?isSchema=false",
-                      "viewType": "html",
-                      "multi": false
-                    }
-                  ]
-                },
-                {
-                  "prpId": 2,
-                  "title": "Css Class",
-                  "parts": [
-                    {
-                      "part": 1,
-                      "viewType": "text"
-                    }
-                  ]
-                },
-                {
-                  "prpId": 4,
-                  "title": "Items",
-                  "multi": "true",
-                  "parts": [
-                    {
-                      "part": 1,
-                      "viewType": "Text",
-                      "caption": "Id",
-                      "validations": {
-                        "dataType": "int"
-                      }
-                    },
-                    {
-                      "part": 2,
-                      "link": "/server/popup?isSchema=false",
-                      "viewType": "html",
-                      "multi": true,
-                      "caption": "Title"
-                    },
-                    {
-                      "part": 3,
-                      "viewType": "text",
-                      "caption": "priority",
-                      "validations": {
-                        "dataType": "float"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "prpId": 5,
-                  "title": "Url",
-                  "parts": [
-                    {
-                      "part": 1,
-                      "viewType": "text",
-                      "validations": {
-                        "regex1": "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "prpId": 3001,
-                  "title": "required",
-                  "sectionId": 1,
-                  "parts": [
-                    {
-                      "part": 1,
-                      "viewType": "select",
-                      "fixValues": [
-                        {
-                          "id": 0,
-                          "value": "No"
-                        },
-                        {
-                          "id": 1,
-                          "value": "Yes"
-                        }
-                      ]
                     }
                   ]
                 }

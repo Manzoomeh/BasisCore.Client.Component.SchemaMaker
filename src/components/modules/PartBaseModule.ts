@@ -14,13 +14,13 @@ export default abstract class PartBaseModule<
 > extends ToolboxModule {
   protected readonly data: Partial<TModelType> = {};
   protected readonly questionPartModel: IQuestionPart;
-  protected readonly schemaId: ViewType;
+  protected readonly schemaId: ViewType |string;
 
   constructor(
     layout: string,
     owner: HTMLElement,
     workspace: IWorkspaceComponent,
-    schemaId: ViewType,
+    schemaId: ViewType |string,
     isABuiltIn: boolean,
     questionPart?: IQuestionPart
   ) {
@@ -31,7 +31,17 @@ export default abstract class PartBaseModule<
     this.data.viewType = schemaId;
     if (questionPart) {
       this.data.viewType = schemaId;
-      this.data.caption = questionPart.caption;
+      this.data.caption =
+        typeof questionPart.caption == "string"
+          ? questionPart.caption
+          : //@ts-ignore
+          questionPart.caption
+          //@ts-ignore
+          ? questionPart.caption.value
+          : undefined;
+      //@ts-ignore    
+      this.data.captionData =
+       typeof this.data.caption == "string" ? null : this.data.caption ?this.data.caption:undefined ;      
       this.data.cssClass = questionPart.cssClass;
       this.data.multiple = questionPart.multiple;
       this.data.validations = questionPart.validations;
@@ -62,6 +72,11 @@ export default abstract class PartBaseModule<
     const caption = SchemaUtil.getCaptionProperty(result);
     if (caption != null) {
       this.data.caption = caption;
+      if(typeof caption != "string"){
+        this.data.caption = caption.value
+        //@ts-ignore
+        this.data.captionData = caption
+      }
     }
     const placeHolder = SchemaUtil.getPlaceHolderProperty(result);
     if (placeHolder != null) {
@@ -92,6 +107,8 @@ export default abstract class PartBaseModule<
         ...(this.data.cssClass && { cssClass: this.data.cssClass }),
         ...(this.data.validations && { validations: this.data.validations }),
         ...(this.data.caption && { caption: this.data.caption }),
+        //@ts-ignore
+        ...(this.data.captionData && { captionData: this.data.captionData }),
         ...(this.data.placeHolder && { placeHolder: this.data.placeHolder }),
         ...(this.data.disabled && { disabled: this.data.disabled }),
         ...(this.data.dependency && { dependency: this.data.dependency }),

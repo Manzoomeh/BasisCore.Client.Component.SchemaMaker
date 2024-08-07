@@ -122,7 +122,6 @@ export default class QuestionModule extends ContainerModule {
         multi: false,
         title: "test title",
         part: 1,
-        logName: "test title",
       };
     }
     this.title = this._data.title as string;

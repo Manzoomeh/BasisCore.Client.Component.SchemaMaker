@@ -26,7 +26,14 @@ export default class DatePickerModule extends TextBaseModule {
     isABuiltIn: boolean,
     questionPart: IDateQuestionPart
   ) {
-    super(layout, owner, component, "Datepicker", isABuiltIn, questionPart);
+    super(
+      layout,
+      owner,
+      component,
+      "component.calendar.datepicker",
+      isABuiltIn,
+      questionPart
+    );
     if (questionPart) {
       this.data.options = {
         todayButton: questionPart.todayButton,

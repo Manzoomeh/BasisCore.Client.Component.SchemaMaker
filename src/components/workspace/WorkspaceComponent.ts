@@ -94,7 +94,7 @@ export default class WorkspaceComponent
       const owner = el as HTMLElement;
       const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
       const module = factory.create(schemaId, owner, this, false);
-      el.setAttribute("data-bc-module-id", module.usedForId.toString());
+      el.setAttribute("data-bc-module-id", module.usedForId?.toString()??"-1");
       this._modules.set(module.usedForId, module);
     };
 
@@ -242,8 +242,7 @@ export default class WorkspaceComponent
     this.container
       .querySelector("[data-bc-sm-schema-result]")
       .addEventListener(
-        "click",
-        this.generateAndSetQuestionSchemaAsync.bind(this)
+        "click",(e)=> this.delay(this.generateAndSetQuestionSchemaAsync.bind(this),e)
       );
 
     // this.container
@@ -602,8 +601,8 @@ export default class WorkspaceComponent
       ...(schema?.schemaId && { schemaId: schema.schemaId }),
       ...(schema?.paramUrl && { paramUrl: schema.paramUrl }),
       ...(schemaVersion && { schemaVersion: schemaVersion }),
-      ...(schemaName && { name: schemaName.value }),
-      ...(schemaName && { nameData: schemaName }),
+      ...(schemaName && { name: schemaName.value ?? schemaName }),
+      ...(schemaName && { nameData: schemaName.value ? schemaName : undefined }),
     };
 
     const container = this.container.querySelector(
@@ -623,12 +622,14 @@ export default class WorkspaceComponent
     });
     return retVal;
   }
+  delay(callback,e) {
+    setTimeout(()=>{callback(e)},50)
+  }
   private async generateAndSetQuestionSchemaAsync(e: MouseEvent) {
     e.preventDefault();
     const retVal = await this.generateQuestionSchemaAsync();
     this.owner.setSource(this._internalSourceId, retVal);
     this._result = retVal as JSON;
-
     // Prism highlight
     const json = JSON.stringify(retVal, null, 4);
     const html = Prism.highlight(json, Prism.languages.json, "json");

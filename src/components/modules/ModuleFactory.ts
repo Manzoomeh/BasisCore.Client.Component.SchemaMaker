@@ -35,19 +35,25 @@ export default class ModuleFactory implements IModuleFactory {
         break;
       }
       case "select": {
-        module = new SelectModule(owner, container, isABuiltIn, model,false);
+        module = new SelectModule(owner, container, isABuiltIn, model, false);
         break;
       }
       case "advancedselect": {
-        module = new SelectModule(owner, container, isABuiltIn, model,true);
+        module = new SelectModule(owner, container, isABuiltIn, model, true);
         break;
       }
       case "checklist": {
-        module = new CheckListModule(owner, container, isABuiltIn, model,false);
+        module = new CheckListModule(
+          owner,
+          container,
+          isABuiltIn,
+          model,
+          false
+        );
         break;
       }
       case "advancedchecklist": {
-        module = new CheckListModule(owner, container, isABuiltIn, model,true);
+        module = new CheckListModule(owner, container, isABuiltIn, model, true);
         break;
       }
       case "autocomplete": {
@@ -55,7 +61,6 @@ export default class ModuleFactory implements IModuleFactory {
         break;
       }
       case "question": {
-  
         module = new QuestionModule(owner, container, isABuiltIn, model);
         break;
       }
@@ -68,11 +73,11 @@ export default class ModuleFactory implements IModuleFactory {
         break;
       }
       case "radio": {
-        module = new RadioModule(owner, container, isABuiltIn, model,false);
+        module = new RadioModule(owner, container, isABuiltIn, model, false);
         break;
       }
       case "advancedradio": {
-        module = new RadioModule(owner, container, isABuiltIn, model,true);
+        module = new RadioModule(owner, container, isABuiltIn, model, true);
         break;
       }
       case "upload": {
@@ -87,11 +92,11 @@ export default class ModuleFactory implements IModuleFactory {
         module = new ColorModule(owner, container, isABuiltIn, model);
         break;
       }
-      case "datepicker": {
+      case "component.calendar.datepicker": {
         module = new DatePickerModule(owner, container, isABuiltIn, model);
         break;
       }
-      case "timepicker": {
+      case "component.bc.timepicker": {
         module = new TimePickerModule(owner, container, isABuiltIn, model);
         break;
       }

@@ -14,7 +14,14 @@ export default class TimePickerModule extends TextBaseModule {
     isABuiltIn: boolean,
     questionPart: ITimeQuestionPart
   ) {
-    super(layout, owner, component, "Timepicker", isABuiltIn, questionPart);
+    super(
+      layout,
+      owner,
+      component,
+      "component.bc.timepicker",
+      isABuiltIn,
+      questionPart
+    );
     if (!this.data.options) {
       this.data.options = {};
     }
