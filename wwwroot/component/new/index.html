@@ -14,26 +14,28 @@
     <h3>Sample autocomplete Data Url: /server/autocomplete?term=${term}</h3>
   </div> -->
     <basis
-    core="api"
-    url="/server/schemas/new"
-    method="get"
-    run="atclient"
-  ></basis>
+      core="api"
+      url="/server/schemas/new"
+      method="get"
+      run="atclient"
+    ></basis>
 
-  <basis
-    core="component.schemaMaker.schemaMaker"
-    run="atclient"
-    dataMemberName="schema.data"
-    resultSourceId="schema.result"
-    saveDraft="false"
-    defaultQuestionsUrl="/server/defaultQuestions"
-  ></basis>
-  <basis
-    core="callback"
-    run="atClient"
-    triggers="schema.result"
-    method="displayResult"
-  ></basis>
+    <basis
+      core="component.schemaMaker.schemaMaker"
+      run="atclient"
+      dataMemberName="schema.data"
+      resultSourceId="schema.result"
+      saveDraft="false"
+      defaultQuestionsUrl="/server/defaultQuestions"
+      detailsApiUrl="/server"
+      detailsParamUrl="/details"
+    ></basis>
+    <basis
+      core="callback"
+      run="atClient"
+      triggers="schema.result"
+      method="displayResult"
+    ></basis>
     <script>
       const host = {
         repositories: {

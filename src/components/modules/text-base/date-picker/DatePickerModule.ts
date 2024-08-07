@@ -84,7 +84,6 @@ export default class DatePickerModule extends TextBaseModule {
     return ans;
   }
   public update(userAction: IUserActionResult): void {
-    console.log(userAction)
     super.update(userAction);
     if(!this.data.options){
       this.data.options = {};

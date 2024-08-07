@@ -70,7 +70,6 @@ export default abstract class PartBaseModule<
 
   public update(result: IUserActionResult): void {
     const caption = SchemaUtil.getCaptionProperty(result);
-    console.log(caption)
     if (caption != null) {
       this.data.caption = caption;
       if(typeof caption != "string"){
