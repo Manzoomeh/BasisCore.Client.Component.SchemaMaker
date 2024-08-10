@@ -634,6 +634,7 @@ export default class SchemaUtil {
           });
         });
       }
+
       if (property.deleted) {
         property.deleted.forEach((deletedItem) => {
           if (deletedItem.id >= 0) {
@@ -665,10 +666,12 @@ export default class SchemaUtil {
           const selected =
             addedItem.parts.find((x) => x.part == 5)?.values[0].value == 1
               ? true
-              : false;
+              : false; 
           const added: IFixValueEx = {
             id: id ? parseInt(id) : null,
             value: value,
+            //@ts-ignore
+            valueData :valueData,
             priority: priority,
             schema: schema,
             selected: selected,

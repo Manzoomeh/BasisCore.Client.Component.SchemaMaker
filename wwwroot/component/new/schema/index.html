@@ -23,6 +23,7 @@
     <basis
       core="component.schemaMaker.schemaMaker"
       run="atclient"
+      defaultQuestionsUrl="/server/defaultQuestions"
       objectTypeUrl="/server/objectType"
       detailsApiUrl="/server"
       detailsParamUrl="/details"
@@ -41,6 +42,9 @@
       const host = {
         repositories: {
           schemaMaker: "/schema-maker.js",
+          "bc.timepicker":
+            "/server/public/basiscore.timepicker.js",
+          "calendar.datepicker": "/server/public/basiscore.calendar.component.js",
         },
       };
 
@@ -49,6 +53,6 @@
         console.log(args.source?.rows[0]);
       }
     </script>
-    <script src="http://localhost:3000/basiscore.js"></script>
+    <script src="https://cdn.basiscore.net/basispanel.ir/_js/basiscore-2.34.0.js"></script>
   </body>
 </html>

@@ -71,6 +71,8 @@ export default abstract class ListBaseModule extends PartBaseModule<IListBaseMod
           <IFixValue>{
             id: item.id ?? -1 * (index + 1),
             value: item.value,
+            //@ts-ignore
+            valueData : item.valueData,
             schema:item.schema,
             selected:item.selected
           }

@@ -213,7 +213,7 @@
 [data-get-json-for-download] {
   display: none;
 }
-[data-details]
+#form-details-schema
   [data-bc-schema-main-container]
   [data-bc-schema-column]
   [data-bc-question] {
@@ -221,19 +221,20 @@
   direction: ltr !important;
   margin-right: 0;
 }
-[data-details]
+#form-details-schema
   [data-bc-schema-main-container]
-  [data-bc-schema-column]
-  [data-bc-answer] {
+  [data-bc-schema-column] [data-bc-schema-info-part="1"]
+  [data-bc-answer-collection] 
+  [data-bc-answer]  {
   display: flex !important;
   direction: ltr !important;
   margin-right: 0;
   padding-left: 0px !important;
 }
-[data-bc-part-related-cell] {
+[data-bc-part-container] [data-bc-part-related-cell] {
   margin-left: 0px !important;
 }
-[data-details] [data-bc-title-container] {
+#form-details-schema [data-bc-title-container] {
   width: 130px !important;
   height: 30px !important;
   margin-left: 0px;

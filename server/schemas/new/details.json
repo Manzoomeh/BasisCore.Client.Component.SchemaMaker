@@ -1,0 +1,68 @@
+{
+  "setting": {
+    "keepalive": true
+  },
+  "sources": [
+    {
+      "options": {
+        "tableName": "answer.data",
+        "keyFieldName": null,
+        "statusFieldName": null,
+        "mergeType": 0
+      },
+      "data": [
+        {
+          "schemaId": 1161,
+          "paramUrl": "/1161",
+          "schemaVersion": 1.1,
+          "lid": 2,
+          "baseVocab": "http://schema.site/FA/vo",
+          "questions": [
+            {
+              "prpId": 1,
+              "title": "Schema Name",
+              "parts": [
+                {
+                  "part": 1,
+                  "viewType": "text",
+                  "multi": false
+                }
+              ]
+            },
+            {
+              "prpId": 2,
+              "title": "Language",
+              "parts": [
+                {
+                  "part": 1,
+                  "viewType": "select",
+                  "fixValues": [
+                    {
+                      "id": 1,
+                      "value": "FA"
+                    },
+                    {
+                      "id": 2,
+                      "value": "EN"
+                    }
+                  ],
+                  "multi": false
+                }
+              ]
+            },
+            {
+              "prpId": 3,
+              "title": "Schema Version",
+              "parts": [
+                {
+                  "part": 1,
+                  "viewType": "text"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

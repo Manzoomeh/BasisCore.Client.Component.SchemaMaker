@@ -93,7 +93,7 @@ export default class DatePickerModule extends TextBaseModule {
     this.data.options.rangeDates = SchemaUtil.getPropertyValue(userAction,this.RANGE_DATES_ID) == 1 
     this.data.options.todayButton = SchemaUtil.getPropertyValue(userAction,this.TODAY_BUTTON_ID) == 1 
     this.data.options.switchType = SchemaUtil.getPropertyValue(userAction,this.SWITCH_TYPE_ID) == 1 
-    this.data.options.style= SchemaUtil.getPropertyValue(userAction,this.SWITCH_TYPE_ID)
+    this.data.options.style=  SchemaUtil.getPropertyValue(userAction,this.STYLE_ID)
   }
   public getPartSchema(part: number): IQuestionPart {
     const retVal = super.getPartSchema(part)
