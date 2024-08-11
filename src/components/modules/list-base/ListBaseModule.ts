@@ -3,6 +3,7 @@ import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
 import PartBaseModule from "../PartBaseModule";
 import IListBaseModuleDataModel from "./IListBaseModuleDataModel";
 import SchemaUtil from "../../../SchemaUtil";
+import { IFixValueEx } from "../../@types/IFixValueEx";
 import {
   IFixValue,
   IQuestionPart,
@@ -19,7 +20,7 @@ export default abstract class ListBaseModule extends PartBaseModule<IListBaseMod
     layout: string,
     owner: HTMLElement,
     component: IWorkspaceComponent,
-    schemaId: ViewType,
+    schemaId: ViewType |string,
     isABuiltIn: boolean,
     questionPart: IQuestionPart
   ) {
@@ -68,13 +69,12 @@ export default abstract class ListBaseModule extends PartBaseModule<IListBaseMod
     if (this.data.fixValues) {
       retVal.fixValues = this.data.fixValues.map(
         (item, index) =>
-          <IFixValue>{
+          <IFixValueEx>{
             id: item.id ?? -1 * (index + 1),
             value: item.value,
-            //@ts-ignore
-            valueData : item.valueData,
-            schema:item.schema,
-            selected:item.selected
+            valueData: "valueData" in item ? item.valueData:undefined,
+            schema: item.schema,
+            selected: item.selected,
           }
       );
     }

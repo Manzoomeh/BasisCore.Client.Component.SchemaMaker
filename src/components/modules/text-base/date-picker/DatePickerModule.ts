@@ -96,8 +96,10 @@ export default class DatePickerModule extends TextBaseModule {
     this.data.options.style=  SchemaUtil.getPropertyValue(userAction,this.STYLE_ID)
   }
   public getPartSchema(part: number): IQuestionPart {
-    const retVal = super.getPartSchema(part)
+    const retVal = super.getPartSchema(part);
+    if(!this.data.options) this.data.options = {}
+    this.data.options.dateProvider= "basisCalendar"
     retVal.options = this.data.options
-    return retVal
+    return retVal;
   }
 }

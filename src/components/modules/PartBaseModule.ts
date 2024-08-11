@@ -34,13 +34,11 @@ export default abstract class PartBaseModule<
       this.data.caption =
         typeof questionPart.caption == "string"
           ? questionPart.caption
-          : //@ts-ignore
-          questionPart.caption
-          ? //@ts-ignore
-            questionPart.caption.value
+          : questionPart.caption
+          ? 
+           "value" in questionPart.caption && questionPart.caption["value"]
           : undefined;
-      //@ts-ignore
-      this.data.captionData =
+      this.data["captionData"] =
         typeof this.data.caption == "string"
           ? null
           : this.data.caption
@@ -49,7 +47,6 @@ export default abstract class PartBaseModule<
       this.data.cssClass = questionPart.cssClass;
       this.data.multiple = questionPart.multiple;
       this.data.validations = questionPart.validations;
-      //@ts-ignore
       this.data.disabled = questionPart.disabled;
     }
 
@@ -68,11 +65,9 @@ export default abstract class PartBaseModule<
       usedForId: this.usedForId,
       properties: [],
     };
-    //@ts-ignore
     SchemaUtil.addCaptionProperty(
       ans,
-      //@ts-ignore
-      this.data.captionData ? JSON.stringify(this.data.captionData) : this.data.caption
+      this.data["captionData"] ? JSON.stringify(this.data["captionData"]) : this.data.caption
     );
     SchemaUtil.addCssClassProperty(ans, this.data.cssClass);
     SchemaUtil.addValidationProperties(ans, this.data.validations);
@@ -86,8 +81,7 @@ export default abstract class PartBaseModule<
       this.data.caption = caption;
       if (typeof caption != "string") {
         this.data.caption = caption.value;
-        //@ts-ignore
-        this.data.captionData = caption;
+        this.data["captionData"]= caption;
       }
     }
     const placeHolder = SchemaUtil.getPlaceHolderProperty(result);
@@ -125,8 +119,7 @@ export default abstract class PartBaseModule<
       ...(this.data.cssClass && { cssClass: this.data.cssClass }),
       ...(this.data.validations && { validations: this.data.validations }),
       ...(this.data.caption && { caption: this.data.caption }),
-      //@ts-ignore
-      ...(this.data.captionData && { captionData: this.data.captionData }),
+      ...(this.data["captionData"] && { captionData: this.data["captionData"] }),
       ...(this.data.placeHolder && { placeHolder: this.data.placeHolder }),
       ...(this.data.disabled && { disabled: this.data.disabled }),
       ...(this.data.dependency && { dependency: this.data.dependency }),

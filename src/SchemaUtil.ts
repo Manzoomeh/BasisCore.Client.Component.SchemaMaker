@@ -9,15 +9,8 @@ import {
   IUserActionResult,
   IMimes,
 } from "basiscore";
+import { IFixValueEx } from "./components/@types/IFixValueEx";
 
-interface IFixValueEx extends IFixValue {
-  priority: number;
-  valueData?: {
-    id: number;
-    value: string;
-    status: string;
-  };
-}
 export default class SchemaUtil {
   private static readonly CAPTION_ID = 1;
   private static readonly CSS_CLASS_ID = 2;
@@ -140,7 +133,6 @@ export default class SchemaUtil {
           lid: 1,
           properties: [
             {
-              //@ts-ignore
               prpId: innerPrpId,
               answers: [
                 {
@@ -669,9 +661,12 @@ export default class SchemaUtil {
               : false; 
           const added: IFixValueEx = {
             id: id ? parseInt(id) : null,
+            valueData: valueData as {
+              id: number;
+              value: string;
+              status: string;
+            } | undefined,
             value: value,
-            //@ts-ignore
-            valueData :valueData,
             priority: priority,
             schema: schema,
             selected: selected,
