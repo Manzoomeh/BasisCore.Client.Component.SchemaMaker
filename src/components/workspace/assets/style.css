@@ -231,7 +231,7 @@
   margin-right: 0;
   padding-left: 0px !important;
 }
-[data-bc-part-container] [data-bc-part-related-cell] {
+ #form-details-schema [data-bc-part-container] [data-bc-part-related-cell] {
   margin-left: 0px !important;
 }
 [data-details] [data-bc-title-container] {
