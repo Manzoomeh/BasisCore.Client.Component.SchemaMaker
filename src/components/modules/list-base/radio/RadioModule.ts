@@ -12,7 +12,6 @@ export default class RadioModule extends ListBaseModule {
     questionPart: IQuestionPart,
     isAdvanced : boolean
   ) {
-    //@ts-ignore
     super(layout, owner, component, isAdvanced ? "advancedRadio" : "Radio", isABuiltIn, questionPart);
   }
 }

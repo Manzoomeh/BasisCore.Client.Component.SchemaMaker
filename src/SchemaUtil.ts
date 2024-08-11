@@ -9,15 +9,8 @@ import {
   IUserActionResult,
   IMimes,
 } from "basiscore";
+import { IFixValueEx } from "./components/@types/IFixValueEx";
 
-interface IFixValueEx extends IFixValue {
-  priority: number;
-  valueData?: {
-    id: number;
-    value: string;
-    status: string;
-  };
-}
 export default class SchemaUtil {
   private static readonly CAPTION_ID = 1;
   private static readonly CSS_CLASS_ID = 2;
@@ -140,7 +133,6 @@ export default class SchemaUtil {
           lid: 1,
           properties: [
             {
-              //@ts-ignore
               prpId: innerPrpId,
               answers: [
                 {
@@ -634,6 +626,7 @@ export default class SchemaUtil {
           });
         });
       }
+
       if (property.deleted) {
         property.deleted.forEach((deletedItem) => {
           if (deletedItem.id >= 0) {
@@ -665,9 +658,14 @@ export default class SchemaUtil {
           const selected =
             addedItem.parts.find((x) => x.part == 5)?.values[0].value == 1
               ? true
-              : false;
+              : false; 
           const added: IFixValueEx = {
             id: id ? parseInt(id) : null,
+            valueData: valueData as {
+              id: number;
+              value: string;
+              status: string;
+            } | undefined,
             value: value,
             priority: priority,
             schema: schema,

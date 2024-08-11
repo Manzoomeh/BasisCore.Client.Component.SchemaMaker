@@ -55,6 +55,9 @@ router.get("/schemas/:id", function (req, res) {
 router.get("/details", async function (req, res) {
   return res.json(JSON.parse(await fs.promises.readFile(path.join(__dirname, `/schemas/newSchema/details.json`))))
 });
+router.get("/detailsform", async function (req, res) {
+  return res.json(JSON.parse(await fs.promises.readFile(path.join(__dirname, `/schemas/new/details.json`))))
+});
 router.get("/new-schema", async function (req, res) {
   return res.json(JSON.parse(await fs.promises.readFile(path.join(__dirname, `/schemas/newSchema/questions.json`))))
 });

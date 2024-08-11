@@ -89,7 +89,7 @@ export default class SectionModule extends ContainerModule {
       properties: [],
     };
 
-    SchemaUtil.addSimpleValueProperty(ans, this.title, SectionModule.TITLE_ID);
+    SchemaUtil.addSimpleValueProperty(ans, this.titleData ? JSON.stringify(this.titleData) : this.title, SectionModule.TITLE_ID);
     SchemaUtil.addSimpleValueProperty(
       ans,
       this.description,
@@ -135,7 +135,7 @@ export default class SectionModule extends ContainerModule {
       id: this._data.id,
       title: this._data.title,
       description: this._data.description,
-      titleData: this._data.titleData,
+      titleData: this._data.titleData ?? undefined,
     };
     if (!schema.sections) {
       schema.sections = [];

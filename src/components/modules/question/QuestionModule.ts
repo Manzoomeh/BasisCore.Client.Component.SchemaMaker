@@ -142,7 +142,7 @@ export default class QuestionModule extends ContainerModule {
       usedForId: this.usedForId,
       properties: [],
     };
-    SchemaUtil.addSimpleValueProperty(ans, this.title, QuestionModule.TITLE_ID);
+    SchemaUtil.addSimpleValueProperty(ans, this.titleData ? JSON.stringify(this.titleData) : this.title, QuestionModule.TITLE_ID);
     SchemaUtil.addSimpleValueProperty(ans, this.part, QuestionModule.PART_ID);
     SchemaUtil.addSimpleValueProperty(
       ans,

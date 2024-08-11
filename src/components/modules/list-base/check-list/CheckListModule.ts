@@ -12,7 +12,6 @@ export default class CheckListModule extends ListBaseModule {
     questionPart: IQuestionPart,
     isAdvanced: boolean
   ) {
-    //@ts-ignore
     super(layout, owner, component, isAdvanced ? "advancedChecklist":"Checklist", isABuiltIn, questionPart);
   }
 }

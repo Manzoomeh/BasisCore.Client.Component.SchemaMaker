@@ -20,18 +20,23 @@
       method="get"
       run="atclient"
     ></basis>
-
     <basis
       core="component.schemaMaker.schemaMaker"
       run="atclient"
       dataMemberName="schema.data"
-      resultSourceId=""
+      resultSourceId="schema.result"
+      saveDraft="false"
+      detailsApiUrl="/server"
+      detailsParamUrl="/detailsform"
     ></basis>
 
     <script>
       const host = {
         repositories: {
           schemaMaker: "/schema-maker.js",
+          "bc.timepicker":
+            "/server/public/basiscore.timepicker.js",
+          "calendar.datepicker": "/server/public/basiscore.calendar.component.js",
         },
         sources: {
           "inline.object": [
@@ -42,6 +47,6 @@
         },
       };
     </script>
-    <script src="http://localhost:3000/basiscore.js"></script>
+    <script src="https://cdn.basiscore.net/basispanel.ir/_js/basiscore-2.34.0.js"></script>
   </body>
 </html>

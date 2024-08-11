@@ -47,6 +47,9 @@ export default class ToolBoxComponent extends ComponentBase {
     );
     const part = this.container.querySelector("[data-bc-toolbox-part-list]");
     (source.schemas ? source.schemas : tempSchemasJson).forEach((schema) => {
+      if(schema.schemaId=="add-to-log"){
+        return
+      }
       const copyLayout = itemLayout
         .replace("@schemaId", schema.schemaId.toLowerCase())
         .replace("@schemaType", schema.schemaType.toLowerCase())
