@@ -570,25 +570,30 @@ export default class WorkspaceComponent
   > {
     const source = await this.owner.waitToGetSourceAsync(this._sourceId);
     const schema = source.rows[0] as ISchemaMakerSchema;
-    const detailSource = await this.owner.waitToGetSourceAsync("details.data");
-    const rowProperties = detailSource.rows[0]?.properties;
-    const schemaVersion = this.findElementByPropId(rowProperties, 3)?.added
+    const detailSource = this.owner.tryToGetSource("details.data");
+    let lid 
+    let schemaName 
+    let schemaVersion
+    if(detailSource){
+          const rowProperties = detailSource.rows[0]?.properties;
+    schemaVersion = this.findElementByPropId(rowProperties, 3)?.added
       ? this.findElementByPropId(rowProperties, 3)?.added[0].parts[0].values[0].value
       : this.findElementByPropId(rowProperties, 3)?.edited ?
         this.findElementByPropId(rowProperties, 3)?.edited[0].parts[0].values[0].value: undefined;
-        console.log(this.findElementByPropId(rowProperties, 2).edited)
-    const lid =
+    lid =
       this.findElementByPropId(rowProperties, 2)?.added ? this.findElementByPropId(rowProperties, 2)?.added[0].parts[0].values[0]
         .value : this.findElementByPropId(rowProperties, 2)?.edited  ?
         this.findElementByPropId(rowProperties, 2)?.edited[0].parts[0].values[0]
           .value : undefined
-    const schemaName = this.findElementByPropId(rowProperties, 1)?.added
+    schemaName = this.findElementByPropId(rowProperties, 1)?.added
       ? this.findElementByPropId(rowProperties, 1)?.added[0].parts[0].values[0]
           .value
       : this.findElementByPropId(rowProperties, 1)?.edited
       ? this.findElementByPropId(rowProperties, 1)?.edited[0].parts[0].values[0]
           .value
       : "";
+
+    }
     const mid = parseInt(
       this.container.querySelector<HTMLSelectElement>(
         "[data-bc-sm-schema-object-type-select]"
