@@ -2,7 +2,7 @@ import {
   HTMLValueType,
   IAnswerSchema,
   IQuestionSchema,
-  ISection, 
+  ISection,
   IUserActionResult,
 } from "basiscore";
 import IWorkspaceComponent from "../../workspace/IWorkspaceComponent";
@@ -10,7 +10,7 @@ import layout from "./assets/layout.html";
 import "./assets/style.css";
 import SchemaUtil from "../../../SchemaUtil";
 import ContainerModule from "../ContainerModule";
-import ToolboxModule from "../base-class/ToolboxModule";;
+import ToolboxModule from "../base-class/ToolboxModule";
 
 export default class SectionModule extends ContainerModule {
   private _data: Partial<ISection>;
@@ -22,7 +22,7 @@ export default class SectionModule extends ContainerModule {
   }
   setTitleData() {
     this._data.titleData =
-      typeof this._data.title == "string" ? null : this._data.title;
+      typeof this._data.title == "string" ? undefined : this._data.title;
   }
   getTitleData() {
     return this._data.titleData;
@@ -42,6 +42,10 @@ export default class SectionModule extends ContainerModule {
         ? this._data.title
         : this._data.title?.value;
     this.setTitleData();
+    this._data.title =
+      typeof this._data.title == "string"
+        ? this._data.title
+        : this._data.title?.value;
   }
 
   get description(): string {
@@ -63,7 +67,7 @@ export default class SectionModule extends ContainerModule {
     if (!this._data) {
       this._data = {
         id: this.usedForId,
-        title : "test title" ,
+        title: "test title",
         description: "",
       };
     }
@@ -89,7 +93,11 @@ export default class SectionModule extends ContainerModule {
       properties: [],
     };
 
-    SchemaUtil.addSimpleValueProperty(ans, this.titleData ? JSON.stringify(this.titleData) : this.title, SectionModule.TITLE_ID);
+    SchemaUtil.addSimpleValueProperty(
+      ans,
+      this.titleData ? JSON.stringify(this.titleData) : this.title,
+      SectionModule.TITLE_ID
+    );
     SchemaUtil.addSimpleValueProperty(
       ans,
       this.description,
@@ -131,6 +139,7 @@ export default class SectionModule extends ContainerModule {
   }
 
   public fillSchema(schema: IQuestionSchema) {
+    console.log(this._data.titleData);
     const section: ISection = {
       id: this._data.id,
       title: this._data.title,
