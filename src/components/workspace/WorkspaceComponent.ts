@@ -94,7 +94,10 @@ export default class WorkspaceComponent
       const owner = el as HTMLElement;
       const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
       const module = factory.create(schemaId, owner, this, false);
-      el.setAttribute("data-bc-module-id", module.usedForId?.toString()??"-1");
+      el.setAttribute(
+        "data-bc-module-id",
+        module.usedForId?.toString() ?? "-1"
+      );
       this._modules.set(module.usedForId, module);
     };
 
@@ -214,6 +217,7 @@ export default class WorkspaceComponent
       "defaultQuestionsUrl",
       ""
     );
+    //this.owner.setSource("details.data",);
     this.owner.addTrigger([DefaultSource.PROPERTY_RESULT, this._sourceId]);
     const resultSourceId = await this.resultSourceIdToken?.getValueAsync();
     this._internalSourceId = this.owner.getRandomName(resultSourceId);
@@ -241,8 +245,8 @@ export default class WorkspaceComponent
     }
     this.container
       .querySelector("[data-bc-sm-schema-result]")
-      .addEventListener(
-        "click",(e)=> this.delay(this.generateAndSetQuestionSchemaAsync.bind(this),e)
+      .addEventListener("click", (e) =>
+        this.delay(this.generateAndSetQuestionSchemaAsync.bind(this), e)
       );
 
     // this.container
@@ -508,7 +512,6 @@ export default class WorkspaceComponent
     data: any,
     isABuiltIn: boolean
   ): Element {
-
     const container = document.createElement("div");
     container.setAttribute("data-schema-id", schemaId);
     container.setAttribute("data-schema-type", schemaType);
@@ -569,13 +572,25 @@ export default class WorkspaceComponent
     const schema = source.rows[0] as ISchemaMakerSchema;
     const detailSource = await this.owner.waitToGetSourceAsync("details.data");
     const rowProperties = detailSource.rows[0]?.properties;
-    const schemaVersion = this.findElementByPropId(rowProperties, 3)?.added[0].parts[0].values[0].value ??this.findElementByPropId(rowProperties, 3)?.edited[0].parts[0].values[0].value
+    const schemaVersion = this.findElementByPropId(rowProperties, 3)?.added
+      ? this.findElementByPropId(rowProperties, 3)?.added[0].parts[0].values[0]
+          .value
+      : this.findElementByPropId(rowProperties, 3)?.edited ??
+        this.findElementByPropId(rowProperties, 3)?.edited[0].parts[0].values[0]
+          .value;
     const lid = parseInt(
-      this.findElementByPropId(rowProperties, 2)?.added[0].parts[0].values[0].value ?? this.findElementByPropId(rowProperties, 2)?.edited[0].parts[0].values[0].value
-        .value
+      this.findElementByPropId(rowProperties, 2)?.added[0] ? this.findElementByPropId(rowProperties, 2)?.added[0].parts[0].values[0]
+        .value : this.findElementByPropId(rowProperties, 2)?.edited  ?
+        this.findElementByPropId(rowProperties, 2)?.edited[0].parts[0].values[0]
+          .value.value : ""
     );
-    const schemaName = this.findElementByPropId(rowProperties, 1)?.added[0]
-      .parts[0].values[0].value ??this.findElementByPropId(rowProperties, 1)?.edited[0].parts[0].values[0].value
+    const schemaName = this.findElementByPropId(rowProperties, 1)?.added
+      ? this.findElementByPropId(rowProperties, 1)?.added[0].parts[0].values[0]
+          .value
+      : this.findElementByPropId(rowProperties, 1)?.edited
+      ? this.findElementByPropId(rowProperties, 1)?.edited[0].parts[0].values[0]
+          .value
+      : "";
     const mid = parseInt(
       this.container.querySelector<HTMLSelectElement>(
         "[data-bc-sm-schema-object-type-select]"
@@ -602,7 +617,9 @@ export default class WorkspaceComponent
       ...(schema?.paramUrl && { paramUrl: schema.paramUrl }),
       ...(schemaVersion && { schemaVersion: schemaVersion }),
       ...(schemaName && { name: schemaName.value ?? schemaName }),
-      ...(schemaName && { nameData: schemaName.value ? schemaName : undefined }),
+      ...(schemaName && {
+        nameData: schemaName.value ? schemaName : undefined,
+      }),
     };
 
     const container = this.container.querySelector(
@@ -622,10 +639,13 @@ export default class WorkspaceComponent
     });
     return retVal;
   }
-  delay(callback,e) {
-    setTimeout(()=>{callback(e)},50)
+  delay(callback, e) {
+    setTimeout(() => {
+      callback(e);
+    }, 50);
   }
   private async generateAndSetQuestionSchemaAsync(e: MouseEvent) {
+    console.log(1);
     e.preventDefault();
     const retVal = await this.generateQuestionSchemaAsync();
     this.owner.setSource(this._internalSourceId, retVal);

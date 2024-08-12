@@ -541,7 +541,7 @@ export default class SchemaUtil {
 
         const valuePartValue: IPartValue = {
           id: 0,
-          value: value.value,
+          value: value["valueData"] ? value["valueData"] : value.value ,
         };
         const valuePartCollection: IPartCollection = {
           part: 2,
@@ -555,14 +555,18 @@ export default class SchemaUtil {
           part: 3,
           values: [priorityPartValue],
         };
-        const schemaPartValue: IPartValue = {
+        let schemaPartCollection: IPartCollection;
+        if(value.schema){
+          const schemaPartValue: IPartValue = {
           id: 0,
           value: value.schema,
         };
-        const schemaPartCollection: IPartCollection = {
+        schemaPartCollection = {
           part: 4,
           values: [schemaPartValue],
         };
+        }
+ 
         const selectedPartValue: IPartValue = {
           id: 0,
           value: value.selected == true ? 1 : 0,
@@ -573,13 +577,20 @@ export default class SchemaUtil {
         };
         const answerPart: IAnswerPart = {
           id: value.id ?? -1 * (index + 1),
-          parts: [
-            idPartCollection,
-            valuePartCollection,
-            priorityPartCollection,
-            schemaPartCollection,
-            selectedPartCollection,
-          ],
+          parts: schemaPartCollection
+            ? [
+                idPartCollection,
+                valuePartCollection,
+                priorityPartCollection,
+                schemaPartCollection,
+                selectedPartCollection,
+              ]
+            : [
+                idPartCollection,
+                valuePartCollection,
+                priorityPartCollection,
+                selectedPartCollection,
+              ],
         };
         answers.push(answerPart);
       });

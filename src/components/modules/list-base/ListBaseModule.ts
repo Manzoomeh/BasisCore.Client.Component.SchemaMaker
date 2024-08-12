@@ -27,7 +27,7 @@ export default abstract class ListBaseModule extends PartBaseModule<IListBaseMod
     super(layout, owner, component, schemaId, isABuiltIn, questionPart);
     if (questionPart) {
       this.data.link = questionPart.link;
-      this.data.fixValues = questionPart.fixValues
+      this.data.fixValues = questionPart.fixValues;
     }
   }
 

@@ -12,8 +12,8 @@
       },
       "data": [
         {
-          "schemaId": 1161,
-          "paramUrl": "/1161",
+          "schemaId": "details",
+          "paramUrl": "/details",
           "schemaVersion": 1.1,
           "lid": 2,
           "baseVocab": "http://schema.site/FA/vo",

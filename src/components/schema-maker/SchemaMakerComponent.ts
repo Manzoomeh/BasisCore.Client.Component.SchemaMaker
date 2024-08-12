@@ -1,9 +1,16 @@
-import { IDisposable, ISource, IUserDefineComponent } from "basiscore";
+import {
+  IAnswerSchema,
+  $bc,
+  IDisposable,
+  ISource,
+  IUserDefineComponent,
+} from "basiscore";
 import ComponentBase from "../ComponentBase";
 import ModuleFactory from "../modules/ModuleFactory";
 import layout from "./assets/layout.html";
 import "./assets/style.css";
 import ISchemaMakerComponent from "./ISchemaMakerComponent";
+import SchemaUtil from "../../SchemaUtil";
 
 export default class SchemaMakerComponent
   extends ComponentBase
@@ -61,10 +68,38 @@ export default class SchemaMakerComponent
         "detailsParamUrl",
         ""
       );
-      if (detailsApiUrl && detailsApiUrl.length > 0) {
+      const detailsMode = await this.owner.getAttributeValueAsync(
+        "detailsMode",
+        "new"
+      );
+      if (detailsApiUrl && detailsApiUrl.length > 0) {        
+        const source = await this.owner.waitToGetSourceAsync(this.sourceId);
+        if (source.rows && source.rows[0]) {
+          let schemaName = source.rows[0].schemaName;
+          let schemaVersion = source.rows[0].schemaVersion;
+          let lid = source.rows[0].lid;
+          const detailsAnswerSchema: IAnswerSchema = {
+            schemaVersion: "1.0",
+            schemaId: detailsApiUrl,
+            paramUrl: detailsParamUrl,
+            lastUpdate: "",
+            lid: 0,
+            usedForId: 1,
+            properties: [],
+          };
+          SchemaUtil.addSimpleValueProperty(detailsAnswerSchema, schemaName, 1);
+          SchemaUtil.addSimpleValueProperty(
+            detailsAnswerSchema,
+            schemaVersion,
+            3
+          );
+          SchemaUtil.addSimpleValueProperty(detailsAnswerSchema, lid, 2);
+          this.owner.setSource("answer.data", detailsAnswerSchema);
+        }
         let element = this.container.querySelector("#form-details-schema");
-        const tag = `<Basis core="schema" run="atclient" schemaUrl="${detailsApiUrl}" paramUrl="${detailsParamUrl}" displayMode="new" button="[data-get-btn]" resultSourceId="details.data">`;
+        const tag = `<Basis core="schema" run="atclient" datamembername="answer.data" schemaUrl="${detailsApiUrl}" paramUrl="${detailsParamUrl}" displayMode="${detailsMode}" button="[data-get-btn]" resultSourceId="details.data">`;
         element.innerHTML += tag;
+
       }
       this.runTask = this.owner.processNodesAsync(
         Array.from(this.container.childNodes)
