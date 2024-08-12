@@ -579,7 +579,7 @@ export default class WorkspaceComponent
         this.findElementByPropId(rowProperties, 3)?.edited[0].parts[0].values[0]
           .value;
     const lid = parseInt(
-      this.findElementByPropId(rowProperties, 2)?.added[0] ? this.findElementByPropId(rowProperties, 2)?.added[0].parts[0].values[0]
+      this.findElementByPropId(rowProperties, 2)?.added ? this.findElementByPropId(rowProperties, 2)?.added[0].parts[0].values[0]
         .value : this.findElementByPropId(rowProperties, 2)?.edited  ?
         this.findElementByPropId(rowProperties, 2)?.edited[0].parts[0].values[0]
           .value.value : ""

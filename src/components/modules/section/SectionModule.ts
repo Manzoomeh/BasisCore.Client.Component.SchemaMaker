@@ -41,11 +41,7 @@ export default class SectionModule extends ContainerModule {
       typeof this._data.title == "string"
         ? this._data.title
         : this._data.title?.value;
-    this.setTitleData();
-    this._data.title =
-      typeof this._data.title == "string"
-        ? this._data.title
-        : this._data.title?.value;
+    this.setTitleData();      
   }
 
   get description(): string {
@@ -92,7 +88,6 @@ export default class SectionModule extends ContainerModule {
       usedForId: this.usedForId,
       properties: [],
     };
-
     SchemaUtil.addSimpleValueProperty(
       ans,
       this.titleData ? JSON.stringify(this.titleData) : this.title,
@@ -139,10 +134,11 @@ export default class SectionModule extends ContainerModule {
   }
 
   public fillSchema(schema: IQuestionSchema) {
-    console.log(this._data.titleData);
     const section: ISection = {
       id: this._data.id,
-      title: this._data.title,
+      title: this._data.title["value"]
+        ? this._data.title["value"]
+        : this._data.title,
       description: this._data.description,
       titleData: this._data.titleData ?? undefined,
     };
