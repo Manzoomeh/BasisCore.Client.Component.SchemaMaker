@@ -98,6 +98,10 @@ export default class WorkspaceComponent
         "data-bc-module-id",
         module.usedForId?.toString() ?? "-1"
       );
+      el.setAttribute(
+        "data-bc-module-id",
+        module.usedForId?.toString() ?? "-1"
+      );
       this._modules.set(module.usedForId, module);
     };
 

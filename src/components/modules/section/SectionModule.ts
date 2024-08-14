@@ -134,6 +134,7 @@ export default class SectionModule extends ContainerModule {
   }
 
   public fillSchema(schema: IQuestionSchema) {
+    console.log(this._data.titleData);
     const section: ISection = {
       id: this._data.id,
       title: this._data.title["value"]
