@@ -26,7 +26,7 @@ export default class TimePickerModule extends TextBaseModule {
       this.data.options = {};
     }
     if (questionPart) {
-      this.data.options.clockType = questionPart.clockType;
+      this.data.options.clockType = questionPart.options.clockType;
     }
   }
 
