@@ -35,20 +35,22 @@ export default class DatePickerModule extends TextBaseModule {
       questionPart
     );
     if (questionPart) {
-      this.data.options = {
-        todayButton: questionPart.todayButton,
-        yearsList: questionPart.yearsList,
-        monthList: questionPart.monthList,
-        rangeDates: questionPart.rangeDates,
-        switchType: questionPart.switchType,
-        style: questionPart.style,
-      };
+      if (this.data.options) {
+        this.data.options = {
+          todayButton: questionPart.options.todayButton,
+          yearsList: questionPart.options.yearsList,
+          monthList: questionPart.options.monthList,
+          rangeDates: questionPart.options.rangeDates,
+          switchType: questionPart.options.switchType,
+          style: questionPart.options.style,
+        };
+      }
     }
   }
 
   protected getAnswerSchema(): IAnswerSchema {
-    if(!this.data.options){
-      this.data.options = {}
+    if (!this.data.options) {
+      this.data.options = {};
     }
     var ans = super.getAnswerSchema();
     SchemaUtil.addSimpleValueProperty(
@@ -85,21 +87,27 @@ export default class DatePickerModule extends TextBaseModule {
   }
   public update(userAction: IUserActionResult): void {
     super.update(userAction);
-    if(!this.data.options){
+    if (!this.data.options) {
       this.data.options = {};
     }
-    this.data.options.monthList = SchemaUtil.getPropertyValue(userAction,this.MONTH_LIST_ID) == 1 
-    this.data.options.yearsList = SchemaUtil.getPropertyValue(userAction,this.YEARS_LIST_ID) == 1 
-    this.data.options.rangeDates = SchemaUtil.getPropertyValue(userAction,this.RANGE_DATES_ID) == 1 
-    this.data.options.todayButton = SchemaUtil.getPropertyValue(userAction,this.TODAY_BUTTON_ID) == 1 
-    this.data.options.switchType = SchemaUtil.getPropertyValue(userAction,this.SWITCH_TYPE_ID) == 1 
-    this.data.options.style=  SchemaUtil.getPropertyValue(userAction,this.STYLE_ID)
+    this.data.options.monthList =
+      SchemaUtil.getPropertyValue(userAction, this.MONTH_LIST_ID) == 1;
+    this.data.options.yearsList =
+      SchemaUtil.getPropertyValue(userAction, this.YEARS_LIST_ID) == 1;
+    this.data.options.rangeDates =
+      SchemaUtil.getPropertyValue(userAction, this.RANGE_DATES_ID) == 1;
+    this.data.options.todayButton =
+      SchemaUtil.getPropertyValue(userAction, this.TODAY_BUTTON_ID) == 1;
+    this.data.options.switchType =
+      SchemaUtil.getPropertyValue(userAction, this.SWITCH_TYPE_ID) == 1;
+    this.data.options.style =
+      SchemaUtil.getPropertyValue(userAction, this.STYLE_ID) ?? undefined;
   }
   public getPartSchema(part: number): IQuestionPart {
     const retVal = super.getPartSchema(part);
-    if(!this.data.options) this.data.options = {}
-    this.data.options.dateProvider= "basisCalendar"
-    retVal.options = this.data.options
+    if (!this.data.options) this.data.options = {};
+    this.data.options.dateProvider = "basisCalendar";
+    retVal.options = this.data.options;
     return retVal;
   }
 }

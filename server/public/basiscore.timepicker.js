@@ -18,7 +18,7 @@
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".timepicker-ui-ok-btn {\r\n\tbackground-color: #004B85 ;\r\n\tcolor: #fff ;\r\n  }\r\n  .timepicker-ui-wrapper-btn,.timepicker-ui-footer {\r\n\tdirection: rtl;\r\n  }\r\n  .timepicker-ui-hour:hover, .timepicker-ui-hour.active, .timepicker-ui-minutes:hover, .timepicker-ui-minutes.active, .timepicker-ui-hour.mobile:hover, .timepicker-ui-hour.mobile.active, .timepicker-ui-minutes.mobile:hover, .timepicker-ui-minutes.mobile.active {\r\n\tcolor: #004B85;\r\n\tbackground-color: rgba(0, 75, 133, 0.1);\r\n  }\r\n  .timepicker-ui-wrapper {\r\n\tpadding: 0 25px !important;\r\n  }\r\n  .timepicker-ui-header {\r\n\tpadding-top: 0 !important;\r\n\tpadding-bottom: 1px !important;\r\n  }\r\n  .timepicker-ui-circle-hand{\r\n\tbackground-color: #004B85 ;\r\n  }", "",{"version":3,"sources":["webpack://./src/asset/timePickerStyle.css"],"names":[],"mappings":"AAAA;CACC,0BAA0B;CAC1B,YAAY;EACX;EACA;CACD,cAAc;EACb;EACA;CACD,cAAc;CACd,uCAAuC;EACtC;EACA;CACD,0BAA0B;EACzB;EACA;CACD,yBAAyB;CACzB,8BAA8B;EAC7B;EACA;CACD,0BAA0B;EACzB","sourcesContent":[".timepicker-ui-ok-btn {\r\n\tbackground-color: #004B85 ;\r\n\tcolor: #fff ;\r\n  }\r\n  .timepicker-ui-wrapper-btn,.timepicker-ui-footer {\r\n\tdirection: rtl;\r\n  }\r\n  .timepicker-ui-hour:hover, .timepicker-ui-hour.active, .timepicker-ui-minutes:hover, .timepicker-ui-minutes.active, .timepicker-ui-hour.mobile:hover, .timepicker-ui-hour.mobile.active, .timepicker-ui-minutes.mobile:hover, .timepicker-ui-minutes.mobile.active {\r\n\tcolor: #004B85;\r\n\tbackground-color: rgba(0, 75, 133, 0.1);\r\n  }\r\n  .timepicker-ui-wrapper {\r\n\tpadding: 0 25px !important;\r\n  }\r\n  .timepicker-ui-header {\r\n\tpadding-top: 0 !important;\r\n\tpadding-bottom: 1px !important;\r\n  }\r\n  .timepicker-ui-circle-hand{\r\n\tbackground-color: #004B85 ;\r\n  }"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".timepicker-ui-ok-btn {\r\n\tbackground-color: #004B85 ;\r\n\tcolor: #fff ;\r\n  }\r\n  .timepicker-ui-wrapper-btn,.timepicker-ui-footer {\r\n\tdirection: rtl;\r\n  }\r\n  .timepicker-ui-hour:hover, .timepicker-ui-hour.active, .timepicker-ui-minutes:hover, .timepicker-ui-minutes.active, .timepicker-ui-hour.mobile:hover, .timepicker-ui-hour.mobile.active, .timepicker-ui-minutes.mobile:hover, .timepicker-ui-minutes.mobile.active {\r\n\tcolor: #004B85;\r\n\tbackground-color: rgba(0, 75, 133, 0.1);\r\n  }\r\n  .timepicker-ui-wrapper {\r\n\tpadding: 0 25px !important;\r\n  }\r\n  .timepicker-ui-header {\r\n\tpadding-top: 0 !important;\r\n\tpadding-bottom: 1px !important;\r\n  }\r\n\r\n  .timepicker-ui-clock-hand,.timepicker-ui-dot,.timepicker-ui-circle-hand{\r\n    background-color: #004B85 !important;\r\n  }\r\n  .timepicker-ui-cancel-btn,.timepicker-ui-am.active{\r\n    color: #004B85 !important; ;\r\n  }\r\n  .timepicker-ui-am.active{\r\n    background-color: rgba(0, 75, 133, 0.13) !important;\r\n  }", "",{"version":3,"sources":["webpack://./src/asset/timePickerStyle.css"],"names":[],"mappings":"AAAA;CACC,0BAA0B;CAC1B,YAAY;EACX;EACA;CACD,cAAc;EACb;EACA;CACD,cAAc;CACd,uCAAuC;EACtC;EACA;CACD,0BAA0B;EACzB;EACA;CACD,yBAAyB;CACzB,8BAA8B;EAC7B;;EAEA;IACE,oCAAoC;EACtC;EACA;IACE,yBAAyB;EAC3B;EACA;IACE,mDAAmD;EACrD","sourcesContent":[".timepicker-ui-ok-btn {\r\n\tbackground-color: #004B85 ;\r\n\tcolor: #fff ;\r\n  }\r\n  .timepicker-ui-wrapper-btn,.timepicker-ui-footer {\r\n\tdirection: rtl;\r\n  }\r\n  .timepicker-ui-hour:hover, .timepicker-ui-hour.active, .timepicker-ui-minutes:hover, .timepicker-ui-minutes.active, .timepicker-ui-hour.mobile:hover, .timepicker-ui-hour.mobile.active, .timepicker-ui-minutes.mobile:hover, .timepicker-ui-minutes.mobile.active {\r\n\tcolor: #004B85;\r\n\tbackground-color: rgba(0, 75, 133, 0.1);\r\n  }\r\n  .timepicker-ui-wrapper {\r\n\tpadding: 0 25px !important;\r\n  }\r\n  .timepicker-ui-header {\r\n\tpadding-top: 0 !important;\r\n\tpadding-bottom: 1px !important;\r\n  }\r\n\r\n  .timepicker-ui-clock-hand,.timepicker-ui-dot,.timepicker-ui-circle-hand{\r\n    background-color: #004B85 !important;\r\n  }\r\n  .timepicker-ui-cancel-btn,.timepicker-ui-am.active{\r\n    color: #004B85 !important; ;\r\n  }\r\n  .timepicker-ui-am.active{\r\n    background-color: rgba(0, 75, 133, 0.13) !important;\r\n  }"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -593,11 +593,16 @@ class TimePicker extends _src_BasisPanelChildComponent__WEBPACK_IMPORTED_MODULE_
         const input2 = document.createElement("input");
         input.appendChild(input2);
         input.setAttribute("data-bc-timepicker", "");
-        const datePickerOptions = { okLabel: this.options.okLabel,
-            cancelLabel: this.options.cancelLabel,
-            amLabel: this.options.amLabel,
-            pmLabel: this.options.pmLabel,
-            clockType: this.options.clockType, timeLabel: "", delayHandler: 10, switchToMinutesAfterSelectHour: true };
+        const datePickerOptions = {
+            okLabel: this.options.okLabel ? this.options.okLabel : "تایید",
+            cancelLabel: this.options.cancelLabel ? this.options.cancelLabel : "انصراف",
+            amLabel: this.options.amLabel ? this.options.amLabel : "ق.ظ",
+            pmLabel: this.options.pmLabel ? this.options.pmLabel : "ب.ظ",
+            clockType: this.options.clockType ? this.options.clockType : "24h",
+            timeLabel: "",
+            delayHandler: 10,
+            switchToMinutesAfterSelectHour: true
+        };
         const newTimepicker = new timepicker_ui__WEBPACK_IMPORTED_MODULE_1__/* .TimepickerUI */ .B(input, datePickerOptions);
         this.container.appendChild(input);
         input2.addEventListener("click", timeElement => {

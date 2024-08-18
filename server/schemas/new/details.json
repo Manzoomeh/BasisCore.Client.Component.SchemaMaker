@@ -25,7 +25,8 @@
                 {
                   "part": 1,
                   "viewType": "text",
-                  "multi": false
+                  "multi": false,
+                  "cssClass": "bc_schema_name"
                 }
               ]
             },
@@ -46,7 +47,8 @@
                       "value": "EN"
                     }
                   ],
-                  "multi": false
+                  "multi": false,
+                  "cssClass": "bc_language_id"
                 }
               ]
             },
@@ -56,7 +58,8 @@
               "parts": [
                 {
                   "part": 1,
-                  "viewType": "text"
+                  "viewType": "text",
+                  "cssClass": "bc_schema_version"
                 }
               ]
             }

@@ -556,16 +556,14 @@ export default class SchemaUtil {
           values: [priorityPartValue],
         };
         let schemaPartCollection: IPartCollection;
-        if(value.schema){
           const schemaPartValue: IPartValue = {
           id: 0,
-          value: value.schema,
-        };
+          value: value.schema ?? "",
+          }
         schemaPartCollection = {
           part: 4,
           values: [schemaPartValue],
         };
-        }
  
         const selectedPartValue: IPartValue = {
           id: 0,
@@ -610,6 +608,7 @@ export default class SchemaUtil {
     const retVal = values ? [...values] : [];
     const property = result.properties.find((x) => x.propId == propId);
     if (property) {
+      console.log(property)
       if (property.edited) {
         property.edited.forEach((editedItem) => {
           const edited =

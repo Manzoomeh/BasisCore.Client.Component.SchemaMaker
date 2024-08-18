@@ -98,6 +98,10 @@ export default class WorkspaceComponent
         "data-bc-module-id",
         module.usedForId?.toString() ?? "-1"
       );
+      el.setAttribute(
+        "data-bc-module-id",
+        module.usedForId?.toString() ?? "-1"
+      );
       this._modules.set(module.usedForId, module);
     };
 
@@ -570,27 +574,38 @@ export default class WorkspaceComponent
   > {
     const source = await this.owner.waitToGetSourceAsync(this._sourceId);
     const schema = source.rows[0] as ISchemaMakerSchema;
-    const detailSource = await this.owner.waitToGetSourceAsync("details.data");
-    const rowProperties = detailSource.rows[0]?.properties;
-    const schemaVersion = this.findElementByPropId(rowProperties, 3)?.added
-      ? this.findElementByPropId(rowProperties, 3)?.added[0].parts[0].values[0]
-          .value
-      : this.findElementByPropId(rowProperties, 3)?.edited ??
-        this.findElementByPropId(rowProperties, 3)?.edited[0].parts[0].values[0]
-          .value;
-    const lid = parseInt(
-      this.findElementByPropId(rowProperties, 2)?.added[0] ? this.findElementByPropId(rowProperties, 2)?.added[0].parts[0].values[0]
+    const detailSource = this.owner.tryToGetSource("details.data");
+    let lid 
+    let schemaName 
+    let schemaVersion
+    if(detailSource){
+          const rowProperties = detailSource.rows[0]?.properties;
+    schemaVersion = this.findElementByPropId(rowProperties, 3)?.added
+      ? this.findElementByPropId(rowProperties, 3)?.added[0].parts[0].values[0].value
+      : this.findElementByPropId(rowProperties, 3)?.edited ?
+        this.findElementByPropId(rowProperties, 3)?.edited[0].parts[0].values[0].value: undefined;
+    lid =
+      this.findElementByPropId(rowProperties, 2)?.added ? this.findElementByPropId(rowProperties, 2)?.added[0].parts[0].values[0]
         .value : this.findElementByPropId(rowProperties, 2)?.edited  ?
         this.findElementByPropId(rowProperties, 2)?.edited[0].parts[0].values[0]
-          .value.value : ""
-    );
-    const schemaName = this.findElementByPropId(rowProperties, 1)?.added
+          .value : undefined
+    schemaName = this.findElementByPropId(rowProperties, 1)?.added
       ? this.findElementByPropId(rowProperties, 1)?.added[0].parts[0].values[0]
           .value
       : this.findElementByPropId(rowProperties, 1)?.edited
       ? this.findElementByPropId(rowProperties, 1)?.edited[0].parts[0].values[0]
           .value
       : "";
+    }
+    lid = lid ?? document.querySelector(".bc_language_id [data-sys-select-option]")["value"] ?parseInt(document.querySelector(".bc_language_id [data-sys-select-option]")["value"]) : undefined
+    schemaName =
+      schemaName ??
+      document.querySelector(".bc_schema_name [data-bc-text-input]")["value"];
+      
+    schemaVersion =
+      schemaVersion ??
+      document.querySelector(".bc_schema_version [data-bc-text-input]")["value"];
+
     const mid = parseInt(
       this.container.querySelector<HTMLSelectElement>(
         "[data-bc-sm-schema-object-type-select]"
