@@ -147,6 +147,32 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "prpId": 7,
+                  "vocab": "AddToLog",
+                  "title": "AddToLog",
+                  "multi": false,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "checklist",
+                      "fixValues": [
+                        {
+                          "id": 1,
+                          "value": "",
+                          "schema": {
+                            "schemaId": 10,
+                            "paramUrl": "add-to-log",
+                            "lid": 1,
+                            "schemaVersion": 1.1
+                          }
+                        }
+                      ],
+                      "caption": "",
+                      "link": ""
+                    }
+                  ]
                 }
               ]
             },
@@ -171,7 +197,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -341,7 +367,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -419,7 +445,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -696,7 +722,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -813,7 +839,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -936,7 +962,7 @@
                     {
                       "part": 3,
                       "viewType": "text",
-                      "caption": "priority",
+                      "caption": "Priority",
                       "validations": {
                         "dataType": "float"
                       }
@@ -986,10 +1012,10 @@
               ]
             },
             {
-              "schemaId": "advancedselect",
-              "paramUrl": "advancedselect",
+              "schemaId": "AdvancedSelect",
+              "paramUrl": "AdvancedSelect",
               "schemaType": "part",
-              "title": "advanced select",
+              "title": "AdvancedSelect",
               "image": "/assets/images/dropdown.png",
               "questions": [
                 {
@@ -1006,7 +1032,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -1057,7 +1083,7 @@
                     {
                       "part": 3,
                       "viewType": "text",
-                      "caption": "priority",
+                      "caption": "Priority",
                       "validations": {
                         "dataType": "float"
                       }
@@ -1065,11 +1091,11 @@
                     {
                       "part": 4,
                       "viewType": "text",
-                      "caption": "schema"
+                      "caption": "Schema"
                     },
                     {
                       "part": 5,
-                      "caption": "selected",
+                      "caption": "Selected",
                       "viewType": "select",
                       "fixValues": [
                         {
@@ -1178,7 +1204,7 @@
                     {
                       "part": 3,
                       "viewType": "text",
-                      "caption": "priority",
+                      "caption": "Priority",
                       "validations": {
                         "dataType": "float"
                       }
@@ -1253,10 +1279,10 @@
               ]
             },
             {
-              "schemaId": "advancedchecklist",
-              "paramUrl": "advancedchecklist",
+              "schemaId": "AdvancedChecklist",
+              "paramUrl": "AdvancedChecklist",
               "schemaType": "part",
-              "title": "advanced Checklist",
+              "title": "AdvancedChecklist",
               "image": "/assets/images/checklist.png",
               "questions": [
                 {
@@ -1273,7 +1299,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -1324,7 +1350,7 @@
                     {
                       "part": 3,
                       "viewType": "text",
-                      "caption": "priority",
+                      "caption": "Priority",
                       "validations": {
                         "dataType": "float"
                       }
@@ -1332,11 +1358,11 @@
                     {
                       "part": 4,
                       "viewType": "text",
-                      "caption": "schema"
+                      "caption": "Schema"
                     },
                     {
                       "part": 5,
-                      "caption": "selected",
+                      "caption": "Selected",
                       "viewType": "select",
                       "fixValues": [
                         {
@@ -1470,7 +1496,7 @@
                     {
                       "part": 3,
                       "viewType": "text",
-                      "caption": "priority",
+                      "caption": "Priority",
                       "validations": {
                         "dataType": "float"
                       }
@@ -1520,10 +1546,10 @@
               ]
             },
             {
-              "schemaId": "advancedradio",
-              "paramUrl": "advancedradio",
+              "schemaId": "AdvancedRadio",
+              "paramUrl": "AdvancedRadio",
               "schemaType": "part",
-              "title": "advanced Radio",
+              "title": "AdvancedRadio",
               "image": "/assets/images/radio.png",
               "questions": [
                 {
@@ -1540,7 +1566,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -1591,7 +1617,7 @@
                     {
                       "part": 3,
                       "viewType": "text",
-                      "caption": "priority",
+                      "caption": "Priority",
                       "validations": {
                         "dataType": "float"
                       }
@@ -1599,11 +1625,11 @@
                     {
                       "part": 4,
                       "viewType": "text",
-                      "caption": "schema"
+                      "caption": "Schema"
                     },
                     {
                       "part": 5,
-                      "caption": "selected",
+                      "caption": "Selected",
                       "viewType": "select",
                       "fixValues": [
                         {
@@ -1681,7 +1707,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -1773,7 +1799,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -1914,7 +1940,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -2041,6 +2067,31 @@
                 {
                   "id": 1,
                   "title": "Validations"
+                }
+              ]
+            },
+            {
+              "paramUrl": "add-to-log",
+              "schemaVersion": 1.1,
+              "lid": 1,
+              "schemaId": "add-to-log",
+              "schemaType" :"part",
+              "baseVocab": "http://schema.site/FA/vo",
+              "questions": [
+                {
+                  "prpId": 71,
+                  "vocab": "LogName",
+                  "title": "LogName",
+                  "multi": false,
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
+                      "validations": {
+                        "required": true
+                      }
+                    }
+                  ]
                 }
               ]
             }

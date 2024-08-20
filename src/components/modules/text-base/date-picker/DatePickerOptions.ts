@@ -6,5 +6,5 @@ export default interface IDatepickerOptions {
   switchType: boolean;
   style: string;
   clockType: "24h" | "12h";
-  dateProvider : string
+  dateProvider : string;
 }

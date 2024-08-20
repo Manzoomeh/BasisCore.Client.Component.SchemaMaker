@@ -32,7 +32,7 @@
   padding-right: 0;
 } */
 
-[data-bc-sm-main-container] [data-bc-sm-requirements] [data-bc-title] {
+[data-bc-sm-main-container] [data-bc-sm-requirements] [data-bc-requirements-title] {
   /* width: 50%; */
   /* display: inline-block; */
   float: left;
@@ -41,7 +41,7 @@
   line-height: 30px;
 }
 
-[data-bc-sm-main-container] [data-bc-sm-requirements] [data-bc-answer] {
+[data-bc-sm-main-container] [data-bc-sm-requirements] [data-bc-requirements-answer] {
   width: calc(100% - 130px);
   display: inline-block;
 }
@@ -76,7 +76,7 @@
   background: #fff8ee;
 }
 
-[data-bc-sm-main-container] [data-bc-sm-requirements] [data-bc-answer][data-bc-sm-schema-group-child] select {
+[data-bc-sm-main-container] [data-bc-sm-requirements] [data-bc-requirements-answer][data-bc-sm-schema-group-child] select {
   margin-bottom: 5px;
 }
 

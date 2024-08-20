@@ -780,7 +780,7 @@ export default class WorkspaceComponent
   resetGroupSection() {
     const groupContainer = this.container
       .querySelector("[data-bc-sm-schema-group]")
-      .querySelector("[data-bc-answer]");
+      .querySelector("[data-bc-requirements-answer]");
     groupContainer.innerHTML = `<select data-bc-sm-schema-group-select data-sys-select-option="" disabled></select>`;
     groupContainer.setAttribute("data-load", "active");
   }

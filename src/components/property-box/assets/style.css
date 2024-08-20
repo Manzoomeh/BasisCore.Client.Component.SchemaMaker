@@ -184,6 +184,19 @@
     margin-left: 0;
     margin-right: 10px;
 }
+
+[data-bc-properties-container] [data-bc-question] [data-bc-btn],
+[data-bc-properties-container] [data-bc-question] [data-bc-btn-remove],
+[data-bc-properties-container] [data-bc-question] [data-bc-btn-add] {
+    margin-right: 5px;
+    margin-left: 0;
+    float: left;
+}
+
+[data-bc-properties-container] [data-bc-question] [data-bc-btns]:last-child {
+    margin-right: 0;
+}
+
 [data-bc-sm-sub-schema-container] [data-bc-part-container] {
     width : -webkit-fill-available
-  }
+}

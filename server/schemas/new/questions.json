@@ -197,7 +197,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -365,7 +365,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -441,7 +441,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -718,7 +718,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -833,7 +833,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -923,7 +923,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -972,7 +972,7 @@
                     {
                       "part": 3,
                       "viewType": "text",
-                      "caption": "priority",
+                      "caption": "Priority",
                       "validations": {
                         "dataType": "float"
                       }
@@ -1022,10 +1022,10 @@
               ]
             },
             {
-              "schemaId": "advancedselect",
-              "paramUrl": "advancedselect",
+              "schemaId": "AdvancedSelect",
+              "paramUrl": "AdvancedSelect",
               "schemaType": "part",
-              "title": "advancedselect",
+              "title": "AdvancedSelect",
               "image": "/assets/images/dropdown.png",
               "questions": [
                 {
@@ -1040,7 +1040,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -1089,7 +1089,7 @@
                     {
                       "part": 3,
                       "viewType": "text",
-                      "caption": "priority",
+                      "caption": "Priority",
                       "validations": {
                         "dataType": "float"
                       }
@@ -1097,11 +1097,11 @@
                     {
                       "part": 4,
                       "viewType": "text",
-                      "caption": "schema"
+                      "caption": "Schema"
                     },
                     {
                       "part": 5,
-                      "caption": "selected",
+                      "caption": "Selected",
                       "viewType": "select",
                       "fixValues": [
                         {
@@ -1177,7 +1177,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -1226,7 +1226,7 @@
                     {
                       "part": 3,
                       "viewType": "text",
-                      "caption": "priority",
+                      "caption": "Priority",
                       "validations": {
                         "dataType": "float"
                       }
@@ -1301,10 +1301,10 @@
               ]
             },
             {
-              "schemaId": "advancedchecklist",
-              "paramUrl": "advancedchecklist",
+              "schemaId": "AdvancedChecklist",
+              "paramUrl": "AdvancedChecklist",
               "schemaType": "part",
-              "title": "advancedchecklist",
+              "title": "AdvancedChecklist",
               "image": "/assets/images/checklist.png",
               "questions": [
                 {
@@ -1319,7 +1319,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -1368,7 +1368,7 @@
                     {
                       "part": 3,
                       "viewType": "text",
-                      "caption": "priority",
+                      "caption": "Priority",
                       "validations": {
                         "dataType": "float"
                       }
@@ -1376,11 +1376,11 @@
                     {
                       "part": 4,
                       "viewType": "text",
-                      "caption": "schema"
+                      "caption": "Schema"
                     },
                     {
                       "part": 5,
-                      "caption": "selected",
+                      "caption": "Selected",
                       "viewType": "select",
                       "fixValues": [
                         {
@@ -1481,7 +1481,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -1530,7 +1530,7 @@
                     {
                       "part": 3,
                       "viewType": "text",
-                      "caption": "priority",
+                      "caption": "Priority",
                       "validations": {
                         "dataType": "float"
                       }
@@ -1598,7 +1598,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -1647,7 +1647,7 @@
                     {
                       "part": 3,
                       "viewType": "text",
-                      "caption": "priority",
+                      "caption": "Priority",
                       "validations": {
                         "dataType": "float"
                       }
@@ -1655,11 +1655,11 @@
                     {
                       "part": 4,
                       "viewType": "text",
-                      "caption": "schema"
+                      "caption": "Schema"
                     },
                     {
                       "part": 5,
-                      "caption": "selected",
+                      "caption": "Selected",
                       "viewType": "select",
                       "fixValues": [
                         {
@@ -1735,7 +1735,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -1825,7 +1825,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
@@ -1964,7 +1964,7 @@
                 },
                 {
                   "prpId": 2001,
-                  "title": "disabled",
+                  "title": "Disabled",
                   "parts": [
                     {
                       "part": 1,
