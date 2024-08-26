@@ -35,7 +35,7 @@ export default class DatePickerModule extends TextBaseModule {
       questionPart
     );
     if (questionPart) {
-      if (this.data.options) {
+      if (questionPart.options) {
         this.data.options = {
           todayButton: questionPart.options.todayButton,
           yearsList: questionPart.options.yearsList,
