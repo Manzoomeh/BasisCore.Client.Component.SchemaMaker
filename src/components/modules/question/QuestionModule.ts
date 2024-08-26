@@ -116,6 +116,8 @@ export default class QuestionModule extends ContainerModule {
         multi: this._schema.multi,
         useInList: this._schema.useInList,
         part: this._schema.parts?.length,
+        addToLog: this._schema["addToLog"] ?? undefined,
+        logName: this._schema["logName"] ?? undefined,
       };
     } else {
       this._data = {
