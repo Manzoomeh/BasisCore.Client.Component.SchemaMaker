@@ -65,7 +65,7 @@ export default class DatePickerModule extends TextBaseModule {
     );
     SchemaUtil.addSimpleValueProperty(
       ans,
-      this.data.options.yearsList == true ? 1 : 0,
+      this.data.options.monthList == true ? 1 : 0,
       this.MONTH_LIST_ID
     );
     SchemaUtil.addSimpleValueProperty(
