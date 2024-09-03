@@ -65,7 +65,7 @@ export default class ModuleFactory implements IModuleFactory {
         break;
       }
       case "section": {
-        module = new SectionModule(owner, container, model);
+        module = new SectionModule(owner, container, isABuiltIn, model);
         break;
       }
       case "lookup": {
