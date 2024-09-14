@@ -9,8 +9,8 @@ export default class AutocompleteModule extends RemoteSourceModule {
     owner: HTMLElement,
     workspace: IWorkspaceComponent,
     isABuiltIn: boolean,
-    questionPart: IQuestionPart
+    questionPart: IQuestionPart,isSimple : boolean
   ) {
-    super(layout, owner, workspace, "simpleautocomplete", isABuiltIn, questionPart);
+    super(layout, owner, workspace, isSimple ? "simpleautocomplete" : "autocomplete" , isABuiltIn, questionPart);
   }
 }
