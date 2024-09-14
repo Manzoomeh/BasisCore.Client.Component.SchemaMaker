@@ -16,7 +16,7 @@ export default class RemoteSourceModule extends PartBaseModule<IRemoteSourceData
     layout: string,
     owner: HTMLElement,
     workspace: IWorkspaceComponent,
-    viewType: ViewType,
+    viewType: ViewType | string,
     isABuiltIn: boolean,
     questionPart: IQuestionPart
   ) {

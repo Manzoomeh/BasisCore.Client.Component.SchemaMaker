@@ -60,6 +60,10 @@ export default class ModuleFactory implements IModuleFactory {
         module = new AutocompleteModule(owner, container, isABuiltIn, model);
         break;
       }
+      case "simpleautocomplete": {
+        module = new AutocompleteModule(owner, container, isABuiltIn, model);
+        break;
+      }
       case "question": {
         module = new QuestionModule(owner, container, isABuiltIn, model);
         break;
