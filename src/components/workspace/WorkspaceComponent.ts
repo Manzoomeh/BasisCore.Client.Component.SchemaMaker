@@ -660,7 +660,6 @@ export default class WorkspaceComponent
     }, 50);
   }
   private async generateAndSetQuestionSchemaAsync(e: MouseEvent) {
-    console.log(1);
     e.preventDefault();
     const retVal = await this.generateQuestionSchemaAsync();
     this.owner.setSource(this._internalSourceId, retVal);

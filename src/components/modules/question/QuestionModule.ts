@@ -144,7 +144,11 @@ export default class QuestionModule extends ContainerModule {
       usedForId: this.usedForId,
       properties: [],
     };
-    SchemaUtil.addSimpleValueProperty(ans, this.titleData ? JSON.stringify(this.titleData) : this.title, QuestionModule.TITLE_ID);
+    SchemaUtil.addSimpleValueProperty(
+      ans,
+      this.titleData ? JSON.stringify(this.titleData) : this.title,
+      QuestionModule.TITLE_ID
+    );
     SchemaUtil.addSimpleValueProperty(ans, this.part, QuestionModule.PART_ID);
     SchemaUtil.addSimpleValueProperty(
       ans,
@@ -217,13 +221,22 @@ export default class QuestionModule extends ContainerModule {
       result,
       QuestionModule.ADD_LOG_ID
     );
-    this.addToLog = addToLog ? true : false;
+    if (addToLog) {
+      this.addToLog = addToLog ? true : false;
+      this._data.addToLog = this.addToLog;
+    }
     if (this.addToLog) {
-      const subSchema = SchemaUtil.getSubSchema(
-        result,
-        QuestionModule.ADD_LOG_ID
-      );
-      this.logName = SchemaUtil.getPropertyValue(subSchema, 71);
+      let subSchema;
+      try {
+        subSchema = SchemaUtil.getSubSchema(result, QuestionModule.ADD_LOG_ID);
+      } catch (err) {}
+
+      if (subSchema) {
+        const logName = SchemaUtil.getPropertyValue(subSchema, 71);
+        if (logName) {
+          this.logName = logName;
+        }
+      }
     }
     if (useInList != null) {
       this._data.useInList = useInList == "2";
@@ -259,7 +272,6 @@ export default class QuestionModule extends ContainerModule {
       ...(this.logName && { logName: this.logName }),
       parts: null,
     };
-
     question.parts = this.getChildModules<
       PartBaseModule<IPartBaseModuleDataModel>
     >()
@@ -268,7 +280,7 @@ export default class QuestionModule extends ContainerModule {
         if (x) {
           return true;
         }
-        return false
+        return false;
       });
 
     if (!schema.questions) {

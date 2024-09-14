@@ -201,15 +201,16 @@ export default class SchemaUtil {
     part: number = 0
   ): any {
     let retVal: IUserActionResult = null;
-    const property = result.properties.find((x) => x.propId == propId);
+   
+    const property = result.properties.find((x) => x.propId == propId); 
     if (property) {
-      if (property.edited) {
+      if (property.edited && property.edited[0].parts[0].values[0].answer) {
         retVal = property.edited[0].parts[part].values[0].answer;
       }
-      if (property.added) {
+      if (property.added && property.added[0].parts[0].values[0].answer) {
         retVal = property.added[0].parts[part].values[0].answer;
       }
-      if (property.deleted) {
+      if (property.deleted && property.deleted[0].parts[0].values[0].answer) {
         retVal = property.deleted[0].parts[0].values[0].answer;
       }
     }
@@ -608,7 +609,6 @@ export default class SchemaUtil {
     const retVal = values ? [...values] : [];
     const property = result.properties.find((x) => x.propId == propId);
     if (property) {
-      console.log(property)
       if (property.edited) {
         property.edited.forEach((editedItem) => {
           const edited =
