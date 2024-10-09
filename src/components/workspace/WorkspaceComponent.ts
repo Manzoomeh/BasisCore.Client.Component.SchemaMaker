@@ -595,13 +595,14 @@ export default class WorkspaceComponent
       : this.findElementByPropId(rowProperties, 1)?.edited
       ? this.findElementByPropId(rowProperties, 1)?.edited[0].parts[0].values[0]
           .value
-      : "";
+      : undefined;
     }
     lid = lid ?? document.querySelector(".bc_language_id [data-sys-select-option]")["value"] ?parseInt(document.querySelector(".bc_language_id [data-sys-select-option]")["value"]) : undefined
+    console.log(document.querySelector(".bc_schema_name [data-bc-text-input]")["value"])
     schemaName =
       schemaName ??
       document.querySelector(".bc_schema_name [data-bc-text-input]")["value"];
-      
+    console.log(schemaName)  
     schemaVersion =
       schemaVersion ??
       document.querySelector(".bc_schema_version [data-bc-text-input]")["value"];
