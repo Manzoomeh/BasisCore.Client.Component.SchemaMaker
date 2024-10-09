@@ -1,6 +1,6 @@
 {
   "name": "schema-maker",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Simple client side component for create schema in base of Manzoomeh Negaran schema standard.",
   "main": "schema-maker.js",
   "types": "schema-maker.d.ts",
