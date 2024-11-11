@@ -32,14 +32,14 @@ export default abstract class PartBaseModule<
     if (questionPart) {
       this.data.viewType = schemaId;
       this.data.caption =
-        typeof questionPart.caption == "string"
+        typeof questionPart.caption == "string" || typeof questionPart.caption  != "number"
           ? questionPart.caption
           : questionPart.caption
           ? 
            "value" in questionPart.caption && questionPart.caption["value"]
           : undefined;
       this.data["captionData"] =
-        typeof this.data.caption == "string"
+        typeof this.data.caption == "string" ||typeof this.data.caption == "number"
           ? null
           : this.data.caption
           ? this.data.caption
@@ -79,7 +79,7 @@ export default abstract class PartBaseModule<
     const caption = SchemaUtil.getCaptionProperty(result);
     if (caption != null) {
       this.data.caption = caption;
-      if (typeof caption != "string") {
+      if (typeof caption != "string"||typeof caption != "number") {
         this.data.caption = caption.value;
         this.data["captionData"]= caption;
       }

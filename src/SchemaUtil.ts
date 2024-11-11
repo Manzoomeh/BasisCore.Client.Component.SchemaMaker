@@ -620,7 +620,7 @@ export default class SchemaUtil {
               edited.id = parseInt(editedPart.values[0].value);
             } else if (editedPart.part == 2) {
               let value = editedPart.values[0].value;
-              if(value && typeof value != "string"){
+              if(value && typeof value != "string" &&typeof value != "number"){
                 edited.valueData = value
                 edited.value = value.value
               }else{
@@ -657,7 +657,7 @@ export default class SchemaUtil {
           let value = addedItem.parts.find((x) => x.part == 2)?.values[0]
           .value;  
           let valueData : NodeJS.Dict<any>
-          if(value && typeof value != "string"){
+          if(value && typeof value != "string" &&typeof value != "number"){
             valueData = value
             value = value.value
           }

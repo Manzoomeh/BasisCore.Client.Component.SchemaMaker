@@ -22,7 +22,7 @@ export default class SectionModule extends ContainerModule {
   }
   setTitleData() {
     this._data.titleData =
-      typeof this._data.title == "string" ? undefined : this._data.title;
+      typeof this._data.title == "string" || typeof this._data.title == "number" ? undefined : this._data.title;
   }
   getTitleData() {
     return this._data.titleData;
@@ -38,7 +38,7 @@ export default class SectionModule extends ContainerModule {
       this._data.title = value;
     }
     this.container.querySelector("[data-bc-title]").innerHTML =
-      typeof this._data.title == "string"
+      typeof this._data.title == "string" || typeof this._data.title == "number"
         ? this._data.title
         : this._data.title?.value;
     this.setTitleData();      
