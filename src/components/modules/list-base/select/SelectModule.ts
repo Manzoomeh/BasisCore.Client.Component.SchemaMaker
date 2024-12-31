@@ -9,9 +9,10 @@ export default class SelectModule extends ListBaseModule {
     owner: HTMLElement,
     component: IWorkspaceComponent,
     isABuiltIn: boolean,
+    noAccessToEdit: boolean,
     questionPart: IQuestionPart,
     isAdvanced : boolean
   ) {
-    super(layout, owner, component, isAdvanced ? "advancedselect":"select", isABuiltIn, questionPart);
+    super(layout, owner, component, isAdvanced ? "advancedselect":"select", isABuiltIn, noAccessToEdit, questionPart);
   }
 }

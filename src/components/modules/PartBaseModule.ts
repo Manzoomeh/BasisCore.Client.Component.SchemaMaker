@@ -22,6 +22,7 @@ export default abstract class PartBaseModule<
     workspace: IWorkspaceComponent,
     schemaId: ViewType | string,
     isABuiltIn: boolean,
+    noAccessToEdit: boolean,
     questionPart?: IQuestionPart
   ) {
     super(layout, owner, true, workspace);
@@ -52,6 +53,9 @@ export default abstract class PartBaseModule<
 
     if (isABuiltIn) {
       this.setBuiltInAttribute(true);
+    }
+    if (noAccessToEdit) {
+      this.setNoAccessToEditAttribute(true);
     }
   }
 
@@ -133,6 +137,20 @@ export default abstract class PartBaseModule<
   protected setBuiltInAttribute(invisible: boolean) {
     if (invisible) {
       super.setBuiltInAttribute(invisible);
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-handler]"
+      ).style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-remove]"
+      ).style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-setting]"
+      ).style.display = "none";
+    }
+  }
+
+  protected setNoAccessToEditAttribute(invisible: boolean) {
+    if (invisible) {
       this.owner.querySelector<HTMLButtonElement>(
         "[data-btn-handler]"
       ).style.display = "none";

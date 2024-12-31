@@ -22,9 +22,10 @@ export default abstract class ListBaseModule extends PartBaseModule<IListBaseMod
     component: IWorkspaceComponent,
     schemaId: ViewType |string,
     isABuiltIn: boolean,
+    noAccessToEdit: boolean,
     questionPart: IQuestionPart
   ) {
-    super(layout, owner, component, schemaId, isABuiltIn, questionPart);
+    super(layout, owner, component, schemaId, isABuiltIn, noAccessToEdit, questionPart);
     if (questionPart) {
       this.data.link = questionPart.link;
       this.data.fixValues = questionPart.fixValues;

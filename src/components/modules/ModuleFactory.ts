@@ -22,86 +22,81 @@ export default class ModuleFactory implements IModuleFactory {
     owner: HTMLElement,
     container: IWorkspaceComponent,
     isABuiltIn: boolean,
+    noAccessToEdit: boolean,
     model?: any
   ): ToolboxModule {
     let module: ToolboxModule = null;
     switch (schemaId) {
       case "text": {
-        module = new ShortTextModule(owner, container, isABuiltIn, model);
+        module = new ShortTextModule(owner, container, isABuiltIn, noAccessToEdit, model);
         break;
       }
       case "textarea": {
-        module = new LongTextModule(owner, container, isABuiltIn, model);
+        module = new LongTextModule(owner, container, isABuiltIn, noAccessToEdit, model);
         break;
       }
       case "select": {
-        module = new SelectModule(owner, container, isABuiltIn, model, false);
+        module = new SelectModule(owner, container, isABuiltIn, noAccessToEdit, model, false);
         break;
       }
       case "advancedselect": {
-        module = new SelectModule(owner, container, isABuiltIn, model, true);
+        module = new SelectModule(owner, container, isABuiltIn, noAccessToEdit, model, true);
         break;
       }
       case "checklist": {
-        module = new CheckListModule(
-          owner,
-          container,
-          isABuiltIn,
-          model,
-          false
-        );
+        module = new CheckListModule(owner, container, isABuiltIn, noAccessToEdit, model, false);
         break;
       }
       case "advancedchecklist": {
-        module = new CheckListModule(owner, container, isABuiltIn, model, true);
+        module = new CheckListModule(owner, container, isABuiltIn, noAccessToEdit, model, true);
         break;
       }
       case "autocomplete": {
-        module = new AutocompleteModule(owner, container, isABuiltIn, model,false);
+        module = new AutocompleteModule(owner, container, isABuiltIn, noAccessToEdit, model,false);
         break;
       }
       case "simpleautocomplete": {
-        module = new AutocompleteModule(owner, container, isABuiltIn, model,true);
+        module = new AutocompleteModule(owner, container, isABuiltIn, noAccessToEdit, model,true);
         break;
       }
       case "question": {
-        module = new QuestionModule(owner, container, isABuiltIn, model);
+        module = new QuestionModule(owner, container, isABuiltIn, noAccessToEdit, model);
         break;
       }
       case "section": {
-        module = new SectionModule(owner, container, isABuiltIn, model);
+        module = new SectionModule(owner, container, isABuiltIn, noAccessToEdit, model);
         break;
       }
       case "lookup": {
-        module = new LookupModule(owner, container, isABuiltIn, model);
+        module = new LookupModule(owner, container, isABuiltIn, noAccessToEdit, model);
         break;
       }
       case "radio": {
-        module = new RadioModule(owner, container, isABuiltIn, model, false);
+        module = new RadioModule(owner, container, isABuiltIn, noAccessToEdit, model, false);
         break;
       }
       case "advancedradio": {
-        module = new RadioModule(owner, container, isABuiltIn, model, true);
+        module = new RadioModule(owner, container, isABuiltIn, noAccessToEdit, model, true);
         break;
       }
       case "upload": {
-        module = new UploadSimpleModule(owner, container, isABuiltIn, model);
+        module = new UploadSimpleModule(owner, container, isABuiltIn, noAccessToEdit, model);
         break;
       }
       case "blob": {
-        module = new UploadMultiPartModule(owner, container, isABuiltIn, model);
+        module = new UploadMultiPartModule(owner, container, isABuiltIn, noAccessToEdit, model);
         break;
       }
       case "color": {
-        module = new ColorModule(owner, container, isABuiltIn, model);
+        module = new ColorModule(owner, container, isABuiltIn, noAccessToEdit, model);
         break;
       }
       case "component.calendar.datepicker": {
-        module = new DatePickerModule(owner, container, isABuiltIn, model);
+        module = new DatePickerModule(owner, container, isABuiltIn, noAccessToEdit, model);
         break;
       }
       case "component.bc.timepicker": {
-        module = new TimePickerModule(owner, container, isABuiltIn, model);
+        module = new TimePickerModule(owner, container, isABuiltIn, noAccessToEdit, model);
         break;
       }
     }

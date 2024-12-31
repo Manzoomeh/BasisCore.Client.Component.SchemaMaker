@@ -12,16 +12,10 @@ export default class TimePickerModule extends TextBaseModule {
     owner: HTMLElement,
     component: IWorkspaceComponent,
     isABuiltIn: boolean,
+    noAccessToEdit: boolean,
     questionPart: ITimeQuestionPart
   ) {
-    super(
-      layout,
-      owner,
-      component,
-      "component.bc.timepicker",
-      isABuiltIn,
-      questionPart
-    );
+    super(layout, owner, component, "component.bc.timepicker", isABuiltIn, noAccessToEdit, questionPart);
     if (!this.data.options) {
       this.data.options = {};
     }

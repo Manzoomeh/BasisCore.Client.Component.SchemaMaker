@@ -12,8 +12,9 @@ export default abstract class TextBaseModule extends PartBaseModule<ITextBaseMod
     component: IWorkspaceComponent,
     viewType: ViewType | string,
     isABuiltIn: boolean,
+    noAccessToEdit: boolean,
     questionPart: IQuestionPart
   ) {
-    super(layout, owner, component, viewType, isABuiltIn, questionPart);
+    super(layout, owner, component, viewType, isABuiltIn, noAccessToEdit, questionPart);
   }
 }

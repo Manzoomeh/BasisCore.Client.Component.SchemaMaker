@@ -9,9 +9,10 @@ export default class CheckListModule extends ListBaseModule {
     owner: HTMLElement,
     component: IWorkspaceComponent,
     isABuiltIn: boolean,
+    noAccessToEdit: boolean,
     questionPart: IQuestionPart,
     isAdvanced: boolean
   ) {
-    super(layout, owner, component, isAdvanced ? "advancedChecklist":"Checklist", isABuiltIn, questionPart);
+    super(layout, owner, component, isAdvanced ? "advancedChecklist":"Checklist", isABuiltIn, noAccessToEdit, questionPart);
   }
 }

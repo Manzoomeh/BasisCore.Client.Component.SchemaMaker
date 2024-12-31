@@ -9,8 +9,9 @@ export default class LookupModule extends RemoteSourceModule {
     owner: HTMLElement,
     workspace: IWorkspaceComponent,
     isABuiltIn: boolean,
+    noAccessToEdit: boolean,
     questionPart: IQuestionPart
   ) {
-    super(layout, owner, workspace, "Lookup", isABuiltIn, questionPart);
+    super(layout, owner, workspace, "Lookup", isABuiltIn, noAccessToEdit, questionPart);
   }
 }

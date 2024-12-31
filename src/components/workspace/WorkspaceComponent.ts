@@ -28,6 +28,7 @@ export default class WorkspaceComponent
   implements IWorkspaceComponent
 {
   private _saveDraft: boolean;
+  private _noAccessToEdit: boolean;
   private _sourceId: string;
   private _internalSourceId: string;
   private _result: JSON;
@@ -93,7 +94,7 @@ export default class WorkspaceComponent
       el.innerHTML = "";
       const owner = el as HTMLElement;
       const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
-      const module = factory.create(schemaId, owner, this, false);
+      const module = factory.create(schemaId, owner, this, false, false);
       el.setAttribute(
         "data-bc-module-id",
         module.usedForId?.toString() ?? "-1"
@@ -210,6 +211,8 @@ export default class WorkspaceComponent
   public async initializeAsync(): Promise<void> {
     this._saveDraft =
       (await this.owner.getAttributeValueAsync("saveDraft", "false")) == "true";
+    this._noAccessToEdit =
+      (await this.owner.getAttributeValueAsync("noAccessToEdit", "false")) == "true";
     this._sourceId = await this.owner.getAttributeValueAsync("DataMemberName");
     this.resultSourceIdToken = this.owner.getAttributeToken("resultSourceId");
     this._objectTypeUrl = await this.owner.getAttributeValueAsync(
@@ -449,13 +452,14 @@ export default class WorkspaceComponent
   private createUIFromQuestionSchema(question: IQuestionSchema) {
     const board = this.container.querySelector("[data-bc-sm-board]");
     board.innerHTML = "";
-    this.createUIElements(board, question, false);
+    this.createUIElements(board, question, false, this._noAccessToEdit);
   }
 
   private createUIElements(
     board: Element,
     questionSchema: IQuestionSchema,
-    isABuiltIn: boolean
+    isABuiltIn: boolean,
+    noAccessToEdit: boolean
   ) {
     if (questionSchema) {
       const sections = new Map<Number, Element>();
@@ -466,7 +470,8 @@ export default class WorkspaceComponent
             "section",
             "section",
             x,
-            isABuiltIn
+            isABuiltIn,
+            noAccessToEdit
           );
           sections.set(x.id, sectionModule);
           board.appendChild(sectionModule);
@@ -479,7 +484,8 @@ export default class WorkspaceComponent
             "question",
             "question",
             question,
-            isABuiltIn
+            isABuiltIn,
+            noAccessToEdit
           );
           if (question.sectionId && sections.has(question.sectionId)) {
             const section = sections.get(question.sectionId);
@@ -496,7 +502,8 @@ export default class WorkspaceComponent
                 part.viewType,
                 "question",
                 part,
-                isABuiltIn
+                isABuiltIn,
+                noAccessToEdit
               );
               const partContainer = questionModule.querySelector(
                 `[data-bc-question-part-number="${part.part}"]`
@@ -514,13 +521,14 @@ export default class WorkspaceComponent
     schemaId: string,
     schemaType: ModuleType,
     data: any,
-    isABuiltIn: boolean
+    isABuiltIn: boolean,
+    noAccessToEdit: boolean
   ): Element {
     const container = document.createElement("div");
     container.setAttribute("data-schema-id", schemaId);
     container.setAttribute("data-schema-type", schemaType);
     const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
-    const module = factory.create(schemaId, container, this, isABuiltIn, data);
+    const module = factory.create(schemaId, container, this, isABuiltIn, noAccessToEdit, data);
     container.setAttribute("data-bc-module-id", module.usedForId.toString());
     this._modules.set(module.usedForId, module);
     return container;
@@ -753,7 +761,7 @@ export default class WorkspaceComponent
     let questionsBuiltIn: IQuestionSchemaBuiltIn = questions.sources[0].data[0];
 
     const board = this.container.querySelector("[data-bc-sm-board]");
-    this.createUIElements(board, questionsBuiltIn, true);
+    this.createUIElements(board, questionsBuiltIn, true, false);
   }
 
   removeDefaultQuestions() {

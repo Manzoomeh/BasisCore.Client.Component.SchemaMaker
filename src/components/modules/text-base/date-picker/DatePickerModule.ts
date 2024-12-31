@@ -24,16 +24,10 @@ export default class DatePickerModule extends TextBaseModule {
     owner: HTMLElement,
     component: IWorkspaceComponent,
     isABuiltIn: boolean,
+    noAccessToEdit: boolean,
     questionPart: IDateQuestionPart
   ) {
-    super(
-      layout,
-      owner,
-      component,
-      "component.calendar.datepicker",
-      isABuiltIn,
-      questionPart
-    );
+    super(layout, owner, component, "component.calendar.datepicker", isABuiltIn, noAccessToEdit, questionPart);
     if (questionPart) {
       if (questionPart.options) {
         this.data.options = {

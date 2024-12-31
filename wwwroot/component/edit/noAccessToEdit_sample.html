@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schema Maker Command - Zero Config</title>
+  <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <!-- <div dir="ltr">
+    <h3>Sample Fix Data Url: /server/fix-data/13057/${part}</h3>
+    <h3>Sample autocomplete Data Url: /server/autocomplete?term=${term}</h3>
+  </div> -->
+
+  <basis core="api" url="/server/schemas/[##inline.object.id##]" method="get" run="atclient"></basis>
+  <basis core="component.schemaMaker.schemaMaker" run="atclient" dataMemberName="schema.data" resultSourceId="schema.result" detailsApiUrl="/server" detailsParamUrl="/detailsform" detailsMode="edit" noAccessToEdit="true"></basis>
+
+  <script>
+    const host = {
+      repositories: {
+        schemaMaker: "/schema-maker.js",
+        "bc.timepicker": "/server/public/basiscore.timepicker.js",
+        "calendar.datepicker": "/server/public/basiscore.calendar.component.js",
+      },
+      sources: {
+        "inline.object": [{
+          id: 1161,
+        }, ],
+      },
+    };
+  </script>
+  <script src="/basiscore.js"></script>
+</body>
+
+</html>

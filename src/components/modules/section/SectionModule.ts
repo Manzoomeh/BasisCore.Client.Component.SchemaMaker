@@ -56,6 +56,7 @@ export default class SectionModule extends ContainerModule {
     owner: HTMLElement,
     container: IWorkspaceComponent,
     isABuiltIn: boolean,
+    noAccessToEdit: boolean,
     data?: ISection
   ) {
     super(layout, owner, container);
@@ -75,6 +76,9 @@ export default class SectionModule extends ContainerModule {
 
     if (isABuiltIn) {
       this.setBuiltInAttribute(true);
+    }
+    if (noAccessToEdit) {
+      this.setNoAccessToEditAttribute(true);
     }
   }
 
@@ -157,6 +161,14 @@ export default class SectionModule extends ContainerModule {
       this.owner.querySelector<HTMLButtonElement>(
         "[data-btn-remove]"
       ).style.display = "none";
+      this.owner.querySelector<HTMLButtonElement>(
+        "[data-btn-setting]"
+      ).style.display = "none";
+    }
+  }
+
+  protected setNoAccessToEditAttribute(invisible: boolean) {
+    if (invisible) {
       this.owner.querySelector<HTMLButtonElement>(
         "[data-btn-setting]"
       ).style.display = "none";

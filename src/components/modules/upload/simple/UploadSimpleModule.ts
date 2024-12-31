@@ -9,8 +9,9 @@ export default class UploadSimpleModule extends UploadModule {
     owner: HTMLElement,
     component: IWorkspaceComponent,
     isABuiltIn: boolean,
+    noAccessToEdit: boolean,
     model: IQuestionPart
   ) {
-    super(layout, owner, component, "Upload", isABuiltIn, model);
+    super(layout, owner, component, "Upload", isABuiltIn, noAccessToEdit, model);
   }
 }

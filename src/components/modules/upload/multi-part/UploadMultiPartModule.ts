@@ -10,9 +10,10 @@ export default class UploadMultiPartModule extends UploadModule {
     owner: HTMLElement,
     component: IWorkspaceComponent,
     isABuiltIn: boolean,
+    noAccessToEdit: boolean,
     model: IQuestionPart
   ) {
-    super(layout, owner, component, "Blob", isABuiltIn, model);
+    super(layout, owner, component, "Blob", isABuiltIn, noAccessToEdit, model);
   }
 
   protected getAnswerSchema(): IAnswerSchema {

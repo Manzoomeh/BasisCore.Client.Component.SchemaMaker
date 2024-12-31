@@ -36,6 +36,11 @@ export default class SchemaMakerComponent
       "false"
     );
 
+    const noAccessToEdit = await this.owner.getAttributeValueAsync(
+      "noAccessToEdit",
+      "false"
+    );
+
     const objectTypeUrl = await this.owner.getAttributeValueAsync(
       "objectTypeUrl",
       ""
@@ -49,6 +54,7 @@ export default class SchemaMakerComponent
     this.owner.addTrigger([this.sourceId]);
     this.container.querySelectorAll("basis").forEach((element) => {
       element.setAttribute("SaveDraft", saveDraft);
+      element.setAttribute("noAccessToEdit", noAccessToEdit);
       element.setAttribute("objectTypeUrl", objectTypeUrl);
       element.setAttribute("groupsUrl", groupsUrl);
       element.setAttribute("defaultQuestionsUrl", defaultQuestionsUrl);
