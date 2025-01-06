@@ -32,7 +32,7 @@ export default class QuestionModule extends ContainerModule {
   }
   setTitleData() {
     this._data.titleData =
-      typeof this._data.title == "string" ? null : this._data.title;
+      typeof this._data.title == "string" || "number" ? null : this._data.title;
   }
   getTitleData() {
     return this._data.titleData;
@@ -63,7 +63,7 @@ export default class QuestionModule extends ContainerModule {
       this._data.title = value;
     }
     this.container.querySelector("[data-bc-title]").innerHTML =
-      typeof this._data.title == "string"
+      typeof this._data.title == "string" ||typeof this._data.title == "number" 
         ? this._data.title
         : this._data.title?.value;
     this.setTitleData();
@@ -258,7 +258,7 @@ export default class QuestionModule extends ContainerModule {
       ...(this._schema && { vocab: this._schema.vocab }),
       ...(this._data.title && {
         title:
-          typeof this._data.title == "string"
+          typeof this._data.title == "string" ||typeof this._data.title == "number" 
             ? this._data.title
             : this._data.title.value,
       }),
