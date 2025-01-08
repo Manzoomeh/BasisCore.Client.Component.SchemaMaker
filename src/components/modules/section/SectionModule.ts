@@ -16,6 +16,7 @@ export default class SectionModule extends ContainerModule {
   private _data: Partial<ISection>;
   private static readonly TITLE_ID = 1;
   private static readonly DESCRIPTION_ID = 2;
+  private static readonly GRID_COLUMNS_ID = 3;
   titleData: string;
   get sectionId(): number {
     return 0;
@@ -52,6 +53,13 @@ export default class SectionModule extends ContainerModule {
     this._data.description = value;
   }
 
+  set gridColumns(value : number) {
+    if(value) this._data.gridColumns = Number(value);
+  }
+  get gridColumns() {
+    return this._data.gridColumns;
+  }
+
   constructor(
     owner: HTMLElement,
     container: IWorkspaceComponent,
@@ -73,6 +81,7 @@ export default class SectionModule extends ContainerModule {
       .setAttribute("data-bc-section-id", this._data.id.toString());
     this.title = this._data.title;
     this.description = this._data.description;
+    this.gridColumns = this._data.gridColumns;
 
     if (isABuiltIn) {
       this.setBuiltInAttribute(true);
@@ -102,6 +111,11 @@ export default class SectionModule extends ContainerModule {
       this.description,
       SectionModule.DESCRIPTION_ID
     );
+    SchemaUtil.addSimpleValueProperty(
+      ans,
+      this.gridColumns,
+      SectionModule.GRID_COLUMNS_ID
+    );
     return ans;
   }
 
@@ -116,6 +130,13 @@ export default class SectionModule extends ContainerModule {
     );
     if (description != null) {
       this._data.description = description;
+    }
+    const gridColumns = SchemaUtil.getPropertyValue(
+      result,
+      SectionModule.GRID_COLUMNS_ID
+    );
+    if (gridColumns != null) {
+      this._data.gridColumns = gridColumns;
     }
   }
 
@@ -145,6 +166,7 @@ export default class SectionModule extends ContainerModule {
         : this._data.title,
       description: this._data.description,
       titleData: this._data.titleData ?? undefined,
+      gridColumns : Number(this._data.gridColumns)
     };
     if (!schema.sections) {
       schema.sections = [];

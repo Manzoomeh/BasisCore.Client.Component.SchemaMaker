@@ -10,4 +10,5 @@ export default interface IQuestionModuleDataModel {
   useInList?: boolean;
   addToLog?: boolean;
   logName? :string;
+  colSpan? : number;
 }

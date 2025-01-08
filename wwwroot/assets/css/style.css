@@ -1,9 +1,22 @@
+@font-face {
+    font-family: IRANSansWeb;
+    font-style: normal;
+    font-weight: normal;
+    src: url('https://trust-login.com/fonts/IRANSansWeb.eot');
+    src: url('https://trust-login.com/fonts/IRANSansWeb.eot?#iefix') format('embedded-opentype'),
+        /* IE6-8 */
+        url('https://trust-login.com/fonts/IRANSansWeb.woff') format('woff'),
+        /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+        url('https://trust-login.com/fonts/IRANSansWeb.ttf') format('truetype');
+}
+
 * {
     margin: 0;
     padding: 0;
     font-size: 14px;
     font-weight: normal;
     box-sizing: border-box;
+    font-family: 'IRANSansWeb';
 }
 
 a {

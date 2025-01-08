@@ -41,6 +41,19 @@
                       "cssClass": "css_13050_1"
                     }
                   ]
+                },
+                {
+                  "prpId": 3,
+                  "title": "Grid Columns",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
+                      "validations": {
+                        "dataType": "int"
+                      }
+                    }
+                  ]
                 }
               ]
             },
@@ -173,6 +186,19 @@
                       ],
                       "caption": "",
                       "link": ""
+                    }
+                  ]
+                },
+                {
+                  "prpId": 8,
+                  "title": "ColSpan",
+                  "parts": [
+                    {
+                      "part": 1,
+                      "viewType": "text",
+                      "validations": {
+                        "dataType": "int"
+                      }
                     }
                   ]
                 }

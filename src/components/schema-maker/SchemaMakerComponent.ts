@@ -36,6 +36,11 @@ export default class SchemaMakerComponent
       "false"
     );
 
+    const previewSkin = await this.owner.getAttributeValueAsync(
+      "previewSkin",
+      "default"
+    );
+
     const noAccessToEdit = await this.owner.getAttributeValueAsync(
       "noAccessToEdit",
       "false"
@@ -55,6 +60,7 @@ export default class SchemaMakerComponent
     this.container.querySelectorAll("basis").forEach((element) => {
       element.setAttribute("SaveDraft", saveDraft);
       element.setAttribute("noAccessToEdit", noAccessToEdit);
+      element.setAttribute("skin", previewSkin);
       element.setAttribute("objectTypeUrl", objectTypeUrl);
       element.setAttribute("groupsUrl", groupsUrl);
       element.setAttribute("defaultQuestionsUrl", defaultQuestionsUrl);

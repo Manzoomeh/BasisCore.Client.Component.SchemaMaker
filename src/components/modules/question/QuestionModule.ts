@@ -23,6 +23,7 @@ export default class QuestionModule extends ContainerModule {
   private static readonly HELP_URL_ID = 5;
   private static readonly USE_IN_LIST_ID = 6;
   private static readonly ADD_LOG_ID = 7;
+  private static readonly COL_SPAN_ID = 8;
 
   private readonly _data: Partial<IQuestionModuleDataModel>;
   private readonly _schema: IQuestion;
@@ -50,6 +51,12 @@ export default class QuestionModule extends ContainerModule {
   }
   get logName(): string {
     return this._data.logName;
+  }
+  set colSpan(value: number) {
+    this._data.colSpan = Number(value);
+  }
+  get colSpan() {
+    return this._data.colSpan;
   }
 
   get title(): string | HTMLValueType {
@@ -119,6 +126,7 @@ export default class QuestionModule extends ContainerModule {
         part: this._schema.parts?.length,
         addToLog: this._schema["addToLog"] ?? undefined,
         logName: this._schema["logName"] ?? undefined,
+        colSpan : this._schema.colSpan
       };
     } else {
       this._data = {
@@ -174,6 +182,11 @@ export default class QuestionModule extends ContainerModule {
       this._data.useInList ? "2" : "1",
       QuestionModule.USE_IN_LIST_ID
     );
+    SchemaUtil.addSimpleValueProperty(
+      ans,
+      this._data.colSpan,
+      QuestionModule.COL_SPAN_ID
+    );
     SchemaUtil.addSimpleValuePropertyToSubSchema(
       ans,
       this._data.addToLog ? "1" : null,
@@ -199,6 +212,14 @@ export default class QuestionModule extends ContainerModule {
     const multi = SchemaUtil.getPropertyValue(result, QuestionModule.MULTI_ID);
     if (multi != null) {
       this._data.multi = multi == "2";
+    }
+
+    const colSpan = SchemaUtil.getPropertyValue(
+      result,
+      QuestionModule.COL_SPAN_ID
+    );
+    if (colSpan  != null) {
+      this._data.colSpan = colSpan;
     }
 
     const cssClass = SchemaUtil.getPropertyValue(
@@ -274,6 +295,7 @@ export default class QuestionModule extends ContainerModule {
       ...(this._data.useInList && { useInList: this._data.useInList }),
       ...(this._data.addToLog && { addToLog: this._data.addToLog }),
       ...(this.logName && { logName: this.logName }),
+      ...(this.colSpan && { colSpan: this.colSpan ? Number(this.colSpan) : undefined }),
       parts: null,
     };
     question.parts = this.getChildModules<
