@@ -281,7 +281,12 @@ export default class WorkspaceComponent
 
     tabButton.forEach((btn) => {
       btn.addEventListener("click", (e) => {
-        this.cancelEditJson();
+        const currentElement = e.target as Element
+        
+        if(currentElement.getAttribute("data-bc-sm-ai") == "true"){
+          this.cancelEditJson();
+        }
+        
         const name = (e.target as Element).attributes.getNamedItem(
           "data-bc-sm-tab-button"
         ).value;

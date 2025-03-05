@@ -1,0 +1,42 @@
+[data-bc-chatSection-sm] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+[data-bc-chatSection-sm] .titlechat{
+  margin-top: 100px;
+}
+[data-bc-chatSection-sm] .MESection{
+  display: flex;
+  direction: rtl;
+  margin-bottom: 15px;
+}
+[data-bc-chatSection-sm] .chatIcon{
+  margin-left: 10px;
+}
+[data-bc-chatSection-sm] .chatInputBox{
+  position: relative;
+}
+[data-bc-chatSection-sm] .SendMessage{
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  cursor: pointer;
+  z-index: 9;
+  opacity: 0.5; pointer-events: none;
+}
+[data-bc-chatSection-sm] #chat{
+  direction: rtl;
+  text-align: right;
+  padding-right: 10px;
+  padding-top: 10px;
+  width: 500px;
+  height: 90px;
+}
+[data-bc-chatSection-sm] .chatNodata{
+  padding-top: 10px;padding-left: 50px;padding-left: 50px;
+  border-radius: 5px;
+  border: none;
+}
