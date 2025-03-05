@@ -24,8 +24,10 @@
   left: 10px;
   top: 10px;
   cursor: pointer;
-  z-index: 9;
-  opacity: 0.5; pointer-events: none;
+  z-index: 999;
+  opacity: 0.5; 
+  
+  /* pointer-events: none; */
 }
 [data-bc-chatSection-sm] #chat{
   direction: rtl;

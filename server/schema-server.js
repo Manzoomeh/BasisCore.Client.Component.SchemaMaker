@@ -64,6 +64,91 @@ router.get("/new-schema", async function (req, res) {
 router.get("/add-to-log", async function (req, res) {
   return res.json(JSON.parse(await fs.promises.readFile(path.join(__dirname, `/schemas/new/addToLog.json`))))
 });
+
+
+router.post("/chat", (req, res) => {
+  return res.json({
+    "id": 3642,
+    "message": {
+      "lid": 1,
+      "schemaVersion": "1.0.0",
+      "schemaName": "فرم",
+      "sections": [
+        {
+          "id": 1,
+          "title": "اطلاعات شخصی",
+          "description": "",
+          "gridColumns": null
+        }
+      ],
+      "questions": [
+        {
+          "prpId": 101,
+          "title": "نام",
+          "wordId": 1,
+          "sectionId": 1,
+          "parts": [
+            {
+              "part": 1,
+              "viewType": "text",
+              "validations": {
+                "required": true
+              }
+            }
+          ]
+        },
+        {
+          "prpId": 102,
+          "title": "نام خانوادگی",
+          "wordId": 2,
+          "sectionId": 1,
+          "parts": [
+            {
+              "part": 1,
+              "viewType": "text",
+              "validations": {
+                "required": true
+              }
+            }
+          ]
+        },
+        {
+          "prpId": 103,
+          "title": "ایمیل",
+          "wordId": 3,
+          "sectionId": 1,
+          "parts": [
+            {
+              "part": 1,
+              "viewType": "text",
+              "validations": {
+                "required": true,
+                "regex": "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$"
+              }
+            }
+          ]
+        },
+        {
+          "prpId": 104,
+          "title": "شماره موبایل",
+          "wordId": 4,
+          "sectionId": 1,
+          "parts": [
+            {
+              "part": 1,
+              "viewType": "text",
+              "validations": {
+                "required": true,
+                "regex": "^\\+98?|^0?9\\d{9}$"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "json": true
+  })
+});
 router.get("/fix-data/:prpId/:part", function (req, res) {
   const fixDataStr = fs.readFileSync(
     path.join(__dirname, "/schemas/data.json"),
@@ -170,5 +255,10 @@ router.get("/keywordinfo", async (req, res) => {
       },
     ],status: result.status});
 });
+
+
+
+
+
 
 module.exports = router;
