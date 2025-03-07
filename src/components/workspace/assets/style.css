@@ -123,6 +123,7 @@
   /* scrollbar-width: thin; */
   border-top: 3px solid rgba(0, 0, 0, 0.15);
   /* margin-top: -7px; */
+  position: relative;
 }
 
 [data-bc-sm-tabs] [data-bc-sm-tab-content] section {

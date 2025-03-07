@@ -65,7 +65,12 @@ router.get("/add-to-log", async function (req, res) {
   return res.json(JSON.parse(await fs.promises.readFile(path.join(__dirname, `/schemas/new/addToLog.json`))))
 });
 
-
+router.post("/chatnormal", (req, res) => {
+  return res.json({
+    "data":"چه نوع فرمی میخواهید؟",
+    "json" : false
+  })
+})
 router.post("/chat", (req, res) => {
   return res.json({
     "id": 3642,
@@ -99,7 +104,7 @@ router.post("/chat", (req, res) => {
         },
         {
           "prpId": 102,
-          "title": "نام خانوادگی",
+          "title": "فامیلی",
           "wordId": 2,
           "sectionId": 1,
           "parts": [

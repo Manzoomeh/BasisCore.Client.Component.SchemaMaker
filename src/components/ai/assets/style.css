@@ -18,6 +18,7 @@
 }
 [data-bc-chatSection-sm] .chatInputBox{
   position: relative;
+  transition: all 1s ease-in-out;
 }
 [data-bc-chatSection-sm] .SendMessage{
   position: absolute;
@@ -41,4 +42,57 @@
   padding-top: 10px;padding-left: 50px;padding-left: 50px;
   border-radius: 5px;
   border: none;
+}
+.extend_chat_box{
+  position: absolute !important;
+  padding: 10px !important;
+  bottom: 10px;
+  width: 100% !important;
+}
+.extend_chat_box #chat{
+  width: 100% !important;
+}
+.extend_chat_box .SendMessage{
+  top: 20px !important;
+  left: 20px !important;
+}
+
+[data-bc-chatSection-sm] .user_question{
+  display: flex;
+  direction: rtl;
+  gap: 15px;
+}
+[data-bc-chatSection-sm] .userDetail{
+  display: flex;
+  flex-direction: column;
+}
+#chatbox{
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  gap: 25px;
+  flex-direction: column;
+}
+[data-bc-chatSection-sm] .userIcon{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgb(0 75 133 / var(--tw-bg-opacity, 1));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+[data-bc-chatSection-sm] .bot_answer{
+  display: flex;
+  direction: rtl;
+  gap:15px
+}
+[data-bc-chatSection-sm] .button-view-schema{
+  border: none;
+  background-color: rgb(0 75 133 / var(--tw-bg-opacity, 1));
+  color: #fff;
+  border-radius: 5px;
+  display: block;
+  padding: 5px 10px;
+  cursor: pointer;
 }

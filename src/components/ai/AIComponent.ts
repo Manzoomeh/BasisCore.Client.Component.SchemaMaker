@@ -6,30 +6,40 @@ import ISchemaMakerSchema, { ModuleType } from "../ISchemaMakerSchema";
 import IModuleFactory from "../modules/IModuleFactory";
 import ToolboxModule from "../modules/base-class/ToolboxModule";
 import IWorkspaceComponent from "../workspace/IWorkspaceComponent";
+import WorkspaceComponent from "../workspace/WorkspaceComponent";
+import CreateUI from "../workspace/createUI";
 export default class AIcomponent extends ComponentBase
 implements IWorkspaceComponent
  {
+  private createUICom : CreateUI
   private _sourceId: string;
   private _noAccessToEdit: boolean;
+  private workspace : WorkspaceComponent
   private readonly _modules: Map<number, ToolboxModule> = new Map<
   number,
   ToolboxModule
 >();
   constructor(owner: IUserDefineComponent) {
     super(owner, layout, "data-bc-sm-toolbox-container");
+    this.createUICom = new CreateUI(owner, this)
+   
   }
 
   public async initializeAsync(): Promise<void> {
 
   }
 
-  public runAsync(source?: ISource) {
+  public runAsync(source?: ISource, ) {
     this.crateUI();
   }
   crateUI(){
     const sendMessageButton : HTMLElement = this.container.querySelector(".SendMessage")
     const chatValue : HTMLInputElement = this.container.querySelector("#chat")
     sendMessageButton.addEventListener("click" ,  (e) => {
+      const firstSection : HTMLElement = this.container.querySelector(".MESection")
+      const chatInputSection :HTMLElement = this.container.querySelector(".chatInputBox")
+      firstSection.style.display="none"
+      chatInputSection.classList.add("extend_chat_box")
       this.sendMessage(chatValue.value)
     } )
   }
@@ -50,10 +60,10 @@ implements IWorkspaceComponent
 
     let chatvalue2: HTMLInputElement = this.container.querySelector("#chat")
     const newDiv = document.createElement("div")
-    newDiv.setAttribute("class" , "ME")
+    newDiv.setAttribute("class" , "user_question")
     newDiv.innerHTML = `
     <span class="userIcon">
-    <img src="/images/usericon-v3.svg" alt="basis" title="basis" class="object-contain">
+    <img src="https://basispanel.ir/images/usericon-v3.svg" alt="basis" title="basis" class="object-contain">
     </span> 
     <span class="userDetail">
     <div class="userName">
@@ -66,6 +76,7 @@ implements IWorkspaceComponent
     </span>
     `
     this.container.querySelector("#chatbox").appendChild(newDiv)
+   
     //     this.owner.setSource("db.send" ,{
     //     "run" : true,
     //     "val" : chatvalue2.value
@@ -78,7 +89,7 @@ implements IWorkspaceComponent
     if(messageResult.json == true){
     
      
-        try {
+       
           console.log("res" , messageResult)
           // const json = JSON.parse(
           //   this.removeSpanAndBrTags(messageResult.message)
@@ -99,11 +110,56 @@ implements IWorkspaceComponent
           // jsonCopy.setAttribute("data-get-btn-disabled", "");
           // jsonSave.setAttribute("data-get-btn-disabled", "");
           // editForm.setAttribute("data-get-btn-disabled", "");
-        
-          this.createUIFromQuestionSchema(messageResult.message);
-        } catch (error) {
-            console.log("erro" , error)
-        }
+          console.log("sss111" , WorkspaceComponent)
+          // note: be care for last parameter
+          const newDiv = document.createElement("div")
+      newDiv.setAttribute("class" , "bot_answer")
+      const viewButton = document.createElement("button")
+      viewButton.textContent = "مشاهده فرم"
+      viewButton.classList.add("button-view-schema")
+      newDiv.innerHTML = `
+      <span class="">
+      <img src="https://basispanel.ir/images/user1-v3.png" alt="basis" title="basis" class="object-contain">
+      </span> 
+      <span class="userDetail">
+     
+      <div class="">
+      فرم شما آماده است .
+  
+      </div>
+     
+      </span>
+      `
+      newDiv.appendChild(viewButton)
+      this.container.querySelector("#chatbox").appendChild(newDiv)
+      viewButton.addEventListener("click" , (e) => {
+        this.createUICom.createUIFromQuestionSchema(messageResult.message, this.container, false);
+        const designTab :HTMLElement= document.querySelector('[data-bc-sm-tab-button="sm-design-tab"]')
+        designTab.click()
+      })
+     
+      // try {
+       
+      //   } catch (error) {
+      //       console.log("erro" , error)
+      //   }
+    }
+    else{
+      const newDiv = document.createElement("div")
+      newDiv.setAttribute("class" , "bot_answer")
+      newDiv.innerHTML = `
+      <span class="">
+      <img src="https://basispanel.ir/images/user1-v3.png" alt="basis" title="basis" class="object-contain">
+      </span> 
+      <span class="userDetail">
+     
+      <div class="">
+      ${messageResult.data}
+  
+      </div>
+      </span>
+      `
+      this.container.querySelector("#chatbox").appendChild(newDiv)
     }
     chatvalue2.value=""
     document.querySelector("#current_section")?.removeAttribute("id")
@@ -126,89 +182,10 @@ async requestJsonAsync(
   const result = await response.json();
   return result;
 }
-private createUIFromQuestionSchema(question: IQuestionSchema) {
-  const board = document.querySelector("[data-bc-sm-board]");
-  board.innerHTML = "";
-  this.createUIElements(board, question, false, this._noAccessToEdit);
-}
 
-private createUIElements(
-  board: Element,
-  questionSchema: IQuestionSchema,
-  isABuiltIn: boolean,
-  noAccessToEdit: boolean
-) {
-  if (questionSchema) {
-    const sections = new Map<Number, Element>();
-    if (questionSchema.sections) {
-      questionSchema.sections.forEach((x) => {
-        const sectionModule = this.createContainer(
-          questionSchema,
-          "section",
-          "section",
-          x,
-          isABuiltIn,
-          noAccessToEdit
-        );
-        sections.set(x.id, sectionModule);
-        board.appendChild(sectionModule);
-      });
-    }
-    if (questionSchema.questions) {
-      questionSchema.questions.forEach((question) => {
-        const questionModule = this.createContainer(
-          questionSchema,
-          "question",
-          "question",
-          question,
-          isABuiltIn,
-          noAccessToEdit
-        );
-        if (question.sectionId && sections.has(question.sectionId)) {
-          const section = sections.get(question.sectionId);
-          section
-            .querySelector("[data-drop-acceptable-container-schema-type]")
-            .appendChild(questionModule);
-        } else {
-          board.appendChild(questionModule);
-        }
-        if (question.parts) {
-          question.parts.forEach((part) => {
-            const partModule = this.createContainer(
-              questionSchema,
-              part.viewType,
-              "question",
-              part,
-              isABuiltIn,
-              noAccessToEdit
-            );
-            const partContainer = questionModule.querySelector(
-              `[data-bc-question-part-number="${part.part}"]`
-            );
-            partContainer.appendChild(partModule);
-          });
-        }
-      });
-    }
-  }
-}
-private createContainer(
-  question: IQuestionSchema,
-  schemaId: string,
-  schemaType: ModuleType,
-  data: any,
-  isABuiltIn: boolean,
-  noAccessToEdit: boolean
-): Element {
-  const container = document.createElement("div");
-  container.setAttribute("data-schema-id", schemaId);
-  container.setAttribute("data-schema-type", schemaType);
-  const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
-  const module = factory.create(schemaId, container, this, isABuiltIn, noAccessToEdit, data);
-  container.setAttribute("data-bc-module-id", module.usedForId.toString());
-  this._modules.set(module.usedForId, module);
-  return container;
-}
+
+
+
 public getComponent(): IUserDefineComponent {
   return this.owner;
 }
