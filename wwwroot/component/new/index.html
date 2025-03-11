@@ -17,7 +17,7 @@
   <basis core="api" url="/server/schemas/new" method="get" run="atclient"></basis>
 
   <basis core="component.schemaMaker.schemaMaker" run="atclient" dataMemberName="schema.data" resultSourceId="schema.result" saveDraft="false" 
-  detailsApiUrl="/server" detailsParamUrl="/detailsform"></basis>
+  detailsApiUrl="/server" detailsParamUrl="/detailsform" rkey="asdasd" aiUrl="http://localhost:8080/server/chat"></basis>
   <basis core="callback" run="atClient" triggers="schema.result" method="displayResult"></basis>
   <script>
     const host = {

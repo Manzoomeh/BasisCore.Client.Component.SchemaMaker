@@ -115,7 +115,6 @@ export default class QuestionModule extends ContainerModule {
     data?: IQuestion
   ) {
     super(layout, owner, container);
-    console.log("questions" )
     this._schema = data;
    
     if (this._schema) {

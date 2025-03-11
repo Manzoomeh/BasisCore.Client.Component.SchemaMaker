@@ -55,6 +55,14 @@ export default class SchemaMakerComponent
       "defaultQuestionsUrl",
       ""
     );
+    const rkey = await this.owner.getAttributeValueAsync(
+      "rkey",
+      ""
+    );
+    const aiURL = await this.owner.getAttributeValueAsync(
+      "aiUrl",
+      ""
+    );
     const groupsUrl = await this.owner.getAttributeValueAsync("groupsUrl", "");
     this.owner.addTrigger([this.sourceId]);
     this.container.querySelectorAll("basis").forEach((element) => {
@@ -68,8 +76,13 @@ export default class SchemaMakerComponent
       if (element.getAttribute("core") == "component.schemaMaker.workspace") {
         if (resultSourceId) {
           element.setAttribute("resultSourceId", resultSourceId);
+          element.setAttribute("rkey", rkey);
+          element.setAttribute("aiUrl" , aiURL)
         }
       }
+      // else if (element.getAttribute("core") == "component.schemaMaker.AI") {
+      //   console.log("yes")
+      // }
     });
     setTimeout(async () => {
       const detailsApiUrl = await this.owner.getAttributeValueAsync(
@@ -84,6 +97,8 @@ export default class SchemaMakerComponent
         "detailsMode",
         "new"
       );
+   
+
       if (detailsApiUrl && detailsApiUrl.length > 0) {        
         const source = await this.owner.waitToGetSourceAsync(this.sourceId);
         if (source.rows && source.rows[0]) {
@@ -97,7 +112,7 @@ export default class SchemaMakerComponent
             lastUpdate: "",
             lid: 0,
             usedForId: 1,
-            properties: [],
+            properties: []
           };
           SchemaUtil.addSimpleValueProperty(detailsAnswerSchema, schemaName, 1);
           SchemaUtil.addSimpleValueProperty(

@@ -65,6 +65,7 @@
 [data-bc-chatSection-sm] .userDetail{
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 #chatbox{
   width: 100%;
@@ -94,5 +95,11 @@
   border-radius: 5px;
   display: block;
   padding: 5px 10px;
+  cursor: pointer;
+}
+[data-bc-chatSection-sm] .stop-btn{
+  position: absolute;
+  top: 20px;
+  left: 60px;
   cursor: pointer;
 }

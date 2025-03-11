@@ -22,8 +22,7 @@ import ContainerModule from "../modules/ContainerModule";
 import * as Prism from "prismjs";
 import "../../../node_modules/prismjs/components/prism-json";
 import "../../../node_modules/prismjs/themes/prism-coy.css";
-import CreateUI from "./createUI";
-import AIcomponent from "../ai/AIComponent";
+import CreateUI from "./createUI"
 
 export default class WorkspaceComponent
   extends ComponentBase
@@ -32,7 +31,7 @@ export default class WorkspaceComponent
   private _saveDraft: boolean;
   private _noAccessToEdit: boolean;
   private _sourceId: string;
-  private _internalSourceId: string;
+  public _internalSourceId: string;
   private _result: JSON;
   private _textArea: HTMLTextAreaElement;
   private errorContainer: HTMLTextAreaElement;
@@ -46,15 +45,16 @@ export default class WorkspaceComponent
   private _objectTypeUrl: string;
   private _groupsUrl: string;
   private _defaultQuestionsUrl: string;
-  private createUICom : CreateUI
+  public createUICom : CreateUI
+  public _rkey : string
+  public _aiUrl : string
   constructor(owner: IUserDefineComponent) {
     super(owner, layout, "data-bc-sm-workspace-container");
     this._textArea = this.container.querySelector("[data-get-edit-json]");
     this.errorContainer = this.container.querySelector("[data-get-edit-error]");
     this.initDragula();
-
+    
     this.createUICom = new CreateUI(owner, this)
-    // new AIcomponent(owner).initUI(this)
   }
 
   public getModule(moduleId: number): ToolboxModule {
@@ -109,6 +109,7 @@ export default class WorkspaceComponent
         module.usedForId?.toString() ?? "-1"
       );
       this._modules.set(module.usedForId, module);
+    
     };
 
     const removeModuleOnSpill = (el: Element) => {
@@ -219,6 +220,9 @@ export default class WorkspaceComponent
     this._noAccessToEdit =
       (await this.owner.getAttributeValueAsync("noAccessToEdit", "false")) == "true";
     this._sourceId = await this.owner.getAttributeValueAsync("DataMemberName");
+     this._rkey= await this.owner.getAttributeValueAsync("rkey")
+     this._aiUrl= await this.owner.getAttributeValueAsync("aiUrl")
+     
     this.resultSourceIdToken = this.owner.getAttributeToken("resultSourceId");
     this._objectTypeUrl = await this.owner.getAttributeValueAsync(
       "objectTypeUrl",
@@ -257,8 +261,9 @@ export default class WorkspaceComponent
     }
     this.container
       .querySelector("[data-bc-sm-schema-result]")
-      .addEventListener("click", (e) =>
+      .addEventListener("click", (e) =>{
         this.delay(this.generateAndSetQuestionSchemaAsync.bind(this), e)
+      }
       );
 
     // this.container
@@ -274,6 +279,7 @@ export default class WorkspaceComponent
     //     "click",
     //     this.loadDraft.bind(this, "bc-sm-manually-draft")
     //   );
+   
 
     // tab event
     const tabs = this.container.querySelector("[data-bc-sm-tabs]");
@@ -398,12 +404,32 @@ export default class WorkspaceComponent
         }
       }
     });
+   
+    // note :
+    // const saveFormFirstTab = this.container.querySelector(
+    //   "[data-bc-sm-save-form-first-tab]"
+    // ); 
+    // saveFormFirstTab.addEventListener("click" ,async (e) => {
+    //   // this.delay(this.generateAndSetQuestionSchemaAsync.bind(this), e)
+    //   const retVal = await this.generateQuestionSchemaAsync();
+    //   this.owner.setSource(this._internalSourceId, retVal);
+    //   this._result = retVal as JSON;
+      
+    //   this.owner.setSource(resultSourceId, this._result);
+    //   console.log("dddd" , retVal)
+    //   // this.createUICom.createUIFromQuestionSchema(this._result, this.container,this._noAccessToEdit);
+    // })
+
+    
+
     if (resultSourceId && resultSourceId != "") {
       jsonSave?.addEventListener("click", async (e) => {
         if (jsonSave.getAttribute("data-get-btn-disabled") != "true") {
           this.owner.setSource(resultSourceId, this._result);
         }
       });
+
+   
     } else if (!resultSourceId || resultSourceId == "") {
       jsonSave.remove();
     }
@@ -436,6 +462,17 @@ export default class WorkspaceComponent
       this.container.querySelector("[data-bc-sm-object-type]").remove();
       this.container.querySelector("[data-bc-sm-schema-group]").remove();
     }
+    this.container.querySelectorAll("basis").forEach((element) => {
+      if (element.getAttribute("core") == "component.schemaMaker.AI") {
+        if (resultSourceId) {
+          element.setAttribute("rkey", this._rkey);
+          element.setAttribute("aiUrl", this._aiUrl);
+          element.setAttribute("resultSourceId", resultSourceId);
+          
+        }
+      }
+
+    });
   }
 
   public runAsync(source?: ISource) {
@@ -514,6 +551,7 @@ export default class WorkspaceComponent
     let schemaVersion
     if(detailSource){
           const rowProperties = detailSource.rows[0]?.properties;
+          
     schemaVersion = this.findElementByPropId(rowProperties, 3)?.added
       ? this.findElementByPropId(rowProperties, 3)?.added[0].parts[0].values[0].value
       : this.findElementByPropId(rowProperties, 3)?.edited ?
@@ -580,6 +618,7 @@ export default class WorkspaceComponent
           const usedForId = parseInt(id);
           const module = this._modules.get(usedForId);
           if (module instanceof ContainerModule) {
+          
             module.fillSchema(retVal);
           }
         }
