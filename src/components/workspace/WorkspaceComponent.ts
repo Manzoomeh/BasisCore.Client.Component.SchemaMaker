@@ -22,7 +22,6 @@ import ContainerModule from "../modules/ContainerModule";
 import * as Prism from "prismjs";
 import "../../../node_modules/prismjs/components/prism-json";
 import "../../../node_modules/prismjs/themes/prism-coy.css";
-import CreateUI from "./createUI";
 
 export default class WorkspaceComponent
   extends ComponentBase
@@ -45,7 +44,6 @@ export default class WorkspaceComponent
   private _objectTypeUrl: string;
   private _groupsUrl: string;
   private _defaultQuestionsUrl: string;
-  public createUICom: CreateUI;
   public _rkey: string;
   public _aiUrl: string;
   public get SourceId() {
@@ -58,7 +56,7 @@ export default class WorkspaceComponent
     this.initDragula();
     this.owner.dc.registerInstance("WorkspaceComponent", this);
 
-    this.createUICom = new CreateUI(owner, this);
+    (<any>window).$wsc = this;
   }
 
   public getModule(moduleId: number): ToolboxModule {
@@ -266,7 +264,7 @@ export default class WorkspaceComponent
     this.container
       .querySelector("[data-bc-sm-schema-result]")
       .addEventListener("click", (e) => {
-        this.delay(this.generateAndSetQuestionSchemaAsync.bind(this), e);
+        this.delay(this.onPreviewBtnClick.bind(this), e);
       });
 
     // this.container
@@ -407,21 +405,6 @@ export default class WorkspaceComponent
       }
     });
 
-    // note :
-    // const saveFormFirstTab = this.container.querySelector(
-    //   "[data-bc-sm-save-form-first-tab]"
-    // );
-    // saveFormFirstTab.addEventListener("click" ,async (e) => {
-    //   // this.delay(this.generateAndSetQuestionSchemaAsync.bind(this), e)
-    //   const retVal = await this.generateQuestionSchemaAsync();
-    //   this.owner.setSource(this._internalSourceId, retVal);
-    //   this._result = retVal as JSON;
-
-    //   this.owner.setSource(resultSourceId, this._result);
-    //   console.log("dddd" , retVal)
-    //   // this.createUICom.createUIFromQuestionSchema(this._result, this.container,this._noAccessToEdit);
-    // })
-
     if (resultSourceId && resultSourceId != "") {
       jsonSave?.addEventListener("click", async (e) => {
         if (jsonSave.getAttribute("data-get-btn-disabled") != "true") {
@@ -471,14 +454,6 @@ export default class WorkspaceComponent
     });
   }
 
-  public createUIFromQuestionSchema(question: IQuestionSchema) {
-    this.createUICom.createUIFromQuestionSchema(
-      question,
-      this.container,
-      this._noAccessToEdit
-    );
-  }
-
   public runAsync(source?: ISource) {
     if (source) {
       switch (source.id) {
@@ -498,6 +473,93 @@ export default class WorkspaceComponent
         setTimeout(this.loadDraft.bind(this, "bc-sm-auto-draft"), 100);
       }
     }
+  }
+  public createUIFromQuestionSchema(question: IQuestionSchema) {
+    const board = this.container.querySelector("[data-bc-sm-board]");
+    board.innerHTML = "";
+    this.createUIElements(board, question, false, this._noAccessToEdit);
+  }
+
+  private createUIElements(
+    board: Element,
+    questionSchema: IQuestionSchema,
+    isABuiltIn: boolean,
+    noAccessToEdit: boolean
+  ) {
+    if (questionSchema) {
+      const sections = new Map<Number, Element>();
+      if (questionSchema.sections) {
+        questionSchema.sections.forEach((x) => {
+          const sectionModule = this.createContainer(
+            "section",
+            "section",
+            x,
+            isABuiltIn,
+            noAccessToEdit
+          );
+          sections.set(x.id, sectionModule);
+          board.appendChild(sectionModule);
+        });
+      }
+      if (questionSchema.questions) {
+        questionSchema.questions.forEach((question) => {
+          const questionModule = this.createContainer(
+            "question",
+            "question",
+            question,
+            isABuiltIn,
+            noAccessToEdit
+          );
+          if (question.sectionId && sections.has(question.sectionId)) {
+            const section = sections.get(question.sectionId);
+            section
+              .querySelector("[data-drop-acceptable-container-schema-type]")
+              .appendChild(questionModule);
+          } else {
+            board.appendChild(questionModule);
+          }
+          if (question.parts) {
+            question.parts.forEach((part) => {
+              const partModule = this.createContainer(
+                part.viewType,
+                "question",
+                part,
+                isABuiltIn,
+                noAccessToEdit
+              );
+              const partContainer = questionModule.querySelector(
+                `[data-bc-question-part-number="${part.part}"]`
+              );
+              partContainer.appendChild(partModule);
+            });
+          }
+        });
+      }
+    }
+  }
+
+  private createContainer(
+    schemaId: string,
+    schemaType: ModuleType,
+    data: any,
+    isABuiltIn: boolean,
+    noAccessToEdit: boolean
+  ): Element {
+    const container = document.createElement("div");
+    container.setAttribute("data-schema-id", schemaId);
+    container.setAttribute("data-schema-type", schemaType);
+    const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
+    const module = factory.create(
+      schemaId,
+      container,
+      this,
+      isABuiltIn,
+      noAccessToEdit,
+      data
+    );
+    container.setAttribute("data-bc-module-id", module.usedForId.toString());
+    this._modules.set(module.usedForId, module);
+    return container;
   }
 
   private cancelEditJson(): void {
@@ -649,12 +711,12 @@ export default class WorkspaceComponent
       callback(e);
     }, 50);
   }
-  public showResult(retVal: IQuestionSchema) {
-    console.log("generateQuestionSchemaAsync", retVal);
-    this.owner.setSource(this._internalSourceId, retVal);
-    this._result = retVal as any as JSON;
+
+  public generateAndSetQuestionSchema(question: IQuestionSchema) {
+    this.owner.setSource(this._internalSourceId, question);
+    this._result = question as any as JSON;
     // Prism highlight
-    const json = JSON.stringify(retVal, null, 4);
+    const json = JSON.stringify(question, null, 4);
     const html = Prism.highlight(json, Prism.languages.json, "json");
     this.container.querySelector<HTMLTextAreaElement>(
       "[data-bc-sm-preview-json]"
@@ -663,7 +725,7 @@ export default class WorkspaceComponent
     // json for download
     this.container.querySelector<HTMLTextAreaElement>(
       "[data-get-json-for-download]"
-    ).innerText = JSON.stringify(retVal);
+    ).innerText = JSON.stringify(question);
     this.container
       .querySelector("[data-bc-sm-json-download]")
       .setAttribute("data-get-btn-disabled", "");
@@ -683,10 +745,10 @@ export default class WorkspaceComponent
       ) as HTMLElement
     ).click();
   }
-  private async generateAndSetQuestionSchemaAsync(e: MouseEvent) {
+  private async onPreviewBtnClick(e: MouseEvent) {
     e.preventDefault();
     const retVal = await this.generateQuestionSchemaAsync();
-    this.showResult(retVal);
+    this.generateAndSetQuestionSchema(retVal);
   }
 
   private applyPropertyResult(userAction: IUserActionResult) {
@@ -748,7 +810,7 @@ export default class WorkspaceComponent
     let questionsBuiltIn: IQuestionSchemaBuiltIn = questions.sources[0].data[0];
 
     const board = this.container.querySelector("[data-bc-sm-board]");
-    this.createUICom.createUIElements(board, questionsBuiltIn, true, false);
+    this.createUIElements(board, questionsBuiltIn, true, false);
   }
 
   removeDefaultQuestions() {

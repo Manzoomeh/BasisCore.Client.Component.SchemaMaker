@@ -4,14 +4,8 @@ import layout from "./assets/layout.html";
 import "./assets/style.css";
 import ToolboxModule from "../modules/base-class/ToolboxModule";
 import IWorkspaceComponent from "../workspace/IWorkspaceComponent";
-import CreateUI from "../workspace/createUI";
-import * as Prism from "prismjs";
 import { IToken } from "basiscore";
-import SchemaMakerComponent from "../schema-maker/SchemaMakerComponent";
-import IModuleFactory from "../modules/IModuleFactory";
-import { workspace } from "../../ComponentsLoader";
 export default class AIcomponent extends ComponentBase {
-  //private createUICom: CreateUI;
   private timeoutId;
   private _rkey: string;
   private _aiUrl: string;
@@ -25,7 +19,6 @@ export default class AIcomponent extends ComponentBase {
   >();
   constructor(owner: IUserDefineComponent) {
     super(owner, layout, "data-bc-sm-workspace-container");
-    //this.createUICom = new CreateUI(owner, this);
   }
 
   public async initializeAsync(): Promise<void> {
@@ -149,50 +142,20 @@ export default class AIcomponent extends ComponentBase {
         "[data-bc-sm-question-module]"
       );
 
-      viewButton.addEventListener("click", (e) => {
+      viewButton.addEventListener("click", async (e) => {
         const workspaceComponent =
           this.owner.dc.resolve<IWorkspaceComponent>("WorkspaceComponent");
-        // workspaceComponent.createUIFromQuestionSchema(messageResult.message);
         this.owner.setSource(
           workspaceComponent.SourceId,
           messageResult.message
         );
-        workspaceComponent.showResult(messageResult.message);
+        await workspaceComponent.generateAndSetQuestionSchema(
+          messageResult.message
+        );
         const designTab: HTMLElement = document.querySelector(
           '[data-bc-sm-tab-button="sm-design-tab"]'
         );
         designTab.click();
-
-        return;
-        // this.createUICom.createUIFromQuestionSchema(
-        //   messageResult.message,
-        //   this.container,
-        //   true
-        // );
-        // note : the document.querySelector is wrong
-
-        const newJson = JSON.stringify(messageResult.message, null, 4);
-
-        const html = Prism.highlight(newJson, Prism.languages.json, "json");
-        document.querySelector<HTMLTextAreaElement>(
-          "[data-bc-sm-preview-json]"
-        ).innerHTML = html;
-        const rowsParent = document.querySelector(
-          "[data-drop-acceptable-container-schema-type]"
-        );
-        const rows = rowsParent.querySelectorAll(
-          '[data-schema-type="question"]'
-        );
-
-        // rows.forEach((el) => {
-        //   var schemaId = el.getAttribute("data-schema-Id");
-        //   const owner: HTMLElement = el as HTMLElement;
-        //   const factory =
-        //     this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
-
-        //   const module = factory.create(schemaId, owner, this, false, false);
-        //   this._modules.set(module.usedForId, module);
-        // });
       });
 
       // try {

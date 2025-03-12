@@ -4,8 +4,7 @@ export default interface IWorkspaceComponent {
   getComponent(): IUserDefineComponent;
   onRemove(moduleId: number);
   getModule(moduleId: number): ToolboxModule;
-  createUIFromQuestionSchema(question: IQuestionSchema);
-  showResult(retVal: IQuestionSchema);
+  generateAndSetQuestionSchema(question: IQuestionSchema);
   SourceId: SourceId;
 }
 
