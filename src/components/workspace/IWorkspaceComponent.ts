@@ -1,10 +1,11 @@
-import { IQuestionSchema, IUserDefineComponent } from "basiscore";
+import { IQuestionSchema, IUserDefineComponent, SourceId } from "basiscore";
 import ToolboxModule from "../modules/base-class/ToolboxModule";
-import ISchemaMakerSchema, { ModuleType } from "../ISchemaMakerSchema";
 export default interface IWorkspaceComponent {
   getComponent(): IUserDefineComponent;
   onRemove(moduleId: number);
   getModule(moduleId: number): ToolboxModule;
+  generateAndSetQuestionSchema(question: IQuestionSchema);
+  SourceId: SourceId;
 }
 
 export interface IQuestionSchemaBuiltIn extends IQuestionSchema {
