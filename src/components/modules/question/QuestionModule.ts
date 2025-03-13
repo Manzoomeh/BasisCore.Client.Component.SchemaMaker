@@ -116,6 +116,7 @@ export default class QuestionModule extends ContainerModule {
   ) {
     super(layout, owner, container);
     this._schema = data;
+   
     if (this._schema) {
       this._data = {
         title: this._schema.title,

@@ -30,7 +30,7 @@ export default class WorkspaceComponent
   private _saveDraft: boolean;
   private _noAccessToEdit: boolean;
   private _sourceId: string;
-  private _internalSourceId: string;
+  public _internalSourceId: string;
   private _result: JSON;
   private _textArea: HTMLTextAreaElement;
   private errorContainer: HTMLTextAreaElement;
@@ -44,12 +44,19 @@ export default class WorkspaceComponent
   private _objectTypeUrl: string;
   private _groupsUrl: string;
   private _defaultQuestionsUrl: string;
-
+  public _aifeature: string;
+  public _aiUrl: string;
+  public get SourceId() {
+    return this._sourceId;
+  }
   constructor(owner: IUserDefineComponent) {
     super(owner, layout, "data-bc-sm-workspace-container");
     this._textArea = this.container.querySelector("[data-get-edit-json]");
     this.errorContainer = this.container.querySelector("[data-get-edit-error]");
     this.initDragula();
+    this.owner.dc.registerInstance("WorkspaceComponent", this);
+
+    (<any>window).$wsc = this;
   }
 
   public getModule(moduleId: number): ToolboxModule {
@@ -212,8 +219,14 @@ export default class WorkspaceComponent
     this._saveDraft =
       (await this.owner.getAttributeValueAsync("saveDraft", "false")) == "true";
     this._noAccessToEdit =
-      (await this.owner.getAttributeValueAsync("noAccessToEdit", "false")) == "true";
+      (await this.owner.getAttributeValueAsync("noAccessToEdit", "false")) ==
+      "true";
+
+      
     this._sourceId = await this.owner.getAttributeValueAsync("DataMemberName");
+    this._aifeature = await this.owner.getAttributeValueAsync("aifeature");
+    this._aiUrl = await this.owner.getAttributeValueAsync("aiUrl");
+
     this.resultSourceIdToken = this.owner.getAttributeToken("resultSourceId");
     this._objectTypeUrl = await this.owner.getAttributeValueAsync(
       "objectTypeUrl",
@@ -252,9 +265,9 @@ export default class WorkspaceComponent
     }
     this.container
       .querySelector("[data-bc-sm-schema-result]")
-      .addEventListener("click", (e) =>
-        this.delay(this.generateAndSetQuestionSchemaAsync.bind(this), e)
-      );
+      .addEventListener("click", (e) => {
+        this.delay(this.onPreviewBtnClick.bind(this), e);
+      });
 
     // this.container
     //   .querySelector("[data-bc-sm-save-draft]")
@@ -281,7 +294,12 @@ export default class WorkspaceComponent
 
     tabButton.forEach((btn) => {
       btn.addEventListener("click", (e) => {
-        this.cancelEditJson();
+        const currentElement = e.target as Element;
+
+        if (currentElement.getAttribute("data-bc-sm-ai") == "true") {
+          this.cancelEditJson();
+        }
+
         const name = (e.target as Element).attributes.getNamedItem(
           "data-bc-sm-tab-button"
         ).value;
@@ -388,6 +406,7 @@ export default class WorkspaceComponent
         }
       }
     });
+
     if (resultSourceId && resultSourceId != "") {
       jsonSave?.addEventListener("click", async (e) => {
         if (jsonSave.getAttribute("data-get-btn-disabled") != "true") {
@@ -426,6 +445,30 @@ export default class WorkspaceComponent
       this.container.querySelector("[data-bc-sm-object-type]").remove();
       this.container.querySelector("[data-bc-sm-schema-group]").remove();
     }
+    this.container.querySelectorAll("basis").forEach(async (element) => {
+     
+      const hasAiFeature  = await this.owner.getAttributeValueAsync("aifeature");
+      if(hasAiFeature == "true"){
+        if (element.getAttribute("core") == "component.schemaMaker.AI") {
+          if (resultSourceId) {
+            element.setAttribute("aiUrl", this._aiUrl);
+            element.setAttribute("resultSourceId", resultSourceId);
+          }
+        }
+      }
+      else{
+        const aiTab = this.container.querySelector('[data-bc-sm-tab-button="sm-ai-tab"]')
+        const aiBody = this.container.querySelector('[data-bc-sm-tab-section="sm-ai-tab"]')
+        const designTab = this.container.querySelector('[data-bc-sm-tab-button="sm-design-tab"]')
+        const designBody = this.container.querySelector('[data-bc-sm-tab-section="sm-design-tab"]')
+        aiTab.remove()
+        aiBody.remove()
+        designTab.setAttribute("data-sys-sm-active-tab","active")
+        designTab.setAttribute("data-bc-sm-tab-button-mode","active")
+        designBody.setAttribute("data-bc-sm-tab-section-mode" , "active")
+      }
+    
+    });
   }
 
   public runAsync(source?: ISource) {
@@ -448,8 +491,7 @@ export default class WorkspaceComponent
       }
     }
   }
-
-  private createUIFromQuestionSchema(question: IQuestionSchema) {
+  public createUIFromQuestionSchema(question: IQuestionSchema) {
     const board = this.container.querySelector("[data-bc-sm-board]");
     board.innerHTML = "";
     this.createUIElements(board, question, false, this._noAccessToEdit);
@@ -466,7 +508,6 @@ export default class WorkspaceComponent
       if (questionSchema.sections) {
         questionSchema.sections.forEach((x) => {
           const sectionModule = this.createContainer(
-            questionSchema,
             "section",
             "section",
             x,
@@ -480,7 +521,6 @@ export default class WorkspaceComponent
       if (questionSchema.questions) {
         questionSchema.questions.forEach((question) => {
           const questionModule = this.createContainer(
-            questionSchema,
             "question",
             "question",
             question,
@@ -498,7 +538,6 @@ export default class WorkspaceComponent
           if (question.parts) {
             question.parts.forEach((part) => {
               const partModule = this.createContainer(
-                questionSchema,
                 part.viewType,
                 "question",
                 part,
@@ -517,7 +556,6 @@ export default class WorkspaceComponent
   }
 
   private createContainer(
-    question: IQuestionSchema,
     schemaId: string,
     schemaType: ModuleType,
     data: any,
@@ -528,7 +566,14 @@ export default class WorkspaceComponent
     container.setAttribute("data-schema-id", schemaId);
     container.setAttribute("data-schema-type", schemaType);
     const factory = this.owner.dc.resolve<IModuleFactory>("IModuleFactory");
-    const module = factory.create(schemaId, container, this, isABuiltIn, noAccessToEdit, data);
+    const module = factory.create(
+      schemaId,
+      container,
+      this,
+      isABuiltIn,
+      noAccessToEdit,
+      data
+    );
     container.setAttribute("data-bc-module-id", module.usedForId.toString());
     this._modules.set(module.usedForId, module);
     return container;
@@ -577,41 +622,57 @@ export default class WorkspaceComponent
   findElementByPropId(array: Array<any>, propId: number) {
     return array.find((element) => element.propId === propId);
   }
-  private async generateQuestionSchemaAsync(): Promise<
-    Partial<IQuestionSchema>
-  > {
+  private async generateQuestionSchemaAsync(): Promise<IQuestionSchema> {
     const source = await this.owner.waitToGetSourceAsync(this._sourceId);
     const schema = source.rows[0] as ISchemaMakerSchema;
     const detailSource = this.owner.tryToGetSource("details.data");
-    let lid 
-    let schemaName 
-    let schemaVersion
-    if(detailSource){
-          const rowProperties = detailSource.rows[0]?.properties;
-    schemaVersion = this.findElementByPropId(rowProperties, 3)?.added
-      ? this.findElementByPropId(rowProperties, 3)?.added[0].parts[0].values[0].value
-      : this.findElementByPropId(rowProperties, 3)?.edited ?
-        this.findElementByPropId(rowProperties, 3)?.edited[0].parts[0].values[0].value: undefined;
-    lid =
-      this.findElementByPropId(rowProperties, 2)?.added ? this.findElementByPropId(rowProperties, 2)?.added[0].parts[0].values[0]
-        .value : this.findElementByPropId(rowProperties, 2)?.edited  ?
-        this.findElementByPropId(rowProperties, 2)?.edited[0].parts[0].values[0]
-          .value : undefined
-    schemaName = this.findElementByPropId(rowProperties, 1)?.added
-      ? this.findElementByPropId(rowProperties, 1)?.added[0].parts[0].values[0]
-          .value
-      : this.findElementByPropId(rowProperties, 1)?.edited
-      ? this.findElementByPropId(rowProperties, 1)?.edited[0].parts[0].values[0]
-          .value
-      : undefined;
+    let lid;
+    let schemaName;
+    let schemaVersion;
+    if (detailSource) {
+      const rowProperties = detailSource.rows[0]?.properties;
+
+      schemaVersion = this.findElementByPropId(rowProperties, 3)?.added
+        ? this.findElementByPropId(rowProperties, 3)?.added[0].parts[0]
+            .values[0].value
+        : this.findElementByPropId(rowProperties, 3)?.edited
+        ? this.findElementByPropId(rowProperties, 3)?.edited[0].parts[0]
+            .values[0].value
+        : undefined;
+      lid = this.findElementByPropId(rowProperties, 2)?.added
+        ? this.findElementByPropId(rowProperties, 2)?.added[0].parts[0]
+            .values[0].value
+        : this.findElementByPropId(rowProperties, 2)?.edited
+        ? this.findElementByPropId(rowProperties, 2)?.edited[0].parts[0]
+            .values[0].value
+        : undefined;
+      schemaName = this.findElementByPropId(rowProperties, 1)?.added
+        ? this.findElementByPropId(rowProperties, 1)?.added[0].parts[0]
+            .values[0].value
+        : this.findElementByPropId(rowProperties, 1)?.edited
+        ? this.findElementByPropId(rowProperties, 1)?.edited[0].parts[0]
+            .values[0].value
+        : undefined;
     }
-    lid = lid ?? document.querySelector(".bc_language_id [data-sys-select-option]")["value"] ?parseInt(document.querySelector(".bc_language_id [data-sys-select-option]")["value"]) : undefined
+    lid =
+      lid ??
+      document.querySelector(".bc_language_id [data-sys-select-option]")[
+        "value"
+      ]
+        ? parseInt(
+            document.querySelector(".bc_language_id [data-sys-select-option]")[
+              "value"
+            ]
+          )
+        : undefined;
     schemaName =
       schemaName ??
       document.querySelector(".bc_schema_name [data-bc-text-input]")["value"];
     schemaVersion =
       schemaVersion ??
-      document.querySelector(".bc_schema_version [data-bc-text-input]")["value"];
+      document.querySelector(".bc_schema_version [data-bc-text-input]")[
+        "value"
+      ];
 
     const mid = parseInt(
       this.container.querySelector<HTMLSelectElement>(
@@ -659,20 +720,19 @@ export default class WorkspaceComponent
         }
       }
     });
-    return retVal;
+    return retVal as any;
   }
   delay(callback, e) {
     setTimeout(() => {
       callback(e);
     }, 50);
   }
-  private async generateAndSetQuestionSchemaAsync(e: MouseEvent) {
-    e.preventDefault();
-    const retVal = await this.generateQuestionSchemaAsync();
-    this.owner.setSource(this._internalSourceId, retVal);
-    this._result = retVal as JSON;
+
+  public generateAndSetQuestionSchema(question: IQuestionSchema) {
+    this.owner.setSource(this._internalSourceId, question);
+    this._result = question as any as JSON;
     // Prism highlight
-    const json = JSON.stringify(retVal, null, 4);
+    const json = JSON.stringify(question, null, 4);
     const html = Prism.highlight(json, Prism.languages.json, "json");
     this.container.querySelector<HTMLTextAreaElement>(
       "[data-bc-sm-preview-json]"
@@ -681,7 +741,7 @@ export default class WorkspaceComponent
     // json for download
     this.container.querySelector<HTMLTextAreaElement>(
       "[data-get-json-for-download]"
-    ).innerText = JSON.stringify(retVal);
+    ).innerText = JSON.stringify(question);
     this.container
       .querySelector("[data-bc-sm-json-download]")
       .setAttribute("data-get-btn-disabled", "");
@@ -700,6 +760,11 @@ export default class WorkspaceComponent
         "[data-bc-sm-tab-button='sm-form-tab']"
       ) as HTMLElement
     ).click();
+  }
+  private async onPreviewBtnClick(e: MouseEvent) {
+    e.preventDefault();
+    const retVal = await this.generateQuestionSchemaAsync();
+    this.generateAndSetQuestionSchema(retVal);
   }
 
   private applyPropertyResult(userAction: IUserActionResult) {
