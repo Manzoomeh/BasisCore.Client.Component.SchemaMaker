@@ -22,7 +22,6 @@ export default class AIcomponent extends ComponentBase {
   }
 
   public async initializeAsync(): Promise<void> {
-    this._rkey = await this.owner.getAttributeValueAsync("rkey");
     this._aiUrl = await this.owner.getAttributeValueAsync("aiUrl");
     this.resultSourceIdToken = this.owner.getAttributeToken("resultSourceId");
     const resultSourceId = await this.resultSourceIdToken?.getValueAsync();
@@ -62,26 +61,36 @@ export default class AIcomponent extends ComponentBase {
       this.sendMessage(this.chatInput.value);
     });
     this.chatInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        //checks whether the pressed key is "Enter"
-        firstSection.style.display = "none";
-        chatInputSection.classList.add("extend_chat_box");
-        if (e.shiftKey) {
-          this.insertNewLine();
-          e.preventDefault(); // Prevent the default behavior
-          // Allow Shift + Enter to insert a new line in the textarea
-          // No need to call preventDefault() here, as the default behavior is what we want
-        } else {
-          e.preventDefault();
-          if (this.chatInput.value != "") {
-            this.sendMessage(this.chatInput.value);
-            this.chatInput.value = "";
+      const sendButton = this.container.querySelector(".SendMessage")
+      sendButton.classList.add("send_button_active")
+      if(this.chatInput.value.length > 3 ){
+        if (e.key === "Enter") {
+          //checks whether the pressed key is "Enter"
+          firstSection.style.display = "none";
+          chatInputSection.classList.add("extend_chat_box");
+          if (e.shiftKey) {
+            this.insertNewLine();
+            e.preventDefault(); // Prevent the default behavior
+          } 
+          else {
+            e.preventDefault();
+            if (this.chatInput.value != "") {
+              this.sendMessage(this.chatInput.value);
+              this.chatInput.value = "";
+            }
           }
         }
       }
+      else{
+        sendButton.classList.remove("send_button_active")
+      }
+      
     });
   }
   async sendMessage(value: string) {
+    const currentDiv = this.container.querySelector("#current_section");
+    const sendButton = this.container.querySelector(".SendMessage")
+    sendButton.classList.remove("send_button_active")
     const submitButton = document.querySelector(".SendMessageMain");
     const stopBtn = document.createElement("div");
     stopBtn.classList.add("stop-btn");
@@ -110,13 +119,27 @@ export default class AIcomponent extends ComponentBase {
 
     </div>
     </span>
+
     `;
+    const loadingDiv = document.createElement("div")
+    loadingDiv.classList.add("schemamaker_istyping_loading")
+    loadingDiv.innerHTML = `is typing<span class="jumping-dots">
+       <span class="dot-1"></span>
+       <span class="dot-2"></span>
+       <span class="dot-3"></span>
+     </span>`
     this.container.querySelector("#chatbox").appendChild(newDiv);
+    this.container.querySelector("#chatbox").appendChild(loadingDiv);
+   
     const messageResult = await this.requestJsonAsync(this._aiUrl, "POST", {
       message: chatvalue2.value,
     });
-
+ 
     if (messageResult.json == true) {
+      const loaderElement = this.container.querySelector(".schemamaker_istyping_loading");
+      if (loaderElement) {
+        loaderElement.remove()
+      }
       // note: be care for last parameter
       const newDiv = document.createElement("div");
       newDiv.setAttribute("class", "bot_answer");
@@ -164,6 +187,7 @@ export default class AIcomponent extends ComponentBase {
       //       console.log("erro" , error)
       //   }
     } else {
+      
       const newDiv = document.createElement("div");
       newDiv.setAttribute("class", "bot_answer");
       newDiv.innerHTML = `
@@ -171,7 +195,7 @@ export default class AIcomponent extends ComponentBase {
       <img src="https://basispanel.ir/images/user1-v3.png" alt="basis" title="basis" class="object-contain">
       </span> 
       <span class="userDetail">
-     
+   
       <div id="current_section">
       
   
@@ -181,16 +205,21 @@ export default class AIcomponent extends ComponentBase {
       stopBtn.classList.add("stop-btn");
       stopBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" height="27px" viewBox="0 -960 960 960" width="27px" fill="#68737C"><path d="M320-320h320v-320H320v320ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/></svg>`;
       stopBtn.addEventListener("click", (e) => {
+
+    
         this.stopWriter();
       });
       document.querySelector(".chatInputBox ").appendChild(stopBtn);
       this.container.querySelector("#chatbox").appendChild(newDiv);
-      const currentDiv = this.container.querySelector("#current_section");
-      this.startTypewriter(messageResult.data, currentDiv);
+      
+      const currentDiv = this.container.querySelector("#current_section")
+      this.startTypewriter(messageResult.message, currentDiv);
+   
     }
     chatvalue2.value = "";
+    
     document.querySelector("#current_section")?.removeAttribute("id");
-
+ 
     // scrollToBottom()
   }
   async requestJsonAsync(
@@ -222,6 +251,11 @@ export default class AIcomponent extends ComponentBase {
   }
 
   private startTypewriter(text: string, containerId: Element): void {
+    const loading_section = this.container.querySelector(".schemamaker_istyping_loading")
+    if(loading_section){
+      loading_section?.remove()
+    }
+    
     const typewriterElement = containerId;
     if (!typewriterElement) {
       console.error(`Element with id ${containerId} not found.`);
@@ -238,6 +272,12 @@ export default class AIcomponent extends ComponentBase {
 
     const typeWriter = (): void => {
       if (index < text.length) {
+              
+      const loadingPart = this.container.querySelector(".schemamaker_istyping_loading")
+      if(loadingPart){
+        loadingPart.remove()
+      }
+      
         const char = text.charAt(index);
 
         // Handle ** for <h2>
@@ -293,6 +333,8 @@ export default class AIcomponent extends ComponentBase {
           this.timeoutId = setTimeout(typeWriter, delay);
         }
       } else if (index === text.length) {
+        
+        this.clearStopBtn();
         // clearStopBtn(); // Assuming this is a function defined elsewhere
       } else {
         const h2Elements = document.querySelectorAll("h2");
@@ -307,6 +349,7 @@ export default class AIcomponent extends ComponentBase {
   }
   stopWriter() {
     clearTimeout(this.timeoutId);
+   
     this.clearStopBtn();
   }
   clearStopBtn() {

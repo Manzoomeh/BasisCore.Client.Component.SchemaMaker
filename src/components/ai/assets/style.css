@@ -18,7 +18,7 @@
 }
 [data-bc-chatSection-sm] .chatInputBox{
   position: relative;
-  transition: all 1s ease-in-out;
+  /* transition: all 1s ease-in-out; */
 }
 [data-bc-chatSection-sm] .SendMessage{
   position: absolute;
@@ -27,8 +27,8 @@
   cursor: pointer;
   z-index: 999;
   opacity: 0.5; 
-  
-  /* pointer-events: none; */
+  cursor: pointer;
+  pointer-events: none;
 }
 [data-bc-chatSection-sm] #chat{
   direction: rtl;
@@ -37,6 +37,8 @@
   padding-top: 10px;
   width: 500px;
   height: 90px;
+  border: 1px solid rgb(200 204 207 / var(--tw-border-opacity, 1));
+  font-size: 14px;
 }
 [data-bc-chatSection-sm] .chatNodata{
   padding-top: 10px;padding-left: 50px;padding-left: 50px;
@@ -61,11 +63,14 @@
   display: flex;
   direction: rtl;
   gap: 15px;
+  align-items: center;
 }
 [data-bc-chatSection-sm] .userDetail{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  direction: rtl;
+  text-align: right;
 }
 #chatbox{
   width: 100%;
@@ -102,4 +107,49 @@
   top: 20px;
   left: 60px;
   cursor: pointer;
+}
+#chat:focus {
+  outline-width: 0;
+  outline: none;
+}
+.user_question .userName{
+  text-align: right;
+}
+.send_button_active{
+  opacity: 1 !important;
+  pointer-events: all !important;
+}
+.jumping-dots span {
+  position: relative;
+  bottom: 0px;
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  background-color: #ccc;
+  animation: jump 2s infinite;
+  border-radius: 50%;
+}
+.jumping-dots .dot-1{
+  animation-delay: 200ms;
+}
+.jumping-dots .dot-2{
+  animation-delay: 400ms;
+}
+.jumping-dots .dot-3{
+  animation-delay: 600ms;
+}
+
+@keyframes jump {
+  0%   {bottom: 0px;}
+  20%  {bottom: 5px;}
+  40%  {bottom: 0px;}
+}
+.schemamaker_istyping_loading{
+  direction: rtl !important;
+  text-align: right !important;
+}
+.bot_answer .userDetail div{
+  direction: rtl !important;
+  text-align: right !important;
+  line-height: 30px;
 }

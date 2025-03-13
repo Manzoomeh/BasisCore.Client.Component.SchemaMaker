@@ -44,7 +44,7 @@ export default class WorkspaceComponent
   private _objectTypeUrl: string;
   private _groupsUrl: string;
   private _defaultQuestionsUrl: string;
-  public _rkey: string;
+  public _aifeature: string;
   public _aiUrl: string;
   public get SourceId() {
     return this._sourceId;
@@ -221,8 +221,10 @@ export default class WorkspaceComponent
     this._noAccessToEdit =
       (await this.owner.getAttributeValueAsync("noAccessToEdit", "false")) ==
       "true";
+
+      
     this._sourceId = await this.owner.getAttributeValueAsync("DataMemberName");
-    this._rkey = await this.owner.getAttributeValueAsync("rkey");
+    this._aifeature = await this.owner.getAttributeValueAsync("aifeature");
     this._aiUrl = await this.owner.getAttributeValueAsync("aiUrl");
 
     this.resultSourceIdToken = this.owner.getAttributeToken("resultSourceId");
@@ -443,14 +445,29 @@ export default class WorkspaceComponent
       this.container.querySelector("[data-bc-sm-object-type]").remove();
       this.container.querySelector("[data-bc-sm-schema-group]").remove();
     }
-    this.container.querySelectorAll("basis").forEach((element) => {
-      if (element.getAttribute("core") == "component.schemaMaker.AI") {
-        if (resultSourceId) {
-          element.setAttribute("rkey", this._rkey);
-          element.setAttribute("aiUrl", this._aiUrl);
-          element.setAttribute("resultSourceId", resultSourceId);
+    this.container.querySelectorAll("basis").forEach(async (element) => {
+     
+      const hasAiFeature  = await this.owner.getAttributeValueAsync("aifeature");
+      if(hasAiFeature == "true"){
+        if (element.getAttribute("core") == "component.schemaMaker.AI") {
+          if (resultSourceId) {
+            element.setAttribute("aiUrl", this._aiUrl);
+            element.setAttribute("resultSourceId", resultSourceId);
+          }
         }
       }
+      else{
+        const aiTab = this.container.querySelector('[data-bc-sm-tab-button="sm-ai-tab"]')
+        const aiBody = this.container.querySelector('[data-bc-sm-tab-section="sm-ai-tab"]')
+        const designTab = this.container.querySelector('[data-bc-sm-tab-button="sm-design-tab"]')
+        const designBody = this.container.querySelector('[data-bc-sm-tab-section="sm-design-tab"]')
+        aiTab.remove()
+        aiBody.remove()
+        designTab.setAttribute("data-sys-sm-active-tab","active")
+        designTab.setAttribute("data-bc-sm-tab-button-mode","active")
+        designBody.setAttribute("data-bc-sm-tab-section-mode" , "active")
+      }
+    
     });
   }
 
@@ -608,7 +625,6 @@ export default class WorkspaceComponent
   private async generateQuestionSchemaAsync(): Promise<IQuestionSchema> {
     const source = await this.owner.waitToGetSourceAsync(this._sourceId);
     const schema = source.rows[0] as ISchemaMakerSchema;
-    console.log(this._sourceId, schema);
     const detailSource = this.owner.tryToGetSource("details.data");
     let lid;
     let schemaName;

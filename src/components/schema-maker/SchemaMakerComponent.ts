@@ -55,12 +55,13 @@ export default class SchemaMakerComponent
       "defaultQuestionsUrl",
       ""
     );
-    const rkey = await this.owner.getAttributeValueAsync(
-      "rkey",
-      ""
-    );
+
     const aiURL = await this.owner.getAttributeValueAsync(
       "aiUrl",
+      ""
+    );
+    const aifeature = await this.owner.getAttributeValueAsync(
+      "aifeature",
       ""
     );
     const groupsUrl = await this.owner.getAttributeValueAsync("groupsUrl", "");
@@ -76,8 +77,8 @@ export default class SchemaMakerComponent
       if (element.getAttribute("core") == "component.schemaMaker.workspace") {
         if (resultSourceId) {
           element.setAttribute("resultSourceId", resultSourceId);
-          element.setAttribute("rkey", rkey);
           element.setAttribute("aiUrl" , aiURL)
+          element.setAttribute("aifeature" , aifeature)
         }
       }
       // else if (element.getAttribute("core") == "component.schemaMaker.AI") {
